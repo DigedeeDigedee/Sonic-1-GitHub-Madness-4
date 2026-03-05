@@ -22,9 +22,9 @@ v_ngfx_buffer_end:
 v_spritequeue:		ds.b	$400		; sprite display queue, in order of priority
 v_16x16:		ds.b	$1800		; 16x16 tile mappings
 
-v_sgfx_buffer:		ds.b	tile_size*23	; buffered Sonic graphics ($17 cells)
-v_sgfx_buffer_end:
-			ds.b	$20		; unused
+VDP_Command_Buffer:	ds.w	7*$12		; stores 18 ($12) VDP commands to issue the next time ProcessDMAQueue is called
+VDP_Command_Buffer_Slot:ds.l	1		; stores the address of the next open slot for a queued VDP command
+			ds.b	$200		; unused ($200 were freed up by the new DMA Queue)
 v_tracksonic:		ds.b	$100		; position tracking data for Sonic
 v_hscrolltablebuffer:	ds.b	$380		; scrolling table data
 v_hscrolltablebuffer_end:

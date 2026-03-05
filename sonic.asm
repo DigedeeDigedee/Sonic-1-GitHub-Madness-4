@@ -385,7 +385,7 @@ GameInit:
 .clearRAM:
 		move.l	d7,(a6)+
 		dbf	d6,.clearRAM	; clear RAM ($0000-$FDFF)
-
+		jsr	(InitDMAQueue).l
 		bsr.w	VDPSetupGame
 		bsr.w	DACDriverLoad
 		bsr.w	JoypadInit
@@ -780,13 +780,7 @@ VBla_08:
 
 		writeVRAM	v_hscrolltablebuffer,vram_hscroll
 		writeVRAM	v_spritetablebuffer,vram_sprites
-		tst.b	(f_sonframechg).w ; has Sonic's sprite changed?
-		beq.s	.nochg		; if not, branch
-
-		writeVRAM	v_sgfx_buffer,ArtTile_Sonic*tile_size ; load new Sonic gfx
-		move.b	#0,(f_sonframechg).w
-
-.nochg:
+		jsr	ProcessDMAQueue(pc)
 		startZ80
 		movem.l	(v_screenposx).w,d0-d7
 		movem.l	d0-d7,(v_screenposx_dup).w
@@ -841,13 +835,7 @@ VBla_0A:
 		writeVRAM	v_hscrolltablebuffer,vram_hscroll
 		startZ80
 		bsr.w	PalCycle_SS
-		tst.b	(f_sonframechg).w ; has Sonic's sprite changed?
-		beq.s	.nochg		; if not, branch
-
-		writeVRAM	v_sgfx_buffer,ArtTile_Sonic*tile_size ; load new Sonic gfx
-		move.b	#0,(f_sonframechg).w
-
-.nochg:
+		jsr	ProcessDMAQueue(pc)
 		tst.w	(v_generictimer).w	; is there time left on the demo?
 		beq.w	.end	; if not, return
 		subq.w	#1,(v_generictimer).w	; subtract 1 from time left in demo
@@ -877,12 +865,7 @@ VBla_18:
 		move.w	(v_hbla_hreg).w,(a5)
 		writeVRAM	v_hscrolltablebuffer,vram_hscroll
 		writeVRAM	v_spritetablebuffer,vram_sprites
-		tst.b	(f_sonframechg).w
-		beq.s	.nochg
-		writeVRAM	v_sgfx_buffer,ArtTile_Sonic*tile_size
-		move.b	#0,(f_sonframechg).w
-
-.nochg:
+		jsr	ProcessDMAQueue(pc)
 		startZ80
 		movem.l	(v_screenposx).w,d0-d7
 		movem.l	d0-d7,(v_screenposx_dup).w
@@ -929,12 +912,7 @@ VBla_16:
 		writeVRAM	v_spritetablebuffer,vram_sprites
 		writeVRAM	v_hscrolltablebuffer,vram_hscroll
 		startZ80
-		tst.b	(f_sonframechg).w
-		beq.s	.nochg
-		writeVRAM	v_sgfx_buffer,ArtTile_Sonic*tile_size
-		move.b	#0,(f_sonframechg).w
-
-.nochg:
+		jsr	ProcessDMAQueue(pc)
 		tst.w	(v_generictimer).w
 		beq.w	.end
 		subq.w	#1,(v_generictimer).w
@@ -1120,6 +1098,50 @@ VDPSetupArray:	dc.w $8004		; 8-colour mode
 		dc.w $9200		; window vertical position
 VDPSetupArray_End:
 
+		include	"_inc/DMA-Queue.asm"
+
+
+; ---------------------------------------------------------------------------
+; Load a Dynamic Pattern Load Cues request into the DMA queue.
+; ---------------------------------------------------------------------------
+; Input:
+;	d0.b = frame number
+;	d4.w = starting target VRAM tile address
+;	d6.l = pointer to uncompressed art
+;	a2   = pointer to DPLC table
+; ---------------------------------------------------------------------------
+
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+LoadDynPLC:
+		andi.w	#$FF,d0			; mask out anything except the input frame
+		add.w	d0,d0			; double ID (for word-based indexing)
+		adda.w	(a2,d0.w),a2		; find current DPLC entry
+		moveq	#0,d5			; clear d5
+		move.b	(a2)+,d5		; get number of tasks in this DPLC entry
+		subq.w	#1,d5			; subtract 1 from number of tasks (will be the loop count)
+		bmi.w	.end			; if it underflowed, this is an empty entry, nothing to do
+	.loop:
+		moveq	#0,d1			; clear d1
+		move.b	(a2)+,d1		; get first byte of DPLC task
+		lsl.w	#8,d1			; move it to upper byte
+		move.b	(a2)+,d1		; get second byte of DPLC task
+		move.w	d1,d3			; copy to d3
+		lsr.w	#8,d3			; shift upper byte to lower byte
+		andi.w	#$F0,d3			; only look at upper nybble
+		addi.w	#$10,d3			; add 1 to that nybble
+		andi.w	#$FFF,d1		; mask out that nybble in the other part
+		lsl.l	#5,d1			; multiply by 32
+		add.l	d6,d1			; add art location
+		move.w	d4,d2			; set target VRAM location
+		add.w	d3,d4			; advance VRAM pointer
+		add.w	d3,d4			; (twice, for word-based tiles)
+		bsr.w	QueueDMATransfer	; load DMA request into queue (also known as "DMA_68KtoVRAM")
+		dbf	d5,.loop		; repeat for number of entries
+	.end:
+		rts				; return
+; End of function LoadDynPLC		
+
 ; ---------------------------------------------------------------------------
 ; Subroutine to clear the screen
 ; ---------------------------------------------------------------------------
@@ -1146,7 +1168,7 @@ ClearScreen:
 		clearRAM v_spritetablebuffer,v_spritetablebuffer_end+4 ; Clears too much RAM, clearing the first 4 bytes of v_palette_water.
 		clearRAM v_hscrolltablebuffer,v_hscrolltablebuffer_end_padded+4 ; Clears too much RAM, clearing the first 4 bytes of v_objspace.
 	endif
-
+		ResetDMAQueue
 		rts
 ; End of function ClearScreen
 
