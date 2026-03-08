@@ -10,3 +10,4 @@ sonic.p
 
 # Built ROMs.
 *.gen
+sonic.debug.lst

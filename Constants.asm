@@ -77,7 +77,7 @@ id_Ending:	equ ptr_GM_Ending-GameModeArray	; $18
 id_Credits:	equ ptr_GM_Credits-GameModeArray; $1C
 id_ColdBrew:	equ ptr_GM_ColdBrew-GameModeArray; $20
 id_SegaEU:	equ ptr_GM_SegaEU-GameModeArray; $24
-
+id_DebugMenu:	equ ptr_GM_DebugMode-GameModeArray; $28
 
 ; Levels
 id_GHZ:		equ 0

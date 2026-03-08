@@ -140,7 +140,8 @@ v_random:		ds.l	1		; pseudo random number buffer
 f_pause:		ds.w	1		; flag set to pause the game
 			ds.b	4		; unused
 v_vdp_buffer2:		ds.w	1		; VDP instruction buffer
-			ds.b	2		; unused
+v_dbgmenu_sndid:		ds.b 	1
+v_dbgmenu_exit:			ds.b	1
 f_hbla_pal:		ds.w	1		; flag set to change palette during HBlank (0000 = no; 0001 = change)
 v_waterpos1:		ds.w	1		; water height, actual
 v_waterpos2:		ds.w	1		; water height, ignoring sway
