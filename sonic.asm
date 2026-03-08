@@ -4334,6 +4334,7 @@ TryAgainEnd:
 		move.w	#$9200,(a6)	; window vertical position
 		move.w	#$8B03,(a6)	; line scroll mode
 		move.w	#$8720,(a6)	; set background colour (line 3; colour 0)
+		move.w	#$8C00,(a6)	; set to H32 mode - running bit in my changes - coni
 		clr.b	(f_wtr_state).w
 		bsr.w	ClearScreen
 
@@ -4350,7 +4351,7 @@ TryAgainEnd:
 		move.b	#id_EndEggman,(v_endeggman).w ; load Eggman object
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
-		move.w	#1800,(v_generictimer).w ; show screen for 30 seconds
+		move.w	#60*60,(v_generictimer).w ; show screen for a minute
 		bsr.w	PaletteFadeIn
 		move.w	#bgm_Jeopardy,d0	; "you fucking idiot"
 		bsr.w	QueueSound1	; play ending sequence music
@@ -4371,6 +4372,9 @@ TryAg_MainLoop:
 		bra.s	TryAg_MainLoop
 
 TryAg_Exit:
+		bsr.w	PaletteFadeOut
+		lea	(vdp_control_port).l,a6
+		move.w	#$8C81,(a6)	; set to H40 mode - hacky fix - coni
 		move.b	#id_Sega,(v_gamemode).w ; goto Sega screen
 		rts
 
