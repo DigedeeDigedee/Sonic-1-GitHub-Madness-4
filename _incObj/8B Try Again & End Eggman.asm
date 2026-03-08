@@ -30,6 +30,7 @@ EEgg_Main:	; Routine 0
 		beq.s	EEgg_Animate	; if yes, branch
 
 		move.b	#id_CreditsText,(v_tryagain).w ; load credits object
+		move.b	#4,(v_tryagain+obRoutine).w ; load credits object
 		move.w	#9,(v_creditsnum).w ; use "TRY AGAIN" text
 		move.b	#id_TryChaos,(v_eggmanchaos).w ; load emeralds object on "TRY AGAIN" screen
 		move.b	#0,obAnim(a0)	; use "TRY AGAIN" animation
