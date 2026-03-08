@@ -2721,7 +2721,7 @@ Music85:	include "sound/music/Mus85 - SYZ.asm"
 		even
 Music86:	include "sound/music/Mus86 - SBZ.asm"
 		even
-Music87:	include "sound/music/Mus87 - Invincibility.asm"
+Music87:	include "sound/music/TG2000Tracks/SomariInv.asm"
 		even
 Music88:	include "sound/music/DaxKatter/Mus - NBT Extra Life.asm"
 		even
