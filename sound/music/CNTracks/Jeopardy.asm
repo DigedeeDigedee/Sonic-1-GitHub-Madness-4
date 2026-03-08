@@ -47,6 +47,7 @@ Jeopardy_FM2:
 	smpsJump            Jeopardy_FM2
 
 Jeopardy_FM3:
+;	smpsStop
 	smpsSetvoice        $02
 	dc.b	nD2, $05, nRst, $2F, nD2, $04, nRst, $30, nD2, $04, nRst, $2E
 	dc.b	nD2, $06, nRst, $2F, nD2, $04, nRst, $30, nD2, $04, nRst, $2E

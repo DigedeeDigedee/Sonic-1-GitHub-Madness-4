@@ -4367,8 +4367,8 @@ TryAg_MainLoop:
 		bne.s	TryAg_Exit	; if yes, branch
 		tst.w	(v_generictimer).w ; has 30 seconds elapsed?
 		beq.s	TryAg_Exit	; if yes, branch
-		cmpi.b	#id_Credits,(v_gamemode).w
-		beq.s	TryAg_MainLoop
+;		cmpi.b	#id_Credits,(v_gamemode).w
+		bra.s	TryAg_MainLoop
 
 TryAg_Exit:
 		move.b	#id_Sega,(v_gamemode).w ; goto Sega screen
