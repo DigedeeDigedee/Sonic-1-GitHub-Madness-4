@@ -52,6 +52,9 @@ GM_ThanatosCredits:
 -	move.l	PalThanatosCredits(pc,d1.w),(a1,d1.w)
 	subq.w	#4,d1
 	bpl.s	-
+	bra.s	PalThanatosCredits_end
+
+PalThanatosCredits:	bincludeEndMarker "hipncoolstuff/ThanatosCredits/Palette.pal"
 
 	; moveq	#0,d0 ; d0 should be clear, if not use this
 	adda.w	#$20,a1
@@ -73,7 +76,3 @@ GM_ThanatosCredits:
 	jsr	(PaletteFadeIn).l
 
 	bra.s	*
-
-
-PalThanatosCredits:	binclude "hipncoolstuff/ThanatosCredits/Palette.pal"
-	rts
