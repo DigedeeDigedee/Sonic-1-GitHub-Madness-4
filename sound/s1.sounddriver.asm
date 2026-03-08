@@ -23,13 +23,6 @@ pcmLoopCounter function sampleRate, pcmLoopCounterBase(sampleRate,90) ; 90 is th
 dpcmLoopCounter function sampleRate, pcmLoopCounterBase(sampleRate,301/2) ; 301 is the number of cycles zPlayPCMLoop takes to deliver two samples.
 
 ; ---------------------------------------------------------------------------
-; SMPS2ASM - A collection of macros that make SMPS's bytecode human-readable.
-; ---------------------------------------------------------------------------
-FixMusicAndSFXDataBugs = FixBugs
-SonicDriverVer = 1 ; Tell SMPS2ASM that we're using Sonic 1's driver.
-		include "sound/_smps2asm_inc.asm"
-
-; ---------------------------------------------------------------------------
 ; Go_SoundTypes:
 Go_SoundPriorities:	dc.l SoundPriorities
 ; Go_SoundD0:
@@ -126,29 +119,30 @@ SpeedUpIndex:
 ; Music Pointers
 ; ---------------------------------------------------------------------------
 MusicIndex:
-ptr_mus81:	dc.l Music81
-ptr_mus82:	dc.l Music82
-ptr_mus83:	dc.l Music83
-ptr_mus84:	dc.l Music84
-ptr_mus85:	dc.l Music85
-ptr_mus86:	dc.l Music86
-ptr_mus87:	dc.l Music87
-ptr_mus88:	dc.l Music88
-ptr_mus89:	dc.l Music89
-ptr_mus8A:	dc.l Music8A
-ptr_mus8B:	dc.l Music8B
-ptr_mus8C:	dc.l Music8C
-ptr_mus8D:	dc.l Music8D
-ptr_mus8E:	dc.l Music8E
-ptr_mus8F:	dc.l Music8F
-ptr_mus90:	dc.l Music90
-ptr_mus91:	dc.l Music91
-ptr_mus92:	dc.l Music92
-ptr_mus93:	dc.l Music93
+ptr_mus81:		dc.l Music81
+ptr_mus82:		dc.l Music82
+ptr_mus83:		dc.l Music83
+ptr_mus84:		dc.l Music84
+ptr_mus85:		dc.l Music85
+ptr_mus86:		dc.l Music86
+ptr_mus87:		dc.l Music87
+ptr_mus88:		dc.l Music88
+ptr_mus89:		dc.l Music89
+ptr_mus8A:		dc.l Music8A
+ptr_mus8B:		dc.l Music8B
+ptr_mus8C:		dc.l Music8C
+ptr_mus8D:		dc.l Music8D
+ptr_mus8E:		dc.l Music8E
+ptr_mus8F:		dc.l Music8F
+ptr_mus90:		dc.l Music90
+ptr_mus91:		dc.l Music91
+ptr_mus92:		dc.l Music92
+ptr_mus93:		dc.l Music93
 ptr_mus_newbark:	dc.l Music_NewBark
-ptr_mus95:	dc.l Music95
-ptr_mus96:	dc.l Music96
-ptr_mus97:	dc.l Music97
+ptr_mus95:		dc.l Music95
+ptr_mus96:		dc.l Music96
+ptr_mus97:		dc.l Music97
+ptr_musRetro:		dc.l MusicRetro
 ptr_musend
 ; ---------------------------------------------------------------------------
 ; Priority of sound. New music or SFX must have a priority higher than or equal
@@ -2753,6 +2747,8 @@ Music95:	include "sound/music/CNTracks/RE Mansion.asm"
 Music96:	include "sound/music/CNTracks/Jeopardy.asm"
 		even
 Music97:	include "sound/music/TG2000Tracks/1UPEmerald.asm"
+		even
+MusicRetro:	include "sound/music/LiquidTracks/Mus - Sonic Retro.asm"
 		even
 ; ---------------------------------------------------------------------------
 ; Sound effect pointers

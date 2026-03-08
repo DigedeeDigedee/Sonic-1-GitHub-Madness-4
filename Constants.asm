@@ -225,6 +225,7 @@ bgm_NewBarkTown:	equ ((ptr_mus_newbark-MusicIndex)/4)+bgm__First
 bgm_REMansion:	equ ((ptr_mus95-MusicIndex)/4)+bgm__First
 bgm_Jeopardy:	equ ((ptr_mus96-MusicIndex)/4)+bgm__First
 bgm_EuroSega:	equ ((ptr_mus97-MusicIndex)/4)+bgm__First
+bgm_Retro:	equ ((ptr_musRetro-MusicIndex)/4)+bgm__First
 bgm__Last:	equ ((ptr_musend-MusicIndex-4)/4)+bgm__First
 
 ; Sound effects

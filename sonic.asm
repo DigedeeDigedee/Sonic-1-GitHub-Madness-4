@@ -55,6 +55,13 @@ ZoneCount = 6
 ; Simplifying macros and functions
 	include	"Macros.asm"
 
+; ---------------------------------------------------------------------------
+; SMPS2ASM - A collection of macros that make SMPS's bytecode human-readable.
+; ---------------------------------------------------------------------------
+FixMusicAndSFXDataBugs = FixBugs
+SonicDriverVer = 1 ; Tell SMPS2ASM that we're using Sonic 1's driver.
+		include "sound/_smps2asm_inc.asm"
+
 ; ===========================================================================
 ; Equates section - Names for constants
 	include	"Constants.asm"
@@ -445,6 +452,8 @@ ptr_GM_DebugMode:	bra.w	GM_DebugMenu		; Debug Menu ($28)
 GameModeArray_End:		rts
 
 JMP_GM_ColdBrew:	jmp	(GM_ColdBrew).l
+
+JMP_GM_ThanatosCredits:	jmp	(GM_ThanatosCredits).l
 ; ===========================================================================
 	if SkipChecksumCheck=0
 CheckSumError:
@@ -1980,9 +1989,12 @@ Pal_SBZ3SonWat:		bincludeEndMarker	"palette/Sonic - SBZ3 Underwater.bin"
 Pal_SSResult:		bincludeEndMarker	"palette/Special Stage Results.bin"
 Pal_Continue:		bincludeEndMarker	"palette/Special Stage Continue Bonus.bin"
 Pal_Ending:		bincludeEndMarker	"palette/Ending.bin"
-Pal_SplashPal:	bincludeEndMarker	"eurosega\pal.bin"
-Pal_ColdBrew:	bincludeEndMarker	"conimodes\cold brew\palette.bin"
-Pal_ColdBrewG:	bincludeEndMarker	"conimodes\cold brew\palette grayscale.bin"
+Pal_TryAgain:		bincludeEndMarker	"palette/TryAgain.bin"
+
+Pal_SplashPal:	bincludeEndMarker	"eurosega/pal.bin"
+Pal_ColdBrew:	bincludeEndMarker	"conimodes/cold brew/palette.bin"
+Pal_ColdBrewG:	bincludeEndMarker	"conimodes/cold brew/palette grayscale.bin"
+
 Pal_SonicRetro: bincludeEndMarker "LiquidSplashes/Rerto/Palette.bin"
 Pal_SonisRetro: bincludeEndMarker "LiquidSplashes/Rerto/PaletteSonis.bin"
 Pal_MenuText:		bincludeEndMarker	"palette/Menu Font.bin"
@@ -2222,14 +2234,7 @@ GM_Title:
 		locVRAM	ArtTile_Title_Trademark*tile_size
 		lea	(Nem_TitleTM).l,a0 ; load "TM" patterns
 		bsr.w	NemDec
-		lea	(vdp_data_port).l,a6
-		locVRAM	ArtTile_Level_Select_Font*tile_size,4(a6)
-		lea	(Art_Text).l,a5	; load level select font
-		move.w	#(Art_Text_End-Art_Text)/2-1,d1
 
-Tit_LoadText:
-		move.w	(a5)+,(a6)
-		dbf	d1,Tit_LoadText	; load level select font
 		enable_ints
 		move.b	#0,(v_lastlamp).w ; clear lamppost counter
 		move.w	#0,(v_debuguse).w ; disable debug item placement mode
@@ -3930,10 +3935,15 @@ TryAgainEnd:
 
 		moveq	#plcid_TryAgain,d0
 		bsr.w	QuickPLC	; load "TRY AGAIN" or "END" patterns
+		lea	(v_ram_start).l,a1
+		lea	(Eni_TheIdiotBros).l,a0 ; load mappings for Japanese credits
+		move.w	#make_art_tile(ArtTile_Try_Again_Eggman,0,FALSE),d0
+		bsr.w	EniDec
 
+		copyTilemap	v_ram_start,vram_fg+$310,17,12
 		clearRAM v_palette_fading
 
-		moveq	#palid_Ending,d0
+		moveq	#palid_TryAgain,d0
 		bsr.w	PalLoad_Fade	; load ending palette
 		clr.w	(v_palette_fading+$40).w
 		move.b	#id_EndEggman,(v_endeggman).w ; load Eggman object
@@ -7175,12 +7185,14 @@ Nem_SegaLogo:	binclude	"artnem/Sega Logo (JP1).nem" ; large Sega logo
 Eni_SegaLogo:	binclude	"tilemaps/Sega Logo (JP1).eni" ; large Sega logo (mappings)
 		even
 	endif
-Eni_GitHub:	incbin	ATOGKTitle/Enigma/GitHub.bin	   
+
+Eni_GitHub:	binclude	"ATOGKTitle/Enigma/Github.bin"
 		even
-Eni_Madness:	incbin	ATOGKTitle/Enigma/Madness.bin	 
+Eni_Madness:	binclude	"ATOGKTitle/Enigma/Madness.bin"
 		even
-Nem_GitMadScr:	incbin	ATOGKTitle/Nemesis/GitMad.bin	
-		even		
+Nem_GitMadScr:	binclude	"ATOGKTitle/Nemesis/GitMad.bin"
+		even
+
 Eni_Title:	binclude	"tilemaps/Title Screen.eni" ; title screen foreground (mappings)
 		even
 Nem_TitleFg:	binclude	"artnem/Title Screen Foreground.nem"
@@ -7193,9 +7205,9 @@ Eni_JapNames:	binclude	"tilemaps/Hidden Japanese Credits.eni" ; Japanese credits
 		even
 Nem_JapNames:	binclude	"artnem/Hidden Japanese Credits.nem"
 		even
-Eni_SplashMap:	binclude	"eurosega\map.bin" 
+Eni_SplashMap:	binclude	"eurosega/map.bin"
 		even
-Nem_SplashTiles:	binclude	"eurosega\tiles.bin"
+Nem_SplashTiles:	binclude	"eurosega/tiles.bin"
 		even
 
 ; ---------------------------------------------------------------------------
@@ -7619,7 +7631,8 @@ Nem_CreditText:	binclude	"artnem/Ending - Credits.nem"
 		even
 Nem_EndStH:	binclude	"artnem/Ending - StH Logo.nem"
 		even
-
+Eni_TheIdiotBros:	binclude	"tilemaps/Idiots.eni"
+		even
 		; AngleMap starts at $62900 in all revisions, which amounts
 		; to $104 bytes of padding for rev00 and $40 for rev01/rev02.
 		; From a technical standpoint, this padding serves no purpose.
@@ -8011,13 +8024,14 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 			endif
 		endif
 
-		include	"sound\MegaPCM.asm"
-		include	"sound\SampleTable.asm"
+		include	"sound/MegaPCM.asm"
+		include	"sound/SampleTable.asm"
 
-SoundDriver:	include "sound\s1.sounddriver.asm"
+SoundDriver:	include "sound/s1.sounddriver.asm"
 
-		include "conimodes\cold brew\GM_ColdBrew.asm"
-		include "conimodes\winxp\GM_NTOSKRNL.asm"
+		include "conimodes/cold brew/GM_ColdBrew.asm"
+		include "conimodes/winxp/GM_NTOSKRNL.asm"
+		include "hipncoolstuff/ThanatosCredits/Main.asm"
 
 		include "LiquidSplashes/Splashes.asm"
 ; end of 'ROM'
