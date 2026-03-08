@@ -42,26 +42,24 @@ Yume2kki:
 	move.l  (a0)+, (a1)+
 	dbf 	d0, .PaletteLoop
 
-	move.w  #$19, (v_generictimer).w
+	move.b	#d2kki, d0
+	jsr	MegaPCM_PlaySample
+
+	move.w	#60*9, (v_generictimer).w
+
 	jsr	PaletteFadeIn
 
-.NoStartCheckLoop:
-	move.b	#$4, (v_vbla_routine).w
+.Loop:
+	move.b	#$4,(v_vbla_routine).w
 	jsr	WaitForVBla
 
-	tst.w 	(v_generictimer).w
-	bne.s 	.NoStartCheckLoop
-	move.w	#30*2, (v_generictimer).w
+        andi.b	#btnStart, (v_jpadpress1).w 
+        bne.w   .Exit
 
-.MainLoop:
-	move.b	#$4, (v_vbla_routine).w
-	jsr	WaitForVBla
+	tst.w	(v_generictimer).w
+	beq.w	.Exit
 
-	andi.b	#btnStart, (v_jpadpress1).w 
-	bne.w   .Exit
-
-	tst.w 	(v_generictimer).w
-	bne.s 	.MainLoop
+	bra.s	.Loop
 
 .Exit:
 	rts

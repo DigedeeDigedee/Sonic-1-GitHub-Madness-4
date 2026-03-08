@@ -59,12 +59,12 @@ SonicRetro:
 ; ====================================================================================
 
 .InitRoutines:
+	bra.w	.EmeraldFall
+	bra.w	.EmeraldFall
 	bra.w	.Default
 	bra.w	.Default
-	bra.w	.EmeraldFall
 	bra.w	.SonisRetros
 	bra.w	.SonisRetros
-	bra.w	.EmeraldFall
 .InitRoutinesEnd:
 
 ; ====================================================================================

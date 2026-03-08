@@ -17,7 +17,8 @@ SampleTable:
 	dcSample	TYPE_PCM,	PokeTimpani,	7500			; $8D
 	dcSample	TYPE_PCM,	DAMN,		16000			; $8E
 	dcSample	TYPE_PCM,	Trevor,		0, FLAGS_SFX		; $8F
-	dcSample	TYPE_PCM,	SegaPCM,	0, FLAGS_SFX		; $90	NOTE: sample rate is auto-detected from WAV file
+	dcSample	TYPE_PCM_TURBO,	yume2kki,	0, FLAGS_SFX		; $90
+	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0, FLAGS_SFX		; $91
 	dc.w	-1	; end marker
 
 ; ---------------------------------------------------------------
@@ -30,6 +31,7 @@ SampleTable:
 	incdac	PokeTimpani, "sound/dac/DAX/PokeTimpani.pcm"
 	incdac	DAMN, "sound/dac/DAX/DAMN.pcm"
 	incdac	Trevor, "sound/dac/Trevor.wav"
+	incdac	yume2kki, "sound/dac/2kki.wav"
 	incdac	SegaPCM, "sound/dac/sega.wav"
 
 	even

@@ -121,7 +121,8 @@ v_scrposx_vdp:		ds.w	1		; screen position x (VDP)
 v_bgscrposx_vdp:	ds.w	1		; background screen position x (VDP)
 v_bg3scrposy_vdp:	ds.w	1
 v_bg3scrposx_vdp:	ds.w	1
-			ds.b	2		; unused
+v_flashtimer:		ds.b	1		; red flash timer
+			ds.b	1
 v_hbla_hreg:		ds.w	1		; VDP H.interrupt register buffer (8Axx)
 v_hbla_line = v_hbla_hreg+1			; screen line where water starts and palette is changed by HBlank
 v_pfade_start:		ds.b	1		; palette fading - start position in bytes

@@ -42,8 +42,9 @@ RetroRunningSonic:
         move.w	#0, obVelX(a0)
         move.w	#-$500, obVelY(a0)
         move.b  #7, obFrame(a0)
-        ; move.b  #4, (v_flashtimer).w
-        ; sfx     sfx_violence
+        move.b  #4, (v_flashtimer).w
+	; move.b	#sfx_Violence,d0
+	; jsr	(QueueSound2).l
 
 .Crushed:
         cmpi.w  #$190, obScreenY(a0)

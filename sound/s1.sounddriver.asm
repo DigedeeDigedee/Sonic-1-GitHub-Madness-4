@@ -692,32 +692,17 @@ PlaySoundID:
 		beq.w	StopAllSound
 		bpl.s	.locret				; If >= 0, return (not a valid sound, bgm or command)
 		move.b	#$80,SMPS_RAM.v_sound_id(a6)	; reset music flag
-	if FixBugs
-		cmpi.b	#bgm__Last,d7		; Is this music ($81-$93)?
-	else
-		; DANGER! Music ends at $93, yet this checks until $9F; attempting to
-		; play sounds $94-$9F will cause a crash!
-		; See LevSel_NoCheat for more.
-		cmpi.b	#bgm__Last+$C,d7	; Is this music ($81-$9F)?
-	endif
+		cmpi.b	#bgm__Last,d7		; Is this music ($01-$3F)?
 		bls.w	Sound_PlayBGM		; Branch if yes
-		cmpi.b	#sfx__First,d7		; Is this after music but before sfx? (redundant check)
-		blo.w	.locret			; Return if yes
+
+		cmpi.b	#bgm__Last,d7		; Is this music ($81-$93)?
+		bls.w	Sound_PlayBGM		; Branch if yes
 		cmpi.b	#sfx__Last,d7		; Is this sfx ($A0-$CF)?
 		bls.w	Sound_PlaySFX		; Branch if yes
-		cmpi.b	#spec__First,d7		; Is this after sfx but before special sfx? (redundant check)
-		blo.w	.locret			; Return if yes
-	if FixBugs
 		cmpi.b	#spec__Last,d7		; Is this special sfx ($D0-$D0)?
 		bls.w	Sound_PlaySpecial	; Branch if yes
 		cmpi.b	#flg__First,d7		; Is this after special sfx but before $E0?
 		blo.w	.locret			; Return if yes
-	else
-		; DANGER! Special SFXes end at $D0, yet this checks until $DF; attempting to
-		; play sounds $D1-$DF will cause a crash!
-		cmpi.b	#spec__Last+$10,d7	; Is this special sfx ($D0-$DF)?
-		blo.w	Sound_PlaySpecial	; Branch if yes
-	endif
 		cmpi.b	#flg__Last,d7		; Is this $E0-$E4?
 		bls.s	Sound_E0toE4		; Branch if yes
 ; locret_71F8C:
@@ -2756,6 +2741,8 @@ Music99:	include "../conimodes/splash/Jingle.asm"
 ; ---------------------------------------------------------------------------
 ; Sound effect pointers
 ; ---------------------------------------------------------------------------
+LowerSoundIndex:
+
 SoundIndex:
 ptr_sndA0:	dc.l SoundA0
 ptr_sndA1:	dc.l SoundA1
@@ -2817,6 +2804,8 @@ ptr_specend
 ; ---------------------------------------------------------------------------
 ; Sound effect data
 ; ---------------------------------------------------------------------------
+Sound60:	include "sound/sfx/Snd60 - Violence.asm"
+		even
 SoundA0:	include "sound/sfx/SndA0 - Jump.asm"
 		even
 SoundA1:	include "sound/sfx/SndA1 - Lamppost.asm"
@@ -2919,3 +2908,4 @@ SoundCF:	include "sound/sfx/SndCF - Signpost.asm"
 ; ---------------------------------------------------------------------------
 SoundD0:	include "sound/sfx/SndD0 - Waterfall.asm"
 		even
+
