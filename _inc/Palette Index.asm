@@ -40,4 +40,6 @@ palid_Continue:		makePalEntry	Pal_Continue, 		v_palette_line_1
 palid_Ending:		makePalEntry	Pal_Ending, 		v_palette_line_1
 palid_ColdBrew:		makePalEntry	Pal_ColdBrew, 		v_palette_line_1
 palid_ColdBrewG:		makePalEntry	Pal_ColdBrewG, 		v_palette_line_1
+palid_SonicRetro:	makePalEntry Pal_SonicRetro, v_palette_line_1
+palid_SonisRetro:	makePalEntry Pal_SonisRetro, v_palette_line_1
 	even

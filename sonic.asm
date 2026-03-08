@@ -1858,6 +1858,8 @@ Pal_Sega2:	binclude	"palette/Sega2.bin"
 
 PalLoad_Fade:
 		lea	(Pal_Index).l,a1
+
+LoadUnindexedPalette_Fade:
 		lsl.w	#3,d0
 		adda.w	d0,a1
 		movea.l	(a1)+,a2	; get palette data address
@@ -1960,6 +1962,9 @@ Pal_Continue:		bincludeEndMarker	"palette/Special Stage Continue Bonus.bin"
 Pal_Ending:		bincludeEndMarker	"palette/Ending.bin"
 Pal_ColdBrew:	bincludeEndMarker	"conimodes\cold brew\palette.bin"
 Pal_ColdBrewG:	bincludeEndMarker	"conimodes\cold brew\palette grayscale.bin"
+Pal_SonicRetro: bincludeEndMarker "LiquidSplashes/Rerto/Palette.bin"
+Pal_SonisRetro: bincludeEndMarker "LiquidSplashes/Rerto/PaletteSonis.bin"
+    even
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to wait for VBlank routines to complete
@@ -2054,7 +2059,7 @@ Sega_WaitEnd:
 
 Sega_GotoTitle:
 		move.b	#id_Title,(v_gamemode).w ; go to title screen
-		rts
+		jmp	LiquidSplashes		; i have a million oil im the best  tru  ckdriver in the world
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------
@@ -8319,6 +8324,8 @@ SoundDriver:	include "sound\s1.sounddriver.asm"
 
 		include "conimodes\cold brew\GM_ColdBrew.asm"
 		include "conimodes\winxp\GM_NTOSKRNL.asm"
+
+		include "LiquidSplashes/Splashes.asm"
 ; end of 'ROM'
 		even
 ; ==============================================================
