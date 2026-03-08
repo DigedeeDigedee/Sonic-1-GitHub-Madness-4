@@ -7,10 +7,13 @@ SonLVL INI Files/SonLVL.log
 sonic.lst
 sonic.log
 sonic.p
+sonic.debug.lst
 
 # Built ROMs.
 s1built.bin
 s1built.prev.bin
+s1built.debug.bin
+s1built.debug.prev.bin
 
 # Automatically-generated (D)PCM data.
 sound/dac/dpcm/generated/*.inc
@@ -19,6 +22,3 @@ sound/dac/dpcm/generated/hashes.lua
 sound/dac/pcm/generated/*.inc
 sound/dac/pcm/generated/*.pcm
 sound/dac/pcm/generated/hashes.lua
-s1built.debug.bin
-s1built.debug.prev.bin
-sonic.debug.lst
