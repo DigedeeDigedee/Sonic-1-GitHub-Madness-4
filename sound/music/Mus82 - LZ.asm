@@ -14,9 +14,9 @@ BGM_DUNGEON3_Header:		; To clean up
 	smpsHeaderFM	BGM_DUNGEON3_FM4,	$00, $13
 	smpsHeaderFM	BGM_DUNGEON3_FM5,	$00, $15
 	smpsHeaderFM	BGM_DUNGEON3_FM6,	$00, $1E
-	smpsHeaderPSG	BGM_DUNGEON3_PSG1,	$0C, $18, $00, $00
-	smpsHeaderPSG	BGM_DUNGEON3_PSG2,	$0C, $20, $00, $00
-	smpsHeaderPSG	BGM_DUNGEON3_PSG3,	$0C, $30, $00, $00
+	smpsHeaderPSG	BGM_DUNGEON3_PSG1,	$00, $18, $00, $00
+	smpsHeaderPSG	BGM_DUNGEON3_PSG2,	$00, $20, $00, $00
+	smpsHeaderPSG	BGM_DUNGEON3_PSG3,	$00, $30, $00, $00
 
 BGM_DUNGEON3_Voices:
 ;	FM Voice 00 -> 00: FM_DUN03_00
