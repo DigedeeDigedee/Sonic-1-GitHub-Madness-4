@@ -8,6 +8,7 @@ sonic.lst
 sonic.debug.lst
 sonic.log
 sonic.p
+sonic.debug.lst
 
 # Built ROMs.
 *.gen

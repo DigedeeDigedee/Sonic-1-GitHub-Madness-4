@@ -48,8 +48,8 @@ TryAgain_ObjData:	; X pos, Frame, Land,	Wait
 			dc.w 	$50,	$100,	$A0, 	$0	; Y
 			dc.w 	$60,	$200,	$A0, 	$10	; O
 			dc.w 	$70,	$300,	$A0,	$20	; U
-			dc.w 	$80,	$400, 	$A0,	$30	; F
-			dc.w 	$90,	$300,	$A0, 	$40	; U
+			dc.w 	$90,	$400, 	$A0,	$30	; F
+			dc.w 	$A0,	$300,	$A0, 	$40	; U
 			dc.w 	$B0,	$500,	$A0,	$50	; C
 			dc.w 	$C0,	$600, 	$A0,	$60	; K
 			dc.w 	$D0,	$700,	$A0,	$70	; I
