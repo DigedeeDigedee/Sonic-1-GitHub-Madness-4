@@ -1753,15 +1753,13 @@ Sonic_Animate:
 
 .nomodspeed:
 		lea	(SonAni_Run).l,a1 ; use running animation
-		cmpi.w	#$600,d2	; is Sonic at running speed?
+		cmpi.w	#$4A0,d2	; is Sonic at running speed?
 		bhs.s	.running	; if yes, branch
 
 		lea	(SonAni_Walk).l,a1 ; use walking animation
 		move.b	d0,d1
 		lsr.b	#1,d1
 		add.b	d1,d0
-
-.running:
 		add.b	d0,d0
 		move.b	d0,d3
 		neg.w	d2
@@ -1775,6 +1773,48 @@ Sonic_Animate:
 		bsr.w	.loadframe
 		add.b	d3,obFrame(a0)	; modify frame number
 		rts
+
+.running:
+		add.b	d0,d0
+		move.b	d0,d3
+		neg.w	d2
+		addi.w	#$800,d2
+		bpl.s	.belowmax_ohmyfuckinggoddude
+		moveq	#0,d2		; max animation speed
+
+.belowmax_ohmyfuckinggoddude:
+		lsr.w	#7,d2
+		move.b	d2,obTimeFrame(a0) ; modify frame duration
+		bsr.w	.loadframe
+		add.b	d3,obFrame(a0)	; modify frame number
+		rts
+
+
+; original code for just sonic
+; commented out for use later with other characters
+;		lea	(SonAni_Run).l,a1 ; use running animation
+;		cmpi.w	#$600,d2	; is Sonic at running speed?
+;		bhs.s	.running	; if yes, branch
+;
+;		lea	(SonAni_Walk).l,a1 ; use walking animation
+;		move.b	d0,d1
+;		lsr.b	#1,d1
+;		add.b	d1,d0
+;
+;.running:
+;		add.b	d0,d0
+;		move.b	d0,d3
+;		neg.w	d2
+;		addi.w	#$800,d2
+;		bpl.s	.belowmax
+;		moveq	#0,d2		; max animation speed
+;
+;.belowmax:
+;		lsr.w	#8,d2
+;		move.b	d2,obTimeFrame(a0) ; modify frame duration
+;		bsr.w	.loadframe
+;		add.b	d3,obFrame(a0)	; modify frame number
+;		rts
 ; ===========================================================================
 
 ; SAnim_RollJump:
