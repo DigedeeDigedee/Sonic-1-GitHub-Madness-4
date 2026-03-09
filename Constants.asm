@@ -79,6 +79,7 @@ id_Credits:	equ ptr_GM_Credits-GameModeArray; $1C
 id_ColdBrew:	equ ptr_GM_ColdBrew-GameModeArray; $20
 id_SegaEU:	equ ptr_GM_SegaEU-GameModeArray; $24
 id_DebugMenu:	equ ptr_GM_DebugMode-GameModeArray; $28
+id_Thanatos:	equ ptr_GM_ThanatosCredits-GameModeArray; $2C
 
 ; Levels
 id_GHZ:		equ 0

@@ -21,7 +21,7 @@
 
 TitleCard_GHZ1:	equ  "PENILE HILLS"
 TitleCard_GHZ2:	equ  "PENILE HILLS"
-TitleCard_GHZ3:	equ  "TTS FIGHT"
+TitleCard_GHZ3:	equ  "TTS BATTLE"
 TitleCard_GHZ4:	equ  "PENILE HILLS"
 
 TitleCard_MZ1:	equ  "ALBERTA CANADA"

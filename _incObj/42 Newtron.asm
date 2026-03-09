@@ -34,7 +34,6 @@ Newt_Action:	; Routine 2
 ; ===========================================================================
 .index:		dc.w .chkdistance-.index
 		dc.w .type00-.index
-		dc.w .matchfloor-.index
 		dc.w .speed-.index
 		dc.w .type01-.index
 ; ===========================================================================
@@ -84,6 +83,7 @@ Newt_Action:	; Routine 2
 
 .loc_DE42:
 		bsr.w	ObjectFall
+		bsr.w	ObjectFall	; loool
 		bsr.w	ObjFloorDist
 		tst.w	d1		; has newtron hit the floor?
 		bpl.s	.keepfalling	; if not, branch
@@ -98,7 +98,6 @@ Newt_Action:	; Routine 2
 
 .notgreen:
 		move.b	#$D,obColType(a0)
-		move.w	#$200,obVelX(a0) ; move newtron horizontally
 		btst	#0,obStatus(a0)
 		bne.s	.keepfalling
 		neg.w	obVelX(a0)
@@ -107,23 +106,18 @@ Newt_Action:	; Routine 2
 		rts
 ; ===========================================================================
 
-.matchfloor:
-		bsr.w	SpeedToPos
-		bsr.w	ObjFloorDist
-		cmpi.w	#-8,d1
-		blt.s	.nextroutine
-		cmpi.w	#$C,d1
-		bge.s	.nextroutine
-		add.w	d1,obY(a0)	; match newtron's position with floor
-		rts
-; ===========================================================================
-
-.nextroutine:
-		addq.b	#2,ob2ndRout(a0) ; goto .speed next
-		rts
-; ===========================================================================
-
 .speed:
+		bset	#0,obStatus(a0)
+		move.w	(v_player+obX).w,d0
+		sub.w	obX(a0),d0
+		bcc.s	.sonicisright3
+		bclr	#0,obStatus(a0)
+
+.sonicisright3:
+		lea 	v_player, a1
+		move.w 	#$450, d0
+		move.w	#$30, d1
+		jsr	ChaseObject
 		bsr.w	SpeedToPos
 		rts
 ; ===========================================================================

@@ -90,9 +90,9 @@ Obj27_Display:
 Obj27_GetVelocity:
 		sub.w	obAngle(a0), d0
 		jsr	CalcSine
-		asr.l	#8, d1
+		; asr.l	#8, d0
+		; asr.l	#8, d1
 		move.w	d1, obVelX(a0)
-		asr.l	#8, d0
 		move.w	d0, obVelY(a0)
         	rts
 
