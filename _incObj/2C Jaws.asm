@@ -25,11 +25,11 @@ Jaws_Main:	; Routine 0
 		move.b	#$10,obActWid(a0)
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0 ; load object subtype number
-		lsl.w	#6,d0		; multiply d0 by 64
+		lsl.w	#8,d0		; multiply d0 by 64
 		subq.w	#1,d0
 		move.w	d0,jaws_timecount(a0) ; set turn delay time
 		move.w	d0,jaws_timedelay(a0)
-		move.w	#-$40,obVelX(a0) ; move Jaws to the left
+		move.w	#-$70,obVelX(a0) ; move Jaws to the left
 		btst	#0,obStatus(a0)	; is Jaws facing left?
 		beq.s	Jaws_Turn	; if yes, branch
 		neg.w	obVelX(a0)	; move Jaws to the right

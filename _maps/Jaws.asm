@@ -1,30 +1,27 @@
-; ---------------------------------------------------------------------------
-; Sprite mappings - Jaws enemy (LZ)
-; ---------------------------------------------------------------------------
-Map_Jaws_internal:	mappingsTable
-	mappingsTableEntry.w	.open1
-	mappingsTableEntry.w	.shut1
-	mappingsTableEntry.w	.open2
-	mappingsTableEntry.w	.shut2
+Map_044f: mappingsTable
+	mappingsTableEntry.w	Map_044f_0
+	mappingsTableEntry.w	Map_044f_1
+	mappingsTableEntry.w	Map_044f_2
+	mappingsTableEntry.w	Map_044f_3
 
-.open1:	spriteHeader
-	spritePiece	-$10, -$C, 4, 3, 0, 0, 0, 0, 0	; mouth open
-	spritePiece	$10, -$B, 2, 2, $18, 0, 0, 0, 0
-.open1_End
+Map_044f_0:	spriteHeader
+ spritePiece -$1C, -$10, 4, 4, 0, 0, 0, 0, 0
+ spritePiece 4, -$10, 3, 4, $10, 0, 0, 0, 0
+Map_044f_0_End
 
-.shut1:	spriteHeader
-	spritePiece	-$10, -$C, 4, 3, $C, 0, 0, 0, 0 ; mouth shut
-	spritePiece	$10, -$B, 2, 2, $1C, 0, 0, 0, 0
-.shut1_End
+Map_044f_1:	spriteHeader
+ spritePiece -$1C, -$10, 4, 4, 0, 0, 0, 0, 0
+ spritePiece 4, -$10, 3, 4, $10, 0, 0, 0, 0
+Map_044f_1_End
 
-.open2:	spriteHeader
-	spritePiece	-$10, -$C, 4, 3, 0, 0, 0, 0, 0
-	spritePiece	$10, -$B, 2, 2, $18, 0, 1, 0, 0
-.open2_End
+Map_044f_2:	spriteHeader
+ spritePiece -$1C, -$10, 4, 4, 0, 0, 0, 0, 0
+ spritePiece 4, -$10, 3, 4, $10, 0, 0, 0, 0
+Map_044f_2_End
 
-.shut2:	spriteHeader
-	spritePiece	-$10, -$C, 4, 3, $C, 0, 0, 0, 0
-	spritePiece	$10, -$B, 2, 2, $1C, 0, 1, 0, 0
-.shut2_End
+Map_044f_3:	spriteHeader
+ spritePiece -$1C, -$10, 4, 4, 0, 0, 0, 0, 0
+ spritePiece 4, -$10, 3, 4, $10, 0, 0, 0, 0
+Map_044f_3_End
 
 	even
