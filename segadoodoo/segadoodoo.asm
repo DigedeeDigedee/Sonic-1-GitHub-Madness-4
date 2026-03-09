@@ -1,7 +1,7 @@
 ;----------------------------------------------------------------------------
-; EUROPEAN SEGA SPLASH SCREEN (PORTED FROM 3.5)
+; DOO DOO FECES (PARTIALLY PORTED FROM 3.5, STATIC SPLASH)
 ;----------------------------------------------------------------------------
-GM_SegaEU:
+GM_SegaDooDoo:
 		;move.w    #$8024,(vdp_control_port).l
 		move.b	#bgm_Fade,d0
 		jsr	ClearPLC
@@ -22,9 +22,9 @@ GM_SegaEU:
 		moveq	#0,d0
 		move.w	#$7FF,d1
 
-GM_SegaEU_ClrObjRam:
+GM_SegaDooDoo_ClrObjRam:
 		move.l	d0,(a1)+
-		dbf	d1,GM_SegaEU_ClrObjRam ; clear object RAM
+		dbf	d1,GM_SegaDooDoo_ClrObjRam ; clear object RAM
 		
 		lea	(v_palette_fading).w,a1
 		moveq	#cBlack,d0
@@ -36,11 +36,11 @@ GM_SegaEU_ClrObjRam:
 	
 		
 		move.l  #$40000000,($C00004).l
-		lea     (Nem_SplashTiles).l,a0
+		lea     (Nem_DooDooTiles).l,a0
 		jsr  NemDec		
 
 		lea	($FF0000).l,a1
-		lea	(Eni_SplashMap).l,a0 ; load mappings for Background Art
+		lea	(Eni_DooDooMap).l,a0 ; load mappings for Background Art
 
 		
 		move.w	#0,d0
@@ -48,31 +48,32 @@ GM_SegaEU_ClrObjRam:
 
 		copyTilemap	v_256x256&$FFFFFF,vram_fg,40,28
 
-		moveq	#palid_SplashPal,d0
+		moveq	#palid_DooDooPal,d0
 		jsr	PalLoad1	; load Sonic's palette
 		clr.w	(v_palette_fading+$40).w
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		jsr	PaletteFadeIn
-		move.b	#bgm_EuroSega,d0
+		move.b	#bgm_DooDooSega,d0
 		jsr	PlaySound_Special	
+		move.w	#60*3,(v_generictimer).w
 
-
-GM_SegaEU_MainLoop:
+GM_SegaDooDoo_MainLoop:
 		move.b	#4,(v_vbla_routine).w
 		jsr	WaitForVBla
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
+		tst.w	(v_generictimer).w
 		move.w	#2*60,(v_generictimer).w 
 		andi.b	#btnStart,(v_jpadpress1).w		
-		beq.s	GM_SegaEU_MainLoop
+		beq.s	GM_SegaDooDoo_MainLoop
 
 
 ;		tst.w	(v_SplashSkip).w
 ;		bne.s	.skipsplashEU
 		move.b	#id_Title,(v_gamemode).w ; go to splash screen
-GM_SegaEU_Return:
+GM_SegaDooDoo_Return:
 		rts	
-;.skipsplashEU:
+;.skipsplashDooDoo:
 ;		move.b	#id_Title,(v_gamemode).w ; go to splash screen
 ;		rts	

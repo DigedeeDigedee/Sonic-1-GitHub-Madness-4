@@ -440,7 +440,8 @@ ptr_GM_ColdBrew:	dc.l	GM_ColdBrew		; Cold Brew ($20)
 ptr_GM_SegaEU:		dc.l	GM_ColdBrew		; Sega Screen EU ($24)
 ptr_GM_DebugMode:	dc.l	GM_DebugMenu		; Debug Menu ($28)
 ptr_GM_ThanatosCredits:	dc.l	GM_ThanatosCredits	; Credits - Thanatos ver. ($2C)
-ptr_GM_CNNicoJump:	dc.l	GM_CNNicoJump	; Credits - Thanatos ver. ($30)
+ptr_GM_ButtcrackMan:	dc.l	GM_ButtcrackMan		; BUTTCRACK MAN ($30)
+ptr_GM_CNNicoJump:	dc.l	GM_CNNicoJump	; CN Logo ($32)
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -581,15 +582,36 @@ VBla_14:
 ; VBlank 04 - Title Screen, Level Select, Credits, "Try Again" screen
 ; ---------------------------------------------------------------------------
 
-; loc_C44:
 VBla_04:
 		bsr.w	VBla_StandardTransfers
-		bsr.w	LoadTilesAsYouMove_BGOnly
+		jsr 	LoadTilesAsYouMove_BGOnly
+
+		tst.b 	(v_flashtimer).w
+		beq.s 	.noflash
+
+		subq.b  #1, (v_flashtimer).w
+		lea     (vdp_data_port).l, a6
+		move.l  #$C0000000, ($C00004).l ; CRAM write mode
+		move.w  #$E,d0
+        	move.w  #$1F,d1
+
+.fillpalette:
+		move.w  d0, (a6)
+		dbf     d1, .fillpalette
+		move.w  #0, (a6)
+		move.w  #$1E, d1
+
+.fillpalette2:
+		move.w  d0, (a6)
+		dbf     d1, .fillpalette2
+
+.noflash:
 		bsr.w	ProcessDPLC_9Tiles
 		tst.w	(v_generictimer).w
 		beq.w	.end
 		subq.w	#1,(v_generictimer).w
-.end:
+        
+	.end:
 		rts
 
 ; ===========================================================================
@@ -2435,11 +2457,7 @@ Level_NoMusicFade:
 		bsr.w	PaletteFadeOut
 		tst.w	(f_demo).w	; is an ending sequence demo running?
 		bmi.s	Level_ClrRam	; if yes, branch
-		disable_ints
-		locVRAM	ArtTile_Title_Card*tile_size
-		lea	(Nem_TitleCard).l,a0 ; load title card patterns
-		bsr.w	NemDec
-		enable_ints
+		jsr	(TitleCards_LoadArt).l
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		lsl.w	#4,d0
@@ -4666,17 +4684,18 @@ M_Card_MZ:	spriteHeader	; MARBLE
 M_Card_MZ_End
 	even
 
-M_Card_SLZ:	spriteHeader	; STAR LIGHT
-	spritePiece	-$4C, -8, 2, 2, $3E, 0, 0, 0, 0	; S
-	spritePiece	-$3C, -8, 2, 2, $42, 0, 0, 0, 0	; T
-	spritePiece	-$2C, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	-$1C, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-
-	spritePiece	4, -8, 2, 2, $26, 0, 0, 0, 0	; L
-	spritePiece	$14, -8, 1, 2, $20, 0, 0, 0, 0	; I
-	spritePiece	$1C, -8, 2, 2, $18, 0, 0, 0, 0	; G
-	spritePiece	$2C, -8, 2, 2, $1C, 0, 0, 0, 0	; H
-	spritePiece	$3C, -8, 2, 2, $42, 0, 0, 0, 0	; T
+M_Card_SLZ:	; STAR LIGHT
+		dc.b 9	; MICROSLOP
+		dc.b $F8, $05, $00, $2A, $BB	; M
+		dc.b $F8, $01, $00, $20, $CC	; I
+		dc.b $F8, $05, $00, $08, $D4	; C
+		dc.b $F8, $05, $00, $3A, $E4	; R
+		dc.b $F8, $05, $00, $32, $F4	; O
+		dc.b $F8, $05, $00, $3E, $04	; S
+		dc.b $F8, $05, $00, $26, $14	; L
+		dc.b $F8, $05, $00, $32, $24	; O
+		dc.b $F8, $05, $00, $36, $34	; P
+		even
 M_Card_SLZ_End
 	even
 
@@ -4984,8 +5003,6 @@ ExecuteObjects:
 		lea	(v_objspace).w,a0 ; set address for object RAM
 		moveq	#(v_objspace_end-v_objspace)/object_size-1,d7
 		moveq	#0,d0
-		cmpi.b	#6,(v_player+obRoutine).w
-		bhs.s	loc_D362
 
 loc_D348:
 		move.b	obID(a0),d0		; load object number from RAM
@@ -5040,6 +5057,7 @@ Obj_Index:
 		include	"_incObj/sub SpeedToPos.asm"
 		include	"_incObj/sub DisplaySprite.asm"
 		include	"_incObj/sub DeleteObject.asm"
+		include	"_inc/ChaseObject.asm"
 
 ; ===========================================================================
 BldSpr_ScrPos:	dc.l 0				; blank
@@ -7941,6 +7959,7 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 
 		include	"sound/MegaPCM.asm"
 		include	"sound/SampleTable.asm"
+		include	"_inc/SelbiTitlecards.asm"
 
 SoundDriver:	include "sound/s1.sounddriver.asm"
 
@@ -7949,7 +7968,10 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 		include "conimodes/splash/GM_CNNicoJump.asm"
 		include "hipncoolstuff/ThanatosCredits/Main.asm"
 
+		include "Buttcrack/Game.asm"
+
 		include "Splashes.asm"
+		include	"_inc/GHM3Explode.asm"
 ; end of 'ROM'
 		even
 ; ==============================================================
