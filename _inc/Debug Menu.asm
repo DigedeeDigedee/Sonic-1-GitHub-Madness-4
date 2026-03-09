@@ -49,6 +49,7 @@ GM_DebugMenu:
 		move.b	#$0C,(v_gamemode).w	; set game mode to Level
 		move.b	#0,(v_zone).w		; zone 0 (GHZ)
 		move.b	#0,(v_act).w		; act 1
+		move.b	#0,(v_emeralds).w	; 0 emeralds
 		move.b	#3,(v_lives).w		; 3 lives
 		clr.b	(v_dbgmenu_sndid).w
 		clr.b	(v_dbgmenu_exit).w
@@ -84,7 +85,7 @@ DebuggerMenu_Controls:
 		btst	#7,d1			; Start
 		bne.w	DebuggerMenu_LoadGame
 
-		cmpi.w	#5,(v_levselitem).w	; Sound Test row?
+		cmpi.w	#6,(v_levselitem).w	; Sound Test row?
 		bne.s	.checklr
 
 		btst	#5,d1			; C: play sound
@@ -220,6 +221,9 @@ Debugger_Data:
 		dc.l	v_act			; ACT ID
 		dc.b	$01,$00,$02,$00		; step 1, range 0-2
 
+		dc.l	v_emeralds			; EMERALDS
+		dc.b	$01,$00,$06,$00		; step 1, range 0-6
+
 		dc.l	v_lives			; LIVES
 		dc.b	$01,$01,$63,$00		; step 1, range 1-99
 
@@ -330,6 +334,7 @@ Text_MainMenu:
 		dc.b	"GAME MODE ID    "	; 16 chars each
 		dc.b	"ZONE ID         "
 		dc.b	"ACT ID          "
+		dc.b	"EMERALDS        "
 		dc.b	"LIVES           "
 		dc.b	"DEBUG MODE      "
 		dc.b	"SOUND TEST      "
