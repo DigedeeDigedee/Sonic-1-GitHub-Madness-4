@@ -1885,7 +1885,7 @@ loc_20BC:
 
 Pal_Sega1:	binclude	"palette/Sega1.bin"
 Pal_Sega2:	binclude	"palette/Sega2.bin"
-
+		dc.w		$AA4,$CC6	; KILL YOURSELF
 ; ---------------------------------------------------------------------------
 ; Subroutines to load palettes
 

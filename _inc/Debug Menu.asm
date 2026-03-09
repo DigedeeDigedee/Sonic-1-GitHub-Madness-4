@@ -14,7 +14,7 @@ GM_DebugMenu:
 		move.w	#$8400+(vram_bg>>13),(a6) ; set background nametable address
 		move.w	#$9001,(a6)	; 64-cell hscroll size
 		move.w	#$9200,(a6)	; window vertical position
-		move.w	#$8B00,(a6)
+		move.w	#$8B03,(a6)
 		move.w	#$8720,(a6)	; set background colour (palette line 2, entry 0)
 		disable_display
 		clr.b	(f_wtr_state).w
@@ -29,21 +29,17 @@ GM_DebugMenu:
 
 		writeVRAM	Art_MenuFont,$D080
 
-     		locVRAM    ArtTile_Title_Japanese_Text*tile_size
-       		lea    (Nem_JapNames).l,a0 ; load Japanese credits
-       		bsr.w    NemDec
-       		locVRAM    ArtTile_Sonic_Team_Font*tile_size
-      		lea    (Nem_CreditText).l,a0 ; load alphabet
-      		bsr.w    NemDec
-      		lea    (v_ram_start).l,a1
-     		lea    (Eni_JapNames).l,a0 ; load mappings for Japanese credits
-     		move.w    #make_art_tile(ArtTile_Title_Japanese_Text,0,FALSE),d0
-     		bsr.w    EniDec
+		; added
 
-     		copyTilemap    v_ram_start,vram_fg,40,28
+     		locVRAM		ArtTile_Title_Japanese_Text*tile_size
+       		lea		(Nem_JapNames).l,a0 ; load Japanese credits
+       		bsr.w		NemDec
+      		lea		(v_ram_start).l,a1
+     		lea		(Eni_JapNames).l,a0 ; load mappings for Japanese credits
+     		move.w		#make_art_tile(ArtTile_Title_Japanese_Text,0,FALSE),d0
+     		bsr.w		EniDec
 
-		moveq    #palid_SegaBG,d0
-        	bsr.w    PalLoad    ; load Sega logo palette
+     		copyTilemap    v_ram_start,vram_bg,40,28
 		
 		enable_display
 		lea	(v_hscrolltablebuffer).w,a1
@@ -55,13 +51,6 @@ GM_DebugMenu:
 		dbf	d1,DebugMenu_ClrScroll1	; clear scroll data (in RAM)
 
 		move.l	d0,(v_scrposy_vdp).w
-		lea	(vdp_data_port).l,a6
-		locVRAM	$E000
-		move.w	#$3FF,d1
-
-	DebugMenu_ClrScroll2:
-		move.l	d0,(a6)
-		dbf	d1,DebugMenu_ClrScroll2	; clear scroll data (in VRAM)
 
 		move.b	#$0C,(v_gamemode).w	; set game mode to Level
 		move.b	#0,(v_zone).w		; zone 0 (GHZ)
@@ -74,13 +63,19 @@ GM_DebugMenu:
 		bsr.w	DebuggerMenu_Redraw
 		moveq	#plcid_Main,d0
 		bsr.w	NewPLC
-		lea		(Pal_MenuText).l,a1
-		lea		(v_palette_fading+$20).l,a2
-		moveq	#$F,d0
--
+		lea	(Pal_MenuText).l,a1
+		lea	(v_palette_fading+$20).l,a2
+		moveq	#16-1,d0
+.LoadLoopText
 		move.l	(a1)+,(a2)+
-		dbf		d0,-
-
+		dbf	d0,.LoadLoopText
+		lea	(Pal_Sega2+(16*2)).l,a1
+		lea	(v_palette_fading).l,a2
+		moveq	#5-1,d0	; fucking lol
+.LoadLoopBg
+		move.l	(a1)+,(a2)+
+		dbf	d0,.LoadLoopBg
+		
 		move.b	#bgm_NewBarkTown,d0
 		bsr.w	QueueSound1
 		bsr.w	PaletteFadeIn
@@ -89,11 +84,61 @@ DebuggerMenu_Loop:
 		move.b	#6,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		enable_ints
+		bsr.w	_dbugmenuSineSlide
 		bsr.w	DebuggerMenu_Controls
 		disable_ints
 		tst.b	(v_dbgmenu_exit).w
 		beq.s	DebuggerMenu_Loop
 		rts
+
+
+dbugmenuSinCntr	= $FFFFF760	; sine info
+dbugmenuScrCnt	= $FFFFF764      
+dbugmenuCos	= $FFFFF768
+dbugmenuFactor	= $FFFFF76C	; mul. factor
+
+_dbugmenuSineSlide:
+        lea     v_hscrolltablebuffer,a1
+        add.l   #$6000,dbugmenuScrCnt.w
+        moveq   #240/4,d7
+        moveq   #0,d2
+        add.l	#$9000,dbugmenuFactor
+        move.w  dbugmenuFactor,d2
+        andi.w	#$FF,dbugmenuFactor
+        move.w	#0,dbugmenuSinCntr.w
+
+.ScrLoop:
+	add.w   #1,dbugmenuSinCntr.w
+       	move.w  dbugmenuSinCntr.w,d0
+        jsr     CalcSine
+        mulu.w  d2,d0
+        asr.w   #7,d0
+        move.w  #0,(a1)+
+        move.w  d0,(a1)+
+	add.w   #1,dbugmenuSinCntr.w
+       	move.w  dbugmenuSinCntr.w,d0
+        jsr     CalcSine
+        mulu.w  d2,d0
+        asr.w   #7,d0
+        move.w  #0,(a1)+
+        move.w  d0,(a1)+
+	add.w   #1,dbugmenuSinCntr.w
+       	move.w  dbugmenuSinCntr.w,d0
+        jsr     CalcSine
+        mulu.w  d2,d0
+        asr.w   #7,d0
+        move.w  #0,(a1)+
+        move.w  d0,(a1)+
+	add.w   #1,dbugmenuSinCntr.w
+       	move.w  dbugmenuSinCntr.w,d0
+        jsr     CalcSine
+        mulu.w  d2,d0
+        asr.w   #7,d0
+        move.w  #0,(a1)+
+        move.w  d0,(a1)+
+        dbf     d7,.ScrLoop
+        rts
+
 ; ===========================================================================
 
 DebuggerMenu_Controls:
