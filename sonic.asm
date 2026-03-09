@@ -440,6 +440,7 @@ ptr_GM_ColdBrew:	dc.l	GM_ColdBrew		; Cold Brew ($20)
 ptr_GM_SegaEU:		dc.l	GM_ColdBrew		; Sega Screen EU ($24)
 ptr_GM_DebugMode:	dc.l	GM_DebugMenu		; Debug Menu ($28)
 ptr_GM_ThanatosCredits:	dc.l	GM_ThanatosCredits	; Credits - Thanatos ver. ($2C)
+ptr_GM_ButtcrackMan:	dc.l	GM_ButtcrackMan		; BUTTCRACK MAN ($30)
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -5005,8 +5006,6 @@ ExecuteObjects:
 		lea	(v_objspace).w,a0 ; set address for object RAM
 		moveq	#(v_objspace_end-v_objspace)/object_size-1,d7
 		moveq	#0,d0
-		cmpi.b	#6,(v_player+obRoutine).w
-		bhs.s	loc_D362
 
 loc_D348:
 		move.b	obID(a0),d0		; load object number from RAM
@@ -5061,6 +5060,7 @@ Obj_Index:
 		include	"_incObj/sub SpeedToPos.asm"
 		include	"_incObj/sub DisplaySprite.asm"
 		include	"_incObj/sub DeleteObject.asm"
+		include	"_inc/ChaseObject.asm"
 
 ; ===========================================================================
 BldSpr_ScrPos:	dc.l 0				; blank
@@ -7969,7 +7969,10 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 		include "conimodes/winxp/GM_NTOSKRNL.asm"
 		include "hipncoolstuff/ThanatosCredits/Main.asm"
 
+		include "Buttcrack/Game.asm"
+
 		include "Splashes.asm"
+		include	"_inc/GHM3Explode.asm"
 ; end of 'ROM'
 		even
 ; ==============================================================
