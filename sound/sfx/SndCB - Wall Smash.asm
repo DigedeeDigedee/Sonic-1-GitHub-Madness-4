@@ -4,7 +4,7 @@ SndCB_Wall_Smash_Header:
 	smpsHeaderTempoSFX  $01
 	smpsHeaderChanSFX   $02
 
-	smpsHeaderSFXChannel cFM5, SndCB_Wall_Smash_FM5,	$00, $00
+	smpsHeaderSFXChannel cFM5, SndCB_Wall_Smash_FM5,	$10, $00
 	smpsHeaderSFXChannel cPSG3, SndCB_Wall_Smash_PSG3,	$00, $00
 
 ; FM5 Data
@@ -34,7 +34,7 @@ SndCB_Wall_Smash_Voices:
 ;	$F9
 ;	$21, $30, $10, $32, 	$1F, $1F, $1F, $1F, 	$05, $18, $09, $02
 ;	$0B, $1F, $10, $05, 	$1F, $2F, $4F, $2F, 	$0E, $07, $04, $80
-	smpsVcAlgorithm     $01
+	smpsVcAlgorithm     $02
 	smpsVcFeedback      $07
 	smpsVcUnusedBits    $03
 	smpsVcDetune        $03, $01, $03, $02
