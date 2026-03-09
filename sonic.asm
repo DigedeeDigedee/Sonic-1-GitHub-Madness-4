@@ -4686,17 +4686,18 @@ M_Card_MZ:	spriteHeader	; MARBLE
 M_Card_MZ_End
 	even
 
-M_Card_SLZ:	spriteHeader	; STAR LIGHT
-	spritePiece	-$4C, -8, 2, 2, $3E, 0, 0, 0, 0	; S
-	spritePiece	-$3C, -8, 2, 2, $42, 0, 0, 0, 0	; T
-	spritePiece	-$2C, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	-$1C, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-
-	spritePiece	4, -8, 2, 2, $26, 0, 0, 0, 0	; L
-	spritePiece	$14, -8, 1, 2, $20, 0, 0, 0, 0	; I
-	spritePiece	$1C, -8, 2, 2, $18, 0, 0, 0, 0	; G
-	spritePiece	$2C, -8, 2, 2, $1C, 0, 0, 0, 0	; H
-	spritePiece	$3C, -8, 2, 2, $42, 0, 0, 0, 0	; T
+M_Card_SLZ:	; STAR LIGHT
+		dc.b 9	; MICROSLOP
+		dc.b $F8, $05, $00, $2A, $BB	; M
+		dc.b $F8, $01, $00, $20, $CC	; I
+		dc.b $F8, $05, $00, $08, $D4	; C
+		dc.b $F8, $05, $00, $3A, $E4	; R
+		dc.b $F8, $05, $00, $32, $F4	; O
+		dc.b $F8, $05, $00, $3E, $04	; S
+		dc.b $F8, $05, $00, $26, $14	; L
+		dc.b $F8, $05, $00, $32, $24	; O
+		dc.b $F8, $05, $00, $36, $34	; P
+		even
 M_Card_SLZ_End
 	even
 
