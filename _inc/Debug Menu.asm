@@ -215,7 +215,7 @@ Debugger_Data:
 		dc.b	$04,$00,(GameModeArray_End-GameModeArray)-4,$00		; step 4, range 0-8
 
 		dc.l	v_zone			; ZONE ID
-		dc.b	$01,$00,ZoneCount-1,$00		; step 1, range 0-5
+		dc.b	$01,$00,$08,$00		; step 1, range 0-5
 
 		dc.l	v_act			; ACT ID
 		dc.b	$01,$00,$02,$00		; step 1, range 0-2

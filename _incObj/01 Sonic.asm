@@ -1565,12 +1565,15 @@ Sonic_Drowned:
 
 
 Sonic_Loops:
-		cmpi.b	#id_SLZ,(v_zone).w ; is level SLZ ?
-		beq.s	.isstarlight	; if yes, branch
-		tst.b	(v_zone).w	; is level GHZ ?
-		bne.w	.noloops	; if not, branch
+;		cmpi.b	#id_SLZ,(v_zone).w ; is level SLZ ?
+;		beq.s	.isstarlight	; if yes, branch
+;		tst.b	(v_zone).w	; is level GHZ ?
+;		bne.w	.noloops	; if not, branch
+;
+;.isstarlight:
+; fuck you
+; uahhhhhhhh ahahhhhahashduab rubs my belly
 
-.isstarlight:
 		move.w	obY(a0),d0
 		lsr.w	#1,d0
 		andi.w	#$380,d0

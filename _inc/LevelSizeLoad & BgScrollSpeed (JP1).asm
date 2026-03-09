@@ -122,7 +122,8 @@ SetScr_WithinBottom:
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		lsl.b	#2,d0
-		move.l	LoopTileNums(pc,d0.w),(v_256loop1).w
+		lea	LoopTileNums,a0
+		move.l	(a0,d0.w),(v_256loop1).w
 		rts
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -145,8 +146,9 @@ LoopTileNums:
 		dc.b	$7F,	$7F,	$7F,	$7F	; Spring Yard
 		dc.b	$7F,	$7F,	$7F,	$7F	; Scrap Brain
 		zonewarning LoopTileNums,4
-		dc.b	$7F,	$7F,	$7F,	$7F	; Ending (Green Hill)
-
+		dc.b	$B5,	$7F,	$1F,	$20	; Ending (Green Hill)
+		dc.b	$B5,	$7F,	$1F,	$20	; BREW
+		dc.b	$AA,	$B4,	$7F,	$7F	; WIN
 		even
 
 ; ---------------------------------------------------------------------------
@@ -178,7 +180,8 @@ BgScroll_Index:	dc.w BgScroll_GHZ-BgScroll_Index, BgScroll_LZ-BgScroll_Index
 		dc.w BgScroll_MZ-BgScroll_Index, BgScroll_SLZ-BgScroll_Index
 		dc.w BgScroll_SYZ-BgScroll_Index, BgScroll_SBZ-BgScroll_Index
 		zonewarning BgScroll_Index,2
-		dc.w BgScroll_End-BgScroll_Index
+		dc.w BgScroll_End-BgScroll_Index, BgScroll_MZ-BgScroll_Index
+		dc.w BgScroll_MZ-BgScroll_Index
 ; ===========================================================================
 
 BgScroll_GHZ:

@@ -1997,6 +1997,8 @@ Pal_SBZ3:		bincludeEndMarker	"palette/SBZ Act 3.bin"
 Pal_SBZ3Water:		bincludeEndMarker	"palette/SBZ Act 3 Underwater.bin"
 Pal_LZSonWater:		bincludeEndMarker	"palette/Sonic - LZ Underwater.bin"
 Pal_SBZ3SonWat:		bincludeEndMarker	"palette/Sonic - SBZ3 Underwater.bin"
+Pal_BREW:		bincludeEndMarker	"palette/BREW Zone.bin"
+Pal_WIN:		bincludeEndMarker	"palette/WINDOWS Zone.bin"
 Pal_SSResult:		bincludeEndMarker	"palette/Special Stage Results.bin"
 Pal_Continue:		bincludeEndMarker	"palette/Special Stage Continue Bonus.bin"
 Pal_Ending:		bincludeEndMarker	"palette/Ending.bin"
@@ -2439,6 +2441,8 @@ MusicList:
 		dc.b bgm_SBZ	; SBZ
 		zonewarning MusicList,1
 		dc.b bgm_FZ	; Ending
+		dc.b bgm_FZ	; cold brew but use that in case you want to hijack music or something
+		dc.b bgm_FZ	; WIN98
 		even
 ; ===========================================================================
 
@@ -2797,8 +2801,9 @@ ColPointers:	dc.l Col_GHZ
 		dc.l Col_SYZ
 		dc.l Col_SBZ
 		zonewarning ColPointers,4
-;		dc.l Col_GHZ ; Pointer for Ending is missing by default.
-
+		dc.l Col_GHZ ; Pointer for Ending is missing by default.
+		dc.l Col_BREW
+		dc.l Col_WIN
 		include	"_inc/Oscillatory Routines.asm"
 
 ; ---------------------------------------------------------------------------
@@ -7530,6 +7535,19 @@ Blk256_SBZ:
 		even
 	endif
 
+Blk16_BREW:	binclude	"map16/BREW.eni"
+		even
+Nem_BREW:	binclude	"artnem/8x8 - BREW.nem"	; GHZ primary patterns
+		even
+Blk256_BREW:	binclude	"map256/BREW.kos"
+		even
+
+Blk16_WIN:	binclude	"map16/WIN.eni"
+		even
+Nem_WIN:	binclude	"artnem/8x8 - WIN.nem"	; WIN primary patterns
+		even
+Blk256_WIN:	binclude	"map256/WIN.kos"
+		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - bosses and ending sequence
 ; ---------------------------------------------------------------------------
@@ -7599,6 +7617,10 @@ Col_SLZ:	binclude	"collide/SLZ.bin"	; SLZ index
 Col_SYZ:	binclude	"collide/SYZ.bin"	; SYZ index
 		even
 Col_SBZ:	binclude	"collide/SBZ.bin"	; SBZ index
+		even
+Col_BREW:	binclude	"collide/BREW.bin"	; BREW index
+		even
+Col_WIN:	binclude	"collide/SLZ.bin"	; WIN index
 		even
 
 ; ---------------------------------------------------------------------------
@@ -7685,6 +7707,17 @@ Level_Index:
 		dc.w Level_End-Level_Index, Level_GHZbg-Level_Index, Level_EndUnk-Level_Index
 		dc.w Level_EndUnk-Level_Index, Level_EndUnk-Level_Index, Level_EndUnk-Level_Index
 		dc.w Level_EndUnk-Level_Index, Level_EndUnk-Level_Index, Level_EndUnk-Level_Index
+		; COLD BREW
+		dc.w Level_BREW1-Level_Index, Level_BREWbg-Level_Index, Level_BREW1Unk-Level_Index
+		dc.w Level_BREW2-Level_Index, Level_BREWbg-Level_Index, Level_BREW1Unk-Level_Index
+		dc.w Level_BREW3-Level_Index, Level_BREWbg-Level_Index, Level_BREW1Unk-Level_Index
+		dc.w Level_BREW1Unk-Level_Index, Level_BREW1Unk-Level_Index, Level_BREW1Unk-Level_Index
+		; WIN98
+		dc.w Level_WIN1-Level_Index, Level_WINbg-Level_Index, Level_WIN1Unk-Level_Index
+		dc.w Level_WIN2-Level_Index, Level_WINbg-Level_Index, Level_WIN1Unk-Level_Index
+		dc.w Level_WIN3-Level_Index, Level_WINbg-Level_Index, Level_WIN1Unk-Level_Index
+		dc.w Level_WIN1Unk-Level_Index, Level_WIN1Unk-Level_Index, Level_WIN1Unk-Level_Index
+
 
 Level_GHZ1:	binclude	"levels/ghz1.bin"
 		even
@@ -7771,6 +7804,24 @@ Level_SBZ4Unk:	dc.l 0
 Level_End:	binclude	"levels/ending.bin"
 		even
 Level_EndUnk:	dc.l 0
+Level_BREW1:	binclude	"levels/BREW1.bin"
+		even
+Level_BREWbg:	binclude	"levels/BREWbg.bin"
+		even
+Level_BREW2:	binclude	"levels/BREW2.bin"
+		even
+Level_BREW3:	binclude	"levels/BREW3.bin"
+		even
+Level_BREW1Unk:	dc.l 0
+Level_WIN1:	binclude	"levels/WIN1.bin"
+		even
+Level_WINbg:	binclude	"levels/WINbg.bin"
+		even
+Level_WIN2:	binclude	"levels/WIN2.bin"
+		even
+Level_WIN3:	binclude	"levels/WIN3.bin"
+		even
+Level_WIN1Unk:	dc.l 0
 
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics - Giant Rings
@@ -7826,6 +7877,16 @@ ObjPos_Index:
 		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		; --- Put extra object data here. ---
+		; BREW
+		dc.w ObjPos_BREW1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_BREW2-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_BREW3-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_BREW1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		; WIN
+		dc.w ObjPos_WIN1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_WIN2-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_WIN3-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_WIN1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 ObjPosLZPlatform_Index:
 		dc.w ObjPos_LZ1pf1-ObjPos_Index, ObjPos_LZ1pf2-ObjPos_Index
 		dc.w ObjPos_LZ2pf1-ObjPos_Index, ObjPos_LZ2pf2-ObjPos_Index
@@ -7943,7 +8004,18 @@ ObjPos_SBZ1pf6:	binclude	"objpos/sbz1pf6.bin"
 
 ObjPos_End:	binclude	"objpos/ending.bin"
 		even
-
+ObjPos_BREW1:	binclude	"objpos/BREW1.bin"
+		even
+ObjPos_BREW2:	binclude	"objpos/BREW2.bin"
+		even
+ObjPos_BREW3:	binclude	"objpos/BREW3.bin"
+		even
+ObjPos_WIN1:	binclude	"objpos/WIN1.bin"
+		even
+ObjPos_WIN2:	binclude	"objpos/WIN2.bin"
+		even
+ObjPos_WIN3:	binclude	"objpos/WIN3.bin"
+		even
 ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 
 		; SoundDriver starts at $71990 in all revisions, which amounts
