@@ -441,7 +441,8 @@ ptr_GM_SegaEU:		dc.l	GM_ColdBrew		; Sega Screen EU ($24)
 ptr_GM_DebugMode:	dc.l	GM_DebugMenu		; Debug Menu ($28)
 ptr_GM_ThanatosCredits:	dc.l	GM_ThanatosCredits	; Credits - Thanatos ver. ($2C)
 ptr_GM_ButtcrackMan:	dc.l	GM_ButtcrackMan		; BUTTCRACK MAN ($30)
-ptr_GM_CNNicoJump:	dc.l	GM_CNNicoJump	; CN Logo ($32)
+ptr_GM_CNNicoJump:	dc.l	GM_CNNicoJump	; CN Logo ($34)
+ptr_GM_TryAgainEnd:	dc.l	TryAgainEnd	; Testable TRY AGAIN/END screen ($38)
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -3890,9 +3891,10 @@ TryAg_MainLoop:
 		jsr	(BuildSprites).l
 		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
 		bne.s	TryAg_Exit	; if yes, branch
+		cmpi.b	#id_TryAgainEnd,(v_gamemode).w	; is this mode the testable version?
+		beq.s	TryAg_MainLoop	; if yes, loop infinitely
 		tst.w	(v_generictimer).w ; has 30 seconds elapsed?
 		beq.s	TryAg_Exit	; if yes, branch
-;		cmpi.b	#id_Credits,(v_gamemode).w
 		bra.s	TryAg_MainLoop
 
 TryAg_Exit:

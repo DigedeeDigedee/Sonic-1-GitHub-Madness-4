@@ -80,6 +80,9 @@ id_ColdBrew:	equ ptr_GM_ColdBrew-GameModeArray; $20
 id_SegaEU:	equ ptr_GM_SegaEU-GameModeArray; $24
 id_DebugMenu:	equ ptr_GM_DebugMode-GameModeArray; $28
 id_Thanatos:	equ ptr_GM_ThanatosCredits-GameModeArray; $2C
+; insert $30 here
+id_CNNico:	equ ptr_GM_CNNicoJump-GameModeArray; $34
+id_TryAgainEnd:	equ ptr_GM_TryAgainEnd-GameModeArray; $38
 
 ; Levels
 id_GHZ:		equ 0

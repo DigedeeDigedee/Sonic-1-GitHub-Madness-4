@@ -189,7 +189,6 @@ DebuggerMenu_LoadGame:
 		moveq	#0,d0
 		move.l	d0,(v_score).w	; clear score
 		move.b	d0,(v_lastspecial).w ; clear special stage number
-		move.b	d0,(v_emeralds).w ; clear emeralds
 		move.l	d0,(v_emldlist).w ; clear emeralds
 		move.l	d0,(v_emldlist+4).w ; clear emeralds
 		move.b	d0,(v_continues).w ; clear continues		
