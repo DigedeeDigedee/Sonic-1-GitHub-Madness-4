@@ -108,7 +108,8 @@ Saw_Action:	; Routine 2
 		bne.s	.nosound02
 		move.w	#sfx_Saw,d0
 		jsr	(QueueSound2).l		; play saw sound
-
+		pcm 	dEggNo
+		
 .nosound02:
 		rts
 ; ===========================================================================

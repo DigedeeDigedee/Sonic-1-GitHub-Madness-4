@@ -2111,7 +2111,15 @@ Sega_WaitEnd:
 
 Sega_GotoTitle:
 		move.b	#id_Title,(v_gamemode).w ; go to title screen
+
+		btst	#bitA|bitB|bitC,(v_jpadhold1).w
+		beq.s	.skip
+
 		jmp	RunSplashes		; i have a million oil im the best  tru  ckdriver in the world
+
+.skip
+		pcm 	dEggNo
+		rts				; skip splash screens with heavy
 ; ===========================================================================
 
 
@@ -6293,6 +6301,7 @@ Map_TryAgain:	include	"_maps/TryAgainFont.asm"
 
 
 BossDefeated:
+		pcm 	dDoYouSuck
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#7,d0
 		bne.s	locret_178A2
