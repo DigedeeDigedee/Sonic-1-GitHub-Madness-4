@@ -97,8 +97,14 @@ dbugmenuScrCnt	= $FFFFF764
 dbugmenuCos	= $FFFFF768
 dbugmenuFactor	= $FFFFF76C	; mul. factor
 dbugmenuFlag	= $FFFFF770	
+dbugmenuFlag2	= $FFFFF771
+
 _dbugmenuSineSlide:
         lea     v_hscrolltablebuffer,a1
+	eor.b	#1,dbugmenuFlag2
+	bne.s	.lol	
+	add.w	#4,a1
+.lol
         add.l   #$6000,dbugmenuScrCnt.w
         moveq   #240/4,d7
         moveq   #0,d2
