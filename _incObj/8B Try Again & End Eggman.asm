@@ -18,6 +18,8 @@ eegg_time = objoff_30		; time between juggle motions
 ; ===========================================================================
 
 EEgg_Main:	; Routine 0
+		cmpi.b	#6,(v_emeralds).w ; do you have all 6 emeralds?
+		beq.s	EEgg_DIE	; if yes, branch
 		addq.b	#2,obRoutine(a0)
 		move.w	#$120-$20,obX(a0)
 		move.w	#$F4,obScreenY(a0)
@@ -25,10 +27,6 @@ EEgg_Main:	; Routine 0
 		move.w	#make_art_tile(ArtTile_Try_Again_Eggman,0,0),obGfx(a0)
 		move.b	#0,obRender(a0)
 		move.b	#2,obPriority(a0)
-		move.b	#2,obAnim(a0)	; use "END" animation
-		cmpi.b	#6,(v_emeralds).w ; do you have all 6 emeralds?
-		beq.s	EEgg_Animate	; if yes, branch
-
 		move.b	#id_CreditsText,(v_tryagain).w ; load credits object
 		move.b	#4,(v_tryagain+obRoutine).w ; load credits object
 		move.w	#9,(v_creditsnum).w ; use "TRY AGAIN" text
@@ -39,6 +37,13 @@ EEgg_Animate:	; Routine 2
 		lea	(Ani_EEgg).l,a1
 		jmp	(AnimateSprite).l
 ; ===========================================================================
+
+EEgg_DIE:
+		move.b	#id_CreditsText,(v_tryagain).w ; load credits object
+		move.b	#4,(v_tryagain+obRoutine).w ; load credits object
+		move.b	#1,(v_tryagain+obSubtype).w ; load credits object
+		jsr		(DeleteObject).l
+		rts
 
 EEgg_Juggle:	; Routine 4
 		addq.b	#2,obRoutine(a0)
