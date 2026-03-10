@@ -29,17 +29,10 @@ TitleCard_MZ2:	equ  "ALBERTA CANADINA"
 TitleCard_MZ3:	equ  "GARBLE"
 TitleCard_MZ4:	equ  "porn"
 
-<<<<<<< HEAD
-TitleCard_SYZ1:	equ  "SPRING YARD"
-TitleCard_SYZ2:	equ  "SPRING YARD"
-TitleCard_SYZ3:	equ  "PRING YARD"
-TitleCard_SYZ4:	equ  "SPRINGTARD"
-=======
 TitleCard_SYZ1:	equ  "SPRING FIELD"
 TitleCard_SYZ2:	equ  "SPRING FIELD"
 TitleCard_SYZ3:	equ  "HOMERS"
 TitleCard_SYZ4:	equ  "porn"
->>>>>>> 1ac8ec0 (goblins)
 
 TitleCard_LZ1:	equ  "WATERLOGGED"
 TitleCard_LZ2:	equ  "WATERLOGGED"
