@@ -21,11 +21,11 @@ Remilia:
 
 	lea	($FF0000), a1 ; load background here
 	lea	.Mappings, a0
-	move.w #320, d0
+	move.w	#320, d0
 	jsr	EniDec.w
 
 	lea	($FF0000), a1
-	move.l	#$60000003, d0
+	move.l	#$40000003, d0
 	moveq	#39, d1
 	moveq	#30, d2
 	jsr   	TilemapToVRAM 	; mappings -> vram
