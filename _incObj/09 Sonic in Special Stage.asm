@@ -477,6 +477,7 @@ Obj09_GetCont:
 		addq.b	#1,(v_continues).w ; add 1 to number of continues
 		move.w	#sfx_Continue,d0
 		jsr	(QueueSound1).l	; play extra continue sound
+		pcm 	dOnTheBall
 
 Obj09_NoCont:
 		moveq	#0,d4

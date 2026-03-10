@@ -141,6 +141,7 @@ SSR_Continue:	; Routine $E
 		move.b	#$14,(v_ssrescontinue+obRoutine).w
 		move.w	#sfx_Continue,d0
 		jsr	(QueueSound2).l	; play continues jingle
+		pcm 	dOnTheBall
 		addq.b	#2,obRoutine(a0)
 		move.w	#360,obTimeFrame(a0) ; set time delay to 6 seconds
 		bra.w	DisplaySprite
