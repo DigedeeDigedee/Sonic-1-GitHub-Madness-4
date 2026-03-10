@@ -1,23 +1,23 @@
-Basillica_Header:
+BasillicaSD_Header:
 	smpsHeaderStartSong 1
-	smpsHeaderVoice     Basillica_Voices
+	smpsHeaderVoice     BasillicaSD_Voices
 	smpsHeaderChan      $06, $02
 	smpsHeaderTempo     $01, $00
 
-	smpsHeaderDAC       Basillica_DAC
-	smpsHeaderFM        Basillica_FM1,	$00, $00
-	smpsHeaderFM        Basillica_FM3,	$0C, $00
-	smpsHeaderFM        Basillica_FM3,	$00, $00
-	smpsHeaderFM        Basillica_FM4,	$00, $00
-	smpsHeaderFM        Basillica_FM5,	$00, $00
-	smpsHeaderPSG       Basillica_PSG1,	$00, $00, $00, $00
-	smpsHeaderPSG       Basillica_PSG2,	$00, $00, $00, $00
+	smpsHeaderDAC       BasillicaSD_DAC
+	smpsHeaderFM        BasillicaSD_FM1,	$00, $00
+	smpsHeaderFM        BasillicaSD_FM3,	$0C, $00
+	smpsHeaderFM        BasillicaSD_FM3,	$00, $00
+	smpsHeaderFM        BasillicaSD_FM4,	$00, $00
+	smpsHeaderFM        BasillicaSD_FM5,	$00, $00
+	smpsHeaderPSG       BasillicaSD_PSG1,	$00, $00, $00, $00
+	smpsHeaderPSG       BasillicaSD_PSG2,	$00, $00, $00, $00
 
-Basillica_FM5:
+BasillicaSD_FM5:
 	smpsStop
 
 ; FM1 Data
-Basillica_FM1:
+BasillicaSD_FM1:
 	smpsSetvoice        $00
 	smpsAlterVol        $05
 	smpsPan             panCenter, $00
@@ -41,27 +41,27 @@ Basillica_FM1:
 	smpsAlterNote       $00
 	dc.b	$0C
 
-Basillica_Loop0E:
+BasillicaSD_Loop0E:
 	dc.b	nF2, $18, nF3, $06, nRst, nFs2, $0C, nG2, $18
 	smpsAlterNote       $FF
 	dc.b	nG3, $06, nRst
 	smpsAlterNote       $00
 	dc.b	nBb2, $0C, nC3, $18, nC4, $06, nRst, nEb3, nD3, nC3, $0C, nC4
 	dc.b	nD3, nEb4
-	smpsLoop            $00, $08, Basillica_Loop0E
+	smpsLoop            $00, $08, BasillicaSD_Loop0E
 	dc.b	nF2, $01
 
-Basillica_Jump03:
+BasillicaSD_Jump03:
 	dc.b	smpsNoAttack, nF2, $17
 
-Basillica_Loop0F:
+BasillicaSD_Loop0F:
 	dc.b	nF3, $06, nRst, nFs2, $0C, nG2, $18
 	smpsAlterNote       $FF
 	dc.b	nG3, $06, nRst
 	smpsAlterNote       $00
 	dc.b	nBb2, $0C, nC3, $18, nC4, $06, nRst, nEb3, nD3, nC3, $0C, nC4
 	dc.b	nD3, nEb4, nF2, $18
-	smpsLoop            $00, $07, Basillica_Loop0F
+	smpsLoop            $00, $07, BasillicaSD_Loop0F
 	dc.b	nF3, $06, nRst, nFs2, $0C, nG2, $18
 	smpsAlterNote       $FF
 	dc.b	nG3, $06, nRst
@@ -69,10 +69,10 @@ Basillica_Loop0F:
 	dc.b	nBb2, $0C, nC3, $18, nC4, $06, nRst, nEb3, nD3, nC3, $0C, nC4
 	dc.b	nD3, nEb4, nF2, $01
 	smpsPan             panCenter, $00
-	smpsJump            Basillica_Jump03
+	smpsJump            BasillicaSD_Jump03
 
 ; FM3 Data
-Basillica_FM3:
+BasillicaSD_FM3:
 	smpsSetvoice        $02
 	smpsAlterVol        $0D
 	smpsPan             panCenter, $00
@@ -115,12 +115,12 @@ Basillica_FM3:
 	smpsAlterNote       $00
 	dc.b	nF3, nEb3, nC3, nAb2, nA2, nBb2, nB2, nC3, nD3, nEb3, nF3
 
-Basillica_Loop0C:
+BasillicaSD_Loop0C:
 	smpsAlterNote       $FF
 	dc.b	nG3
 	smpsAlterNote       $00
 	dc.b	nF3, nEb3, nC3
-	smpsLoop            $00, $02, Basillica_Loop0C
+	smpsLoop            $00, $02, BasillicaSD_Loop0C
 	dc.b	nAb2, nA2, nBb2, nB2, nC3, nD3, nEb3, nF3, nC3, $0C, $06, nC4
 	dc.b	$0C, $06, nBb3, $0C, nC3, nC3, $06
 	smpsAlterNote       $FF
@@ -148,7 +148,7 @@ Basillica_Loop0C:
 	smpsAlterVol        $03
 	dc.b	nG3, $01
 
-Basillica_Jump02:
+BasillicaSD_Jump02:
 	dc.b	smpsNoAttack, nG3, $05
 	smpsAlterNote       $00
 	dc.b	nAb3, $1E
@@ -184,12 +184,12 @@ Basillica_Jump02:
 	smpsAlterNote       $00
 	dc.b	nF3, nEb3, nC3, nAb2, nA2, nBb2, nB2, nC3, nD3, nEb3, nF3
 
-Basillica_Loop0D:
+BasillicaSD_Loop0D:
 	smpsAlterNote       $FF
 	dc.b	nG3
 	smpsAlterNote       $00
 	dc.b	nF3, nEb3, nC3
-	smpsLoop            $00, $02, Basillica_Loop0D
+	smpsLoop            $00, $02, BasillicaSD_Loop0D
 	dc.b	nAb2, nA2, nBb2, nB2, nC3, nD3, nEb3, nF3, nC3, $0C, $06, nC4
 	dc.b	$0C, $06, nBb3, $0C, nC3, nC3, $06
 	smpsAlterNote       $FF
@@ -217,10 +217,10 @@ Basillica_Loop0D:
 	smpsAlterVol        $03
 	dc.b	nG3, $01
 	smpsPan             panCenter, $00
-	smpsJump            Basillica_Jump02
+	smpsJump            BasillicaSD_Jump02
 
 ; FM4 Data
-Basillica_FM4:
+BasillicaSD_FM4:
 	smpsSetvoice        $02
 	smpsAlterVol        $0D
 	smpsPan             panCenter, $00
@@ -506,29 +506,29 @@ Basillica_FM4:
 	smpsAlterNote       $00
 	dc.b	$42, nRst
 
-Basillica_Loop0A:
+BasillicaSD_Loop0A:
 	dc.b	$7F
-	smpsLoop            $00, $0C, Basillica_Loop0A
+	smpsLoop            $00, $0C, BasillicaSD_Loop0A
 	dc.b	$6D
 
-Basillica_Jump01:
+BasillicaSD_Jump01:
 	dc.b	nRst
 
-Basillica_Loop0B:
+BasillicaSD_Loop0B:
 	dc.b	$7F
-	smpsLoop            $00, $0C, Basillica_Loop0B
+	smpsLoop            $00, $0C, BasillicaSD_Loop0B
 	dc.b	$0C
 	smpsPan             panCenter, $00
-	smpsJump            Basillica_Jump01
+	smpsJump            BasillicaSD_Jump01
 
 ; PSG1 Data
-Basillica_PSG1:
+BasillicaSD_PSG1:
 	dc.b	nRst, $7F, $7F, $7F, $03
 	smpsPSGAlterVol     $02
 
-Basillica_Loop12:
+BasillicaSD_Loop12:
 	dc.b	nG2, $0C, nG1
-	smpsLoop            $00, $04, Basillica_Loop12
+	smpsLoop            $00, $04, BasillicaSD_Loop12
 	dc.b	nEb2
 	smpsAlterNote       $01
 	dc.b	nEb1
@@ -539,14 +539,14 @@ Basillica_Loop12:
 	dc.b	nEb1
 	smpsAlterNote       $00
 	dc.b	nEb2, $12, nF2, $06, nG2, $0C, nF2, nEb2, nC2
-	smpsJump            Basillica_Loop12
+	smpsJump            BasillicaSD_Loop12
 
 ; PSG2 Data
-Basillica_PSG2:
+BasillicaSD_PSG2:
 	dc.b	nRst, $7F, $7F, $7F, $03
 	smpsPSGAlterVol     $03
 
-Basillica_Loop10:
+BasillicaSD_Loop10:
 	dc.b	nEb2, $0C, nC2, nEb2, nC2, nD2, nB1, nD2, nB1, nC2
 	smpsAlterNote       $01
 	dc.b	nC1
@@ -557,17 +557,17 @@ Basillica_Loop10:
 	dc.b	nC1
 	smpsAlterNote       $00
 	dc.b	nC2, $12, nD2, $06, nEb2, $0C, nD2, nC2, nG1
-	smpsJump            Basillica_Loop10
+	smpsJump            BasillicaSD_Loop10
 
 ; DAC Data
-Basillica_DAC:
+BasillicaSD_DAC:
 	dc.b 	nRst,$7F,$7F,$22,$C,dHiTimpani, dLowTimpani, dHiTimpani, dLowTimpani
 	dc.b	$6,dLowTimpani,dSnare,$C,dSnare,dSnare,$6,$6
-Basillica_Jump00:
+BasillicaSD_Jump00:
 	dc.b	dKick,$6,dLowTimpani,dLowTimpani,dKick,dSnare,dKick,dVLowTimpani,$C
-	smpsJump            Basillica_Jump00
+	smpsJump            BasillicaSD_Jump00
 
-Basillica_Voices:
+BasillicaSD_Voices:
 ;	$08
 ;	$04, $70, $30, $02, 	$1F, $1F, $5F, $5F, 	$12, $0E, $0A, $0A
 ;	$00, $04, $04, $03, 	$2F, $2F, $2F, $2F, 	$23, $30, $13, $00
