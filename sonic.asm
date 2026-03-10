@@ -2589,12 +2589,6 @@ Level_ChkDebug:
 Level_ChkWater:
 		move.w	#0,(v_jpadhold2).w
 		move.w	#0,(v_jpadhold1).w
-		cmpi.b	#id_LZ,(v_zone).w ; is level LZ?
-		bne.s	Level_LoadObj	; if not, branch
-		move.b	#id_WaterSurface,(v_watersurface1).w ; load water surface object
-		move.w	#$60,(v_watersurface1+obX).w
-		move.b	#id_WaterSurface,(v_watersurface2).w
-		move.w	#$120,(v_watersurface2+obX).w
 
 Level_LoadObj:
 		jsr	(ObjPosLoad).l

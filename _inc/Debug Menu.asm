@@ -376,7 +376,7 @@ RenderZoneName:
 		move.w	(a1,d0.w),d0
 		lea	ZoneNameTable(pc),a1
 		adda.w	d0,a1
-		moveq	#11,d2			; 12 chars
+		moveq	#15,d2			; 12 chars
 		bra.w	SingleLineRender
 
 .unknown:
@@ -393,15 +393,15 @@ ZoneNameTable:
 		dc.w	ZoneName_MSZ-ZoneNameTable
 		dc.w	ZoneName_ABC-ZoneNameTable
 
-ZoneName_GHZ:	dc.b	"GREEN HILL  "
-ZoneName_LZ:	dc.b	"LABYRINTH   "
-ZoneName_MZ:	dc.b	"MARBLE      "
-ZoneName_SLZ:	dc.b	"SPRING YARD "
-ZoneName_SYZ:	dc.b	"SCRAP BRAIN "
-ZoneName_SBZ:	dc.b	"FINAL       "
-ZoneName_End:	dc.b	"ENDING      "
-ZoneName_MSZ:	dc.b	"ZONE ID 7   "
-ZoneName_ABC:	dc.b	"ZONE ID 8   "
+ZoneName_GHZ:	dc.b	"PENILE HILLS    "
+ZoneName_LZ:	dc.b	"AZURE RAINFOREST"
+ZoneName_MZ:	dc.b	"ALBERTA CANADA  "
+ZoneName_SLZ:	dc.b	"MICROSLOP HQ    "
+ZoneName_SYZ:	dc.b	"SPRING YARD     "
+ZoneName_SBZ:	dc.b	"SCRAP BRAIN     "
+ZoneName_End:	dc.b	"ENDING          "
+ZoneName_MSZ:	dc.b	"COLD BREW       "
+ZoneName_ABC:	dc.b	"WINDOWS         "
 		even
 
 ; ---------------------------------------------------------------------------

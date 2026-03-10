@@ -495,7 +495,7 @@ ArtTile_LZ_Block_1:		equ $1E0
 ArtTile_LZ_Block_2:		equ $1F0
 ArtTile_LZ_Splash:		equ $259
 ArtTile_LZ_Gargoyle:		equ $2E9
-ArtTile_LZ_Water_Surface:	equ $300
+ArtTile_LZ_Water_Surface:	equ $3E6
 ArtTile_LZ_Spikeball_Chain:	equ $310
 ArtTile_LZ_Flapping_Door:	equ $328
 ArtTile_LZ_Bubbles:		equ $348
@@ -504,7 +504,7 @@ ArtTile_LZ_Door:		equ $3C4
 ArtTile_LZ_Harpoon:		equ $3CC
 ArtTile_LZ_Pole:		equ $3DE
 ArtTile_LZ_Push_Block:		equ $3DE
-ArtTile_LZ_Blocks:		equ $3E6
+ArtTile_LZ_Blocks:		equ $310
 ArtTile_LZ_Conveyor_Belt:	equ $3F6
 ArtTile_LZ_Sonic_Drowning:	equ $440
 ArtTile_LZ_Rising_Platform:	equ ArtTile_LZ_Blocks+$69
