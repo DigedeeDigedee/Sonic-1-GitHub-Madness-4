@@ -96,22 +96,47 @@ dbugmenuSinCntr	= $FFFFF760	; sine info
 dbugmenuScrCnt	= $FFFFF764      
 dbugmenuCos	= $FFFFF768
 dbugmenuFactor	= $FFFFF76C	; mul. factor
-
+dbugmenuFlag	= $FFFFF770	
 _dbugmenuSineSlide:
         lea     v_hscrolltablebuffer,a1
         add.l   #$6000,dbugmenuScrCnt.w
         moveq   #240/4,d7
         moveq   #0,d2
+
+	btst.b	#0,dbugmenuFlag
+	bne.s	.Decrement
+
         add.l	#$9000,dbugmenuFactor
         move.w  dbugmenuFactor,d2
-        andi.w	#$FF,dbugmenuFactor
-        move.w	#0,dbugmenuSinCntr.w
+        cmpi.w	#$FF,dbugmenuFactor
+        blt.s	.Ok
+       	add.b	#1,dbugmenuFlag
+       	bra.s	.Ok
+
+.Decrement
+        sub.l	#$9000,dbugmenuFactor
+        move.w  dbugmenuFactor,d2
+        cmpi.w	#-$FF,dbugmenuFactor
+        bgt.s	.Ok
+       	add.b	#1,dbugmenuFlag
+.Ok
+	move.w	#0,dbugmenuSinCntr.w
 
 .ScrLoop:
 	add.w   #1,dbugmenuSinCntr.w
        	move.w  dbugmenuSinCntr.w,d0
         jsr     CalcSine
         mulu.w  d2,d0
+        move.w	d2,d3
+        asr.w	#3,d3
+        add.w	d2,d3
+        asr.w   #7,d0
+        move.w  #0,(a1)+
+        move.w  d0,(a1)+
+	add.w   #1,dbugmenuSinCntr.w
+       	move.w  dbugmenuSinCntr.w,d0
+        jsr     CalcSine
+        mulu.w  d3,d0
         asr.w   #7,d0
         move.w  #0,(a1)+
         move.w  d0,(a1)+
@@ -125,14 +150,7 @@ _dbugmenuSineSlide:
 	add.w   #1,dbugmenuSinCntr.w
        	move.w  dbugmenuSinCntr.w,d0
         jsr     CalcSine
-        mulu.w  d2,d0
-        asr.w   #7,d0
-        move.w  #0,(a1)+
-        move.w  d0,(a1)+
-	add.w   #1,dbugmenuSinCntr.w
-       	move.w  dbugmenuSinCntr.w,d0
-        jsr     CalcSine
-        mulu.w  d2,d0
+        mulu.w  d3,d0
         asr.w   #7,d0
         move.w  #0,(a1)+
         move.w  d0,(a1)+
