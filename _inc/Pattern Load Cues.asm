@@ -48,6 +48,7 @@ ptr_PLC_Ending:		dc.w PLC_Ending-ArtLoadCues
 ptr_PLC_TryAgain:	dc.w PLC_TryAgain-ArtLoadCues
 ptr_PLC_EggmanSBZ2:	dc.w PLC_EggmanSBZ2-ArtLoadCues
 ptr_PLC_FZBoss:		dc.w PLC_FZBoss-ArtLoadCues
+ptr_PLC_WINNERCard:	dc.w PLC_WINNERCard-ArtLoadCues
 
 plcm:	macro gfx,vram
 		dc.l gfx
@@ -441,6 +442,12 @@ PLC_FZBoss:	dc.w ((PLC_FZBossend-PLC_FZBoss-2)/6)-1
 		plcm	Nem_Sbz2Eggman, ArtTile_FZ_Eggman_No_Vehicle ; Eggman without ship
 		plcm	Nem_Exhaust,    ArtTile_Eggman_Exhaust       ; exhaust flame
 PLC_FZBossend:
+; ---------------------------------------------------------------------------
+; Pattern load cues - WINNER card
+; ---------------------------------------------------------------------------
+PLC_WINNERCard:	dc.w ((PLC_WINNERCardend-PLC_WINNERCard-2)/6)-1
+		plcm	Nem_WINNERCard, ArtTile_Title_Card
+PLC_WINNERCardend:
 
 ; ---------------------------------------------------------------------------
 ; Pattern load cue IDs
@@ -481,9 +488,9 @@ plcid_SBZAnimals:	equ (ptr_PLC_SBZAnimals-ArtLoadCues)/2	; $1A
 plcid_ENDZAnimals:	equ (ptr_PLC_ENDZAnimals-ArtLoadCues)/2	; $19
 plcid_BREWAnimals:	equ (ptr_PLC_BREWAnimals-ArtLoadCues)/2	; $1A
 plcid_WINAnimals:	equ (ptr_PLC_WINAnimals-ArtLoadCues)/2	; $19
-
 plcid_SSResult:		equ (ptr_PLC_SSResult-ArtLoadCues)/2	; $1B
 plcid_Ending:		equ (ptr_PLC_Ending-ArtLoadCues)/2	; $1C
 plcid_TryAgain:		equ (ptr_PLC_TryAgain-ArtLoadCues)/2	; $1D
 plcid_EggmanSBZ2:	equ (ptr_PLC_EggmanSBZ2-ArtLoadCues)/2	; $1E
 plcid_FZBoss:		equ (ptr_PLC_FZBoss-ArtLoadCues)/2	; $1F
+plcid_WINNERCard:	equ (ptr_PLC_WINNERCard-ArtLoadCues)/2	; $10

@@ -149,7 +149,7 @@ GotThroughAct:
 		clr.b	(v_invinc).w	; disable invincibility
 		clr.b	(f_timecount).w	; stop time counter
 		move.b	#id_GotThroughCard,(v_endcard).w
-		moveq	#plcid_TitleCard,d0
+		moveq	#plcid_WINNERCard,d0
 		jsr	(NewPLC).l	; load title card patterns
 		move.b	#1,(f_endactbonus).w
 		moveq	#0,d0
