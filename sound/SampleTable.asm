@@ -35,9 +35,15 @@ SampleTable:
 	dcSample	TYPE_PCM,	CL_OnTheBall,	11297,			; $9E
 	dcSample	TYPE_PCM,	Penises,	11297,			; $9F
 	dcSample	TYPE_PCM,	EggNo,		11297,			; $A0
-
+	dcSample	TYPE_PCM,	Amen_Snare1,	0			; $A1
+	dcSample	TYPE_PCM,	Amen_Snare2,	0			; $A2
+	dcSample	TYPE_PCM,	Amen_ShortKick1,0			; $A3
+	dcSample	TYPE_PCM,	Amen_ShortKick2,0			; $A4
+	dcSample	TYPE_PCM,	Amen_Ride1,	0			; $A5
+	dcSample	TYPE_PCM,	Amen_Ride2,	0			; $A6
+	dcSample	TYPE_PCM,	Amen_Crash,	0			; $A7
 	; Keep this as the last sample pls (and make sure to add a sample constant to _smps2asm.asm
-	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0, FLAGS_SFX		; $A1
+	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0, FLAGS_SFX		; $A8
 	dc.w	-1	; end marker
 
 ; ---------------------------------------------------------------
@@ -72,3 +78,14 @@ SampleTable:
 	incdac	BlueLobster, "sound/dac/splashes/BlueLobster.wav"
 	incdac	WinTwoK, "sound/dac/splashes/WinTwoK.wav"
 	incdac	DeppaDig, "sound/dac/splashes/DeppaDig.wav"
+; ---------------------------------------------------------------
+; Amen Breaks -  for use in songs (sampled from cw_amen_classic on rhythmlab) ported by Saneway
+	incdac	Amen_Kick, "sound/dac/amenbreak/kick.wav"
+	incdac	Amen_Snare1, "sound/dac/amenbreak/snare1.wav"
+	incdac	Amen_Snare2, "sound/dac/amenbreak/snare2.wav"
+	incdac	Amen_ShortKick1, "sound/dac/amenbreak/shortkick1.wav"
+	incdac	Amen_ShortKick2, "sound/dac/amenbreak/shortkick2.wav"
+	incdac	Amen_Ride1, "sound/dac/amenbreak/ride1.wav"
+	incdac	Amen_Ride2, "sound/dac/amenbreak/ride2.wav"
+	incdac	Amen_Crash, "sound/dac/amenbreak/crash.wav"
+; ---------------------------------------------------------------
