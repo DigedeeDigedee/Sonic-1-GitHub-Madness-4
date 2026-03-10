@@ -270,6 +270,7 @@ bgm_ChickenDance:	equ ((ptr_mus3C-MusicIndex)/4)+bgm__First
 bgm_CanCan:	equ ((ptr_mus3D-MusicIndex)/4)+bgm__First
 bgm_BadEmerald:	equ ((ptr_mus3E-MusicIndex)/4)+bgm__First
 bgm_SkyBase:	equ ((ptr_mus3F-MusicIndex)/4)+bgm__First
+bgm_UNOwenWasHer:	equ ((ptr_mus40-MusicIndex)/4)+bgm__First
 bgm_Scrappy:	equ ((ptr_mus41-MusicIndex)/4)+bgm__First
 bgm_WeAreTheSonic:	equ ((ptr_mus42-MusicIndex)/4)+bgm__First
 bgm_LG:		equ ((ptr_mus43-MusicIndex)/4)+bgm__First
