@@ -223,7 +223,7 @@ ptr_mus44:		dc.l Music44
 ptr_mus45:		dc.l Music45
 ptr_mus46:		dc.l Music46
 ptr_mus47:		dc.l Music47
-ptr_mus48:		dc.l Music48
+;ptr_mus48:		dc.l Music48
 ;ptr_mus49:		dc.l Music49
 ;ptr_mus4A:		dc.l Music4A
 ;ptr_mus4B:		dc.l Music4B
@@ -2972,8 +2972,8 @@ Music46:	include	"sound/music/HS_Tracks/Basillica.asm"
 		even ; oof
 Music47:	include	"sound/music/HS_Tracks/Basillica S1 Drums.asm"
 		even ; oof
-Music48:	include	"sound/music/HS_Tracks/GCV2005.asm"
-		even
+;Music48:	include	"sound/music/HS_Tracks/GCV2005.asm"
+;		even
 ; ---------------------------------------------------------------------------
 ; Sound effect pointers
 ; ---------------------------------------------------------------------------
