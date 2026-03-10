@@ -4468,6 +4468,8 @@ Map_MisDissolve:include	"_maps/Buzz Bomber Missile Dissolve.asm"
 Map_Animal1:	include	"_maps/Animals 1.asm"
 Map_Animal2:	include	"_maps/Animals 2.asm"
 Map_Animal3:	include	"_maps/Animals 3.asm"
+Map_Animal4:	include	"_maps/Animals 4.asm"
+Map_Animal5:	include	"_maps/Animals 5.asm"
 Map_Poi:	include	"_maps/Points.asm"
 
 		include	"_incObj/1F Crabmeat.asm"
@@ -7401,7 +7403,8 @@ Nem_Flicky:	binclude	"artnem/Animal Flicky.nem"
 		even
 Nem_Squirrel:	binclude	"artnem/Animal Squirrel.nem"
 		even
-
+Nem_Rin:	binclude	"artnem/Animal Rin.nem"
+		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - primary patterns and block mappings
 ; ---------------------------------------------------------------------------

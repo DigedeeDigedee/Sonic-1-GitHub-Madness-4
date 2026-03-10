@@ -8,19 +8,34 @@ Animals:
 		move.w	Anml_Index(pc,d0.w),d1
 		jmp	Anml_Index(pc,d1.w)
 ; ===========================================================================
-Anml_Index:	dc.w Anml_Ending-Anml_Index, loc_912A-Anml_Index
-		dc.w loc_9184-Anml_Index, loc_91C0-Anml_Index
-		dc.w loc_9184-Anml_Index, loc_9184-Anml_Index
-		dc.w loc_9184-Anml_Index, loc_91C0-Anml_Index
-		dc.w loc_9184-Anml_Index, loc_9240-Anml_Index
-		dc.w loc_9260-Anml_Index, loc_9260-Anml_Index
-		dc.w loc_9280-Anml_Index, loc_92BA-Anml_Index
-		dc.w loc_9314-Anml_Index, loc_9332-Anml_Index
-		dc.w loc_9314-Anml_Index, loc_9332-Anml_Index
-		dc.w loc_9314-Anml_Index, loc_9370-Anml_Index
-		dc.w loc_92D6-Anml_Index
+Anml_Index:
+		dc.w Anml_Ending-Anml_Index
+		dc.w loc_912A-Anml_Index	; Anml_ChkFloor (from hivebrain's 2022 disassembly)
+		; ANIMALS FROM A BROKEN BADNIK
+		dc.w loc_9184-Anml_Index	; FLICKY
+		dc.w loc_91C0-Anml_Index	; CUCKY
+		dc.w loc_9184-Anml_Index	; PECKY
+		dc.w loc_9184-Anml_Index	; ROCKY
+		dc.w loc_9184-Anml_Index	; PICKY
+		dc.w loc_91C0-Anml_Index	; POCKY
+		dc.w loc_9184-Anml_Index	; RICKY
+		dc.w loc_91C0-Anml_Index	; RIN
+Anml_BadnikIndexEnd:
+		dc.w loc_9240-Anml_Index ; Anml_FromPrison (from hivebrain's 2022 disassembly)
+		dc.w loc_9260-Anml_Index ; ENDING 1
+		dc.w loc_9260-Anml_Index ; ENDING 2
+		dc.w loc_9280-Anml_Index ; ENDING 3
+		dc.w loc_92BA-Anml_Index ; ENDING 4
+		dc.w loc_9314-Anml_Index ; ENDING 5
+		dc.w loc_9332-Anml_Index ; ENDING 6
+		dc.w loc_9314-Anml_Index ; ENDING 7
+		dc.w loc_9332-Anml_Index ; ENDING 8
+		dc.w loc_9314-Anml_Index ; ENDING 9
+		dc.w loc_9370-Anml_Index ; ENDING 10
+		dc.w loc_92D6-Anml_Index ; ENDING 11
 
-Anml_VarIndex:	dc.b 0,	5 ; Green Hill Zone
+
+Anml_VarIndex:	dc.b 7,	5 ; Green Hill Zone
 		dc.b 2, 3 ; Labyrinth Zone
 		dc.b 6, 3 ; Marble Zone
 		dc.b 4, 5 ; Star Light Zone
@@ -29,21 +44,38 @@ Anml_VarIndex:	dc.b 0,	5 ; Green Hill Zone
 		dc.b 0,	5 ; Green Hill Zone
 		dc.b 0,	5 ; COLD BREW Zone
 		dc.b 4, 5 ; WINDOWS Zone
-
-Anml_Variables:	dc.w -$200, -$400
-		dc.l Map_Animal1
-		dc.w -$200, -$300	; horizontal speed, vertical speed
-		dc.l Map_Animal2	; mappings address
+; Even are first, odd are second
+; Map_Animal1 is a TALL FOREVER animal
+; Map_Animal2 is a BLOCK animal
+; Map_Animal3 is a WIDE animal
+; Map_Animal4 is a BLOCK FOREVER animal
+; Map_Animal5 is a TALL FOREVER PAL 4 animal
+Anml_Variables:
+	; FLICKY - ROTTLIN
+		dc.w -$200, -$400	; horizontal speed, vertical speed
+		dc.l Map_Animal4	; mappings address
+	; CUCKY - DOBBLIN
+		dc.w -$200, -$300
+		dc.l Map_Animal4
+	; PECKY - FREDDLIN
 		dc.w -$180, -$300
-		dc.l Map_Animal1
+		dc.l Map_Animal4
+	; ROCKY - MADDLIN
 		dc.w -$140, -$180
-		dc.l Map_Animal2
+		dc.l Map_Animal4
+	; PICKY - JIMBLIN
 		dc.w -$1C0, -$300
-		dc.l Map_Animal3
+		dc.l Map_Animal4
+	; POCKY - CYANIDIN
 		dc.w -$300, -$400
-		dc.l Map_Animal2
+		dc.l Map_Animal4
+	; RICKY - PEPPLIN
 		dc.w -$280, -$380
-		dc.l Map_Animal3
+		dc.l Map_Animal4
+	; CUSTOM ANIMALS ARE ADDED AFTERWARDS
+	; ORINGE
+		dc.w -$180, -$300
+		dc.l Map_Animal5
 
 Anml_EndSpeed:	dc.w -$440, -$400, -$440, -$400, -$440, -$400, -$300, -$400
 		dc.w -$300, -$400, -$180, -$300, -$180, -$300, -$140, -$180

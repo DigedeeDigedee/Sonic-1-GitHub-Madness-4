@@ -40,9 +40,9 @@ ptr_PLC_SLZAnimals:	dc.w PLC_SLZAnimals-ArtLoadCues
 ptr_PLC_SYZAnimals:	dc.w PLC_SYZAnimals-ArtLoadCues
 ptr_PLC_SBZAnimals:	dc.w PLC_SBZAnimals-ArtLoadCues
 			zonewarning PLC_Animals,2
-ptr_PLC_ENDZAnimals:	dc.w PLC_GHZAnimals-ArtLoadCues
-ptr_PLC_BREWAnimals:	dc.w PLC_GHZAnimals-ArtLoadCues
-ptr_PLC_WINAnimals:	dc.w PLC_SLZAnimals-ArtLoadCues
+ptr_PLC_ENDZAnimals:	dc.w PLC_ENDZAnimals-ArtLoadCues
+ptr_PLC_BREWAnimals:	dc.w PLC_BREWAnimals-ArtLoadCues
+ptr_PLC_WINAnimals:	dc.w PLC_WINAnimals-ArtLoadCues
 ptr_PLC_SSResult:	dc.w PLC_SSResult-ArtLoadCues
 ptr_PLC_Ending:		dc.w PLC_Ending-ArtLoadCues
 ptr_PLC_TryAgain:	dc.w PLC_TryAgain-ArtLoadCues
@@ -325,7 +325,7 @@ PLC_SpeStageend:
 ; Pattern load cues - GHZ animals
 ; ---------------------------------------------------------------------------
 PLC_GHZAnimals:	dc.w ((PLC_GHZAnimalsend-PLC_GHZAnimals-2)/6)-1
-		plcm	Nem_Rabbit, ArtTile_Animal_1 ; rabbit
+		plcm	Nem_Rin, ArtTile_Animal_1 ; rabbit
 		plcm	Nem_Flicky, ArtTile_Animal_2 ; flicky
 PLC_GHZAnimalsend:
 ; ---------------------------------------------------------------------------
@@ -363,6 +363,27 @@ PLC_SBZAnimals:	dc.w ((PLC_SBZAnimalsend-PLC_SBZAnimals-2)/6)-1
 		plcm	Nem_Rabbit,  ArtTile_Animal_1 ; rabbit
 		plcm	Nem_Chicken, ArtTile_Animal_2 ; chicken
 PLC_SBZAnimalsend:
+; ---------------------------------------------------------------------------
+; Pattern load cues - ENDZ animals
+; ---------------------------------------------------------------------------
+PLC_ENDZAnimals:	dc.w ((PLC_ENDZAnimalsend-PLC_ENDZAnimals-2)/6)-1
+		plcm	Nem_Rabbit, ArtTile_Animal_1 ; rabbit
+		plcm	Nem_Flicky, ArtTile_Animal_2 ; flicky
+PLC_ENDZAnimalsend:
+; ---------------------------------------------------------------------------
+; Pattern load cues - GHZ animals
+; ---------------------------------------------------------------------------
+PLC_BREWAnimals:	dc.w ((PLC_BREWAnimalsend-PLC_BREWAnimals-2)/6)-1
+		plcm	Nem_Rabbit, ArtTile_Animal_1 ; rabbit
+		plcm	Nem_Flicky, ArtTile_Animal_2 ; flicky
+PLC_BREWAnimalsend:
+; ---------------------------------------------------------------------------
+; Pattern load cues - WIN animals
+; ---------------------------------------------------------------------------
+PLC_WINAnimals:	dc.w ((PLC_WINAnimalsend-PLC_WINAnimals-2)/6)-1
+		plcm	Nem_Pig,    ArtTile_Animal_1 ; pig
+		plcm	Nem_Flicky, ArtTile_Animal_2 ; flicky
+PLC_WINAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - special stage results screen
 ; ---------------------------------------------------------------------------

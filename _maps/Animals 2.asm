@@ -1,18 +1,14 @@
-Map_052e: mappingsTable
-	mappingsTableEntry.w	Map_052e_0
-	mappingsTableEntry.w	Map_052e_1
-	mappingsTableEntry.w	Map_052e_2
-
-Map_052e_0:	spriteHeader
- spritePiece -8, -4, 2, 2, 6, 0, 0, 0, 0
-Map_052e_0_End
-
-Map_052e_1:	spriteHeader
- spritePiece -8, -4, 2, 2, $A, 0, 0, 0, 0
-Map_052e_1_End
-
-Map_052e_2:	spriteHeader
- spritePiece -8, -5, 2, 2, 0, 0, 0, 0, 0
-Map_052e_2_End
-
-	even
+; ---------------------------------------------------------------------------
+; Sprite mappings - animals
+; ---------------------------------------------------------------------------
+Map_Animal2_internal:
+		dc.w byte_948A-Map_Animal2_internal
+		dc.w byte_9490-Map_Animal2_internal
+		dc.w byte_9484-Map_Animal2_internal
+byte_9484:	dc.b 1
+		dc.b $F4, 6, 0,	0, $F8
+byte_948A:	dc.b 1
+		dc.b $FC, 5, 0,	6, $F8
+byte_9490:	dc.b 1
+		dc.b $FC, 5, 0,	$A, $F8
+		even
