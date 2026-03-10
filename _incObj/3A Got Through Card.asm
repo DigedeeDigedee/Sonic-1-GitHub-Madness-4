@@ -216,13 +216,13 @@ loc_C766:	; Routine $10
 		;    x-start, x-main, y-main,
 		;    routine, frame number
 
-Got_Config:	dc.w 4,		$124,	$BC			; "SONIC HAS"
+Got_Config:	dc.w 0,		$120,	$C0			; "SONIC HAS"
 		dc.b 				2,	0
 
 		dc.w -$120,	$120,	$D0			; "PASSED"
 		dc.b 				2,	1
 
-		dc.w $40C,	$14C,	$D6			; "ACT" 1/2/3
+		dc.w $400,	$120,	$E0			; "ACT" 1/2/3
 		dc.b 				2,	6
 
 		dc.w $520,	$120,	$EC			; score
@@ -234,5 +234,5 @@ Got_Config:	dc.w 4,		$124,	$BC			; "SONIC HAS"
 		dc.w $560,	$120,	$10C			; ring bonus
 		dc.b 				2,	4
 
-		dc.w $20C,	$14C,	$CC			; oval
+		dc.w $200,	$120,	$A0			; oval
 		dc.b 				2,	5

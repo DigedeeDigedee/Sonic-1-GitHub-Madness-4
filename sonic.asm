@@ -477,14 +477,15 @@ VBlank:
 		move.w	(vdp_control_port).l,d0
 		move.l	#$40000010,(vdp_control_port).l
 		move.l	(v_scrposy_vdp).w,(vdp_data_port).l ; send screen y-axis pos. to VSRAM
-		btst	#6,(v_megadrive).w ; is Megadrive PAL?
-		beq.s	.notPAL		; if not, branch
-
-		move.w	#$700,d0
-.waitPAL:
-		dbf	d0,.waitPAL ; wait here in a loop doing nothing for a while...
-
-.notPAL:
+; used to push off CRAM dots in pal but nobody gives a shit anyway who needs itjebfjsbf
+;		btst	#6,(v_megadrive).w ; is Megadrive PAL?
+;		beq.s	.notPAL		; if not, branch
+;
+;		move.w	#$700,d0
+;.waitPAL:
+;		dbf	d0,.waitPAL ; wait here in a loop doing nothing for a while...
+;
+;.notPAL:
 		move.b	(v_vbla_routine).w,d0
 		move.b	#0,(v_vbla_routine).w
 		move.w	#1,(f_hbla_pal).w
@@ -531,15 +532,16 @@ VBla_00:
 		cmpi.b	#id_LZ,(v_zone).w ; is level LZ ?
 		bne.w	VBla_Music	; if not, branch
 
-		move.w	(vdp_control_port).l,d0
-		btst	#6,(v_megadrive).w ; is Megadrive PAL?
-		beq.s	.notPAL		; if not, branch
-
-		move.w	#$700,d0
-.waitPAL:
-		dbf	d0,.waitPAL
-
-.notPAL:
+; used to push off CRAM dots in pal but nobody gives a shit anyway who needs itjebfjsbf
+;		move.w	(vdp_control_port).l,d0
+;		btst	#6,(v_megadrive).w ; is Megadrive PAL?
+;		beq.s	.notPAL		; if not, branch
+;
+;		move.w	#$700,d0
+;.waitPAL:
+;		dbf	d0,.waitPAL
+;
+;.notPAL:
 		move.w	#1,(f_hbla_pal).w ; set HBlank flag
 		
 		
@@ -4706,69 +4708,78 @@ Map_Over:	include	"_maps/Game Over.asm"
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "SONIC HAS PASSED" title card
 ; ---------------------------------------------------------------------------
-Map_Got:	mappingsTable
-	mappingsTableEntry.w	M_Got_SonicHas	; "SONIC HAS" text
-	mappingsTableEntry.w	M_Got_Passed	; "PASSED" text
-	mappingsTableEntry.w	M_Got_Score	; Score tally
-	mappingsTableEntry.w	M_Got_TBonus	; Time Bonus tally
-	mappingsTableEntry.w	M_Got_RBonus	; Ring Bonus tally
-
-	; These elements are cross-referenced from the regular title card mappings!
-	mappingsTableEntry.w	M_Card_Oval	; Blue oval
-	mappingsTableEntry.w	M_Card_Act1	; Act number 1
-	mappingsTableEntry.w	M_Card_Act2	; Act number 2
-	mappingsTableEntry.w	M_Card_Act3	; Act number 3
-	
-M_Got_SonicHas:	spriteHeader	; SONIC HAS
-	spritePiece	-$48, -8, 2, 2, $3E, 0, 0, 0, 0	; S
-	spritePiece	-$38, -8, 2, 2, $32, 0, 0, 0, 0	; O
-	spritePiece	-$28, -8, 2, 2, $2E, 0, 0, 0, 0	; N
-	spritePiece	-$18, -8, 1, 2, $20, 0, 0, 0, 0	; I
-	spritePiece	-$10, -8, 2, 2, 8, 0, 0, 0, 0	; C
-
-	spritePiece	$10, -8, 2, 2, $1C, 0, 0, 0, 0	; H
-	spritePiece	$20, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	$30, -8, 2, 2, $3E, 0, 0, 0, 0	; S
-M_Got_SonicHas_End
-
-M_Got_Passed:	spriteHeader	; PASSED
-	spritePiece	-$30, -8, 2, 2, $36, 0, 0, 0, 0	; P
-	spritePiece	-$20, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	-$10, -8, 2, 2, $3E, 0, 0, 0, 0	; S
-	spritePiece	0, -8, 2, 2, $3E, 0, 0, 0, 0	; S
-	spritePiece	$10, -8, 2, 2, $10, 0, 0, 0, 0	; E
-	spritePiece	$20, -8, 2, 2, $C, 0, 0, 0, 0	; D
-M_Got_Passed_End
-
-M_Got_Score:	spriteHeader	; Score tally
-	spritePiece	-$50, -8, 4, 2, $14A, 0, 0, 0, 0; "SCOR"
-	spritePiece	-$30, -8, 1, 2, $162, 0, 0, 0, 0; "E"
-	spritePiece	$18, -8, 3, 2, $164, 0, 0, 0, 0	; Tally (first four digits)
-	spritePiece	$30, -8, 4, 2, $16A, 0, 0, 0, 0	; Tally (second four digits)
-	spritePiece	-$33, -9, 2, 1, $6E, 0, 0, 0, 0	; Small oval (upper half)
-	spritePiece	-$33, -1, 2, 1, $6E, 1, 1, 0, 0	; Small oval (lower half)
-M_Got_Score_End
-
-M_Got_TBonus:	spriteHeader	; Time Bonus tally
-	spritePiece	-$50, -8, 4, 2, $15A, 0, 0, 0, 0; "TIME"
-	spritePiece	-$27, -8, 4, 2, $66, 0, 0, 0, 0	; "BONU"
-	spritePiece	-7, -8, 1, 2, $14A, 0, 0, 0, 0	; "S"
-	spritePiece	-$A, -9, 2, 1, $6E, 0, 0, 0, 0	; Small oval (upper half)
-	spritePiece	-$A, -1, 2, 1, $6E, 1, 1, 0, 0	; Small oval (lower half)
-	spritePiece	$28, -8, 4, 2, -$10, 0, 0, 0, 0	; Tally (first four digits)
-	spritePiece	$48, -8, 1, 2, $170, 0, 0, 0, 0	; Tally (second four digits)
-M_Got_TBonus_End
-
-M_Got_RBonus:	spriteHeader	; Ring Bonus tally
-	spritePiece	-$50, -8, 4, 2, $152, 0, 0, 0, 0; "RING"
-	spritePiece	-$27, -8, 4, 2, $66, 0, 0, 0, 0	; "BONU"
-	spritePiece	-7, -8, 1, 2, $14A, 0, 0, 0, 0	; "S"
-	spritePiece	-$A, -9, 2, 1, $6E, 0, 0, 0, 0	; Small oval (upper half)
-	spritePiece	-$A, -1, 2, 1, $6E, 1, 1, 0, 0	; Small oval (lower half)
-	spritePiece	$28, -8, 4, 2, -8, 0, 0, 0, 0	; Tally (first four digits)
-	spritePiece	$48, -8, 1, 2, $170, 0, 0, 0, 0	; Tally (second four digits)
-M_Got_RBonus_End
-	even
+Map_Got:	dc.w M_Got_SonicHas-Map_Got
+		dc.w M_Got_Passed-Map_Got
+		dc.w M_Got_Score-Map_Got
+		dc.w M_Got_TBonus-Map_Got
+		dc.w M_Got_RBonus-Map_Got
+		dc.w M_Got_Oval-Map_Got
+		dc.w M_Got_Act1-Map_Got
+		dc.w M_Got_Act2-Map_Got
+		dc.w M_Got_Act3-Map_Got
+M_Got_SonicHas:	dc.b 4			; YOU'RE
+		dc.b $F8, $D, $0, $0, $D4
+		dc.b $F8, $5, $0, $8, $F4
+		dc.b $F8, $0, $0, $C, $4
+		dc.b $F8, $D, $0, $D, $C
+M_Got_Passed:	dc.b 6			; WINNER
+		dc.b $F8, $9, $0, $15, $D0
+		dc.b $F8, $5, $0, $1B, $E8
+		dc.b $F8, $5, $0, $1F, $F8
+		dc.b $F8, $5, $0, $23, $8
+		dc.b $F8, $5, $0, $27, $18
+		dc.b $F8, $1, $0, $2B, $28
+M_Got_Score:	dc.b 6			; SCORE
+		dc.b $F8, $D, 1, $4A, $B0
+		dc.b $F8, 1, 1,	$62, $D0
+		dc.b $F8, 9, 1,	$64, $18
+		dc.b $F8, $D, 1, $6A, $30
+		dc.b $F7, 4, 0,	$6E, $CD
+		dc.b $FF, 4, $18, $6E, $CD
+M_Got_TBonus:	dc.b 7			; TIME BONUS
+		dc.b $F8, $D, 1, $5A, $B0
+		dc.b $F8, $D, 0, $66, $D9
+		dc.b $F8, 1, 1,	$4A, $F9
+		dc.b $F7, 4, 0,	$6E, $F6
+		dc.b $FF, 4, $18, $6E, $F6
+		dc.b $F8, $D, $FF, $F0,	$28
+		dc.b $F8, 1, 1,	$70, $48
+M_Got_RBonus:	dc.b 7			; RING BONUS
+		dc.b $F8, $D, 1, $52, $B0
+		dc.b $F8, $D, 0, $66, $D9
+		dc.b $F8, 1, 1,	$4A, $F9
+		dc.b $F7, 4, 0,	$6E, $F6
+		dc.b $FF, 4, $18, $6E, $F6
+		dc.b $F8, $D, $FF, $F8,	$28
+		dc.b $F8, 1, 1,	$70, $48
+M_Got_Oval:	dc.b 5			; TROPHY
+		dc.b $E0, $F, $20, $2D, $E8
+		dc.b $E0, $7, $20, $3D, $8
+		dc.b $0, $C, $20, $46, $F4
+		dc.b $8, $E, $0, $4A, $F0
+		dc.b $8, $2, $0, $56, $10
+M_Got_Act1:	dc.b 6			; IN ACT.1
+		dc.b $F8, $9, $0, $59, $CC
+		dc.b $0, $0, $0, $65, $1C
+		dc.b $F8, $5, $0, $5F, $EC
+		dc.b $F8, $5, $0, $70, $FC
+		dc.b $F8, $5, $0, $74, $C
+		dc.b $F8, $1, $0, $63, $24
+M_Got_Act2:	dc.b 6			; IN ACT.2
+		dc.b $F8, $9, $0, $59, $CC
+		dc.b $0, $0, $0, $65, $1C
+		dc.b $F8, $5, $0, $5F, $EC
+		dc.b $F8, $5, $0, $70, $FC
+		dc.b $F8, $5, $0, $74, $C
+		dc.b $F8, $5, $0, $78, $24
+M_Got_Act3:	dc.b 6			; IN ACT.3
+		dc.b $F8, $9, $0, $59, $CC
+		dc.b $0, $0, $0, $65, $1C
+		dc.b $F8, $5, $0, $5F, $EC
+		dc.b $F8, $5, $0, $70, $FC
+		dc.b $F8, $5, $0, $74, $C
+		dc.b $F8, $5, $0, $7C, $24
+		even
 
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - special stage results screen
@@ -7363,7 +7374,8 @@ Nem_BigFlash:	binclude	"artnem/Giant Ring Flash.nem"
 		even
 Nem_Bonus:	binclude	"artnem/Hidden Bonuses.nem" ; hidden bonuses at end of a level
 		even
-
+Nem_WINNERCard:	binclude	"artnem/WIN Cards.nem"
+		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - continue screen
 ; ---------------------------------------------------------------------------
