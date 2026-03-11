@@ -236,3 +236,4 @@ Mus8C_Boss_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $19, $16, $1A
 
+	smpsFooterEndSong	"Dawid/Extremely_intense_boss_song_for_someone.asm"

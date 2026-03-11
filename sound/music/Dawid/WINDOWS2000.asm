@@ -129,3 +129,4 @@ windowsexperience_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $23, $00, $23
 
+	smpsFooterEndSong	"Dawid/WINDOWS2000.asm"

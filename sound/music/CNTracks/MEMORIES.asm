@@ -239,3 +239,5 @@ Memories_Voices:
 	smpsVcDecayLevel    $00, $00, $00, $00
 	smpsVcReleaseRate   $0F, $0F, $0F, $00
 	smpsVcTotalLevel    $10, $10, $10, $00
+	
+	smpsFooterEndSong	"CNTracks/MEMORIES.asm"
