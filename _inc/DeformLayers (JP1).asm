@@ -134,27 +134,15 @@ Deform_GHZ:
 		move.l	d0,(a1)+
 		dbf	d1,.hillLoop
 
-		move.w	(v_bg2screenposx).w,d0
-		move.w	(v_screenposx).w,d2
-			asr.w	#1,d0
-		
-		sub.w	d0,d2
-		ext.l	d2
-		asl.l	#8,d2
-		divs.w	#$6E,d2
-		ext.l	d2
-		asl.l	#8,d2
-		moveq	#0,d3
-		move.w	d0,d3
-		move.w	#$47,d1
-		add.w	d4,d1
-	.waterLoop:			; water deformation
-		move.w	d3,d0
+		move.w	#$4F,d1
+		move.w	(v_screenposx).w,d0
 		neg.w	d0
+		asl.w	#1,d0
+		add.w	d4,d1
+		
+	.waterLoop:			; water deformation
+
 		move.l	d0,(a1)+
-		swap	d3
-		add.l	d2,d3
-		swap	d3
 		dbf	d1,.waterLoop
 		rts
 ; End of function Deform_GHZ
