@@ -371,11 +371,11 @@ dTrevor				equ $97
 d2kki				equ $98
 dDooDoo				equ $99
 dCrispBilly			equ $9A
-dBlueLobster		equ $9B
+dBlueLobster			equ $9B
 dWinTwoK			equ $9C
 dDeppaDig			equ $9D
-dEagleSoftSong		equ	$9E
-dQuakeRocket		equ $9F
+dEagleSoftSong			equ $9E
+dQuakeRocket			equ $9F
 dsupbeaches			equ $A0
 dPenis				equ $A1
 dSTFU				equ $A2
@@ -390,9 +390,11 @@ dBabyAlarm			equ $AA
 dBoingBoing			equ $AB
 dBoioing			equ $AC
 dBoik				equ $AD
-dOrangeLaugh		equ $AE
+dOrangeLaugh			equ $AE
+dClintonHi			equ $AF
+dClintonYeah			equ $B0
 ; Sega should always be last
-dSega				equ $AF
+dSega				equ $B1
 
 
 ; Sonic frame IDs

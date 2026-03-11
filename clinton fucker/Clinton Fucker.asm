@@ -25,10 +25,12 @@ ClintonFucker:
 	dc.w CliFucker_Init2-.Index
 	dc.w CliFucker_Main-.Index
 ; --------------------------------------------------------------
+
 CliFucker_Init:
 	addq.b	#2,obRoutine(a0)
 	move.b	#bgm_Fade,d0
 	jsr	QueueSound2
+
 CliFucker_Wait:
 	addq.w	#1,clifuck.Timer(a0)
 	cmpi.w	#60*3,clifuck.Timer(a0)
@@ -36,10 +38,13 @@ CliFucker_Wait:
 	cmpi.w	#60*5,clifuck.Timer(a0)
 	ble.s	.Exit
 	addq.b	#2,obRoutine(a0)
-.SayHi:
-	nop
+
 .Exit:
 	rts
+
+.SayHi:
+	move.b	#dClintonHi,d0
+	jmp	MegaPCM_PlaySample
 
 CliFucker_Init2:
 	tst.l	(v_plc_buffer).w
@@ -55,15 +60,15 @@ CliFucker_Init2:
 	move.b	#$10,obHeight(a0)
 	move.b	#8,obWidth(a0)
 	move.b	#1,obFrame(a0)
-	move.w	#16,clifuck.Speed(a0)
-	move.w	#16,clifuck.Accel(a0)
+	move.w	#80,clifuck.Speed(a0)
+	move.w	#32,clifuck.Accel(a0)
 	move.w	#0,(v_limitleft1).w
 	move.w	#0,(v_limitleft2).w
 	st	v_clintonfucker
 .Exit:
 	rts
 CliFucker_Main:
-	add.l	#$8000,clifuck.Speed(a0)
+	add.l	#$2000,clifuck.Speed(a0)
 	lea 	v_player, a1
 	move.w	obX(a1),d0
 	move.w	obX(a0),d1

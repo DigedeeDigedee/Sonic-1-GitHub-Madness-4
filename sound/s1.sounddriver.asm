@@ -231,8 +231,8 @@ ptr_mus4C:		dc.l Music4C
 ptr_mus4D:		dc.l Music4D
 ptr_mus4E:		dc.l Music4E
 ptr_mus4F:		dc.l Music4F
-;ptr_mus50:		dc.l Music50
-;ptr_mus51:		dc.l Music51
+ptr_mus50:		dc.l Music50
+ptr_mus51:		dc.l Music51
 ;ptr_mus52:		dc.l Music52
 ;ptr_mus53:		dc.l Music53
 ;ptr_mus54:		dc.l Music54
@@ -2977,6 +2977,10 @@ Music4D:	include	"sound/music/LiquidTracks/Mus - CCLobby.asm"
 Music4E:	include	"sound/music/CNTracks/MEMORIES.asm"
 		even
 Music4F:	binclude	"sound/music/Dawid/BomerDudeAtgamesong.bin" ;i have no idea too
+		even
+Music50:	include	"sound/music/Mus90 - Continue Screen.asm"
+		even
+Music51:	include	"sound/music/TG2000Tracks/Coffinman.asm"
 		even
 ; ---------------------------------------------------------------------------
 ; Sound effect pointers
