@@ -734,7 +734,7 @@ ArtTile_SS_Results_Emeralds:	equ $541
 
 ; Font
 ArtTile_Sonic_Team_Font:	equ $0A6
-ArtTile_Credits_Font:		equ $5A0
+ArtTile_Credits_Font:		equ $001	; right at the start, level art was never loaded anymore at that time used lol
 
 ; Error Handler
 ArtTile_Error_Handler_Font:	equ $7C0
