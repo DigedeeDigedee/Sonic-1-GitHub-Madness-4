@@ -143,7 +143,7 @@ splash_turd macro routine
 	splash_liquid Yume2kki
 	splash_solid Blessed,$40,$A8,200
 	splash_solid Shiki,$20,$2A,280
-	splash_solid SonicBroke,$20,$4E,480
+	splash_solid SonicBroke,$20,$51,480
 	splash_solid Monke,$20,$1C,480
 	splash_solid Wait,$60,$1B,145
 	splash_solid SadMac,$60,$28,175
