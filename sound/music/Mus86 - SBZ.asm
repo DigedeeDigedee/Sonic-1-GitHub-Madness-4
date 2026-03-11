@@ -554,3 +554,5 @@ fight.mid_Voices:
 	smpsVcDecayLevel    $00, $05, $0A, $05
 	smpsVcReleaseRate   $0D, $0D, $0D, $0D
 	smpsVcTotalLevel    $00, $14, $17, $1E
+	
+	smpsFooterEndSong	"Mus86 - SBZ.asm"

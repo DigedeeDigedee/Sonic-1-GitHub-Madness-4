@@ -665,3 +665,4 @@ UwolMenu_Voices:
 	smpsVcReleaseRate   $06, $06, $0F, $06
 	smpsVcTotalLevel    $00, $14, $7F, $0F
 
+	smpsFooterEndSong	"LiquidTracks/Mus - Uwol Menu.asm"

@@ -40,3 +40,4 @@ SndCC_Spring_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $13, $30, $16
 
+	smpsFooterEndSong	"SndCC - Spring.asm"

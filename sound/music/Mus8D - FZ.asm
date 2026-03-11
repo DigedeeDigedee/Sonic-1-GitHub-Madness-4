@@ -194,3 +194,4 @@ Mus8D_FZ_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $19, $16, $1A
 
+	smpsFooterEndSong	"Mus8D - FZ.asm"

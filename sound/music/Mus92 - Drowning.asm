@@ -175,3 +175,4 @@ Mus92_Drowning_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $11, $11, $11, $11
 
+	smpsFooterEndSong	"Mus92 - Drowning.asm"

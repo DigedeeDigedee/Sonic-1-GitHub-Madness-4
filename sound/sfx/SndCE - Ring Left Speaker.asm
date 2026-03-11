@@ -32,3 +32,4 @@ SndCE_Ring_Left_Speaker_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $23, $00, $23
 
+	smpsFooterEndSong	"SndCE - Right Left Speaker.asm"

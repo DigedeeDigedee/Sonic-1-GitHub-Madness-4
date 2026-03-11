@@ -40,3 +40,4 @@ SndCF_Signpost_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $03, $0B, $0C
 
+	smpsFooterEndSong	"SndCF - Signpost.asm"

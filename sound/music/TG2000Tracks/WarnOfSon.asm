@@ -269,4 +269,6 @@ WarnOfSon_Voices:
 	dc.b		$14,$00,$00,$00,$0F,$00,$00,$00,$00;			Voice 03
 	dc.b		$3B,$01,$71,$31,$60,$1F,$1F,$15,$14,$1F,$1F,$1E,$17,$00,$00,$19
 	dc.b		$0F,$00,$00,$00,$38,$0A,$1A,$00,$00;			Voice 04
+	
+	smpsFooterEndSong	"TG2000Tracks/WarnOfSon.asm"
 	even

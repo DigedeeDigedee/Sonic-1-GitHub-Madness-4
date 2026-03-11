@@ -991,4 +991,5 @@ ILBT_Voices:
 	dc.b		$01,$25,$1A,$1A,$1A,$14,$00,$05,$16;			Voice 02
 	dc.b		$2C,$61,$03,$01,$33,$5F,$94,$5F,$94,$05,$05,$05,$07,$02,$02,$02
 	dc.b		$02,$1F,$6F,$1F,$AF,$1E,$00,$1E,$00;			Voice 03
+	smpsFooterEndSong	"TG2000Tracks/ILBT.asm"	
 	even

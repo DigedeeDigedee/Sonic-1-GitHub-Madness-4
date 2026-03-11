@@ -145,3 +145,4 @@ Mus8F_Game_Over_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $0B, $0A, $0D, $0C
 
+	smpsFooterEndSong	"Mus8F - Game Over.asm"

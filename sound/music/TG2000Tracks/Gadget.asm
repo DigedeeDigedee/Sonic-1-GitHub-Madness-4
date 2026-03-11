@@ -1199,4 +1199,5 @@ Gadget_Voices:
 	dc.b		$01,$27,$2A,$27,$2B,$1B,$00,$21,$05;			Voice 02
 	dc.b		$3C,$51,$02,$10,$01,$11,$13,$11,$12,$0A,$0E,$09,$06,$01,$01,$01
 	dc.b		$01,$59,$2B,$29,$2C,$18,$00,$1A,$05;			Voice 03
+	smpsFooterEndSong	"TG2000Tracks/Gadget.asm"	
 	even

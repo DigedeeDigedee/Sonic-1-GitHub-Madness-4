@@ -76,4 +76,6 @@ SadMac_FM4:
 SadMac_Voices:
 	dc.b		$04,$05,$01,$0A,$01,$56,$59,$5C,$58,$0E,$0F,$14,$0F,$09,$09,$01
 	dc.b		$09,$44,$32,$36,$31,$1F,$00,$33,$04;			Voice 00
+	
+	smpsFooterEndSong	"TG2000Tracks/SadMac.asm"
 	even

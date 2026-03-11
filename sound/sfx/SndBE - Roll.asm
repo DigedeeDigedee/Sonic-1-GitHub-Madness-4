@@ -40,3 +40,4 @@ SndBE_Roll_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $28, $00, $0D
 
+	smpsFooterEndSong	"SndBE - Roll.asm"

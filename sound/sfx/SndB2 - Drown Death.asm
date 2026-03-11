@@ -49,3 +49,4 @@ SndB2_Drown_Death_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $80, $12, $12, $2F
 
+	smpsFooterEndSong	"SndB2 - Drown Death.asm"

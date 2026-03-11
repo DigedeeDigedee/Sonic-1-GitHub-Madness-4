@@ -164,6 +164,12 @@ incdac:	macro NAME, PATH
 	NAME:	label *
 		binclude	PATH
 	NAME_End:	label *
+	
+	;!@ GenesisDoes
+	if MOMPASS==1
+	message "DACSample \"\{PATH}\" is $\{NAME_End-NAME} bytes"
+	endif
+	
 	endm
 
 ; ------------------------------------------------------------------------------

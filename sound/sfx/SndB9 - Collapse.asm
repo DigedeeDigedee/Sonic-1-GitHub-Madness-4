@@ -61,3 +61,4 @@ SndB9_Collapse_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $04, $07, $0E
 
+	smpsFooterEndSong	"SndB9 - Collapse.asm"

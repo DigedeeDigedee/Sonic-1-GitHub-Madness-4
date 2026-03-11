@@ -138,6 +138,8 @@ splash_turd macro routine
 ; Entries
 
 	splash_liquid SonicRetro
+	splash_liquid GM_SSRGScreen
+	splash_liquid GM_EagleSoft
 	splash_liquid Yume2kki
 	splash_solid Blessed,$40,$A8,200
 	splash_solid Shiki,$20,$2A,280
@@ -203,7 +205,9 @@ splash_turd macro routine
 
 ; Files for liquid
 	include "LiquidSplashes/Rerto/Rerto.asm"
-	include "LiquidSplashes/2kki/2kki.asm"
+	include "LiquidSplashes/SSRG/SSRG.asm"
+	include "LiquidSplashes/EagleSoft/EagleSoft.asm"	
+	include "LiquidSplashes/2kki/2kki.asm"	
 	include "eurosega/eurosega.asm"
 
 ; Files for turd

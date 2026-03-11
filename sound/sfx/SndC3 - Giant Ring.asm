@@ -82,3 +82,4 @@ SndC3_Giant_Ring_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $08, $13, $01, $13
 
+	smpsFooterEndSong	"SndC3 - Giant Ring.asm"

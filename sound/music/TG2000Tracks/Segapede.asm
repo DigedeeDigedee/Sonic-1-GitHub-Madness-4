@@ -1316,4 +1316,6 @@ Segapede_Voices:
 	dc.b		$02,$2A,$8F,$17,$08,$1D,$14,$27,$00;			Voice 13
 	dc.b		$3D,$3B,$72,$1F,$70,$DC,$DF,$DC,$DF,$12,$80,$80,$11,$0D,$10,$00
 	dc.b		$10,$4F,$4D,$08,$4D,$11,$10,$00,$06;			Voice 14
+	
+	smpsFooterEndSong	"TG2000Tracks/Segapede.asm"
 	even

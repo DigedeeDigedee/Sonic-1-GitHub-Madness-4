@@ -1624,3 +1624,4 @@ Mus91_Credits_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $1B, $36, $1D
 
+	smpsFooterEndSong	"Mus91 - Credits.asm"

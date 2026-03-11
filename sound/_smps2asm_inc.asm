@@ -160,6 +160,14 @@ songStart set *
 	endif
 
 	endm
+	
+;!@ GenesisDoes; EOF
+smpsFooterEndSong macro Path
+songEnd set *
+	if MOMPASS==1
+	message "Song \"\{Path}\" is $\{songEnd-songStart} bytes"
+	endif
+	endm
 
 smpsHeaderVoiceNull macro
 	if songStart<>*

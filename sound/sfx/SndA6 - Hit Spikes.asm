@@ -32,3 +32,4 @@ SndA6_Hit_Spikes_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $0F, $20, $29
 
+	smpsFooterEndSong	"SndA6 - Hit Spikes.asm"

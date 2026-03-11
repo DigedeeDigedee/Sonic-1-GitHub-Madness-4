@@ -36,3 +36,4 @@ SndA8_SS_Goal_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $0F, $20, $29
 
+	smpsFooterEndSong	"SndA8 - SS Goal.asm"

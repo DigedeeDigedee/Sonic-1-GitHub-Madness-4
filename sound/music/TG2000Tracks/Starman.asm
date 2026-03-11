@@ -214,4 +214,6 @@ Starman_Voices:
 	dc.b		$00,$16,$17,$15,$17,$18,$04,$18,$00;			Voice 01
 	dc.b		$3C,$06,$01,$07,$04,$5F,$9F,$9F,$5F,$16,$1F,$16,$1F,$09,$0F,$16
 	dc.b		$11,$66,$06,$AC,$08,$1C,$00,$16,$00;			Voice 02
+	
+	smpsFooterEndSong	"TG2000Tracks/Starman.asm"
 	even

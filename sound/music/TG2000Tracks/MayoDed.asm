@@ -139,4 +139,5 @@ MayoDed_Voices:
 	dc.b		$0D,$29,$19,$19,$F9,$1B,$39,$15,$00;			Voice 09
 	dc.b		$3D,$01,$01,$01,$01,$54,$12,$12,$12,$0F,$0B,$0C,$0C,$00,$00,$00
 	dc.b		$00,$13,$F8,$F8,$F8,$20,$00,$00,$00;			Voice 0A
+	smpsFooterEndSong	"TG2000Tracks/MayoDed.asm"	
 	even

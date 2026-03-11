@@ -54,4 +54,6 @@ TheGamer2000Jingle_FM1:
 TheGamer2000Jingle_Voices:
 	dc.b		$3C,$05,$01,$0A,$01,$56,$59,$5C,$58,$0E,$0F,$14,$0F,$09,$09,$06
 	dc.b		$09,$46,$35,$36,$35,$1F,$00,$33,$0C;			Voice 00
+	
+	smpsFooterEndSong	"TG2000Tracks/TG2000Jingle.asm"
 	even

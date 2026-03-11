@@ -166,3 +166,5 @@ GCV2005_Voices:
 	smpsVcDecayLevel    $00, $00, $00, $00
 	smpsVcReleaseRate   $06, $00, $06, $00
 	smpsVcTotalLevel    $11, $1E, $00, $24
+
+	smpsFooterEndSong	"HS_Tracks/GCV2005.asm"

@@ -45,3 +45,4 @@ SndAA_Splash_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $27, $07, $22
 
+	smpsFooterEndSong	"SndAA - Splash.asm"

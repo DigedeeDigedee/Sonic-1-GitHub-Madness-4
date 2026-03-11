@@ -41,3 +41,4 @@ SndD0_Waterfall_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $00, $00, $00
 
+	smpsFooterEndSong	"SndD0 - Waterfall.asm"

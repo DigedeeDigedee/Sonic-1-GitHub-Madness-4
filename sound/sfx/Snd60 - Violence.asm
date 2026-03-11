@@ -49,3 +49,4 @@ Violence_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $10, $07, $50
 
+	smpsFooterEndSong	"Snd60 - Violence.asm"

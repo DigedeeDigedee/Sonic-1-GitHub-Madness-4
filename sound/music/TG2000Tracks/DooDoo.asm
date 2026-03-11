@@ -11,3 +11,4 @@ DooDoo_DAC:
     smpsStop
 
 DooDoo_Voices:
+	smpsFooterEndSong	"TG2000Tracks/DooDoo.asm"	

@@ -164,3 +164,4 @@ Mus87_Invincibility_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $31, $47, $21
 
+	smpsFooterEndSong	"Mus87 - Invincibility.asm"

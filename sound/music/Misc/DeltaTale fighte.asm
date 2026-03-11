@@ -4470,4 +4470,6 @@ DELTARUNE_Voices:
 	smpsVcDecayLevel    $0F, $0F, $0F, $0F
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $1E, $1E, $1E
+	
+	smpsFooterEndSong	"Misc/DeltaTale fighte.asm"
 

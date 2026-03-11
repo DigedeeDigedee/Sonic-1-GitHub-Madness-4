@@ -260,4 +260,5 @@ AlexKiddEnd_Voices:
 	dc.b		$06,$00,$08,$00,$08,$1E,$00,$18,$00;			Voice 0D
 	dc.b		$3E,$32,$51,$61,$51,$10,$08,$10,$08,$04,$06,$04,$06,$00,$06,$02
 	dc.b		$06,$02,$02,$02,$02,$1E,$00,$09,$00;			Voice 0E
+	smpsFooterEndSong	"TG2000Tracks/AlexKiddEnd.asm"
 	even

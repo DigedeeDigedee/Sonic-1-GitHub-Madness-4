@@ -20897,4 +20897,6 @@ Megalovania_Voices:
 	dc.b		$00,$19,$10,$10,$1B,$0E,$23,$1E,$00;			Voice 07
 	dc.b		$3D,$02,$02,$01,$02,$94,$19,$19,$19,$0F,$0D,$0D,$0D,$07,$04,$04
 	dc.b		$04,$25,$1A,$1A,$1A,$14,$08,$08,$00;			Voice 08
+	
+	smpsFooterEndSong	"TG2000Tracks/Megalovania.asm"	
 	even

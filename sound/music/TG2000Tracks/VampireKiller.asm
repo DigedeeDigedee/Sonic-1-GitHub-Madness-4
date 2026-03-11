@@ -8270,4 +8270,6 @@ VampireKiller_Voices:
 	dc.b		$03,$40,$87,$80,$A7,$1C,$00,$0A,$00;			Voice 02
 	dc.b		$3D,$03,$01,$01,$01,$0F,$1D,$1D,$1D,$0A,$1F,$1F,$1F,$00,$00,$00
 	dc.b		$00,$25,$05,$05,$05,$1D,$02,$0B,$00;			Voice 03
+	
+	smpsFooterEndSong	"TG2000Tracks/VampireKiller.asm"
 	even

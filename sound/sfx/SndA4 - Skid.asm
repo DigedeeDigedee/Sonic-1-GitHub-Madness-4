@@ -29,3 +29,4 @@ SndA4_Skid_Loop00:
 
 ; Song seems to not use any FM voices
 SndA4_Skid_Voices:
+	smpsFooterEndSong	"SndA4 - Skid.asm"

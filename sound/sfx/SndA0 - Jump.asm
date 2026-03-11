@@ -16,3 +16,4 @@ SndA0_Jump_PSG1:
 
 ; Song seems to not use any FM voices
 SndA0_Jump_Voices:
+	smpsFooterEndSong	"SndA0 - Jump.asm"

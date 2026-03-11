@@ -172,3 +172,5 @@ Mus8E_Sonic_Got_Through_Voices:
 	smpsVcDecayLevel    $01, $01, $01, $02
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $82, $82, $82, $1C
+
+	smpsFooterEndSong	"Mus8E - Sonic Got Through.asm"

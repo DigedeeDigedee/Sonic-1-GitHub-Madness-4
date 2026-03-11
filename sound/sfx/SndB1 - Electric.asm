@@ -31,3 +31,4 @@ SndB1_Electric_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $07, $34, $10, $05
 
+	smpsFooterEndSong	"SndB1 - Electric.asm"

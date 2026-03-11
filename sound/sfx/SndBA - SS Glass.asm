@@ -31,3 +31,4 @@ SndBA_SS_Glass_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $1B, $00, $20
 
+	smpsFooterEndSong	"SndBA - SS Glass.asm"

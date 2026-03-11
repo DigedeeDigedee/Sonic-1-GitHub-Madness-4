@@ -58,3 +58,4 @@ SndBD_ChainStomp_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $01, $00, $0D
 
+	smpsFooterEndSong	"SndBD - ChainStomp.asm"

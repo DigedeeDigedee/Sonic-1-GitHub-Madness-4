@@ -48,3 +48,4 @@ SndCB_Wall_Smash_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $04, $07, $0E
 
+	smpsFooterEndSong	"SndCB - Wall Smash.asm"

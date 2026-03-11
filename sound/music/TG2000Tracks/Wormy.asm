@@ -533,4 +533,6 @@ Wormy_Voices:
 	dc.b		$08,$20,$10,$10,$F8,$19,$37,$13,$00;			Voice 02
 	dc.b		$3C,$31,$72,$70,$30,$52,$53,$52,$53,$08,$00,$08,$00,$04,$00,$04
 	dc.b		$00,$1F,$0F,$1F,$0F,$1A,$00,$16,$00;			Voice 03
+	
+	smpsFooterEndSong	"TG2000Tracks/Wormy.asm"
 	even

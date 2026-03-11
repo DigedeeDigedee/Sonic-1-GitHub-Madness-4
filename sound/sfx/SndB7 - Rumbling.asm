@@ -40,3 +40,4 @@ SndB7_Rumbling_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $0E, $1A, $0F
 
+	smpsFooterEndSong	"SndB7 - Rumbling.asm"

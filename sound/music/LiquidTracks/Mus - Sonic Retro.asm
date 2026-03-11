@@ -268,3 +268,4 @@ BGM_Retro_Voices:
 	smpsVcReleaseRate   $07, $00, $07, $00
 	smpsVcTotalLevel    $00, $16, $00, $1A
 
+	smpsFooterEndSong	"LiquidTracks/Mus - Sonic Retro.asm"

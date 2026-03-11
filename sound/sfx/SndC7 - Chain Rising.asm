@@ -31,3 +31,4 @@ SndC7_Chain_Rising_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $1F, $10, $00
 
+	smpsFooterEndSong	"SndC7 - Chain Rising.asm"

@@ -652,4 +652,6 @@ Thundersink_Voices:
 	dc.b		$00,$0F,$0F,$0F,$0F,$14,$04,$00,$14;			Voice 02
 	dc.b		$2C,$52,$58,$34,$34,$1F,$12,$1F,$12,$00,$0A,$00,$0A,$00,$00,$00
 	dc.b		$00,$0F,$1F,$0F,$1F,$15,$00,$14,$00;			Voice 03
+	
+	smpsFooterEndSong	"TG2000Tracks/Thundersink.asm"
 	even

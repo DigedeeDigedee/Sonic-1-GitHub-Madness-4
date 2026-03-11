@@ -1,0 +1,10 @@
+; provided by GenesisDoes
+Palette File: pal.bin
+Mapping File: FG.eni
+Art File: FG.nem
+Mapping Compression: Enigma
+Art Compression: Nemesis
+Palette Length: 0x80
+Palette Offset: 0x00
+x-Size: 40
+y-Size: 28

@@ -201,3 +201,4 @@ RE_DualShock_Mansion_Basement_Voices:
 	smpsVcReleaseRate   $0D, $0D, $0D, $0A
 	smpsVcTotalLevel    $00, $00, $00, $25
 
+	smpsFooterEndSong	"CNTracks/RE Mansion.asm"

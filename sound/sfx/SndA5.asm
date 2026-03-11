@@ -31,3 +31,4 @@ SndA5_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $0E, $1A, $0F
 
+	smpsFooterEndSong	"SndA5.asm"

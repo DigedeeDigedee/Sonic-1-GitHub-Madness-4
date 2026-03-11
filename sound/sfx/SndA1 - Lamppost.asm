@@ -14,3 +14,4 @@ SndA1_Lamppost_PSG1:
 	smpsStop
 
 SndA1_Lamppost_Voices:
+	smpsFooterEndSong	"SndA1 - Lamppost.asm"

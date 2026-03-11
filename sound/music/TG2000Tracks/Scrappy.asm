@@ -20504,4 +20504,6 @@ Scrappy_Voices:
 	dc.b		$01,$5F,$6F,$0F,$0F,$27,$27,$2E,$00;			Voice 04
 	dc.b		$30,$30,$30,$30,$30,$9E,$D8,$DC,$DC,$0E,$0A,$04,$05,$08,$08,$08
 	dc.b		$08,$BF,$BF,$BF,$BF,$14,$3C,$14,$00;			Voice 05
+	
+	smpsFooterEndSong	"TG2000Tracks/Scrappy.asm"
 	even

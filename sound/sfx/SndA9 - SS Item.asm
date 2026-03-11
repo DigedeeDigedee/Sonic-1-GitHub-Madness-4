@@ -14,3 +14,4 @@ SndA9_SS_Item_PSG2:
 
 ; Song seems to not use any FM voices
 SndA9_SS_Item_Voices:
+	smpsFooterEndSong	"SndA9 - SS Item.asm"

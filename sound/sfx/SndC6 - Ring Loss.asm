@@ -38,3 +38,4 @@ SndC6_Ring_Loss_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $23, $00, $23
 
+	smpsFooterEndSong	"SndC6 - Ring Loss.asm"

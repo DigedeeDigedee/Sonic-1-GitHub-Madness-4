@@ -36,3 +36,4 @@ SndA3_Death_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $14, $3C, $14
 
+	smpsFooterEndSong	"SndA3 - Death.asm"

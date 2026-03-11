@@ -141,3 +141,5 @@ Jeopardy_Voices:
 	smpsVcDecayLevel    $02, $00, $0F, $01
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $1B, $36, $1D
+	
+	smpsFooterEndSong	"CNTracks/Jeopardy.asm"

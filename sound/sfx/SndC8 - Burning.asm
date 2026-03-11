@@ -15,3 +15,4 @@ SndC8_Burning_PSG3:
 
 ; Song seems to not use any FM voices
 SndC8_Burning_Voices:
+	smpsFooterEndSong	"SndC8 - Burning.asm"

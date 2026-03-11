@@ -63,3 +63,4 @@ SndBF_Get_Continue_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $80, $0A, $05, $24
 
+	smpsFooterEndSong	"SndBF - Get Continue.asm"

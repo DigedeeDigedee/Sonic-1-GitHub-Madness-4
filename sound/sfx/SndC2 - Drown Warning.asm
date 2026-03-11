@@ -31,3 +31,4 @@ SndC2_Drown_Warning_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $80, $0A, $05, $24
 
+	smpsFooterEndSong	"SndC2 - Drown Warning.asm"

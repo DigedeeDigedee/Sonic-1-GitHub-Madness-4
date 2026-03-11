@@ -34,3 +34,4 @@ SndAD_Get_Bubble_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $80, $12, $12, $15
 
+	smpsFooterEndSong	"SndAD - Get Bubble.asm"

@@ -108,3 +108,4 @@ SndC4_Bomb_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $09
 	smpsVcTotalLevel    $00, $00, $12, $0C
 
+	smpsFooterEndSong	"SndC4 - Bomb.asm"

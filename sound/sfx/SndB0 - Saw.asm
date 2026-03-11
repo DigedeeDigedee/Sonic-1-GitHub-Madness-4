@@ -36,3 +36,4 @@ SndB0_Saw_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $02, $01, $16, $0B
 
+	smpsFooterEndSong	"SndB0 -Saw.asm"

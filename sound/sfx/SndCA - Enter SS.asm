@@ -32,3 +32,4 @@ SndCA_Enter_SS_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $23, $27, $29
 
+	smpsFooterEndSong	"SndCA - Enter SS.asm"

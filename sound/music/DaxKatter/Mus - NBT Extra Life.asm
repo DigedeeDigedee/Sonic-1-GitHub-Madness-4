@@ -154,3 +154,5 @@ BGM_1UP_Voices:
 ;	macros:
 ;		vol: 15 14 13 11 9 7 5 3 1 0
 
+
+	smpsFooterEndSong	"DaxKatter/Mus - NBT Extra Life.asm"

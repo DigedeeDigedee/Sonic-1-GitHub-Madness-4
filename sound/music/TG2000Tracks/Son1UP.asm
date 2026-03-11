@@ -588,4 +588,6 @@ Son1UP_Voices:
 	dc.b		$00,$1F,$FF,$1F,$0F,$18,$28,$27,$00;			Voice 00
 	dc.b		$3A,$61,$3C,$14,$31,$9C,$DB,$9C,$DA,$04,$09,$04,$03,$03,$01,$03
 	dc.b		$00,$1F,$0F,$0F,$AF,$21,$47,$31,$00;			Voice 01
+	
+	smpsFooterEndSong	"TG2000Tracks/Son1UP.asm"
 	even

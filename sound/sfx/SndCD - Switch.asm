@@ -13,3 +13,4 @@ SndCD_Switch_PSG3:
 
 ; Song seems to not use any FM voices
 SndCD_Switch_Voices:
+	smpsFooterEndSong	"SndCD - Switch.asm"

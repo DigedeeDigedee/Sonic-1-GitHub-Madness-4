@@ -36,3 +36,4 @@ SndAC_Hit_Boss_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $04, $07, $0E
 
+	smpsFooterEndSong	"SndAC - Hit Boss.asm"

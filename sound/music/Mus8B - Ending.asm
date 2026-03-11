@@ -238,3 +238,4 @@ Mus8B_Ending_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $01, $22, $24, $18
 
+	smpsFooterEndSong	"Mus8B - Ending.asm"

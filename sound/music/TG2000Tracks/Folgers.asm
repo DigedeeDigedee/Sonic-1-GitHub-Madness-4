@@ -113,4 +113,5 @@ Folgers_Voices:
 	dc.b		$00,$1F,$FF,$1F,$2F,$18,$28,$27,$00;			Voice 02
 	dc.b		$04,$71,$41,$31,$31,$12,$12,$12,$12,$00,$00,$00,$00,$00,$00,$00
 	dc.b		$00,$0F,$0F,$0F,$0F,$23,$00,$23,$00;			Voice 03
+	smpsFooterEndSong	"TG2000Tracks/Folgers.asm"	
 	even

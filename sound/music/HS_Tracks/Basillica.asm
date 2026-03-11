@@ -658,3 +658,4 @@ Basillica_Voices:
 	smpsVcReleaseRate   $06, $07, $06, $04
 	smpsVcTotalLevel    $02, $0A, $00, $19
 
+	smpsFooterEndSong	"HS_Tracks/Basillica.asm"

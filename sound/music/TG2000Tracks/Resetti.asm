@@ -2756,4 +2756,6 @@ Resetti_Voices:
 	dc.b		$0B,$2F,$1F,$1F,$1F,$19,$31,$13,$00;			Voice 01
 	dc.b		$2A,$01,$06,$08,$04,$53,$19,$1B,$50,$12,$11,$14,$19,$00,$00,$00
 	dc.b		$00,$29,$36,$15,$0B,$17,$1C,$33,$00;			Voice 02
+	
+	smpsFooterEndSong	"TG2000Tracks/Resetti.asm"
 	even

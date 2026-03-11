@@ -64,3 +64,4 @@ SndC5_Cash_Register_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $23, $00, $23
 
+	smpsFooterEndSong	"SndC5 - Cash Register.asm"

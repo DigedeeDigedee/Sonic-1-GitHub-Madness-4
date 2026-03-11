@@ -168,3 +168,4 @@ Mus90_Continue_Screen_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $26, $0D, $18
 
+	smpsFooterEndSong	"Mus90 - Continue Screen.asm"

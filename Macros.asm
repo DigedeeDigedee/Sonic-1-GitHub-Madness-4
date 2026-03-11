@@ -7,6 +7,9 @@ locVRAM:	macro loc,controlport=(vdp_control_port).l
 		move.l	#($40000000+(((loc)&$3FFF)<<16)+(((loc)&$C000)>>14)),controlport
 		endm
 
+;!@ GenesisDoes		
+locVRAMfm function loc,($40000000+(((loc)&$3FFF)<<16)+(((loc)&$C000)>>14))		
+
 ; ---------------------------------------------------------------------------
 ; DMA copy data from 68K (ROM/RAM) to the VRAM
 ; input: source, length, destination
@@ -35,6 +38,67 @@ writeCRAM:	macro source,destination
 		move.w	#$C000+(destination&$3FFF),(a5)
 		move.w	#$80+((destination&$C000)>>14),(v_vdp_buffer2).w
 		move.w	(v_vdp_buffer2).w,(a5)
+		endm
+		
+;!@ GenesisDoes: Scrolls a VDP plane
+scrollVDPPlanes:	macro	bgxd,bgyd,fgxd,fgyd
+		;bg plane
+		if sgn(bgxd)>0
+		addq.w	#bgxd,(v_hscrolltablebuffer+2).w
+		else
+		if sgn(bgxd)<0
+		subq.w	#(abs(bgxd)),(v_hscrolltablebuffer+2).w
+		endif
+		endif
+		
+		if sgn(bgyd)>0
+		addq.w	#bgyd,(v_bgscrposy_vdp).w
+		else
+		if sgn(bgyd)<0
+		subq.w	#(abs(bgyd)),(v_bgscrposy_vdp).w
+		endif
+		endif
+		
+		;fg plane
+		if sgn(fgxd)>0
+		addq.w	#fgxd,(v_hscrolltablebuffer).w
+		else
+		if sgn(fgxd)<0
+		subq.w	#(abs(fgxd)),(v_hscrolltablebuffer).w
+		endif
+		endif
+		
+		if sgn(fgyd)>0
+		addq.w	#fgyd,(v_scrposy_vdp).w
+		else
+		if sgn(fgyd)<0
+		subq.w	#(abs(fgyd)),(v_scrposy_vdp).w
+		endif
+		endif
+		endm
+		
+;!@ GenesisDoes: Set a VDP plane scroll, and uploads into VRAM
+scrollVDPPlanes_set:	macro	vBLA,bgxpos,bgypos,fgxpos,fgypos
+		if ("bgxpos"<>"")
+		move.w	#bgxpos,(v_hscrolltablebuffer+2).w		
+		endif
+		
+		if ("bgypos"<>"")
+		move.w	#bgypos,(v_bgscrposy_vdp).w
+		endif
+		
+		;fg plane
+		if ("fgxpos"<>"")
+		move.w	#fgxpos,(v_hscrolltablebuffer).w
+		endif
+		
+		if ("fgypos"<>"")
+		move.w	#fgypos,(v_scrposy_vdp).w
+		endif
+		
+		;Wait until upload into VRAM
+		move.b	#vBLA,(v_vbla_routine).w
+		jsr		(WaitForVBla).l
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -267,6 +331,13 @@ zonewarning:	macro loc,elementsize
 ; ---------------------------------------------------------------------------
 
 make_art_tile function addr,pal,pri,((pri&1)<<15)|((pal&3)<<13)|addr
+
+;!@ GenesisDoes
+;!@ convert between tile column to sprite xpos
+tilePosX_to_sprPosX function xpos,($80+($08*xpos)+$08)
+;!@ convert between tile row to sprite ypos
+tilePosY_to_sprPosY function ypos,($80+($08*ypos))
+tilePosY_to_sprPosYScrn function ypos,($80+($08*ypos)+$20)
 
 ; ---------------------------------------------------------------------------
 ; incbin compatibility macro for AS

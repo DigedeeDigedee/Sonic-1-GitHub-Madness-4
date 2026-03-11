@@ -40,3 +40,4 @@ SndC1_Break_Item_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $00, $00, $00
 
+	smpsFooterEndSong	"SndC1 - Break Item.asm"

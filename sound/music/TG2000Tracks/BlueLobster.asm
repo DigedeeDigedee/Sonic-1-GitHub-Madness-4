@@ -11,3 +11,4 @@ BlueLobster_DAC:
     smpsStop
 
 BlueLobster_Voices:
+	smpsFooterEndSong	"TG2000Tracks/BlueLobster.asm"

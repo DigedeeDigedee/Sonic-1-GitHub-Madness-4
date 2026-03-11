@@ -32,3 +32,4 @@ SndC9_Hidden_Bonus_Voices:
 	smpsVcReleaseRate   $0F, $08, $0F, $0F
 	smpsVcTotalLevel    $00, $00, $25, $03
 
+	smpsFooterEndSong	"SndC9 - Hidden Bonus.asm"

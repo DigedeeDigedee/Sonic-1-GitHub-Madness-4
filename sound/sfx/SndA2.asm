@@ -20,3 +20,4 @@ SndA2_Loop00:
 
 ; Song seems to not use any FM voices
 SndA2_Voices:
+	smpsFooterEndSong	"SndA2.asm"

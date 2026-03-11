@@ -48,3 +48,4 @@ SndB3_Flamethrower_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $0E, $1A, $2F
 
+	smpsFooterEndSong	"SndB3 - Flamethrower.asm"

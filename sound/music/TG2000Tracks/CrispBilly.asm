@@ -11,3 +11,4 @@ CrispBilly_DAC:
     smpsStop
 
 CrispBilly_Voices:
+	smpsFooterEndSong	"TG2000Tracks/CrispBilly.asm"	

@@ -32,3 +32,4 @@ SndB5_Ring_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $23, $00, $23
 
+	smpsFooterEndSong	"SndB5 - Ring.asm"

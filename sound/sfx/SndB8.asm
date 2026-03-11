@@ -20,3 +20,4 @@ SndB8_Loop00:
 
 ; Song seems to not use any FM voices
 SndB8_Voices:
+	smpsFooterEndSong	"SndB8.asm"

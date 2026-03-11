@@ -625,3 +625,4 @@ Mus81_GHZ_Voices:
 	smpsVcReleaseRate   $08, $00, $08, $00
 	smpsVcTotalLevel    $00, $17, $00, $16
 
+	smpsFooterEndSong	"DaxKatter/Mus - Limited Hill.asm"

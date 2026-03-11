@@ -11,3 +11,4 @@ DeppaDig_DAC:
     smpsStop
 
 DeppaDig_Voices:
+	smpsFooterEndSong	"TG2000Tracks/DeppaDig.asm"	

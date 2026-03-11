@@ -32,3 +32,4 @@ SndA7_Push_Block_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $0E, $0E, $0F
 
+	smpsFooterEndSong	"SndA7 - Push Block.asm"

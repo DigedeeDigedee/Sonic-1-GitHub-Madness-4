@@ -21,3 +21,4 @@ SndAB_Loop00:
 
 ; Song seems to not use any FM voices
 SndAB_Voices:
+	smpsFooterEndSong	"SndAB.asm"

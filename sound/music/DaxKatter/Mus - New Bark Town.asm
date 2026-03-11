@@ -103,3 +103,4 @@ BGM_Dummy_Voices:
 	smpsVcReleaseRate	$06, $06, $06, $06
 	smpsVcTotalLevel	$00, $25, $2F, $25
 
+	smpsFooterEndSong	"DaxKatter/Mus - New Bark Town.asm"

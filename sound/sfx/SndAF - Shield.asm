@@ -32,3 +32,4 @@ SndAF_Shield_Voices:
 	smpsVcTotalLevel    $00, $0E, $1A, $0F
 
 
+	smpsFooterEndSong	"SndAF - Shield.asm"

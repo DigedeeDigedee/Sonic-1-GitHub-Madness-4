@@ -66,3 +66,4 @@ SndB4_Bumper_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $00, $00, $07
 
+	smpsFooterEndSong	"SndB4 - Bumper.asm"

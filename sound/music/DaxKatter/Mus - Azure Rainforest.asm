@@ -951,3 +951,5 @@ BGM_DUNGEON3_PSG3_11_0_108:
 
 BGM_DUNGEON3_DAC:
 	smpsStop
+	
+	smpsFooterEndSong	"DaxKatter/Mus - Azure Rainforest.asm"

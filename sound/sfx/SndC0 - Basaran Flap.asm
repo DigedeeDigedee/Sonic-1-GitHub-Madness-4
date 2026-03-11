@@ -31,3 +31,4 @@ SndC0_Basaran_Flap_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $00, $00, $00
 
+	smpsFooterEndSong	"SndC0 - Basaran Flap.asm"

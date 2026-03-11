@@ -21565,4 +21565,6 @@ Passport_Voices:
 	dc.b		$06,$29,$2F,$50,$26,$1B,$15,$42,$00;			Voice 09
 	dc.b		$3B,$01,$07,$01,$01,$8E,$8E,$8D,$53,$0E,$0E,$0E,$03,$00,$00,$00
 	dc.b		$00,$1F,$FF,$1F,$0F,$18,$28,$27,$00;			Voice 0A
+	
+	smpsFooterEndSong	"TG2000Tracks/Passport.asm"
 	even

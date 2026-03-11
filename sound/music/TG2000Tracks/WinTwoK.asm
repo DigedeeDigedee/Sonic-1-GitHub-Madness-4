@@ -11,3 +11,4 @@ WinTwoK_DAC:
     smpsStop
 
 WinTwoK_Voices:
+	smpsFooterEndSong	"TG2000Tracks/WinTwoK.asm"

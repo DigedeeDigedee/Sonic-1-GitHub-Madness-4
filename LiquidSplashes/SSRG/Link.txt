@@ -1,0 +1,11 @@
+; provided by GenesisDoes
+Palette File: 		 SSRG.pal
+Mapping File: 		 MapLink.kos
+Art File: 			 ArtLink.nem
+Mapping Compression: Kosinski
+Art Compression: 	 Nemesis
+Palette Length: 	 0x40
+Palette Offset: 	 0x00
+x-Size: 32
+y-Size: 1
+Tile Offset: 0x000

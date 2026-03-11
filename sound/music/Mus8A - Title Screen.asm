@@ -1319,4 +1319,6 @@ SmilingBomb_Voices:
 	smpsVcDecayLevel	$03,	$02,	$01,	$01
 	smpsVcReleaseRate	$09,	$07,	$0C,	$02
 	smpsVcTotalLevel	$82,	$10,	$10,	$22
+	
+	smpsFooterEndSong	"Mus8A - Title Screen.asm"
 	even

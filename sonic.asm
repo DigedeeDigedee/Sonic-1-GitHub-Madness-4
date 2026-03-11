@@ -4522,6 +4522,10 @@ Map_Monitor:	include	"_maps/Monitor.asm"
 Map_PSB:	include	"_maps/Press Start and TM.asm"
 Map_TSon:	include	"_maps/Title Screen Sonic.asm"
 
+;!@ Object 10/EagleSoft screen
+Map_Eagle:			include	"_maps/Eagle.asm"
+
+
 		include	"_incObj/2B Chopper.asm"
 		include	"_anim/Chopper.asm"
 Map_Chop:	include	"_maps/Chopper.asm"

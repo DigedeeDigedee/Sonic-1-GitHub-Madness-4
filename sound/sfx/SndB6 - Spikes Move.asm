@@ -20,3 +20,4 @@ SndB6_Spikes_Move_Loop00:
 
 ; Song seems to not use any FM voices
 SndB6_Spikes_Move_Voices:
+	smpsFooterEndSong	"SndB6 - Spikes Move.asm"

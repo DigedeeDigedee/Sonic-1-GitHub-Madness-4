@@ -340,51 +340,52 @@ flg__Last:	equ ((ptr_flgend-Sound_ExIndex-4)/4)+flg__First
 
 ; DAC Equates - Putting them here for ease of access
 ; Song Samples
-dKick			equ $81
-dSnare			equ $82
-dTimpani		equ $83
-dHiTimpani		equ $84
-dMidTimpani		equ $85
-dLowTimpani		equ $86
+dKick				equ $81
+dSnare				equ $82
+dTimpani			equ $83
+dHiTimpani			equ $84
+dMidTimpani			equ $85
+dLowTimpani			equ $86
 dVLowTimpani		equ $87
-dChunkyKick		equ $88
-dPokeSnare		equ $89
+dChunkyKick			equ $88
+dPokeSnare			equ $89
 dPokeKickCrashHi	equ $8A
 dPokeHiTimpani		equ $8B
 dPokeMidTimpani		equ $8C
 dPokeLowTimpani		equ $8D
-dAmenKick:		equ $8E
+dAmenKick:			equ $8E
 dAmenSnare1:		equ $8F
 dAmenSnare2:		equ $90
 dAmenShortKick1:	equ $91
 dAmenShortKick2:	equ $92
-dAmenRide1:		equ $93
-dAmenRide2:		equ $94
-dAmenCrash:		equ $95
+dAmenRide1:			equ $93
+dAmenRide2:			equ $94
+dAmenCrash:			equ $95
 
 ; SFX Samples
-dDAMN			equ $96
-dTrevor			equ $97
-d2kki			equ $98
-dDooDoo			equ $99
-dCrispBilly		equ $9A
+dDAMN				equ $96
+dTrevor				equ $97
+d2kki				equ $98
+dDooDoo				equ $99
+dCrispBilly			equ $9A
 dBlueLobster		equ $9B
-dWinTwoK		equ $9C
-dDeppaDig		equ $9D
-dQuakeRocket		equ $9E
-dsupbeaches		equ $9F
-dPenis			equ $A0
-dSTFU			equ $A1
-dFuck			equ $A2
-dYouCanSuck		equ $A3
-dDoYouSuck		equ $A4
-dDicks			equ $A5
-dOnTheBall		equ $A6
-dPenises		equ $A7
-dEggNo			equ $A8
+dWinTwoK			equ $9C
+dDeppaDig			equ $9D
+dEagleSoftSong		equ	$9E
+dQuakeRocket		equ $9F
+dsupbeaches			equ $A0
+dPenis				equ $A1
+dSTFU				equ $A2
+dFuck				equ $A3
+dYouCanSuck			equ $A4
+dDoYouSuck			equ $A5
+dDicks				equ $A6
+dOnTheBall			equ $A7
+dPenises			equ $A8
+dEggNo				equ $A9
 
 ; Sega should always be last
-dSega			equ $A9
+dSega				equ $AA
 
 
 ; Sonic frame IDs
@@ -666,6 +667,7 @@ ArtTile_Sega_Tiles:		equ $000
 
 ; Title Screen
 ArtTile_Title_Japanese_Text:	equ $000
+ArtTile_Title_S2Font:		equ	$28	;!@ GenesisDoes
 ArtTile_Title_Foreground:	equ $200
 ArtTile_Title_Sonic:		equ $300
 ArtTile_Title_Trademark:	equ $510
