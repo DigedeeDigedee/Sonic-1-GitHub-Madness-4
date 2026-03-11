@@ -1,26 +1,14 @@
-; ---------------------------------------------------------------------------
-; Sprite mappings - Orbinaut enemy (LZ, SLZ, SBZ)
-; ---------------------------------------------------------------------------
-Map_Orb_internal:	mappingsTable
-	mappingsTableEntry.w	.normal
-	mappingsTableEntry.w	.medium
-	mappingsTableEntry.w	.angry
-	mappingsTableEntry.w	.spikeball
-
-.normal:	spriteHeader
-	spritePiece	-$C, -$C, 3, 3, 0, 0, 0, 0, 0
-.normal_End
-
-.medium:	spriteHeader
-	spritePiece	-$C, -$C, 3, 3, 9, 0, 0, 1, 0
-.medium_End
-
-.angry:	spriteHeader
-	spritePiece	-$C, -$C, 3, 3, $12, 0, 0, 0, 0
-.angry_End
-
-.spikeball:	spriteHeader
-	spritePiece	-8, -8, 2, 2, $1B, 0, 0, 0, 0
-.spikeball_End
-
+Map_666e:
+Map_666e_0: 	dc.w Map_666e_8-Map_666e
+Map_666e_2: 	dc.w Map_666e_E-Map_666e
+Map_666e_4: 	dc.w Map_666e_14-Map_666e
+Map_666e_6: 	dc.w Map_666e_1A-Map_666e
+Map_666e_8: 	dc.b $1
+	dc.b $F8, $5, $0, $9, $F8
+Map_666e_E: 	dc.b $1
+	dc.b $F4, $A, $20, $0, $F4
+Map_666e_14: 	dc.b $1
+	dc.b $F4, $6, $0, $D, $F8
+Map_666e_1A: 	dc.b $1
+	dc.b $F8, $5, $0, $13, $F8
 	even

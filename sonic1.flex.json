@@ -1,7 +1,7 @@
 {
     "Flex": 2,
     "name": "Sonic 1",
-    "node": "da472ab9-f363-45e6-8ee3-a83fd70d6d9c",
+    "node": "686c6337-c46a-4914-8b30-85fe2f6400cd",
     "objects": [
         {
             "format": "Sonic 1.js",
@@ -2470,11 +2470,11 @@
                     "format": "Sonic 1.js",
                     "palettes": [
                         {
-                            "path": "palette/Sonic.bin",
+                            "path": "palette\\Star Light Zone.bin",
                             "length": 1
                         },
                         {
-                            "path": "palette/Star Light Zone.bin",
+                            "path": "",
                             "length": 3
                         }
                     ],
@@ -2496,7 +2496,7 @@
                 }
             ],
             "isDirectory": true,
-            "expanded": false,
+            "expanded": true,
             "uuid": "a1e8ddd8-1c53-4e89-aa36-5cd177686c63"
         },
         {
