@@ -31,7 +31,7 @@ SampleTable:
 	; SFX SAMPLES (like any funny quotes etc...)
 	dcSample	TYPE_PCM,	DAMN,		16000				; $96
 	dcSample	TYPE_PCM,	Trevor,		0, FLAGS_SFX		; $97
-	dcSample	TYPE_PCM_TURBO,	yume2kki,	0, FLAGS_SFX	; $98
+	dcSample	TYPE_DPCM,	yume2kki,	16000, FLAGS_SFX	; $98
 	dcSample	TYPE_PCM,	DooDoo,		8000,				; $99
 	dcSample	TYPE_PCM,	CrispBilly,	8000,				; $9A
 	dcSample	TYPE_PCM,	BlueLobster,	8000,			; $9B
@@ -52,12 +52,15 @@ SampleTable:
 	dcSample	TYPE_PCM,	EggNo,		11297,				; $A9
 	dcSample	TYPE_PCM,	BabyAlarm,	0,FLAGS_SFX 		; $AA
 	; Level end theme
-	dcSample	TYPE_PCM_TURBO,	BoingBoing,	0,FLAGS_LOOP 		; $AB
-	dcSample	TYPE_PCM,	Boik,	0,FLAGS_SFX 		; $AC
+	dcSample	TYPE_DPCM,	BoingBoing,	16000,FLAGS_LOOP 	; $AB
+	dcSample	TYPE_PCM,	Boik,	0,FLAGS_SFX 			; $AC
 	dcSample	TYPE_PCM,	Boioing,	0,FLAGS_SFX 		; $AD
 	dcSample	TYPE_PCM,	OrngLaugh,	0,FLAGS_SFX 		; $AE
+
+	dcSample	TYPE_DPCM,	ClintonHi,	20600,FLAGS_SFX 	; $AF
+	dcSample	TYPE_DPCM,	ClintonYeah,	20600,FLAGS_SFX 	; $B0
 	; Keep this as the last sample pls (and make sure to add a sample constant to _smps2asm.asm
-	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0, FLAGS_SFX	; $AF
+	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0, FLAGS_SFX	; $B1
 	dc.w	-1	; end marker
 
 ; ---------------------------------------------------------------
@@ -88,7 +91,7 @@ SampleTable:
 ; All your funny meme samples you can find
 	incdac	DAMN, "sound/dac/DAX/DAMN.pcm"
 	incdac	Trevor, "sound/dac/Trevor.wav"
-	incdac	yume2kki, "sound/dac/2kki.wav"
+	incdac	yume2kki, "sound/dac/2kki.dpcm"
 	incdac	supbeaches, "sound/dac/supbeaches.wav"
 	incdac	DooDoo, "sound/dac/idk/doodoofeces.pcm"
 	incdac	QuakeRocket, "sound/dac/tankfire1.wav"
@@ -105,9 +108,11 @@ SampleTable:
 	incdac	Boioing, "sound/dac/boioioing.wav"
 	incdac	Boik, "sound/dac/boik.wav"
 	incdac	OrngLaugh, "sound/dac/AnOrangesLaugh.wav"
+	incdac	ClintonHi, "sound/dac/clintonfucker_hi.dpcm"
+	incdac	ClintonYeah, "sound/dac/clintonfucker_yeah.dpcm"
 ; ---------------------------------------------------------------
 ; Null level end
-	incdac	BoingBoing, "sound/dac/BoingBoing.wav"
+	incdac	BoingBoing, "sound/dac/BoingBoing.dpcm"
 
 ; ---------------------------------------------------------------
 ; Stuff for Splash Screens
