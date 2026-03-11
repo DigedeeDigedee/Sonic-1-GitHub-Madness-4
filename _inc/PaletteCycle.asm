@@ -35,7 +35,7 @@ PalCycle_Index:	dc.w PalCycle_GHZ-PalCycle_Index
 
 PalCycle_Title:
 		lea	(Pal_TitleCyc).l,a0
-		bra.s	PCycGHZ_Go
+		bra.s	PalCycle_GHZ
 ; ===========================================================================
 
 PalCycle_GHZ:
