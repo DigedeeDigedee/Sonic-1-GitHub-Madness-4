@@ -2879,6 +2879,8 @@ SyncEnd:
 
 
 SignpostArtLoad:
+		tst.b	v_clintonfucker
+		bne.s	.exit
 		tst.w	(v_debuguse).w	; is debug mode being used?
 		bne.w	.exit		; if yes, branch
 		cmpi.b	#2,(v_act).w	; is act number 02 (act 3)?
