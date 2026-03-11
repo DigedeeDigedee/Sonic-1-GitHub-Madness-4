@@ -91,7 +91,7 @@ PLC_GameOverend:
 ; Pattern load cues - Green Hill
 ; ---------------------------------------------------------------------------
 PLC_GHZ:	dc.w ((PLC_GHZ2-PLC_GHZ-2)/6)-1
-		plcm	Nem_GHZ,   ArtTile_Level                  	; GHZ main patterns
+;		plcm	Nem_GHZ,   ArtTile_Level                  	; GHZ main patterns
 		plcm	Nem_Stalk,     ArtTile_GHZ_Flower_Stalk       ; flower stalk
 		plcm	Nem_PplRock,   ArtTile_GHZ_Purple_Rock        ; purple rock
 		plcm	Nem_Crabmeat,  ArtTile_Crabmeat               ; crabmeat enemy
@@ -115,7 +115,7 @@ PLC_GHZ2end:
 ; Pattern load cues - Labyrinth
 ; ---------------------------------------------------------------------------
 PLC_LZ:		dc.w ((PLC_LZ2-PLC_LZ-2)/6)-1
-		plcm	Nem_LZ,          ArtTile_Level              ; LZ main patterns
+;		plcm	Nem_LZ,          ArtTile_Level              ; LZ main patterns
 
 PLC_LZ2:	dc.w ((PLC_LZ2end-PLC_LZ2-2)/6)-1
 		plcm	Nem_Spikes,      ArtTile_Spikes             ; spikes
@@ -126,7 +126,7 @@ PLC_LZ2end:
 ; Pattern load cues - Marble
 ; ---------------------------------------------------------------------------
 PLC_MZ:		dc.w ((PLC_MZ2-PLC_MZ-2)/6)-1
-		plcm	Nem_MZ,       ArtTile_Level              ; MZ main patterns
+;		plcm	Nem_MZ,       ArtTile_Level              ; MZ main patterns
 		plcm	Nem_MzMetal,  ArtTile_MZ_Spike_Stomper   ; metal blocks
 		plcm	Nem_MzFire,   ArtTile_MZ_Fireball        ; fireballs
 		plcm	Nem_Swing,    ArtTile_GHZ_MZ_Swing       ; swinging platform
@@ -148,7 +148,7 @@ PLC_MZ2end:
 ; Pattern load cues - Star Light
 ; ---------------------------------------------------------------------------
 PLC_SLZ:	dc.w ((PLC_SLZ2-PLC_SLZ-2)/6)-1
-		plcm	Nem_SLZ,       ArtTile_Level                    ; SLZ main patterns
+;		plcm	Nem_SLZ,       ArtTile_Level                    ; SLZ main patterns
 		plcm	Nem_Bomb,      ArtTile_Bomb                     ; bomb enemy
 		plcm	Nem_Orbinaut,  ArtTile_SLZ_Orbinaut             ; orbinaut enemy
 		plcm	Nem_MzFire,    ArtTile_SLZ_Fireball             ; fireballs
@@ -170,7 +170,7 @@ PLC_SLZ2end:
 ; Pattern load cues - Spring Yard
 ; ---------------------------------------------------------------------------
 PLC_SYZ:	dc.w ((PLC_SYZ2-PLC_SYZ-2)/6)-1
-		plcm	Nem_SYZ,       ArtTile_Level               ; SYZ main patterns
+;		plcm	Nem_SYZ,       ArtTile_Level               ; SYZ main patterns
 		plcm	Nem_Crabmeat,  ArtTile_Crabmeat            ; crabmeat enemy
 		plcm	Nem_Buzz,      ArtTile_Buzz_Bomber         ; buzz bomber enemy
 		plcm	Nem_Yadrin,    ArtTile_Yadrin              ; yadrin enemy
@@ -190,7 +190,7 @@ PLC_SYZ2end:
 ; Pattern load cues - Scrap Brain
 ; ---------------------------------------------------------------------------
 PLC_SBZ:	dc.w ((PLC_SBZ2-PLC_SBZ-2)/6)-1
-		plcm	Nem_SBZ,       ArtTile_Level                   ; SBZ main patterns
+;		plcm	Nem_SBZ,       ArtTile_Level                   ; SBZ main patterns
 		plcm	Nem_Stomper,   ArtTile_SBZ_Moving_Block_Short  ; moving platform and stomper
 		plcm	Nem_SbzDoor1,  ArtTile_SBZ_Door                ; door
 		plcm	Nem_Girder,    ArtTile_SBZ_Girder              ; girder
@@ -222,7 +222,7 @@ PLC_SBZ2end:
 ; Pattern load cues - COLD BREW
 ; ---------------------------------------------------------------------------
 PLC_BREW:	dc.w ((PLC_BREW2-PLC_BREW-2)/6)-1
-		plcm	Nem_BREW,   ArtTile_Level                  ; GHZ main patterns
+;		plcm	Nem_BREW,   ArtTile_Level                  ; GHZ main patterns
 		plcm	Nem_Stalk,     ArtTile_GHZ_Flower_Stalk       ; flower stalk
 		plcm	Nem_PplRock,   ArtTile_GHZ_Purple_Rock        ; purple rock
 		plcm	Nem_Crabmeat,  ArtTile_Crabmeat               ; crabmeat enemy
@@ -246,7 +246,7 @@ PLC_BREW2end:
 ; Pattern load cues - WINDOWS
 ; ---------------------------------------------------------------------------
 PLC_WIN:	dc.w ((PLC_WIN2-PLC_WIN-2)/6)-1
-		plcm	Nem_WIN,       ArtTile_Level                    ; SLZ main patterns
+;		plcm	Nem_WIN,       ArtTile_Level                    ; SLZ main patterns
 		plcm	Nem_Bomb,      ArtTile_Bomb                     ; bomb enemy
 		plcm	Nem_Orbinaut,  ArtTile_SLZ_Orbinaut             ; orbinaut enemy
 		plcm	Nem_MzFire,    ArtTile_SLZ_Fireball             ; fireballs
@@ -268,7 +268,7 @@ PLC_WIN2end:
 ; Pattern load cues - The Joint
 ; ---------------------------------------------------------------------------
 PLC_Joint:	dc.w ((PLC_Joint2-PLC_Joint-2)/6)-1
-		plcm	Nem_Joint,       ArtTile_Level                   ; Joint main patterns
+;		plcm	Nem_Joint,       ArtTile_Level                   ; Joint main patterns
 
 PLC_Joint2:	dc.w ((PLC_Joint2end-PLC_Joint2-2)/6)-1
 		plcm	Nem_Spikes,     ArtTile_Spikes                 ; spikes
@@ -416,7 +416,7 @@ PLC_SpeStResultend:
 ; Pattern load cues - ending sequence
 ; ---------------------------------------------------------------------------
 PLC_Ending:	dc.w ((PLC_Endingend-PLC_Ending-2)/6)-1
-		plcm	Nem_GHZ,   ArtTile_Level            ; GHZ main patterns
+;		plcm	Nem_GHZ,   ArtTile_Level            ; GHZ main patterns
 		plcm	Nem_Stalk,     ArtTile_GHZ_Flower_Stalk ; flower stalk
 		plcm	Nem_EndFlower, ArtTile_Ending_Flowers   ; flowers
 		plcm	Nem_EndEm,     ArtTile_Ending_Emeralds  ; emeralds
