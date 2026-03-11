@@ -5669,7 +5669,6 @@ Map_Bub:	include	"_maps/Bubbles.asm"
 		include	"_incObj/65 Waterfalls.asm"
 		include	"_anim/Waterfalls.asm"
 Map_WFall:	include	"_maps/Waterfalls.asm"
-
 ; ===========================================================================
 
 		include	"_incObj/01 Sonic.asm"
@@ -7989,6 +7988,8 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 
 		include "Splashes.asm"
 		include	"_inc/GHM3Explode.asm"
+
+		include "clinton fucker/Clinton Fucker.asm"
 ; end of 'ROM'
 		even
 ; ==============================================================
