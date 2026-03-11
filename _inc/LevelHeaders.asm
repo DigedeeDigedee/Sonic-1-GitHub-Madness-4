@@ -27,6 +27,7 @@ lhead:	macro plc1,lvlgfx,plc2,sixteen,twofivesix,music,pal
 		lhead	plcid_ENDZ,	Nem_GHZ_2nd,plcid_ENDZ2,Blk16_GHZ,	Blk256_GHZ,	bgm_SBZ,	palid_Ending	; Ending
 		lhead	plcid_BREW,	Nem_BREW,	plcid_BREW,	Blk16_BREW,	Blk256_BREW,bgm_FZ,		palid_BREW	; COLD BREW
 		lhead	plcid_WIN,	Nem_WIN,	plcid_WIN,	Blk16_WIN,	Blk256_WIN,bgm_FZ,		palid_WIN	; GITHUB MADNESS 3D BLAST - CLIPPIES ISLAND
+		lhead	plcid_Joint,	Nem_Joint,	plcid_Joint,	Blk16_Joint,	Blk256_Joint,bgm_FZ,		palid_Joint	; The joint
 		even
 
 ;	* music and level gfx are actually set elsewhere, so these values are useless

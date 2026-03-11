@@ -94,6 +94,8 @@ id_SBZ:		equ 5
 id_EndZ:	equ 6
 id_SS:		equ 6
 id_CBZ:		equ 7
+id_WIN:		equ 8
+id_Joint:	equ 9
 
 ; Colours
 cBlack:		equ $000		; colour black

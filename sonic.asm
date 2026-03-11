@@ -2007,6 +2007,7 @@ Pal_Ending:		bincludeEndMarker	"palette/Ending.bin"
 Pal_TryAgain:		bincludeEndMarker	"palette/TryAgain.bin"
 Pal_FelixDecision:	bincludeEndMarker	"ContinueScreen/Graphics/Tile/Decision/Palette.bin"
 Pal_FelixGameOver:	bincludeEndMarker	"ContinueScreen/Graphics/Tile/GameOver/Palette.bin"
+Pal_Joint:		bincludeEndMarker	"palette/Joint Zone.bin"
 
 Pal_SplashPal:	bincludeEndMarker	"eurosega/pal.bin"
 Pal_ColdBrew:	bincludeEndMarker	"conimodes/cold brew/palette.bin"
@@ -2459,6 +2460,7 @@ MusicList:
 		dc.b bgm_FZ	; Ending
 		dc.b bgm_FZ	; cold brew but use that in case you want to hijack music or something
 		dc.b bgm_FZ	; WIN98
+		dc.b bgm_LZ	; Joint
 		even
 ; ===========================================================================
 
@@ -2814,6 +2816,7 @@ ColPointers:	dc.l Col_GHZ
 		dc.l Col_GHZ ; Pointer for Ending is missing by default.
 		dc.l Col_BREW
 		dc.l Col_WIN
+		dc.l Col_Joint
 		include	"_inc/Oscillatory Routines.asm"
 
 ; ---------------------------------------------------------------------------
@@ -7490,6 +7493,13 @@ Nem_WIN:	binclude	"artnem/8x8 - WIN.nem"	; WIN primary patterns
 		even
 Blk256_WIN:	binclude	"map256/WIN.kos"
 		even
+
+Blk16_Joint:	binclude	"map16/Joint.eni"
+		even
+Nem_Joint:	binclude	"artnem/8x8 - Joint.nem"	; Joint primary patterns
+		even
+Blk256_Joint:	binclude	"map256/Joint.kos"
+		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - bosses and ending sequence
 ; ---------------------------------------------------------------------------
@@ -7563,6 +7573,8 @@ Col_SBZ:	binclude	"collide/SBZ.bin"	; SBZ index
 Col_BREW:	binclude	"collide/BREW.bin"	; BREW index
 		even
 Col_WIN:	binclude	"collide/SLZ.bin"	; WIN index
+		even
+Col_Joint:	binclude	"collide/Joint.bin"	; Joint index
 		even
 
 ; ---------------------------------------------------------------------------
@@ -7659,6 +7671,11 @@ Level_Index:
 		dc.w Level_WIN2-Level_Index, Level_WINbg-Level_Index, Level_WIN1Unk-Level_Index
 		dc.w Level_WIN3-Level_Index, Level_WINbg-Level_Index, Level_WIN1Unk-Level_Index
 		dc.w Level_WIN1Unk-Level_Index, Level_WIN1Unk-Level_Index, Level_WIN1Unk-Level_Index
+		; JOINT
+		dc.w Level_Joint1-Level_Index, Level_Jointbg-Level_Index, Level_Joint1Unk-Level_Index
+		dc.w Level_Joint2-Level_Index, Level_Jointbg-Level_Index, Level_Joint1Unk-Level_Index
+		dc.w Level_Joint3-Level_Index, Level_Jointbg-Level_Index, Level_Joint1Unk-Level_Index
+		dc.w Level_Joint1Unk-Level_Index, Level_Joint1Unk-Level_Index, Level_Joint1Unk-Level_Index
 
 
 Level_GHZ1:	binclude	"levels/ghz1.bin"
@@ -7765,6 +7782,16 @@ Level_WIN3:	binclude	"levels/WIN3.bin"
 		even
 Level_WIN1Unk:	dc.l 0
 
+Level_Joint1:	binclude	"levels/Joint1.bin"
+		even
+Level_Jointbg:	binclude	"levels/Jointbg.bin"
+		even
+Level_Joint2:	binclude	"levels/Joint2.bin"
+		even
+Level_Joint3:	binclude	"levels/Joint3.bin"
+		even
+Level_Joint1Unk:	dc.l 0
+
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics - Giant Rings
 ; ---------------------------------------------------------------------------
@@ -7829,6 +7856,11 @@ ObjPos_Index:
 		dc.w ObjPos_WIN2-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_WIN3-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_WIN1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		; Joint
+		dc.w ObjPos_Joint1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_Joint2-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_Joint3-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_Joint1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 ObjPosLZPlatform_Index:
 		dc.w ObjPos_LZ1pf1-ObjPos_Index, ObjPos_LZ1pf2-ObjPos_Index
 		dc.w ObjPos_LZ2pf1-ObjPos_Index, ObjPos_LZ2pf2-ObjPos_Index
@@ -7957,6 +7989,12 @@ ObjPos_WIN1:	binclude	"objpos/WIN1.bin"
 ObjPos_WIN2:	binclude	"objpos/WIN2.bin"
 		even
 ObjPos_WIN3:	binclude	"objpos/WIN3.bin"
+		even
+ObjPos_Joint1:	binclude	"objpos/Joint1.bin"
+		even
+ObjPos_Joint2:	binclude	"objpos/Joint2.bin"
+		even
+ObjPos_Joint3:	binclude	"objpos/Joint3.bin"
 		even
 ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 

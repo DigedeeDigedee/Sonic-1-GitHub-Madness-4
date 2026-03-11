@@ -27,6 +27,8 @@ ptr_PLC_BREW:		dc.w PLC_BREW-ArtLoadCues
 ptr_PLC_BREW2:		dc.w PLC_BREW2-ArtLoadCues
 ptr_PLC_WIN:		dc.w PLC_WIN-ArtLoadCues
 ptr_PLC_WIN2:		dc.w PLC_WIN2-ArtLoadCues
+ptr_PLC_Joint:		dc.w PLC_Joint-ArtLoadCues
+ptr_PLC_Joint2:		dc.w PLC_Joint2-ArtLoadCues
 ptr_PLC_TitleCard:	dc.w PLC_TitleCard-ArtLoadCues
 ptr_PLC_Boss:		dc.w PLC_Boss-ArtLoadCues
 ptr_PLC_Signpost:	dc.w PLC_Signpost-ArtLoadCues
@@ -43,6 +45,7 @@ ptr_PLC_SBZAnimals:	dc.w PLC_SBZAnimals-ArtLoadCues
 ptr_PLC_ENDZAnimals:	dc.w PLC_ENDZAnimals-ArtLoadCues
 ptr_PLC_BREWAnimals:	dc.w PLC_BREWAnimals-ArtLoadCues
 ptr_PLC_WINAnimals:	dc.w PLC_WINAnimals-ArtLoadCues
+ptr_PLC_JointAnimals:	dc.w PLC_JointAnimals-ArtLoadCues
 ptr_PLC_SSResult:	dc.w PLC_SSResult-ArtLoadCues
 ptr_PLC_Ending:		dc.w PLC_Ending-ArtLoadCues
 ptr_PLC_TryAgain:	dc.w PLC_TryAgain-ArtLoadCues
@@ -262,6 +265,17 @@ PLC_WIN2:	dc.w ((PLC_WIN2end-PLC_WIN2-2)/6)-1
 		plcm	Nem_SlzSpike,  ArtTile_SLZ_Spikeball             ; spikeball
 PLC_WIN2end:
 ; ---------------------------------------------------------------------------
+; Pattern load cues - The Joint
+; ---------------------------------------------------------------------------
+PLC_Joint:	dc.w ((PLC_Joint2-PLC_Joint-2)/6)-1
+		plcm	Nem_Joint,       ArtTile_Level                   ; Joint main patterns
+
+PLC_Joint2:	dc.w ((PLC_Joint2end-PLC_Joint2-2)/6)-1
+		plcm	Nem_Spikes,     ArtTile_Spikes                 ; spikes
+		plcm	Nem_HSpring,    ArtTile_Spring_Horizontal      ; horizontal spring
+		plcm	Nem_VSpring,    ArtTile_Spring_Vertical        ; vertical spring
+PLC_Joint2end:
+; ---------------------------------------------------------------------------
 ; Pattern load cues - title card
 ; ---------------------------------------------------------------------------
 PLC_TitleCard:	dc.w ((PLC_TitleCardend-PLC_TitleCard-2)/6)-1
@@ -385,6 +399,13 @@ PLC_WINAnimals:	dc.w ((PLC_WINAnimalsend-PLC_WINAnimals-2)/6)-1
 		plcm	Nem_Flicky, ArtTile_Animal_2 ; flicky
 PLC_WINAnimalsend:
 ; ---------------------------------------------------------------------------
+; Pattern load cues - Joint animals
+; ---------------------------------------------------------------------------
+PLC_JointAnimals:	dc.w ((PLC_JointAnimalsend-PLC_JointAnimals-2)/6)-1
+		plcm	Nem_Squirrel,    ArtTile_Animal_1 ; ricky
+		plcm	Nem_Chicken, ArtTile_Animal_2 ; cocky
+PLC_JointAnimalsend:
+; ---------------------------------------------------------------------------
 ; Pattern load cues - special stage results screen
 ; ---------------------------------------------------------------------------
 PLC_SSResult:dc.w ((PLC_SpeStResultend-PLC_SSResult-2)/6)-1
@@ -470,6 +491,8 @@ plcid_BREW:		equ (ptr_PLC_BREW-ArtLoadCues)/2		; 4
 plcid_BREW2:		equ (ptr_PLC_BREW2-ArtLoadCues)/2	; 5
 plcid_WIN:		equ (ptr_PLC_WIN-ArtLoadCues)/2		; 4
 plcid_WIN2:		equ (ptr_PLC_WIN-ArtLoadCues)/2	; 5
+plcid_Joint:		equ (ptr_PLC_Joint-ArtLoadCues)/2		; $20
+plcid_Joint2:		equ (ptr_PLC_Joint2-ArtLoadCues)/2	; $21
 plcid_TitleCard:	equ (ptr_PLC_TitleCard-ArtLoadCues)/2	; $10
 plcid_Boss:		equ (ptr_PLC_Boss-ArtLoadCues)/2	; $11
 plcid_Signpost:		equ (ptr_PLC_Signpost-ArtLoadCues)/2	; $12
