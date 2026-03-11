@@ -11,6 +11,11 @@
 ; ===========================================================================
 ; ASSEMBLY OPTIONS:
 
+
+DickingAround = 1
+; 	| If 0, loads SEGA screen first (for public release)
+; 	| If 1, load Debug Menu first
+
 CheatsOn = 1
 ; 	| If 0, build it with no cheats active
 ; 	| If 1, build it with all cheats active
@@ -413,7 +418,11 @@ GameInit:
 		nop
 		nop
 		endif
+		if DickingAround=1
+		move.b	#id_DebugMenu,(v_gamemode).w ; set Game Mode to deubg menu Screen
+		else
 		move.b	#id_Sega,(v_gamemode).w ; set Game Mode to Sega Screen
+		endif
 
 MainGameLoop:
 		move.b	(v_gamemode).w,d0			; load Game Mode
@@ -2879,6 +2888,8 @@ SyncEnd:
 
 
 SignpostArtLoad:
+		tst.b	v_clintonfucker
+		bne.s	.exit
 		tst.w	(v_debuguse).w	; is debug mode being used?
 		bne.w	.exit		; if yes, branch
 		cmpi.b	#2,(v_act).w	; is act number 02 (act 3)?
@@ -5713,7 +5724,6 @@ Map_Bub:	include	"_maps/Bubbles.asm"
 		include	"_incObj/65 Waterfalls.asm"
 		include	"_anim/Waterfalls.asm"
 Map_WFall:	include	"_maps/Waterfalls.asm"
-
 ; ===========================================================================
 
 		include	"_incObj/01 Sonic.asm"
@@ -8066,6 +8076,8 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 
 		include "Splashes.asm"
 		include	"_inc/GHM3Explode.asm"
+
+		include "clinton fucker/Clinton Fucker.asm"
 ; end of 'ROM'
 		even
 ; ==============================================================
