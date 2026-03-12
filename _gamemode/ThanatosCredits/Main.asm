@@ -22,6 +22,7 @@ GM_ThanatosCredits:
 	jsr	(PaletteFadeOut).l
 
 	disable_ints
+	jsr	(ClearScreen).l
 
 	; Configure VDP
 	move.w	(v_vdp_buffer1).w,d0
@@ -34,7 +35,6 @@ GM_ThanatosCredits:
 	subq.w	#2,d0
 	bne.s	-
 
-	jsr	(ClearScreen).l
 	move.w	(v_vdp_buffer1).w,d0
 	ori.b	#$40,d0
 	move.w	d0,(vdp_control_port).l
@@ -268,23 +268,65 @@ thantxt: macro txt
 
 	thantxt	"SONIC I:"
 	thantxt	"GITHUB MADNESS IV"
+	dc.b	1,1
+
+
+	thantxt	"SONIC I TEAM"
 	dc.b	1
-	thantxt	"THIS IS FUNNY TEXT..."
-	thantxt	"SPAGUETTI BY MARIO"
-	thantxt	"CREDITS BY HIPSNAKE"
-	thantxt	"TEST"
-	thantxt	"LOREM IPSUM"
-	thantxt	"MORE TEXT"
-	thantxt	"OH SHIT ITS GETTING"
-	thantxt	"OFFSCREEN"
-	thantxt	"THIS WILL SCROLL"
+	thantxt	" GAME PLAN"
+	thantxt	"HIROKAZU YASUHARA"
+	dc.b 1
+	thantxt	" PROGRAM"
+	thantxt	"YUJI NAKA"
+	dc.b 1
+	thantxt	" CHARACTER DESIGN"
+	thantxt	"NAOTO OSHIMA"
+	dc.b 1
+	thantxt	" DESIGN"
+	thantxt	"J.ISWTR. TSUKAHARA"
+	thantxt	"RIEKO KODAMA"
+	dc.b 1
+	thantxt	" SOUND PRODUCE"
+	thantxt	"MASATO NAKAMURA"
+	dc.b 1
+	thantxt	" SOUND PROGRAM"
+	thantxt	"HIROSHI KUBOTA"
+	thantxt	"YUKIFUMI MAKINO"
+	dc.b 1
+	thantxt	" SPECIAL THANKS"
+	thantxt	"FUJIO MINEGISHI"
+	thantxt "PAPA"
+	dc.b 1
+	thantxt	"  ORIGINAL GAME"
+	thantxt	"PRESENTED BY SEGA"
+	dc.b	1,1
+
+
+	thantxt	"PROJECT LEADS"
 	dc.b	1
-	thantxt	"AND IT AINT STOPPIN"
+	thantxt	"DELTAW MALACHI"
+	dc.b	1,1
+
+
+	thantxt	"MEMBERS"
 	dc.b	1
-	thantxt	"ITS GETTING CLOSE"
+	thantxt	"KATSUSHIMI"
+	thantxt	"DINGISH"
+	thantxt "THE GAMER MM"
+	thantxt	"HIPSNAKE"
+	thantxt	"CONINIGHT"
+	thantxt	"FREAKY BILLY"
+	thantxt	"ROJO MMX"
+	thantxt	"ADD YOUR NAME HERE"
+	dc.b	1,1
+
+
+	thantxt	"SPECIAL THANKS"
 	dc.b	1
-	dc.b	1
-	thantxt	"THE END"
+	thantxt	"TEETH TONIC"
+	thantxt	"NOID MY GOAT"
+	dc.b	1,1,1
+	thantxt	"AND YOUR MOM"
 	dc.b	0
 	even
 
