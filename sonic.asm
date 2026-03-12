@@ -2510,17 +2510,46 @@ Demo_Levels:	binclude	"misc/Demo Level Order - Intro.bin"
 ; Music playlist
 ; ---------------------------------------------------------------------------
 MusicList:
-		dc.b bgm_GHZ	; GHZ
-		dc.b bgm_LZ	; LZ
-		dc.b bgm_MZ	; MZ
-		dc.b bgm_SLZ	; SLZ
-		dc.b bgm_SYZ	; SYZ
-		dc.b bgm_SBZ	; SBZ
-		zonewarning MusicList,1
-		dc.b bgm_FZ	; Ending
-		dc.b bgm_FZ	; cold brew but use that in case you want to hijack music or something
-		dc.b bgm_FZ	; WIN98
-		dc.b bgm_LZ	; Joint
+		dc.b bgm_GHZ		; GHZ1
+		dc.b bgm_Carefree	; GHZ2
+		dc.b bgm_GreenHills	; GHZ3
+		dc.b bgm_GHZ		; GHZ4
+		dc.b bgm_LZ		; LZ1
+		dc.b bgm_LZ		; LZ2
+		dc.b bgm_LZ		; LZ3
+		dc.b bgm_LZ		; LZ4
+		dc.b bgm_MZ		; MZ1
+		dc.b bgm_MZ		; MZ2
+		dc.b bgm_MZ		; MZ3
+		dc.b bgm_MZ		; MZ4
+		dc.b bgm_SLZ		; SLZ1
+		dc.b bgm_SLZ		; SLZ2
+		dc.b bgm_BadEmerald	; SLZ3
+		dc.b bgm_SLZ		; SLZ4
+		dc.b bgm_SYZ		; SYZ1
+		dc.b bgm_CanCan		; SYZ2
+		dc.b bgm_Delta		; SYZ3
+		dc.b bgm_SYZ		; SYZ4
+		dc.b bgm_SBZ		; SBZ1
+		dc.b bgm_SBZ		; SBZ2
+		dc.b bgm_FZ		; SBZ3
+		dc.b bgm_FZ		; SBZ4
+		dc.b bgm_FZ		; Ending1
+		dc.b bgm_FZ		; Ending2
+		dc.b bgm_FZ		; Ending3
+		dc.b bgm_FZ		; Ending4
+		dc.b bgm_FZ		; cold brew but use that in case you want to hijack music or something
+		dc.b bgm_FZ		; cold brew2
+		dc.b bgm_FZ		; cold brew3
+		dc.b bgm_FZ		; cold brew4
+		dc.b bgm_FZ		; WIN98 1
+		dc.b bgm_FZ		; WIN98 2
+		dc.b bgm_FZ		; WIN98 3
+		dc.b bgm_FZ		; WIN98 4
+		dc.b bgm_LZ		; Joint 1
+		dc.b bgm_LZ		; Joint 2
+		dc.b bgm_LZ		; Joint 3
+		dc.b bgm_LZ		; Joint 4
 		even
 ; ===========================================================================
 
@@ -2613,19 +2642,15 @@ Level_GetBgm:
 		tst.w	(f_demo).w
 		bmi.s	Level_SkipTtlCard
 		moveq	#0,d0
-		move.b	(v_zone).w,d0
-		cmpi.w	#(id_LZ<<8)+3,(v_zone).w ; is level SBZ3?
-		bne.s	Level_BgmNotLZ4	; if not, branch
-		moveq	#5,d0		; use 5th music (SBZ)
 
-Level_BgmNotLZ4:
-		cmpi.w	#(id_SBZ<<8)+2,(v_zone).w ; is level FZ?
-		bne.s	Level_PlayBgm	; if not, branch
-		moveq	#6,d0		; use 6th music (FZ)
+		move.b  (v_zone), d0
+		lsl.w   #2, d0
+		add.b   (v_act), d0
 
 Level_PlayBgm:
 		lea	(MusicList).l,a1 ; load music playlist
 		move.b	(a1,d0.w),d0
+
 		bsr.w	QueueSound1	; play music
 		move.b	#id_TitleCard,(v_titlecard).w ; load title card object
 

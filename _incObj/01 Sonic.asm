@@ -1507,11 +1507,6 @@ GameOver:
 		move.b	#1,(v_gameovertext2+obFrame).w ; set OVER object to correct frame
 		clr.b	(f_timeover).w
 
-loc_138C2:
-		move.w	#bgm_GameOver,d0
-		jsr	(QueueSound1).l	; play game over music
-		moveq	#plcid_GameOver,d0
-		jmp	(AddPLC).l	; load game over patterns
 ; ===========================================================================
 
 loc_138D4:
@@ -1523,7 +1518,6 @@ loc_138D4:
 		move.b	#id_GameOverCard,(v_gameovertext2).w ; load OVER object
 		move.b	#2,(v_gameovertext1+obFrame).w
 		move.b	#3,(v_gameovertext2+obFrame).w
-		bra.s	loc_138C2
 ; ===========================================================================
 
 locret_13900:
