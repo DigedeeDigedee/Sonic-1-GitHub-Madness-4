@@ -233,10 +233,12 @@ ptr_mus4E:		dc.l Music4E
 ptr_mus4F:		dc.l Music4F
 ptr_mus50:		dc.l Music50
 ptr_mus51:		dc.l Music51
+
+;!@ GenesisDoes
 ptr_mus52:		dc.l Music52
 ptr_mus53:		dc.l Music53
 ptr_mus54:		dc.l Music54
-;ptr_mus55:		dc.l Music55
+ptr_mus55:		dc.l Music55
 ;ptr_mus56:		dc.l Music56
 ;ptr_mus57:		dc.l Music57
 ;ptr_mus58:		dc.l Music58
@@ -2989,6 +2991,8 @@ Music52:	include	"sound/music/GenesisDoes/GenesisDoes1.asm"
 Music53:	include	"sound/music/GenesisDoes/GenesisCan1.asm"
 		even
 Music54:	include	"sound/music/GenesisDoes/GenesisCan2.asm"
+		even
+Music55:	include	"sound/music/GenesisDoes/SM64_MM.asm"
 		even
 
 ; ---------------------------------------------------------------------------

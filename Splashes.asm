@@ -145,7 +145,8 @@ splash_turd macro routine
 	;!@ GenesisDoes
 	splash_solid GenesisDoes1,$40,bgm_GenesisDoes1,60*10
 	splash_solid GenesisCan1,$40,bgm_GenesisCan1,60*3
-	splash_solid GenesisCan2,$40,bgm_GenesisCan2,60*3	
+	splash_solid GenesisCan2,$40,bgm_GenesisCan2,60*3
+	splash_solid SM64_MM,$40,bgm_SM64_MM,60*4
 	
 	splash_solid Blessed,$40,$A8,200
 	splash_solid Shiki,$20,$2A,280
@@ -185,6 +186,7 @@ splash_turd macro routine
 	inc_solid_splash GenesisDoes1
 	inc_solid_splash GenesisCan1
 	inc_solid_splash GenesisCan2
+	inc_solid_splash SM64_MM
 	
 	inc_solid_splash Blessed
 	inc_solid_splash Shiki

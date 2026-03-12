@@ -117,13 +117,15 @@ Vectors:
 		dc.l ErrorExcept		; Unused (reserved)
 		dc.l ErrorExcept		; Unused (reserved) (24)
 		dc.l ErrorExcept		; Spurious exception
+		
 		dc.l ErrorTrap			; IRQ level 1
-		dc.l ErrorTrap			; IRQ level 2
-		dc.l ErrorTrap			; IRQ level 3 (28)
-		dc.l HBlank			; IRQ level 4 (horizontal retrace interrupt)
-		dc.l ErrorTrap			; IRQ level 5
-		dc.l VBlank			; IRQ level 6 (vertical retrace interrupt)
+		dc.l COP_SBlast			; IRQ level 2 (Copera soundblaster FM)
+		dc.l PCO_ADPCM			; IRQ level 3 (28)
+		dc.l HBlank				; IRQ level 4 (horizontal retrace interrupt)
+		dc.l HBlank				; IRQ level 5 (horizontal retrace interrupt/Pico). GenesisDoes: This allows for Model 2 Sega Pico compatibility
+		dc.l VBlank				; IRQ level 6 (vertical retrace interrupt)
 		dc.l ErrorTrap			; IRQ level 7 (32)
+		
 		dc.l ErrorTrap			; TRAP #00 exception
 		dc.l ErrorTrap			; TRAP #01 exception
 		dc.l ErrorTrap			; TRAP #02 exception
@@ -839,6 +841,27 @@ VBla_StandardTransfers:
 		
 		rts
 ; End of function VBla_StandardTransfers
+
+;!@ GenesisDoes: Dummy int/func for Copera Soundblaster FM
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Yamaha Copera Soundblaster FM. Dummy stub
+; ---------------------------------------------------------------------------
+COP_SBlast:
+		rte
+		
+; ---------------------------------------------------------------------------
+
+;!@ GenesisDoes: Dummy int/func for Pico ADPCM
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Sega Pico ADPCM interrupt. Dummy stub
+; ---------------------------------------------------------------------------
+PCO_ADPCM:
+		rte
+		
+; ---------------------------------------------------------------------------
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
