@@ -444,7 +444,7 @@ dQuakeJump			ds.b 1
 dSega				ds.b 1
 dLetsGOO			ds.b 1
 dLg				ds.b 1
-dSegay				ds.b 1
+dSega2				ds.b 1
 	dephase
 	!org -
 
