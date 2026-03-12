@@ -87,6 +87,7 @@ id_Thanatos:	equ ptr_GM_ThanatosCredits-GameModeArray; $2C
 id_ButtcrackMan:	equ ptr_GM_ButtcrackMan-GameModeArray
 id_CNNico:	equ ptr_GM_CNNicoJump-GameModeArray; $34
 id_TryAgainEnd:	equ ptr_GM_TryAgainEnd-GameModeArray; $38
+id_Damn:	equ ptr_GM_Damn-GameModeArray
 
 ; Levels
 id_GHZ:		equ 0

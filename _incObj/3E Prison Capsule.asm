@@ -129,6 +129,7 @@ Pri_Explosion:	; Routine 6, 8, $A
 
 .makeanimal:
 		move.b	#2,(v_bossstatus).w
+		move.b	#id_Damn,(v_gamemode).w
 		move.b	#$C,obRoutine(a0)	; replace explosions with animals
 		move.b	#6,obFrame(a0)
 		move.w	#150,obTimeFrame(a0)

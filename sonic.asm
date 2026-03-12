@@ -408,6 +408,7 @@ ptr_GM_ButtcrackMan:	dc.l	GM_ButtcrackMan		; BUTTCRACK MAN ($30)
 ptr_GM_CNNicoJump:	dc.l	GM_CNNicoJump		; CN Logo ($34)
 ptr_GM_TryAgainEnd:	dc.l	TryAgainEnd		; Testable TRY AGAIN/END screen ($38)
 ptr_GM_Fetus:		dc.l	GM_Fetus		; Difficulty Select screen out of spite ($3C)
+ptr_GM_Damn:		dc.l	GM_Damn			; DAMN!!!!!!!!!!!!!!!!!!!!!!!
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -7927,6 +7928,8 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 
 		include "Splashes.asm"
 		include	"_inc/GHM3Explode.asm"
+
+		include	"_gamemode/damn/damn.asm"
 
 	if MSUEnabled
 		include "sound/MSU/MSU.asm"
