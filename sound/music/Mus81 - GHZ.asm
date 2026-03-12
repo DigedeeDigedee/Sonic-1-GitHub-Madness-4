@@ -2,7 +2,7 @@ MWaterS_Header:
 	smpsHeaderStartSong 1
 	smpsHeaderVoice     MWaterS_Voices
 	smpsHeaderChan      $06, $03
-	smpsHeaderTempo     $01, $03
+	smpsHeaderTempo     $01, $30
 
 	smpsHeaderDAC       MWaterS_DAC
 	smpsHeaderFM        MWaterS_FM1,	$09, $12

@@ -44,7 +44,7 @@ CNSCROBJ_JumpRight:	; Routine 6 - Nico jumping right
 		subq.w	#1,$30(a0)		; subtract 1 from wait time
 		bpl.s	.Wait			; if time remains, branch
 		move.w	#$200,obVelX(a0); set X velocity for bouncing right
-		move.w	#$AC,d0
+		move.w	#$AE,d0
 		cmp.w	obX(a0),d0		; was he about to reach right next to the logo?
 		bge.s	.MoveRight		; if not, branch and continue bouncing
 		move.w	#30,$30(a0)		; Wait Time

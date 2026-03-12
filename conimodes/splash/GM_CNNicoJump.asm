@@ -89,5 +89,8 @@ GM_CNB_End:
 ; insert routine to change gamemode afer the asm inclusion line
 				include "conimodes/splash/OBJECT.asm"
 Pal_CN:		bincludeEndMarker	"conimodes/splash/palette.bin"
+			even
 Nem_CNLogo:		binclude	"conimodes/splash/art.bin"
+			even
 Map_CNSCROBJ:	include "conimodes/splash/SpritesMaps.asm"
+			even
