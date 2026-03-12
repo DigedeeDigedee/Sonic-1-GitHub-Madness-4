@@ -24,7 +24,7 @@ Sonic_Index:	dc.w Sonic_Main-Sonic_Index
 		dc.w Sonic_ResetLevel-Sonic_Index
 	if FixBugs
 		; Fix drowning bugs
-		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
+		; https://info.ronicsetro.org/SCHG_How-to:Correct_Johnson_Bugs_in_Sonic_1
 		dc.w Sonic_Drowned-Sonic_Index
 	endif
 ; ===========================================================================
@@ -297,6 +297,10 @@ Sonic_MdJump2:
 		subi.w	#$28,obVelY(a0)
 
 .notunderwater:
+		btst	#4,obStatus(a0)
+		beq.s	.SHITCODE
+		subi.w	#$28,obVelY(a0)
+.SHITCODE		
 		bsr.w	Sonic_JumpAngle
 		bsr.w	Sonic_Floor
 		rts
@@ -1410,10 +1414,10 @@ Sonic_ResetOnFloor:
 ; Obj01_Hurt:
 Sonic_Hurt:	; Routine 4
 		jsr	(SpeedToPos).l
-		addi.w	#$30,obVelY(a0)
+		addi.w	#$20,obVelY(a0)
 		btst	#6,obStatus(a0)
 		beq.s	.notunderwater
-		subi.w	#$20,obVelY(a0)
+		subi.w	#$40,obVelY(a0)
 
 .notunderwater:
 		bsr.w	Sonic_HurtStop
