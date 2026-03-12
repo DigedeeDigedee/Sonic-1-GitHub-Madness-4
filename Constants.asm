@@ -14,7 +14,7 @@ v_demolength	= v_generictimer
 Size_of_SegaPCM:		equ $6978
 Size_of_DAC_driver_guess:	equ $1760
 
-opcode_rte		equ $4E71
+opcode_rte		equ $4E73
 opcode_jmpabslong	equ $4EF9
 opcode_jmpabsword	equ $4EF8
 
@@ -84,7 +84,7 @@ id_ColdBrew:	equ ptr_GM_ColdBrew-GameModeArray; $20
 id_SegaEU:	equ ptr_GM_SegaEU-GameModeArray; $24
 id_DebugMenu:	equ ptr_GM_DebugMode-GameModeArray; $28
 id_Thanatos:	equ ptr_GM_ThanatosCredits-GameModeArray; $2C
-; insert $30 here
+id_ButtcrackMan:	equ ptr_GM_ButtcrackMan-GameModeArray
 id_CNNico:	equ ptr_GM_CNNicoJump-GameModeArray; $34
 id_TryAgainEnd:	equ ptr_GM_TryAgainEnd-GameModeArray; $38
 

@@ -61,8 +61,8 @@ GM_DebugMenu:
 		clr.b	(v_dbgmenu_exit).w
 
 		bsr.w	DebuggerMenu_Redraw
-		moveq	#plcid_Main,d0
-		bsr.w	NewPLC
+	;	moveq	#plcid_Main,d0
+	;	bsr.w	NewPLC
 		lea	(Pal_MenuText).l,a1
 		lea	(v_palette_fading+$20).l,a2
 		moveq	#16-1,d0

@@ -54,8 +54,7 @@ ptr_PLC_FZBoss:		dc.w PLC_FZBoss-ArtLoadCues
 ptr_PLC_WINNERCard:	dc.w PLC_WINNERCard-ArtLoadCues
 
 plcm:	macro gfx,vram
-		dc.l gfx
-		dc.w (vram)*$20
+		dc.w (gfx>>16)&$FF,gfx&$FFFF,vram*32
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -66,12 +65,12 @@ PLC_Main:	dc.w ((PLC_Mainend-PLC_Main-2)/6)-1
 		plcm	Nem_Hud,    ArtTile_HUD           ; HUD
 		plcm	Nem_Lives,  ArtTile_Lives_Counter ; lives counter
 		plcm	Nem_Ring,   ArtTile_Ring          ; rings
+		plcm	Nem_Monitors, ArtTile_Monitor       ; monitors
 PLC_Mainend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - standard block 2
 ; ---------------------------------------------------------------------------
 PLC_Main2:	dc.w ((PLC_Main2end-PLC_Main2-2)/6)-1
-		plcm	Nem_Monitors, ArtTile_Monitor       ; monitors
 		plcm	Nem_Shield,   ArtTile_Shield        ; shield
 		plcm	Nem_Stars,    ArtTile_Invincibility ; invincibility stars
 PLC_Main2end:
@@ -115,10 +114,10 @@ PLC_GHZ2end:
 ; Pattern load cues - Labyrinth
 ; ---------------------------------------------------------------------------
 PLC_LZ:		dc.w ((PLC_LZ2-PLC_LZ-2)/6)-1
+		plcm	Nem_Spikes,      ArtTile_Spikes             ; spikes
 ;		plcm	Nem_LZ,          ArtTile_Level              ; LZ main patterns
 
 PLC_LZ2:	dc.w ((PLC_LZ2end-PLC_LZ2-2)/6)-1
-		plcm	Nem_Spikes,      ArtTile_Spikes             ; spikes
 		plcm	Nem_HSpring,     ArtTile_Spring_Horizontal  ; horizontal spring
 		plcm	Nem_VSpring,     ArtTile_Spring_Vertical    ; vertical spring
 PLC_LZ2end:

@@ -170,6 +170,7 @@ ErrorTrap:
 ; ===========================================================================
 
 EntryPoint:
+		disable_ints
 		tst.l	(port_1_control_hi).l	; test port A & B control registers
 		bne.s	PortA_Ok
 		tst.w	(expansion_control_hi).l ; test port C control register
@@ -237,7 +238,6 @@ PSGInitLoop:
 		dbf	d5,PSGInitLoop	; repeat for other channels
 		move.w	d0,(a2)
 		movem.l	(a6),d0-a6	; clear all registers
-		disable_ints
 
 SkipSetup:
 		bra.s	GameProgram	; begin game
@@ -405,9 +405,9 @@ ptr_GM_SegaEU:		dc.l	GM_ColdBrew		; Sega Screen EU ($24)
 ptr_GM_DebugMode:	dc.l	GM_DebugMenu		; Debug Menu ($28)
 ptr_GM_ThanatosCredits:	dc.l	GM_ThanatosCredits	; Credits - Thanatos ver. ($2C)
 ptr_GM_ButtcrackMan:	dc.l	GM_ButtcrackMan		; BUTTCRACK MAN ($30)
-ptr_GM_CNNicoJump:	dc.l	GM_CNNicoJump	; CN Logo ($34)
-ptr_GM_TryAgainEnd:	dc.l	TryAgainEnd	; Testable TRY AGAIN/END screen ($38)
-ptr_GM_Fetus:	dc.l	GM_Fetus	; Difficulty Select screen out of spite ($3C)
+ptr_GM_CNNicoJump:	dc.l	GM_CNNicoJump		; CN Logo ($34)
+ptr_GM_TryAgainEnd:	dc.l	TryAgainEnd		; Testable TRY AGAIN/END screen ($38)
+ptr_GM_Fetus:		dc.l	GM_Fetus		; Difficulty Select screen out of spite ($3C)
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -953,24 +953,26 @@ ReadJoypads:
 
 
 VDPSetupGame:
+		move	#$2700,sr
+		move.w	#opcode_jmpabslong,(v_vintcode.jmp).w
+		move.l	#VBlank,(v_vintcode.addr).w
+		move.w	#opcode_rte,(v_hintcode.jmp).w
+
 		lea	(vdp_control_port).l,a0
 		lea	(vdp_data_port).l,a1
-		lea	(VDPSetupArray).l,a2
+		lea	VDPSetupArray(pc),a2
 		moveq	#(VDPSetupArray_End-VDPSetupArray)/2-1,d7
-
-.setreg:
-		move.w	(a2)+,(a0)
+.setreg:	move.w	(a2)+,(a0)
 		dbf	d7,.setreg	; set the VDP registers
 
-		move.w	(VDPSetupArray+2).l,d0
+		move.w	VDPSetupArray+2(pc),d0
 		move.w	d0,(v_vdp_buffer1).w		; buffer register $81 (used for enabling/disabling display)
-		move.w	#$8AFF,(v_hbla_hreg).w	; H-INT every 224th scanline
+		move.w	#$8AFF,(v_hbla_hreg).w		; H-INT every 224th scanline
+
 		moveq	#0,d0
 		move.l	#$C0000000,(vdp_control_port).l ; set VDP to CRAM write
 		move.w	#($80)/2-1,d7
-
-.clrCRAM:
-		move.w	d0,(a1)
+.clrCRAM:	move.w	d0,(a1)
 		dbf	d7,.clrCRAM	; clear the CRAM
 
 		clr.l	(v_scrposy_vdp).w
@@ -1055,6 +1057,7 @@ LoadDynPLC:
 
 
 ClearScreen:
+		fillVRAM	0, 0, $40 ; clear first two tiles
 		fillVRAM	0, vram_fg, vram_fg+plane_size_64x32 ; clear foreground namespace
 		fillVRAM	0, vram_bg, vram_bg+plane_size_64x32 ; clear background namespace
 		clr.l	(v_scrposy_vdp).w
@@ -1117,27 +1120,26 @@ AddPLC:
 		add.w	d0,d0
 		move.w	(a1,d0.w),d0
 		lea	(a1,d0.w),a1		; jump to relevant PLC
-		lea	(v_plc_buffer).w,a2 ; PLC buffer space
-
+		lea	(v_plc_buffer-6).w,a2
+		moveq	#(v_plc_buffer_end-v_plc_buffer)/6-1,d0
 .findspace:
-		tst.l	(a2)		; is space available in RAM?
-		beq.s	.copytoRAM	; if yes, branch
 		addq.w	#6,a2		; if not, try next space
-		bra.s	.findspace
-; ===========================================================================
-
+		tst.l	(a2)		; is space available in RAM?
+		dbeq	d0,.findspace	; if yes, exit loop and branch
+		bne.s	.noslots
 .copytoRAM:
 		move.w	(a1)+,d0	; get length of PLC
 		bmi.s	.skip
-
 .loop:
 		move.l	(a1)+,(a2)+
 		move.w	(a1)+,(a2)+	; copy PLC to RAM
 		dbf	d0,.loop	; repeat for length of PLC
-
 .skip:
 		movem.l	(sp)+,a1-a2 ; a1=object
 		rts
+; if you're running into this error, you ran out of PLC slots
+.noslots:
+		illegal
 ; End of function AddPLC
 
 ; ---------------------------------------------------------------------------
@@ -2269,8 +2271,6 @@ FinalTitle:
 		jsr	(ExecuteObjects).l
 		bsr.w	DeformLayers
 		jsr	(BuildSprites).l
-		moveq	#plcid_Main,d0
-		bsr.w	NewPLC
 		move.w	#0,(v_title_dcount).w
 		move.w	#0,(v_title_ccount).w
 		enable_display
@@ -2513,9 +2513,19 @@ GM_Level:
 Level_NoMusicFade:
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
-		tst.w	(f_demo).w	; is an ending sequence demo running?
-		bmi.s	Level_ClrRam	; if yes, branch
+		clearRAM v_objspace
+		clearRAM v_misc_variables
+		clearRAM v_levelvariables
+		clearRAM v_timingandscreenvariables
+
+		disable_ints
+		fillVRAM $2F,0,$10000		; fill vram with dummy tiles
+		bsr.w	ClearScreen
+		tst.w	(f_demo).w		; is an ending sequence demo running?
+		bmi.s	.notitlecard		; if yes, branch
 		jsr	(TitleCards_LoadArt).l
+		moveq	#plcid_Main,d0
+		bsr.w	AddPLC			; load standard patterns
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		lsl.w	#4,d0
@@ -2523,21 +2533,10 @@ Level_NoMusicFade:
 		lea	(a2,d0.w),a2
 		moveq	#0,d0
 		move.b	(a2),d0
-		beq.s	loc_37FC
-		bsr.w	AddPLC		; load level patterns
-
-loc_37FC:
-		moveq	#plcid_Main2,d0
-		bsr.w	AddPLC		; load standard patterns
-
-Level_ClrRam:
-		clearRAM v_objspace
-		clearRAM v_misc_variables
-		clearRAM v_levelvariables
-		clearRAM v_timingandscreenvariables
-
-		disable_ints
-		bsr.w	ClearScreen
+		beq.s	.nolevelplc1
+		bsr.w	AddPLC			; load level patterns
+.nolevelplc1:
+.notitlecard:
 		move.w	#opcode_jmpabslong,(v_hintcode.jmp).w
 		move.l	#HBlank,(v_hintcode.addr).w
 		lea	(vdp_control_port).l,a6
@@ -3979,7 +3978,8 @@ LevelDataLoad:
 		bsr.w	AddPLC		; load pattern load cues
 
 .skipPLC:
-		rts
+		moveq	#plcid_Main2,d0
+		bra.w	AddPLC
 ; End of function LevelDataLoad
 
 ; ---------------------------------------------------------------------------
