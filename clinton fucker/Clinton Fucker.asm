@@ -63,8 +63,8 @@ CliFucker_Wait:
 	jmp	MegaPCM_PlaySample
 
 CliFucker_Init2:
-	move.b	#$1E,d0			; placeholder
-	jsr	QueueSound2
+	move.b	#bgm_ClintonFuck,d0		; placeholder
+	jsr	QueueSound1
 	
 	addq.b	#2,obRoutine(a0)
 	move.l	#SprPat_Clinton,obMap(a0)
