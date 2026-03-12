@@ -5,6 +5,9 @@
 ; ASM'd using S1SMPS2ASM version 1.1 by Marc Gordon (AKA Cinossu)
 ; =============================================================================================
 
+; !@ GenesisDoes: Make this song quiter for better audio mixing between song and DAC SFX on Title screen
+volAll	equ	$06
+
 SmilingBomb_Header:
 	smpsHeaderStartSong 1
 ;	Voice Pointer	location
@@ -17,21 +20,21 @@ SmilingBomb_Header:
 ;	DAC Pointer	location
 	smpsHeaderDAC	SmilingBomb_DAC
 ;	FM1 Pointer	location	pitch		volume
-	smpsHeaderFM	SmilingBomb_FM1,	smpsPitch00,	$10
+	smpsHeaderFM	SmilingBomb_FM1,	smpsPitch00,	$10+volAll
 ;	FM2 Pointer	location	pitch		volume
-	smpsHeaderFM	SmilingBomb_FM2,	smpsPitch00,	$16
+	smpsHeaderFM	SmilingBomb_FM2,	smpsPitch00,	$16+volAll
 ;	FM3 Pointer	location	pitch		volume
-	smpsHeaderFM	SmilingBomb_FM3,	smpsPitch00,	$11
+	smpsHeaderFM	SmilingBomb_FM3,	smpsPitch00,	$11+volAll
 ;	FM4 Pointer	location	pitch		volume
-	smpsHeaderFM	SmilingBomb_FM4,	smpsPitch00,	$11
+	smpsHeaderFM	SmilingBomb_FM4,	smpsPitch00,	$11+volAll
 ;	FM5 Pointer	location	pitch		volume
-	smpsHeaderFM	SmilingBomb_FM5,	smpsPitch00,	$11
+	smpsHeaderFM	SmilingBomb_FM5,	smpsPitch00,	$11+volAll
 ;	PSG1 Pointer	location	pitch		volume	instrument
-	smpsHeaderPSG	SmilingBomb_PSG1,	smpsPitch03lo,	$06,	$1e,$00
+	smpsHeaderPSG	SmilingBomb_PSG1,	smpsPitch03lo,	$06+volAll,	$1e,$00
 ;	PSG2 Pointer	location	pitch		volume	instrument
-	smpsHeaderPSG	SmilingBomb_PSG2,	smpsPitch03lo,	$06,	$2E,$00
+	smpsHeaderPSG	SmilingBomb_PSG2,	smpsPitch03lo,	$06+volAll,	$2E,$00
 ;	PSG3 Pointer	location	pitch		volume	instrument
-	smpsHeaderPSG	SmilingBomb_PSG3,	smpsPitch00,	$03,	$3,$02
+	smpsHeaderPSG	SmilingBomb_PSG3,	smpsPitch00,	$03+volAll,	$3,$02
 
 ; FM1 Data
 SmilingBomb_FM1:

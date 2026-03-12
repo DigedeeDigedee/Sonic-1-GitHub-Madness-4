@@ -2238,6 +2238,10 @@ FinalTitle:
 		lea	(Nem_TitleTM).l,a0 ; load "TM" patterns
 		bsr.w	NemDec
 		enable_ints
+		
+		;!@ GenesisDoes
+		move.b	#dEggmanLaugh, d0
+		jsr		(MegaPCM_PlaySample).l
 
 		moveq	#palid_Title,d0	; load title screen palette
 		bsr.w	PalLoad_Fade

@@ -43,6 +43,19 @@ GitHubScr_Frame1:
 		move.l	#$40000000,($C00004).l
 		lea	    (Nem_GitMadScr).l,a0 ; 
 		bsr.w	NemDec
+		
+		;!@ GenesisDoes
+		move.w  #60*3,(Timer).w
+		move.w  (VDP_buff).w,d0
+		ori.b   #$40,d0
+		move.w  d0,(VDPCtrl).l
+		;!@ GD
+		move.b	#dYoFreddy, d0
+		jsr		(MegaPCM_PlaySample).l	
+YoFreddy_Loop: 		              
+  		bsr.w   LoopDelay
+		bne.s   YoFreddy_Loop
+		
 		lea	    (Chunk).l,a1
 		lea	    (Eni_GitHub).l,a0  	
 		bsr.w   VDP_Location

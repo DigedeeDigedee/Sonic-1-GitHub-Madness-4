@@ -274,6 +274,14 @@ bgm_LG:		equ ((ptr_mus43-MusicIndex)/4)+bgm__First
 bgm_Thomas:	equ ((ptr_mus44-MusicIndex)/4)+bgm__First
 bgm_ILBT:	equ ((ptr_mus45-MusicIndex)/4)+bgm__First
 bgm_Memories:	equ ((ptr_mus4E-MusicIndex)/4)+bgm__First
+bgm_musBomerDude:	equ ((ptr_mus4F-MusicIndex)/4)+bgm__First
+bgm_Continue2:	equ ((ptr_mus50-MusicIndex)/4)+bgm__First
+bgm_Coffinman:	equ ((ptr_mus51-MusicIndex)/4)+bgm__First
+;!@GenesisDoes
+bgm_GenesisDoes1:	equ ((ptr_mus52-MusicIndex)/4)+bgm__First
+bgm_GenesisCan1:	equ ((ptr_mus53-MusicIndex)/4)+bgm__First
+bgm_GenesisCan2:	equ ((ptr_mus54-MusicIndex)/4)+bgm__First
+
 bgm__Last:	equ ((ptr_musend-MusicIndex-4)/4)+bgm__First
 
 ; Sound effects
@@ -374,31 +382,38 @@ dCrispBilly			equ $9A
 dBlueLobster		equ $9B
 dWinTwoK			equ $9C
 dDeppaDig			equ $9D
+;!@ GenesisDoes
 dEagleSoftSong		equ $9E
-dGithub				equ $9F
-dMadness			equ $A0
-dMadnessR			equ $A1
-dQuakeRocket		equ $A2
-dsupbeaches			equ $A3
-dPenis				equ $A4
-dSTFU				equ $A5
-dFuck				equ $A6
-dYouCanSuck			equ $A7
-dDoYouSuck			equ $A8
-dDicks				equ $A9
-dOnTheBall			equ $A9
-dPenises			equ $AA
-dEggNo				equ $AB
-dBabyAlarm			equ $AC
-dBoingBoing			equ $AD
-dBoioing			equ $AE
-dBoik				equ $AF
-dOrangeLaugh		equ $B0
-dClintonHi			equ $B1
-dClintonYeah		equ $B2
-dQuakeJump			equ $B3
+dYoFreddy			equ $9F
+dGithub				equ $A0
+dMadness			equ $A1
+dMadnessR			equ $A2
+dEggmanLaugh		equ $A3
+dGenesisDoes1		equ $A4
+dGenesisCan1		equ $A5
+dGenesisCan2		equ $A6
+
+dQuakeRocket		equ $A7
+dsupbeaches			equ $A8
+dPenis				equ $A9
+dSTFU				equ $AA
+dFuck				equ $AB
+dYouCanSuck			equ $AC
+dDoYouSuck			equ $AD
+dDicks				equ $AE
+dOnTheBall			equ $AF
+dPenises			equ $B0
+dEggNo				equ $B1
+dBabyAlarm			equ $B2
+dBoingBoing			equ $B3
+dBoioing			equ $B4
+dBoik				equ $B5
+dOrangeLaugh		equ $B6
+dClintonHi			equ $B7
+dClintonYeah		equ $B8
+dQuakeJump			equ $B9
 ; Sega should always be last
-dSega				equ $B4
+dSega				equ $BA
 
 
 ; Sonic frame IDs
