@@ -134,25 +134,3 @@ Set_NemDec:
 Set_PalLoad2:
         jmp  PalLoad2
         rts			
-; ===========================================================================
-; ---------------------------------------------------------------------------
-; ART, MAPS AND PALETTE
-; ---------------------------------------------------------------------------
-; ===========================================================================
-		
-Nem_MarioTeam:  incbin  "Art/marioteam.nem"
-                even
-Eni_MarioTeam:  incbin  "Eni/marioteam.eni"
-                even
-Nem_RickTeam:   incbin  "Art/rick teamheads.nem"
-                even
-Eni_RickTeam:   incbin  "Eni/rick teamheads.eni"
-                even
-Nem_Testicle:   incbin  "Art/TEAM TESTICLE.nem"
-                even
-Eni_Testicle:   incbin  "Eni/TEAM TESTICLE.eni"	
-                even	
-Pal_S2:         incbin  "sonic2main.bin"	 
-                even 
-Pal_STMsonic:   incbin  "STMsonic.bin"	  
-                even
