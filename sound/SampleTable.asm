@@ -71,7 +71,7 @@ SampleTable:
 	dcSample	TYPE_PCM,	BabyAlarm,	0,FLAGS_SFX	; $BA
 
 	;Level end theme
-	dcSample	TYPE_DPCM,	BoingBoing,	16000,	FLAGS_LOOP	; $BB
+	dcSample	TYPE_DPCM,	BoingBoing,	16000,	FLAGS_SFX|FLAGS_LOOP	; $BB
 	dcSample	TYPE_PCM,	Boik,		0,	FLAGS_SFX	; $BC
 	dcSample	TYPE_PCM,	Boioing,	0,	FLAGS_SFX	; $BD
 	dcSample	TYPE_PCM,	OrngLaugh,	0,	FLAGS_SFX	; $BE
