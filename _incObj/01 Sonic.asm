@@ -844,7 +844,7 @@ Sonic_LevelBound:
 		blo.s	.skip
 		move.w	d1,d0
 .skip:
-		addi.w	#124,d0
+		addi.w	#324,d0
 		cmp.w	obY(a0),d0	; has Sonic touched the bottom boundary?
 		blt.s	.bottom		; if yes, branch
 		rts
@@ -860,7 +860,10 @@ Sonic_LevelBound:
 		move.w	#1,(f_restart).w ; restart the level
 		move.w	#(id_LZ<<8)+3,(v_zone).w ; set level to SBZ3 (LZ4)
 		rts
-.JUMP_KillSonic:	jmp (KillSonic).l
+.JUMP_KillSonic:	
+           			move.w	#sfx_Lamppost,d0
+		jsr	(QueueSound2).l	; play lamppost sound
+		   jmp (KillSonic).l
 ; ===========================================================================
 
 ; Boundary_Sides
