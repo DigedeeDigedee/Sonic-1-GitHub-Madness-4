@@ -6,8 +6,6 @@
 ; ===========================================================================		
 
 ; Are the same from title code lol
-palid_S2:		makePalEntry	Pal_S2,		v_palette_line_1
-palid_Savethemoonsonic:		makePalEntry	Pal_STMsonic,		v_palette_line_1
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -118,9 +116,9 @@ Exit_Splashes:
 		
 Nem_MarioTeam:  incbin  "Art/marioteam.nem"
 Eni_MarioTeam:  incbin  "Eni/marioteam.eni"
-Nem_RickTeam:   incbin  "Art/rickteamheads.nem"
-Eni_RickTeam:   incbin  "Eni/rickteamheads.eni"
-Nem_Testicle:   incbin  "Art/TEAMTESTICLE.nem"
-Eni_Testicle:   incbin  "Eni/TEAMTESTICLE.eni"		
+Nem_RickTeam:   incbin  "Art/rick teamheads.nem"
+Eni_RickTeam:   incbin  "Eni/rick teamheads.eni"
+Nem_Testicle:   incbin  "Art/TEAM TESTICLE.nem"
+Eni_Testicle:   incbin  "Eni/TEAM TESTICLE.eni"		
 Pal_S2:   incbin  "sonic2main.bin"	  
 Pal_STMsonic:   incbin  "STMsonic.bin"	  
