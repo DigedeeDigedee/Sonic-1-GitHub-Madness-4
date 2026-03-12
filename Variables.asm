@@ -106,7 +106,7 @@ v_snddriver_ram:	SMPS_RAM		; sound driver state
 			ds.b	$40		; unused
 
 v_gamemode:		ds.b	1		; game mode (00=Sega; 04=Title; 08=Demo; 0C=Level; 10=SS; 14=Cont; 18=End; 1C=Credit; +8C=PreLevel)
-MegaCDMode:		ds.b	1		; MCD enabled
+			ds.b	1		; unused
 v_jpadhold2:		ds.b	1		; joypad input - held, duplicate
 v_jpadpress2:		ds.b	1		; joypad input - pressed, duplicate
 v_jpadhold1:		ds.b	1		; joypad input - held
@@ -114,7 +114,8 @@ v_jpadpress1:		ds.b	1		; joypad input - pressed
 			ds.b	6		; unused
 v_vdp_buffer1:		ds.w	1		; VDP instruction buffer of register $81 (used for enabling/disabling display)
 v_flashcolor:		ds.w	1		; flash color
-			ds.b	4		; unused
+			ds.b	1		; unused
+			ds.b	3
 v_generictimer:		ds.w	1		; generic timer, decrements to 0 in vblank (word)
 v_scrposy_vdp:		ds.w	1		; screen position y (VDP)
 v_bgscrposy_vdp:	ds.w	1		; background screen position y (VDP)
@@ -432,7 +433,9 @@ v_levselsound:		ds.w	1		; level select - sound selected
 v_scorelife:		ds.l	1		; points required for an extra life (JP1 only)
 v_characterid:		ds.b	1
 v_zonemusic:		ds.b	1
-			ds.b	$18		; unused
+			ds.b	7		; unused
+MegaCDMode:		ds.b 	1
+			ds.b 	$10
 f_levselcheat:		ds.b	1		; level select cheat flag
 f_slomocheat:		ds.b	1		; slow motion & frame advance cheat flag
 f_debugcheat:		ds.b	1		; debug mode cheat flag

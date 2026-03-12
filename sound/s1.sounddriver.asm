@@ -934,16 +934,6 @@ Sound_PlayCDA:
 	move.w	#((SMPS_RAM.v_music_track_ram_end-SMPS_RAM.v_music_track_ram)/4)-1,d0	; Backup music track data
 ; loc_72012:
 .backuptrackramloop:
-	move.l	(a0)+,(a1)+
-	dbf	d0,.backuptrackramloop
-
-    if (SMPS_RAM.v_music_track_ram_end-SMPS_RAM.v_music_track_ram)&2
-	move.w	(a0)+,(a1)+
-    endif
-    if (SMPS_RAM.v_music_track_ram_end-SMPS_RAM.v_music_track_ram)&1
-	move.b	(a0)+,(a1)+
-    endif
-
 	bsr.w	InitMusicPlayback						; reset SMPS memory
 	st	SMPS_RAM.v_cda_playing(a6)		; set CDA playing flag
 
@@ -987,7 +977,8 @@ PlayCD_Index:
 	dc.l	$00000000
 	dc.l	$00000000
 	dc.l	$00000000
-	dc.l	_MCD_PlayTrack<<24|$00000000	; $11	dc.l	$00000000
+	dc.l	_MCD_PlayTrack<<24|$00000000	; $11
+	dc.l	$00000000
 	dc.l	$00000000
 	dc.l	$00000000
 	dc.l	$00000000

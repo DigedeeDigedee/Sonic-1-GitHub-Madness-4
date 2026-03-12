@@ -35,10 +35,10 @@ if abort then
 end
 
 print("Making release")
-if os_name == "Windows" then
+if common.is_windows() then
     os.execute("copy gm4built.gen __Release\\GHM4.gen")
 else
-    print("Fuck you, no release rom for you in specific!!")
+    os.execute("cp gm4built.gen __Release/GHM4.gen")
 end
 -- Append symbol table to the ROM.
 local extra_tools = common.find_tools("debug symbol generator", "https://github.com/vladikcomper/md-modules", "https://github.com/sonicretro/s1disasm", "convsym")

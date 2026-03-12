@@ -320,6 +320,18 @@ zStartupCodeEndLoc:
 ; ===========================================================================
 
 GameProgram:
+
+	if MSUEnabled
+		btst 	#5, (console_version)
+		bne.s 	.NoMCD
+		
+		jsr	(Init_MSU_Driver).l
+		move.b	#1, (MegaCDMode).w
+
+.NoMCD
+	else
+		move.b	#0, (MegaCDMode).w
+	endif
 		tst.w	(vdp_control_port).l
 		btst	#6,(expansion_control).l
 		beq.s	CheckSumCheck
@@ -353,18 +365,6 @@ GameInit:
 		move.w	#opcode_jmpabslong,(v_vintcode.jmp).w
 		move.l	#VBlank,(v_vintcode.addr).w
 		move.w	#opcode_rte,(v_hintcode.jmp).w
-
-	if MSUEnabled
-		btst 	#5, (console_version)
-		bne.s 	.NoMCD
-		jsr	(Init_MSU_Driver).l
-		seq	(MegaCDMode).w
-
-.NoMCD
-	else
-		clr.b	(MegaCDMode).w
-	endif
-
 		jsr	(InitDMAQueue).l
 		bsr.w	VDPSetupGame
 		bsr.w	JoypadInit
@@ -2594,7 +2594,6 @@ Level_GetBgm:
 		add.b   (v_act), d0
 		lea	(MusicList).l,a1 ; load music playlist
 		move.b	(a1,d0.w),d0
-		seq	(MegaCDMode).w
 		move.b	d0,(v_zonemusic).w
 		bsr.w	QueueSound1	; play music
 		move.b	#id_TitleCard,(v_titlecard).w ; load title card object
