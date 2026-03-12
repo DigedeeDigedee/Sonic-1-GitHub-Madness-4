@@ -91,16 +91,14 @@ ExplItem_stupidjump:
 		
 ExplItem_Main:
 		subq.b	#1,$1E(a0)	; subtract 1 from frame	duration
-		bpl.s	ExplItem_Display
-		move.b	#3,$1E(a0)	; set frame duration to	7 frames
+		bpl.s	+
+		move.b	#3,$1E(a0)	; set frame duration to	3 frames
 		addq.b	#1,$1A(a0)	; next frame
-		cmpi.b	#5,$1A(a0)	; is the final frame (05) displayed?
++		cmpi.b	#5,$1A(a0)	; is the final frame (05) displayed?
 		beq.w	DeleteObject	; if yes, branch
-
-ExplItem_Display:
-        	bsr.w   ExplItem_GetVelocity
-		jsr	ObjectFall	; GMZ
+        	bsr.s   ExplItem_GetVelocity
 		bra.w	DisplaySprite
+
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 

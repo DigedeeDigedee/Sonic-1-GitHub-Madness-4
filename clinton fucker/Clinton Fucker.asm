@@ -21,6 +21,11 @@ clifuck.Speed   =	$36
 ;STAT.UNK6	= 6
 ;STAT.KILLED	= 7
 
+CliFuckArtList:
+	dc.l	Nem_Clinton
+	dc.w	$8000
+	dc.l	-1		; Was it that hard?
+
 ClintonFucker:
 	moveq	#0,d0
 	move.b	obRoutine(a0),d0
@@ -51,6 +56,8 @@ CliFucker_Wait:
 	rts
 
 .SayHi:
+	lea	CliFuckArtList,a1
+	jsr	UserPLC	; I HATE YOU I FUCKING HATE YOU DIE
 	move.w	#60+45,v_screenshaketime.w
 	move.b	#dClintonHi,d0
 	jmp	MegaPCM_PlaySample
@@ -58,11 +65,7 @@ CliFucker_Wait:
 CliFucker_Init2:
 	move.b	#$1E,d0			; placeholder
 	jsr	QueueSound2
-
-	tst.l	(v_plc_buffer).w
-	bne.s	.Exit
-	move.l	#Nem_Clinton,v_plc_buffer	; copy PLC to RAM directly
-	move.w	#$8000,v_plc_buffer+4		
+	
 	addq.b	#2,obRoutine(a0)
 	move.l	#SprPat_Clinton,obMap(a0)
 	move.w	#$8000/32,obGfx(a0)

@@ -345,11 +345,13 @@ KillSonic:
 		; It was removed in the CENSOR prototype of Sonic 2 onwards.
 		move.w	obY(a0),objoff_38(a0)
 	endif
-		move.b	#id_Death,obAnim(a0)
+		move.b	#id_Null,obAnim(a0)
 		bset	#7,obGfx(a0)
 
 		move.b	#dTrevor, d0
-		jmp	MegaPCM_PlaySample
+		jsr	MegaPCM_PlaySample
+		move.b	#$8, d1
+		jmp	GHM3Explode_Custom
 		
 	if FixBugs
 		move.w	#sfx_HitSpikes,d0 ; play spikes death sound
@@ -368,7 +370,6 @@ KillSonic:
 
 .sound:
 		jsr	(QueueSound2).l
-		jsr	GHM3Explode
 
 .dontdie:
 		moveq	#-1,d0

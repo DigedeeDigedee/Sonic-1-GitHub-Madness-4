@@ -141,6 +141,12 @@ splash_turd macro routine
 	splash_liquid GM_SSRGScreen
 	splash_liquid GM_EagleSoft
 	splash_liquid Yume2kki
+	
+	;!@ GenesisDoes
+	splash_solid GenesisDoes1,$40,bgm_GenesisDoes1,60*10
+	splash_solid GenesisCan1,$40,bgm_GenesisCan1,60*3
+	splash_solid GenesisCan2,$40,bgm_GenesisCan2,60*3	
+	
 	splash_solid Blessed,$40,$A8,200
 	splash_solid Shiki,$20,$2A,280
 	splash_solid SonicBroke,$20,$51,480
@@ -173,7 +179,13 @@ splash_turd macro routine
 	splash_turd Remilia
 	dc.l	-1 ; end marker
 
-; Files for solid
+
+	; Files for solid
+	;!@ GenesisDoes
+	inc_solid_splash GenesisDoes1
+	inc_solid_splash GenesisCan1
+	inc_solid_splash GenesisCan2
+	
 	inc_solid_splash Blessed
 	inc_solid_splash Shiki
 	inc_solid_splash SonicBroke

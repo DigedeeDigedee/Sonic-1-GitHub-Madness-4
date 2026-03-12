@@ -128,7 +128,7 @@ ptr_RingFlash:		dc.l RingFlash
 ptr_HiddenBonus:	dc.l HiddenBonus
 ptr_SSResult:		dc.l SSResult
 ptr_SSRChaos:		dc.l SSRChaos
-ptr_ContScrItem:	dc.l ContScrItem	; $80
+ptr_ContScrCur:	dc.l ContScrCur	; $80
 ptr_ContSonic:		dc.l ContSonic
 ptr_ScrapEggman:	dc.l ScrapEggman
 ptr_FalseFloor:		dc.l FalseFloor
@@ -272,7 +272,7 @@ id_RingFlash:		equ ((ptr_RingFlash-Obj_Index)/4)+1
 id_HiddenBonus:		equ ((ptr_HiddenBonus-Obj_Index)/4)+1
 id_SSResult:		equ ((ptr_SSResult-Obj_Index)/4)+1
 id_SSRChaos:		equ ((ptr_SSRChaos-Obj_Index)/4)+1
-id_ContScrItem:		equ ((ptr_ContScrItem-Obj_Index)/4)+1		; $80
+id_ContScrCur:		equ ((ptr_ContScrCur-Obj_Index)/4)+1		; $80
 id_ContSonic:		equ ((ptr_ContSonic-Obj_Index)/4)+1
 id_ScrapEggman:		equ ((ptr_ScrapEggman-Obj_Index)/4)+1
 id_FalseFloor:		equ ((ptr_FalseFloor-Obj_Index)/4)+1
