@@ -4,8 +4,6 @@
 
 ; to do:
 ; - fix text in game over
-; - force continue screen after any game over, force "no" option
-; - port game over track
 
 ; FUN FACT: AS doesn't allow you to use macros defined later. this assembler is so poopy
 	include "ContinueScreen/Macros.asm"

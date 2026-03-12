@@ -20,6 +20,8 @@ CheatsOn = 1
 ; 	| If 0, build it with no cheats active
 ; 	| If 1, build it with all cheats active
 
+MSUEnabled = 1
+
 Revision = 1
 ; 	| If 0, build the original version of the game, dubbed REV00
 ; 	| If 1, build the later version, dubbed REV01, which includes various bugfixes and enhancements
@@ -354,6 +356,14 @@ GameInit:
 		move.w	#opcode_jmpabslong,(v_vintcode.jmp).w
 		move.l	#VBlank,(v_vintcode.addr).w
 		move.w	#opcode_rte,(v_hintcode.jmp).w
+
+	if MSUEnabled
+		jsr	(Init_MSU_Driver).l
+		seq	(MegaCDMode).w
+	else
+		clr.b	(MegaCDMode).w
+	endif
+
 		jsr	(InitDMAQueue).l
 		bsr.w	VDPSetupGame
 		bsr.w	JoypadInit
@@ -867,6 +877,21 @@ Init_MegaPCM:
 		illegal				; I don't know why AS is breaking this
 	endif
 .SampleTableOk:
+
+	if MSUEnabled
+		; check CD mode
+		tst.b	(MegaCDMode).w
+		beq.s	.skip
+	
+		move.w	sr,-(sp)		; save current interrupt mask
+		disable_ints			; mask off interrupts
+	
+		MCDSend	#_MCD_SetVolume, #255
+		MCDSend	#_MCD_NoSeek, #1
+		move.w	(sp)+,sr		; restore ints
+
+.skip:
+	endif
 		rts
 
 ; ===========================================================================
@@ -7901,6 +7926,10 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 
 		include "Splashes.asm"
 		include	"_inc/GHM3Explode.asm"
+
+	if MSUEnabled
+		include "sound/MSU/MSU.asm"
+	endif
 
 		include "clinton fucker/Clinton Fucker.asm"
 ; end of 'ROM'

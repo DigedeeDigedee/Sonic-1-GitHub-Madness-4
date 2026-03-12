@@ -697,10 +697,18 @@ FMSetRest:
 ; ===========================================================================
 ; loc_71E50:
 PauseMusic:
-		bmi.s	.unpausemusic			; Branch if music is being unpaused
+		bmi.w	.unpausemusic			; Branch if music is being unpaused
 		cmpi.b	#2,SMPS_RAM.f_pausemusic(a6)
 		beq.w	.done
 		move.b	#2,SMPS_RAM.f_pausemusic(a6)
+
+	if MSUEnabled
+		tst.b	SMPS_RAM.v_cda_playing(a6)
+		beq.s	.skip
+		MCDSend	#_MCD_PauseTrack, #20	; flag, timer
+	.skip:
+		endif
+
 		moveq	#$FFFFFFB4,d0			; Command to set AMS/FMS/panning
 		moveq	#0,d1				; No panning, AMS or FMS
 		jsr	WriteFMI(pc)			; FM1

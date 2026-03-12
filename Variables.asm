@@ -421,7 +421,8 @@ v_fg_scroll_flags_dup:	ds.w	1
 v_bg1_scroll_flags_dup:	ds.w	1
 v_bg2_scroll_flags_dup:	ds.w	1
 v_bg3_scroll_flags_dup:	ds.w	1
-			ds.b	$48		; unused
+MegaCDMode:		ds.b 	1
+			ds.b	$47		; unused
 v_timingandscreenvariables_end:
 
 v_levseldelay:		ds.w	1		; level select - time until change when up/down is held
