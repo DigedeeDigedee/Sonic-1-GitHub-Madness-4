@@ -1,5 +1,7 @@
 REM Custom build process to re-compress all art assets, for space saving$
-REM Comment out to do so
+
+Set Recomp=0
+IF %Recomp% EQU 0 GOTO SKIP
 
 cls
 cd "artkos"
@@ -102,6 +104,8 @@ cd ..
 cd "tilemaps"
 call recmp.bat
 cd ..
+
+:SKIP
 
 @ECHO OFF
 REM // This file has been gutted and replaced with the Lua build script.
