@@ -2576,6 +2576,9 @@ Level_NoMusicFade:
 		move.b	#1,(f_water).w	; enable water
 
 Level_LoadPal:
+		move.b	#$c3, d0
+		jsr		MegaPCM_PlaySample
+		; hiii
 		move.w	#30,(v_air).w
 		enable_ints
 		moveq	#palid_Sonic,d0
