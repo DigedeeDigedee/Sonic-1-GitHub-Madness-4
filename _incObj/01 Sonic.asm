@@ -531,7 +531,7 @@ loc_130BA:
 		addi.b	#$20,d0
 		andi.b	#$C0,d0
 		bne.s	locret_130E8
-		cmpi.w	#$400,d0
+		cmpi.w	#$100,d0
 		blt.s	locret_130E8
 		move.b	#id_Stop,obAnim(a0) ; use "stopping" animation
 		bclr	#0,obStatus(a0)
@@ -577,7 +577,7 @@ loc_13120:
 		addi.b	#$20,d0
 		andi.b	#$C0,d0
 		bne.s	locret_1314E
-		cmpi.w	#-$400,d0
+		cmpi.w	#-$100,d0
 		bgt.s	locret_1314E
 		move.b	#id_Stop,obAnim(a0) ; use "stopping" animation
 		bset	#0,obStatus(a0)
@@ -844,7 +844,7 @@ Sonic_LevelBound:
 		blo.s	.skip
 		move.w	d1,d0
 .skip:
-		addi.w	#224,d0
+		addi.w	#124,d0
 		cmp.w	obY(a0),d0	; has Sonic touched the bottom boundary?
 		blt.s	.bottom		; if yes, branch
 		rts
