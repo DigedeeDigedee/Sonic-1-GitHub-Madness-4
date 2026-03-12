@@ -51,6 +51,7 @@ ZoneCount = 6
 
 ; ===========================================================================
 	cpu 68000
+	message "Pass \{MOMPASS}"
 	include "MacroSetup.asm"
 	include "Macros.asm"
 	include "Constants.asm"
