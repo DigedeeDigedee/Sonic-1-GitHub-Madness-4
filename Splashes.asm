@@ -136,10 +136,10 @@ splash_turd macro routine
 	endm
 
 ; Entries
-
 	splash_liquid SonicRetro
 	splash_liquid GM_SSRGScreen
 	splash_liquid GM_EagleSoft
+	splash_liquid GM_CNNicoJump
 	splash_liquid Yume2kki
 	
 	;!@ GenesisDoes

@@ -2,6 +2,8 @@
 ; CONINIGHT SPLASH SCREEN - NICO JUMP
 ; ---------------------------------------------------------------------------
 
+Nico_Boik = 1
+
 GM_CNNicoJumpOBJ:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
@@ -44,13 +46,14 @@ CNSCROBJ_JumpRight:	; Routine 6 - Nico jumping right
 		subq.w	#1,$30(a0)		; subtract 1 from wait time
 		bpl.s	.Wait			; if time remains, branch
 		move.w	#$200,obVelX(a0); set X velocity for bouncing right
-		move.w	#$AE,d0
+		move.w	#$D0,d0
 		cmp.w	obX(a0),d0		; was he about to reach right next to the logo?
-		bge.s	.MoveRight		; if not, branch and continue bouncing
+		bge.s	.MoveRight		; if not, branch and continue bouncing - had to use a BNE
+		clr.w	obVelX(a0)		; clear X velocity so Nico lands correctly
 		move.w	#30,$30(a0)		; Wait Time
 		move.b	#3,obAnim(a0)	; Set Animation to be Nico's Third animation (stop and briefly look at the opposite direction)
 		addq.b	#2,obRoutine(a0); Next...
-		jmp		CNSCROBJ_Wait
+		bra.w	CNSCROBJ_Wait
 .MoveRight:
 		jsr	(ObjectFall).l
 		move.w	#$80,d0
@@ -58,6 +61,10 @@ CNSCROBJ_JumpRight:	; Routine 6 - Nico jumping right
 		bhs.s	.Wait			; if not, branch
 		move.w	#-$300,obVelY(a0)	; set Y velocity for bouncing up
 		move.b	#2,obAnim(a0)	; Reset Animation to be Nico's bouncing animation
+		if Nico_Boik = 1
+		move.b	#dBoik,d0	; Boik
+		jsr		(MegaPCM_PlaySample).l
+		endif
 .Wait:
 		rts
 
@@ -83,17 +90,22 @@ CNSCROBJ_JumpLeft:	; Routine 8 - Nico jumping left
 		move.w	#-$200,obVelX(a0)	; set X velocity for bouncing left
 		move.w	#$38,d0
 		cmp.w	obX(a0),d0		; was he about to reach left next to the logo?
-		ble.s	.MoveRight		; if not, branch
-		neg.w	obVelY(a0)		; reverse Y velocity so Nico lands correctly
+		ble.s	.MoveLeft		; if not, branch
+		clr.w	obVelX(a0)		; clear X velocity so Nico lands correctly
 		move.b	#4,obAnim(a0)	; Set Animation to be CONIC'S Victory Pose TM
 		addq.b	#2,obRoutine(a0); Next...
-		jmp		CNSCROBJ_Land
-.MoveRight:
+		bra.w	CNSCROBJ_Land
+.MoveLeft:
 		jsr	(ObjectFall).l
 		move.w	#$80,d0
 		cmp.w	obY(a0),d0	; was he about to fall under the ground?
 		bhs.s	.Wait		; if not, branch
 		move.w	#-$300,obVelY(a0) ; bounce
+		move.b	#2,obAnim(a0)	; Reset Animation to be Nico's bouncing animation
+		if Nico_Boik = 1
+		move.b	#dBoik,d0	; Boik
+		jsr		(MegaPCM_PlaySample).l
+		endif
 .Wait:
 		rts
 
@@ -114,10 +126,10 @@ Ani_CNSCROBJ:	dc.w .Logo-Ani_CNSCROBJ
 				dc.w .Bounce-Ani_CNSCROBJ
 				dc.w .Land-Ani_CNSCROBJ
 				dc.w .End-Ani_CNSCROBJ
-.Logo:		dc.b 9,	0, 0, 1, 2, 3, 4, 5, 6,	7, 8
+.Logo:		dc.b $A,	0, 0, 1, 2, 3, 4, 5, 6,	7, 8
 			dc.b 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, $A, afBack, 1
 .Stand:		dc.b 6,	$B, $B, $B, $C, afChange, 2
 .Bounce:	dc.b 6,	$D, $E, $E, $E, afEnd
-.Land:		dc.b 6, $E, $E, $E,	$F, afBack, 1
-.End:		dc.b 6,	$C, $10, $11, afBack, 2
+.Land:		dc.b 6, $E, $E, $D,	$F, afBack, 1
+.End:		dc.b 6,	$E,	$C, $10, $11, afBack, 2
 		even

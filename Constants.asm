@@ -435,8 +435,8 @@ dPenises			ds.b 1
 dEggNo				ds.b 1
 dBabyAlarm			ds.b 1
 dBoingBoing			ds.b 1
-dBoioing			ds.b 1
 dBoik				ds.b 1
+dBoioing			ds.b 1
 dOrangeLaugh			ds.b 1
 dClintonHi			ds.b 1
 dClintonYeah			ds.b 1
