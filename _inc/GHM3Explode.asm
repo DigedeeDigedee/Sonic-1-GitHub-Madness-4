@@ -1,6 +1,9 @@
 GHM3Explode:
-		moveq	#0, d2
 		moveq	#5, d1
+
+; label for custom amount of explosions
+GHM3Explode_Custom:
+		moveq	#0, d2
 
 .Explode:
 		jsr	FindFreeObj

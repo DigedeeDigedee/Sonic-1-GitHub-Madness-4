@@ -19,10 +19,10 @@ DeformLayers:
 		bsr.w	ScrollHoriz
 		bsr.w	ScrollVertical
 		bsr.w	DynamicLevelEvents
-		move.w	(v_screenposy).w,(v_scrposy_vdp).w
 		move.w	(v_screenposy).w,(v_scrposy_orig).w
-		move.w	(v_bgscreenposy).w,(v_bgscrposy_vdp).w
 		bsr.w	ShakeScreen
+		move.w	(v_screenposy).w,(v_scrposy_vdp).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_vdp).w
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		add.w	d0,d0

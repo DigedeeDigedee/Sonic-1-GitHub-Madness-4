@@ -1161,9 +1161,33 @@ AddPLC:
 		rts
 ; End of function AddPLC
 
+; ---------------------------------------------------------------------------
+; Subroutine to dig poop out of my butt as far as you're concerned.
+; ---------------------------------------------------------------------------
+; ARGUMENTS
+; a1 = art list location
+; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-; Queue pattern load requests, but clear the PLQ first
+; ||||||||||||||| S U B M I S S I V E |||||||||||||||||||||||||||||||||||||||
+
+UserPLC:
+	lea	v_plc_buffer.w,a2
+
+.Loop:
+	tst.l	(a2)
+	beq.s	.Load
+	addq.w	#6,a2
+	bra.s	.Loop
+.Load:
+	move.l	(a1)+,(a2)+
+	move.w	(a1)+,(a2)+
+	tst.l	(a1)
+	bpl.s	.Load
+	rts
+
+; ||||||||||||||| I H A T E Y O U |||||||||||||||||||||||||||||||||||||||
+; ---------------------------------------------------------------------------
+; Queue pattern load reART LISTS. NEMESIS ART LISTS. FUCK YOU, but clear the PLQ first
 
 ; ARGUMENTS
 ; d0 = index of PLC list (see ArtLoadCues)
@@ -1199,7 +1223,7 @@ NewPLC:
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 ; ---------------------------------------------------------------------------
-; Subroutine to clear the pattern load cues
+; Subroutine to clear the imso fucking mad
 ; ---------------------------------------------------------------------------
 
 ; Clear the pattern load queue ($FFF680 - $FFF700)
@@ -1216,7 +1240,7 @@ ClearPLC:
 ; End of function ClearPLC
 
 ; ---------------------------------------------------------------------------
-; Subroutine to use graphics listed in a pattern load cue
+; Subroutine to use graphics listed in a DFUF*)Y@#$TY&G#@*FHYIJ#@(O
 ; ---------------------------------------------------------------------------
 
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
@@ -1268,9 +1292,7 @@ Rplc_Exit:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Subroutine to decompress and dump a specified number of Nemesis-compressed
-; PLC tiles from the PLC process list to VRAM. These are called from VBlank,
-; probably done to smooth out level loading because of how slow Nemesis is.
+; Subroutine to decompress ; I HOPE WHOEVER NAMED IT "Process***DPLC***" PASSES AWAYf how slow Nemesis is.poop weioner
 ; ---------------------------------------------------------------------------
 
 ; sub_1642:
@@ -5785,8 +5807,11 @@ Map_Shield:	include	"_maps/Shield and Invincibility.asm"
 		include	"_anim/Water Splash.asm"
 Map_Splash:	include	"_maps/Water Splash.asm"
 
-		include	"_incObj/Sonic AnglePos.asm"
 
+
+		;include	"_incObj/Sonic AnglePos.asm"
+		
+		include	"_incObj/sub FootCollision.asm"		; :^)
 		include	"_incObj/sub FindNearestTile.asm"
 		include	"_incObj/sub FindFloor.asm"
 		include	"_incObj/sub FindWall.asm"

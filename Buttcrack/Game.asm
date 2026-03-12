@@ -11,7 +11,6 @@ GM_ButtcrackMan:
 	move.l	d1, (a0)+
 	dbra	d0, .ClearObjectRAM
 
-
 .GameLoop:
 	bra.s 	.GameLoop
 
