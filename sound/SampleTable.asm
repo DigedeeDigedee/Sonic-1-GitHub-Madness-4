@@ -19,14 +19,16 @@ SampleTable:
 	dcSample	TYPE_PCM,	PokeTimpani,	15000			; $8B
 	dcSample	TYPE_PCM,	PokeTimpani,	11297			; $8C
 	dcSample	TYPE_PCM,	PokeTimpani,	7500			; $8D
-	dcSample	TYPE_PCM,	Amen_Kick,	0					; $8E
-	dcSample	TYPE_PCM,	Amen_Snare1,	0				; $8F
-	dcSample	TYPE_PCM,	Amen_Snare2,	0				; $90
-	dcSample	TYPE_PCM,	Amen_ShortKick1,0				; $91
-	dcSample	TYPE_PCM,	Amen_ShortKick2,0				; $92
-	dcSample	TYPE_PCM,	Amen_Ride1,	0					; $93
-	dcSample	TYPE_PCM,	Amen_Ride2,	0					; $94
-	dcSample	TYPE_PCM,	Amen_Crash,	0					; $95
+	dcSample	TYPE_PCM,	Amen_Kick,	0			; $8E
+	dcSample	TYPE_PCM,	Amen_Snare1,	0			; $8F
+	dcSample	TYPE_PCM,	Amen_Snare2,	0			; $90
+	dcSample	TYPE_PCM,	Amen_ShortKick1,0			; $91
+	dcSample	TYPE_PCM,	Amen_ShortKick2,0			; $92
+	dcSample	TYPE_PCM,	Amen_Ride1,	0			; $93
+	dcSample	TYPE_PCM,	Amen_Ride2,	0			; $94
+	dcSample	TYPE_PCM,	Amen_Crash,	0			; $95
+	dcSample	TYPE_DPCM,	CF_DrumLoopA,	16000			; $95
+	dcSample	TYPE_DPCM,	CF_DrumLoopB,	16000			; $95
 
 	; SFX SAMPLES (like any funny quotes etc...)
 	dcSample	TYPE_PCM,	DAMN,		16000				; $96
@@ -38,25 +40,25 @@ SampleTable:
 	dcSample	TYPE_PCM,	WinTwoK,	8000,				; $9C
 	dcSample	TYPE_PCM,	DeppaDig,	8000,				; $9D
 	;!@ GenesisDoes
-	dcSample	TYPE_PCM,	EagleSoft_Song, 16000,FLAGS_SFX	; $9E
-	dcSample	TYPE_PCM,	YoFreddy, 16000,FLAGS_SFX		; $9F
-	
-	dcSample	TYPE_PCM,	Github, 16000,FLAGS_SFX			; $A0
-	dcSample	TYPE_PCM,	Madness, 16000,FLAGS_SFX		; $A1
-	dcSample	TYPE_PCM,	MadnessR, 16000,FLAGS_SFX		; $A2
-	dcSample	TYPE_PCM,	eggmanLaugh, 16000,FLAGS_SFX	; $A3
-	dcSample	TYPE_PCM,	GenesisDoes1, 16000				; $A4
-	dcSample	TYPE_PCM,	GenesisCan1, 16000				; $A5
-	dcSample	TYPE_PCM,	GenesisCan2, 16000				; $A6
+	dcSample	TYPE_DPCM,	EagleSoft_Song, 16000,FLAGS_SFX	; $9E
+	dcSample	TYPE_DPCM,	YoFreddy, 16000,FLAGS_SFX		; $9F	
+	dcSample	TYPE_DPCM,	Github, 16000,FLAGS_SFX			; $A0
+	dcSample	TYPE_DPCM,	Madness, 16000,FLAGS_SFX		; $A1
+	dcSample	TYPE_DPCM,	MadnessR, 16000,FLAGS_SFX		; $A2
+	dcSample	TYPE_DPCM,	eggmanLaugh, 16000,FLAGS_SFX	; $A3
+	dcSample	TYPE_DPCM,	GenesisDoes1, 16000				; $A4
+	dcSample	TYPE_DPCM,	GenesisCan1, 16000				; $A5
+	dcSample	TYPE_DPCM,	GenesisCan2, 16000				; $A6
+	dcSample	TYPE_DPCM,	SM64_MM, 16000					; $A7
 
-	dcSample	TYPE_PCM,	QuakeRocket,	11297,			; $A7
-	dcSample	TYPE_PCM,	supbeaches,	11297,				; $A8
-	dcSample	TYPE_PCM,	CL_Penis,	11297,				; $A9
-	dcSample	TYPE_PCM,	CL_STFU,	11297,FLAGS_SFX		; $AA
-	dcSample	TYPE_PCM,	CL_Fuck,	11297,				; $AB
-	dcSample	TYPE_PCM,	CL_YouCanSuck,	11297,FLAGS_SFX	; $AC
-	dcSample	TYPE_PCM,	CL_DoYouSuck,	11297,FLAGS_SFX	; $AD
-	dcSample	TYPE_PCM,	CL_Dicks,	11297,				; $AE
+	dcSample	TYPE_PCM,	QuakeRocket,	11297,			; $A8
+	dcSample	TYPE_PCM,	supbeaches,	11297,				; $A9
+	dcSample	TYPE_PCM,	CL_Penis,	11297,				; $AA
+	dcSample	TYPE_PCM,	CL_STFU,	11297,FLAGS_SFX		; $AB
+	dcSample	TYPE_PCM,	CL_Fuck,	11297,				; $AC
+	dcSample	TYPE_PCM,	CL_YouCanSuck,	11297,FLAGS_SFX	; $AD
+	dcSample	TYPE_PCM,	CL_DoYouSuck,	11297,FLAGS_SFX	; $AE
+	dcSample	TYPE_PCM,	CL_Dicks,	11297,				; $AF
 	dcSample	TYPE_PCM,	CL_OnTheBall,	11297,			; $B0
 	dcSample	TYPE_PCM,	Penises,	11297,				; $B1
 	dcSample	TYPE_PCM,	EggNo,		11297,				; $B2
@@ -68,9 +70,9 @@ SampleTable:
 	dcSample	TYPE_PCM,	OrngLaugh,	0,FLAGS_SFX 		; $B7
 
 	dcSample	TYPE_DPCM,	ClintonHi,	20600,FLAGS_SFX 	; $B8
-	dcSample	TYPE_DPCM,	ClintonYeah,	20600,FLAGS_SFX ; $B9
-	; Keep this as the last sample pls (and make sure to add a sample constant to _smps2asm.asm
+	dcSample	TYPE_DPCM,	ClintonYeah,	20600,FLAGS_SFX 	; $B9
 	dcSample	TYPE_PCM,	QuakeJump,	0, FLAGS_SFX 		; $BA
+	; Keep this as the last sample pls (and make sure to add a sample constant to _smps2asm.asm
 	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0, FLAGS_SFX	; $BB
 	dc.w	-1	; end marker
 
@@ -97,6 +99,11 @@ SampleTable:
 	incdac	Amen_Ride1, "sound/dac/amenbreak/ride1.wav"
 	incdac	Amen_Ride2, "sound/dac/amenbreak/ride2.wav"
 	incdac	Amen_Crash, "sound/dac/amenbreak/crash.wav"
+
+; ---------------------------------------------------------------
+; Clinton Fuckerdrum beat
+	incdac	CF_DrumLoopA, "sound/dac/Clinton Fucker/DRUMS_A.dpcm"
+	incdac	CF_DrumLoopB, "sound/dac/Clinton Fucker/DRUMS_B.dpcm"
 
 ; ---------------------------------------------------------------
 ; All your funny meme samples you can find
@@ -133,15 +140,16 @@ SampleTable:
 	incdac	WinTwoK, "sound/dac/splashes/WinTwoK.wav"
 	incdac	DeppaDig, "sound/dac/splashes/DeppaDig.wav"
 	;!@ GenesisDOes - EagleSoft screen 
-	incdac	EagleSoft_Song,	"sound/dac/GenesisDoes/EagleSoft_Song.pcm"
-	incdac	YoFreddy,	"sound/dac/GenesisDoes/YoFreddy.pcm"
-	incdac	Github,	 "sound/dac/GenesisDoes/git-hub.pcm"
-	incdac	Madness, "sound/dac/GenesisDoes/Madness.pcm"
-	incdac	MadnessR,"sound/dac/GenesisDoes/MadnessR.pcm"
-	incdac	eggmanLaugh,"sound/dac/GenesisDoes/eggmanLaugh.pcm"
-	incdac	GenesisDoes1,"sound/dac/GenesisDoes/GenesisDoes1.pcm"
-	incdac	GenesisCan1,"sound/dac/GenesisDoes/GenesisCan1.pcm"
-	incdac	GenesisCan2,"sound/dac/GenesisDoes/GenesisCan2.pcm"
+	incdac	EagleSoft_Song,	"sound/dac/GenesisDoes/EagleSoft_Song.dpcm"
+	incdac	YoFreddy,	"sound/dac/GenesisDoes/YoFreddy.dpcm"
+	incdac	Github,	 "sound/dac/GenesisDoes/git-hub.dpcm"
+	incdac	Madness, "sound/dac/GenesisDoes/Madness.dpcm"
+	incdac	MadnessR,"sound/dac/GenesisDoes/MadnessR.dpcm"
+	incdac	eggmanLaugh,"sound/dac/GenesisDoes/eggmanLaugh.dpcm"
+	incdac	GenesisDoes1,"sound/dac/GenesisDoes/GenesisDoes1.dpcm"
+	incdac	GenesisCan1,"sound/dac/GenesisDoes/GenesisCan1.dpcm"
+	incdac	GenesisCan2,"sound/dac/GenesisDoes/GenesisCan2.dpcm"
+	incdac	SM64_MM,"sound/dac/GenesisDoes/SM64_MM.dpcm"
 
 ; ---------------------------------------------------------------
 ; Whatever you want the Sega sound to be
