@@ -43,6 +43,7 @@ CliFucker_Wait:
 	rts
 
 .SayHi:
+	move.w	#60+45,v_screenshaketime.w
 	move.b	#dClintonHi,d0
 	jmp	MegaPCM_PlaySample
 
@@ -60,15 +61,16 @@ CliFucker_Init2:
 	move.b	#$10,obHeight(a0)
 	move.b	#8,obWidth(a0)
 	move.b	#1,obFrame(a0)
-	move.w	#80,clifuck.Speed(a0)
+	move.w	#400,clifuck.Speed(a0)
 	move.w	#32,clifuck.Accel(a0)
 	move.w	#0,(v_limitleft1).w
 	move.w	#0,(v_limitleft2).w
 	st	v_clintonfucker
 .Exit:
 	rts
+
 CliFucker_Main:
-	add.l	#$2000,clifuck.Speed(a0)
+	add.l	#$7000,clifuck.Speed(a0)
 	lea 	v_player, a1
 	move.w	obX(a1),d0
 	move.w	obX(a0),d1
