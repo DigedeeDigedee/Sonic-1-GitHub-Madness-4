@@ -39,6 +39,7 @@ MarioTeam_Screen:
 		
 		moveq   #palid_Sonic,d0      
 		bsr.w   Set_PalLoad1
+
 		
 		move.w  #$100,(Timer).w          ; Time     
 		move.w  (VDP_buff).w,d0
@@ -79,7 +80,7 @@ RickTeamheads_Screen:
 		moveq   #palid_Savethemoonsonic,d0      
 		bsr.w   Set_PalLoad1
 		
-		move.w  #$100,(Timer).w          ; Time
+		move.w  #$80,(Timer).w          ; Time
 		move.w  (VDP_buff).w,d0
 		ori.b   #$40,d0
 		move.w  d0,(VDPCtrl).l
@@ -116,7 +117,7 @@ TeamTesticle_Screen:
 		
 		moveq   #palid_S2,d0      
 		bsr.w   Set_PalLoad1		
-		move.w  #$100,(Timer).w          ; Time
+		move.w  #$60,(Timer).w          ; Time
 		move.w  (VDP_buff).w,d0
 		ori.b   #$40,d0
 		move.w  d0,(VDPCtrl).l
