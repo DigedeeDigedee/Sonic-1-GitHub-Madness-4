@@ -148,7 +148,7 @@ BGM_Clinton_PSG3:
 	smpsPSGform	$E7
 
 BGM_Clinton_PSG3_Jump:
-	dc.b	nMaxPSG, 8, 2, 2, 8, 2, 2, 8, 8, 8, 8
+	dc.b	nMaxPSG, 4, 2, 2, 4, 2, 2, 4, 4, 4, 4
 	smpsJump	BGM_Clinton_PSG3_Jump
 
 BGM_Clinton_Voices:
