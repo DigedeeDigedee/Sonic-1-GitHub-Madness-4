@@ -314,6 +314,7 @@ thantxt: macro txt
 	thantxt	"DINGISH"
 	thantxt "THE GAMER MM"
 	thantxt	"HIPSNAKE"
+	thantxt	"LIQUID GROGU"
 	thantxt	"CONINIGHT"
 	thantxt	"FREAKY BILLY"
 	thantxt	"ROJO MMX"
