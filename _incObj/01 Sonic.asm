@@ -826,7 +826,7 @@ Sonic_LevelBound:
 		move.w	(v_limitleft2).w,d0
 		addi.w	#$10,d0
 		cmp.w	d1,d0		; has Sonic touched the side boundary?
-		bhi.s	.sides		; if yes, branch
+		bhi.s	.leftside		; if yes, branch
 		move.w	(v_limitright2).w,d0
 		addi.w	#$128,d0
 		tst.b	(f_lockscreen).w
@@ -835,21 +835,15 @@ Sonic_LevelBound:
 
 .screenlocked:
 		cmp.w	d1,d0		; has Sonic touched the side boundary?
-		bls.s	.sides		; if yes, branch
+		bls.s	.rightside	; if yes, branch
 
 .chkbottom:
 		move.w	(v_limitbtm2).w,d0
-	if FixBugs
-		; The original code does not consider that the camera boundary
-		; may be in the middle of lowering itself, which is why going
-		; down the S-tunnel in Green Hill Zone Act 1 fast enough can
-		; kill Sonic.
 		move.w	(v_limitbtm1).w,d1
 		cmp.w	d0,d1
 		blo.s	.skip
 		move.w	d1,d0
 .skip:
-	endif
 		addi.w	#224,d0
 		cmp.w	obY(a0),d0	; has Sonic touched the bottom boundary?
 		blt.s	.bottom		; if yes, branch
@@ -859,9 +853,9 @@ Sonic_LevelBound:
 ; Boundary_Bottom
 .bottom:
 		cmpi.w	#(id_SBZ<<8)+1,(v_zone).w ; is level SBZ2 ?
-		bne.w	.JUMP_KillSonic	; if not, kill Sonic
+		bne.s	.JUMP_KillSonic	; if not, kill Sonic
 		cmpi.w	#$2000,(v_player+obX).w
-		blo.w	.JUMP_KillSonic
+		blo.s	.JUMP_KillSonic
 		clr.b	(v_lastlamp).w	; clear lamppost counter
 		move.w	#1,(f_restart).w ; restart the level
 		move.w	#(id_LZ<<8)+3,(v_zone).w ; set level to SBZ3 (LZ4)
@@ -870,18 +864,19 @@ Sonic_LevelBound:
 ; ===========================================================================
 
 ; Boundary_Sides
+.leftside:
+		move.w	#$600,obVelX(a0)
+		bclr	#0,obStatus(a0)
+		bra.s	.sides
+.rightside:
+		move.w	#-$600,obVelX(a0)
+		bset	#0,obStatus(a0)
+		;bra.s	.sides
 .sides:
 		move.w	d0,obX(a0)
 		move.w	#0,obX+2(a0)
-		move.w	#0,obVelX(a0)	; stop Sonic moving
 		move.w	#0,obInertia(a0)
-			move.w	#$600,$10(a0)
-					move.w	#-$200,$12(a0)
-	   bchg	#0,$22(a0)      ; Fliped Sprite
-		bne.s	.lvlboundtest
-		neg.w	d0
-		
-.lvlboundtest:		
+		move.w	#-$200,obVelY(a0)
 		bra.s	.chkbottom
 ; End of function Sonic_LevelBound
 
