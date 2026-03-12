@@ -35,7 +35,7 @@ if abort then
 end
 
 print("Making release")
-if common.is_windows() then
+if os_name == "Windows" then
     os.execute("copy gm4built.gen __Release\\GHM4.gen")
 else
     print("Fuck you, no release rom for you in specific!!")
