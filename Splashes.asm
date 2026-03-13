@@ -149,49 +149,50 @@ splash_turd macro routine
 	endm
 
 ; Entries
-	splash_liquid SonicRetro
-	splash_liquid GM_SSRGScreen
-	splash_liquid GM_EagleSoft
-	splash_liquid GM_CNNicoJump
-	splash_liquid Yume2kki
-	
+	splash_liquid	SonicRetro
+	splash_liquid	GM_SSRGScreen
+	splash_liquid	GM_EagleSoft
+	splash_liquid	GM_CNNicoJump
+	splash_liquid	Yume2kki
+
 	;!@ GenesisDoes
-	splash_solid GenesisDoes1,$40,1,dGenesisDoes1,60*10
-	splash_solid GenesisCan1,$40,1,dGenesisCan1,60*3
-	splash_solid GenesisCan2,$40,1,dGenesisCan2,60*3
-	splash_solid SM64_MM,$40,1,dSM64_MM,60*4
+	splash_solid	GenesisDoes1,	$40, 1,	dGenesisDoes1,	60*10
+	splash_solid	GenesisCan1,	$40, 1,	dGenesisCan1,	60*3
+	splash_solid	GenesisCan2,	$40, 1,	dGenesisCan2,	60*3
+	splash_solid	SM64_MM,	$40, 1,	dSM64_MM,	60*4
 	
-	splash_solid Blessed,$40,0,sfx_SSGoal,200
-	splash_solid Shiki,$20,0,$2A,280
-	splash_solid SonicBroke,$20,0,$51,480
-	splash_solid Monke,$20,0,$1C,480
-	splash_solid Wait,$60,0,$1B,145
-	splash_solid SadMac,$60,0,$28,175
-	splash_solid Drift,$20,0,$2C,480
-	splash_solid LastBurenyuu,$20,0,$24,240
-	splash_solid BLUE_LOBSTER,$20,1,dBlueLobster,280
-	splash_solid ReimuDrip,$20,0,$20,160
-	;splash_solid Sane,$40,0,$25,720
-	splash_solid Cmruey,$20,0,$2F,240
-	splash_solid Disappointed,$20,0,$39,480
-	splash_solid Mines,$20,0,$04,650
-	splash_solid Waldo,$40,0,$31,100
-	; splash_solid Undertaley,$10,0,$33,300
-	splash_solid StupidBat,$40,0,$3A,480
-	splash_solid Sad,$40,0,$3D,200
-	splash_solid Support,$60,0,$3E,480
-	splash_solid Peppa,$40,0,$25,200
-	splash_solid Snowgrave,$40,0,$25,100
-	splash_solid Damnit,$40,0,$4A,500
-	splash_solid Iceage,$40,0,$34,300
-	splash_solid Fredbear,$40,0,$38,480
-	splash_solid CRT,$40,0,$32,300
-	splash_solid Crispbilly,$40,0,$25,200
-	splash_solid Bonniewtf,$60,0,$3C,300
-	splash_solid Rick,$40,0,$2E,480
-	splash_solid W,$40,0,$13,380
-	splash_liquid GM_SegaEU
-	splash_turd Remilia
+	splash_solid	Blessed,	$40, 0,	sfx_SSGoal,	200
+	splash_solid	Shiki,		$20, 0,	bgm_SwingSinners,280
+	splash_solid	SonicBroke,	$20, 0,	bgm_musBomerDude,480
+	splash_solid	Monke,		$20, 0,	bgm_Carefree,	480
+	splash_solid	Wait,		$60, 0,	bgm_PuyoDrown,	145
+	splash_solid	SadMac,		$60, 0,	bgm_SadMac,	175
+	splash_solid	Drift,		$20, 0,	bgm_Minuscule,	480
+	splash_solid	LastBurenyuu,	$20, 0,	bgm_FurElise,	240
+	splash_solid	BLUE_LOBSTER,	$20, 1,	dBlueLobster,	280
+	splash_solid	ReimuDrip,	$20, 0,	bgm_Aporia,	160
+	;splash_solid	Sane,		$40, 0,	bgm_Ding,	720
+	splash_solid	Cmruey,		$20, 0,	bgm_Wormy,	240
+	splash_solid	Disappointed,	$20, 0,	bgm_Levian,	480
+	splash_solid	Mines,		$20, 0,	bgm_SLZ,	650
+	splash_solid	Waldo,		$40, 0,	bgm_MayoDed,	100
+	; splash_solid	Undertaley,	$10, 0,	bgm_NewShop,	300
+	splash_solid	StupidBat,	$40, 0,	bgm_BatMan,	480
+	splash_solid	Sad,		$40, 0,	bgm_Spoopy,	200
+	splash_solid	Support,	$60, 0,	bgm_ChickenDance,480
+	splash_solid	Peppa,		$40, 0,	bgm_Ding,	200
+	splash_solid	Snowgrave,	$40, 0,	bgm_Ding,	100
+	splash_solid	Damnit,		$40, 0,	bgm_GCV2005,	500
+	splash_solid	Iceage,		$40, 0,	bgm_JamesPond,	300
+	splash_solid	Fredbear,	$40, 0,	bgm_FuneralMarch,480
+	splash_solid	CRT,		$40, 0,	bgm_PuyoReject,	300
+	splash_solid	Crispbilly,	$40, 0,	bgm_Ding,	200
+	splash_solid	Bonniewtf,	$60, 0,	bgm_Resetti,	300
+	splash_solid	Rick,		$40, 0,	bgm_Rickroll,	480
+	splash_solid	W,		$40, 0,	bgm_Emerald,	380
+
+	splash_liquid	GM_SegaEU
+	splash_turd	Remilia
 	dc.l	-1 ; end marker
 
 

@@ -259,13 +259,16 @@ ptr_mus4E:		dc.l Music4E
 ptr_mus4F:		dc.l Music4F
 ptr_mus50:		dc.l Music50
 ptr_mus51:		dc.l Music51
-
-;!@ GenesisDoes
-ptr_mus52:		dc.l Music52
-ptr_mus53:		dc.l Music53
-ptr_mus54:		dc.l Music54
-ptr_mus55:		dc.l Music55
+;ptr_mus52:		dc.l Music52
+;ptr_mus53:		dc.l Music53
+;ptr_mus54:		dc.l Music54
+;ptr_mus55:		dc.l Music55
 ptr_mus56:		dc.l Music56
+;ptr_mus52:		dc.l Music52
+;ptr_mus53:		dc.l Music53
+;ptr_mus54:		dc.l Music54
+;ptr_mus55:		dc.l Music55
+;ptr_mus56:		dc.l Music56
 ;ptr_mus57:		dc.l Music57
 ;ptr_mus58:		dc.l Music58
 ;ptr_mus59:		dc.l Music59
@@ -3195,15 +3198,14 @@ Music50:	include	"sound/music/Mus90 - Continue Screen.asm"
 		even
 Music51:	include	"sound/music/TG2000Tracks/Coffinman.asm"
 		even
-;!@ GenesisDoes
-Music52:	include	"sound/music/GenesisDoes/GenesisDoes1.asm"
-		even
-Music53:	include	"sound/music/GenesisDoes/GenesisCan1.asm"
-		even
-Music54:	include	"sound/music/GenesisDoes/GenesisCan2.asm"
-		even
-Music55:	include	"sound/music/GenesisDoes/SM64_MM.asm"
-		even
+;Music52:	include	"sound/music/GenesisDoes/GenesisDoes1.asm"
+;		even
+;Music53:	include	"sound/music/GenesisDoes/GenesisCan1.asm"
+;		even
+;Music54:	include	"sound/music/GenesisDoes/GenesisCan2.asm"
+;		even
+;Music55:	include	"sound/music/GenesisDoes/SM64_MM.asm"
+;		even
 Music56:	include	"sound/music/CNTracks/CometSTG2.asm"
 		even
 ; ---------------------------------------------------------------------------
