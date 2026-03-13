@@ -5,7 +5,7 @@
 DaxKatter_VRAM = 0
 
 ; =============== S U B R O U T I N E =======================================
-Splash_Logo_A = Player_1
+v_splash_logo = v_objspace
 
 DaxKatterSplash_VDP:
 
@@ -55,103 +55,94 @@ GM_CNB_ClrObjRam:
 		move.w	$80, d0
 		jsr 	EniDec
 
-		copyTilemap128	VRAM_Plane_A_Name_Table+$A52,31-1,4-1	; Send plane mappings to VRAM
+		copyTilemap	RAM_Start,vram_fg+$A52,31-1,4-1	; Send plane mappings to VRAM
 
 		lea	(EniMap_BringsYou).l,a0
 		lea	(RAM_Start).l,a1
-		move.w	$80, d0
+		move.w	$2080, d0
 		jsr 	EniDec
 
-		EniDecomp	EniMap_BringsYou,RAM_start,$80,1,0	; Decompress title text plane mappings
-		copyTilemap128	VRAM_Plane_A_Name_Table+$E5A,18-1,3-1	; Send plane mappings to VRAM
+		copyTilemap	RAM_Start,vram_fg+$E5A,18-1,3-1	; Send plane mappings to VRAM
 
 		; load palette
 		lea	(Pal_DaxKatterOff).l,a1
-		lea	(Target_palette).w,a2
-		jsr	(PalLoad_Line16).w
+		lea	(v_palette_fading).w,a2
+		moveq	#16/2-1,d0
+.palinit:	move.l	(a0)+,(a1)+
+		dbf	d0,.palinit
 
 .waitplc
-		move.b	#VintID_Fade,(V_int_routine).w
-		jsr	(Process_KosPlus_Queue).w
-		jsr	(Wait_VSync).w
-		jsr	(Process_KosPlus_Module_Queue).w
-		tst.w	(KosPlus_modules_left).w
-		bne.s	.waitplc
-		move.l	#Obj_DaxKatterD,(Splash_Logo_A+address).w
-		move.b	#VintID_Fade,(V_int_routine).w
-		jsr	(Wait_VSync).w
-		jsr	(Process_Sprites).l		; RunObjects
-		jsr	(Render_Sprites).l
-		jsr	(Process_KosPlus_Module_Queue).w
-		enableScreen
-		jsr	(Pal_FadeFromBlack).l
+		move.b	#$12,(v_vbla_routine).w
+		jsr	(WaitForVBla).w
+		move.l	#Obj_DaxKatterD,(v_splash_logo+address).w
+		move.b	#$12,(V_int_routine).w
+		jsr	(WaitForVBla).w
+		jsr	(ExecuteObjects).l		; RunObjects
+		jsr	(BuildSprites).l
+		jsr	(PaletteFadeIn).l
 ;		move.w	#90,(Demo_timer).w
 
 .main
-		move.b	#VintID_Menu,(V_int_routine).w
-		jsr	(Process_KosPlus_Queue).w
-		jsr	(Wait_VSync).w
-		jsr	(Process_Sprites).l		; RunObjects
-		jsr	(Render_Sprites).l
-		jsr	(Process_KosPlus_Module_Queue).w
+		move.b	#$14,(v_vbla_routine).w
+		jsr	(WaitForVBla).w
+		jsr	(ExecuteObjects).l		; RunObjects
+		jsr	(BuildSprites).l
+		andi.b	#btnStart,(v_jpadpress1).w	; check if Start is pressed
+		bne.s	.done
 		tst.w	(v_d_anim_done).w
-		beq.s	.main
+		beq.s	.main				; if not, branch
 
 .scroll
 ; movement
-		move.b	#VintID_Menu,(V_int_routine).w
-		jsr	(Process_KosPlus_Queue).w
-		jsr	(Wait_VSync).w
-		jsr	(Process_Sprites).l		; RunObjects
-		jsr	(Render_Sprites).l
-		jsr	(Process_KosPlus_Module_Queue).w
-		cmp.w	#-272,Camera_X_pos
-		ble.s	.flash			; NOTE: unsigned
-		sub.l	#$AE128,Camera_X_pos	; move .75 pixels per frame
+		move.b	#$14,(v_vbla_routine).w
+		jsr	(WaitForVBla).w
+		jsr	(ExecuteObjects).l		; RunObjects
+		jsr	(BuildSprites).l
+		cmp.w	#-272,(v_screenposx).w
+		ble.s	.flash				; NOTE: unsigned
+		andi.b	#btnStart,(v_jpadpress1).w	; check if Start is pressed
+		bne.s	.done				; if not, branch
+		sub.l	#$AE128,(v_screenposx).w	; move .75 pixels per frame
 		bsr.w	DKSS_Scroll
-		bra.s	.scroll
+		bne.s	.scroll
 
 .flash
-		sfx	sfx_Dash
-		jsr	(Pal_FadeToWhite).w
+		move.b	#sfx_Dash,d0
+		jsr	(PlaySound_Special).l
+		jsr	(PaletteWhiteOut).w
 
 .loadpal
 		lea	(Pal_DaxKatterOn).l,a1
-		lea	(Target_palette_line_1).w,a2
-		jsr	(PalLoad_Line16).w
-		jsr	(Pal_FadeFromWhite).w
+		lea	(v_palette_fading_line_1).w,a2
+		moveq	#16/2-1,d0
+.palinit2:	move.l	(a0)+,(a1)+
+		dbf	d0,.palinit2
+		jsr	(PaletteWhiteIn).w
 
 .loadBringsYou
 		lea	(Pal_DaxKatterBringsYou).l,a1
-		lea	(Target_palette_line_2).w,a2
-		jsr	(PalLoad_Line16).w
-		sfx	sfx_MenuConfirm
+		lea	(v_palette_fading_line_2).w,a2
+		moveq	#16/2-1,d0
+.palinit3:	move.l	(a0)+,(a1)+
+		dbf	d0,.palinit3
+
+		move.b	sfx_MenuConfirm,d0
+		jsr	(PlaySound_Special).l
 		bsr.w	Pal_FadeBringsYou
-		move.w	#5*30,(Demo_timer).w
+		move.w	#5*30,(v_generictimer).w
 
 .mainloop2
-		move.b	#VintID_Menu,(V_int_routine).w
-		jsr	(Process_KosPlus_Queue).w
-		jsr	(Wait_VSync).w
-		jsr	(Process_Sprites).l		; RunObjects
-		jsr	(Render_Sprites).l
-		jsr	(Process_KosPlus_Module_Queue).w
-		tst.w	(Demo_timer).w
+		move.b	#VintID_Menu,(v_vbla_routine).w
+		jsr	(WaitForVBla).w
+		jsr	(ExecuteObjects).l		; RunObjects
+		jsr	(BuildSprites).l
+		andi.b	#btnStart,(v_jpadpress1).w	; check if Start is pressed
+		bne.s	.done				; if not, branch
+		tst.w	(v_generictimer).w
 		bne.s	.mainloop2
 
 .done
-	if DeveloperMenu
-		tst.b	(release_mode).w
-		beq.s	.devmode
-	endif
-		move.b	#GameModeID_TitleScreen,(Game_mode).w				; set screen mode to Sega
 		rts
-
-	if DeveloperMenu
-.devmode
-		move.b	#GameModeID_DevMenuScreen,(Game_mode).w				; set screen mode to Sega
-		rts
-	endif
 
 ; ---------------------------------------------------------------------------
 ; Object Data
@@ -159,48 +150,49 @@ GM_CNB_ClrObjRam:
 
 Obj_DaxKatterD:
 		moveq	#0,d0
-		move.b	routine(a0),d0
+		move.b	obRoutine(a0),d0
 		move.w	DaxKatterD_Index(pc,d0.w),d1
 		jsr	DaxKatterD_Index(pc,d1.w)
-		jmp	(Draw_Sprite).l
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
-DaxKatterD_Index	offsetTable
-		offsetTableEntry.w	.init
-		offsetTableEntry.w	.move
-		offsetTableEntry.w	.testanim
-		offsetTableEntry.w	.display
+DaxKatterD_Index:
+		dc.w	.init-DaxKatterD_Index
+		dc.w	.move-DaxKatterD_Index
+		dc.w	.testanim-DaxKatterD_Index
+		dc.w	.display-DaxKatterD_Index
 ; ---------------------------------------------------------------------------
 
 .init
-		addq.b	#2,routine(a0)
-		move.l	#Map_DaxKatterD,mappings(a0)
-		move.w	#make_art_tile($1,0,1),art_tile(a0)	; Start at $A000
-		move.w	#$80+360,x_pos(a0)
-		move.w	#$80+94,y_pos(a0)
-		move.w	#$80,priority(a0)
-		move.b	#0,anim(a0)
-		move.b	#0,mapping_frame(a0)
+		addq.b	#2,obRoutine(a0)
+		move.l	#Map_DaxKatterD,obMap(a0)
+		move.w	#make_art_tile($1,0,1),obGfx(a0)	; Start at $A000
+		move.w	#$80+360,obX(a0)
+		move.w	#$80+94,obY(a0)
+		move.w	#$80,obPriority(a0)
+		move.b	#0,obAnim(a0)
+		move.b	#0,obFrame(a0)
 
 .move
-		subi.w	#14,x_pos(a0)
-		cmpi.w	#$80+40,x_pos(a0)
+		subi.w	#14,obX(a0)
+		cmpi.w	#$80+40,obX(a0)
 		bhi.s	.display
 
 .setxpos
-		addq.b	#2,routine(a0)
-		move.w	#$80+40,x_pos(a0)
-		sfx	sfx_Thud
-		move.b	#1,anim(a0)
+		addq.b	#2,obRoutine(a0)
+		move.w	#$80+40,obX(a0)
+		move.b	sfx_Thud,d0
+		jsr	(PlaySound_Special).l
+		move.b	#1,obAnim(a0)
 
 .testanim
-		tst.b	anim(a0)
+		tst.b	obAnim(a0)
 		bne.s	.display
-		addq.b	#2,routine(a0)
+		addq.b	#2,obRoutine(a0)
 		move.b	#1,(v_d_anim_done).w
 
 .display
 		lea	Ani_DaxKatterD(pc),a1
-		jmp	(Animate_Sprite).l
+		jmp	(AnimateSprite).l
 
 Ani_DaxKatterD:
 		dc.w .Ani00-Ani_DaxKatterD
@@ -217,7 +209,7 @@ Ani_DaxKatterD:
 DKSS_Scroll:
 ; render
 	lea	H_scroll_buffer,a0
-	move.w	Camera_X_pos,d0		; Plane A uses this
+	move.w	(v_screenposx).w,d0		; Plane A uses this
 	swap	d0
 	clr.w	d0			; Plane B uses this
 	move.w	#224-1,d1
@@ -230,18 +222,18 @@ Pal_FadeBringsYou:
 		move.w	#bytes_to_word((palette_line_1>>8),48-1),(Palette_fade_info).w	; set fade info and fade count
 		jsr	(Pal_FillBlack).l
 		move.b	#$E,(Palette_fade_max_color_check).w	; MJ: prepare maximum colour check
-		clr.b	(Palette_fade_delay_count).w	; MJ: clear Palette_fade_delay_count (changed to RAM for compatability
+		clr.b	(Palette_fade_delay_count).w		; MJ: clear Palette_fade_delay_count (changed to RAM for compatability
 
 .fadein:
 		move.b	#VintID_Fade,(V_int_routine).w
 		jsr	(Wait_VSync).w
-		jsr	(Process_Sprites).l
-		jsr	(Render_Sprites).l
-		bchg	#0,(Palette_fade_delay_count).w	; MJ: change delay counter
-		beq.s	.fadein				; MJ: if null, delay a frame
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
+		bchg	#0,(Palette_fade_delay_count).w		; MJ: change delay counter
+		beq.s	.fadein					; MJ: if null, delay a frame
 		jsr	(Pal_FromBlack).w
 		subq.b	#2,(Palette_fade_max_color_check).w	; MJ: decrease colour check
-		bne.s	.fadein				; MJ: if it has not reached null, branch
+		bne.s	.fadein					; MJ: if it has not reached null, branch
 		rts
 
 ; ---------------------------------------------------------------------------
