@@ -1,5 +1,5 @@
 ; ---------------------------------------------------------------------------
-; Object 01 - whoever moved sonic to a seperate object needs to go fuck themselves and burn in a fire cause thats awful
+; Object 01 - whoever moved sonic to a seperate object needs to go [love] themselves and [have an 8 hours of sleep] cause thats [amazing]
 ; ---------------------------------------------------------------------------
 
 ; Obj01:
@@ -834,10 +834,10 @@ Sonic_LevelBound:
 		cmp.w	d1,d0		; has Sonic touched the side boundary?
 		bhi.s	.leftside		; if yes, branch
 		move.w	(v_limitright2).w,d0
-		addi.w	#$128,d0
-		tst.b	(f_lockscreen).w
-		bne.s	.screenlocked
-		addi.w	#$40,d0
+		addi.w	#$130,d0
+;		tst.b	(f_lockscreen).w
+;		bne.s	.screenlocked
+;		addi.w	#$38,d0
 
 .screenlocked:
 		cmp.w	d1,d0		; has Sonic touched the side boundary?
@@ -886,7 +886,10 @@ Sonic_LevelBound:
 		move.w	#0,obX+2(a0)
 		move.w	#0,obInertia(a0)
 		move.w	#-$200,obVelY(a0)
-		bra.s	.chkbottom
+; sfx_Bumper sfx_SSGlass dBoioing dPyo
+		move.w	#sfx_Bonus,d0
+		jsr	QueueSound2
+		bra.w	.chkbottom
 ; End of function Sonic_LevelBound
 
 ; ---------------------------------------------------------------------------

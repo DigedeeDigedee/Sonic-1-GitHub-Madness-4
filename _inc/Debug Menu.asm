@@ -1,7 +1,17 @@
 ; ---------------------------------------------------------------------------
 ; Debug Menu
 ; ---------------------------------------------------------------------------
-
+-
+	phase v_sonspeedacc
+dbugmenuSinCntr	ds.l 1	; sine info
+dbugmenuScrCnt	ds.l 1      
+dbugmenuCos	ds.l 1
+dbugmenuFactor	ds.l 1	; mul. factor
+dbugmenuFlag	ds.b 1	
+dbugmenuFlag2	ds.b 1
+	dephase
+	!org -
+; ---------------------------------------------------------------------------
 GM_DebugMenu:
 		move.b	#bgm_Fade,d0
 		bsr.w	QueueSound2		; stop music
@@ -60,6 +70,12 @@ GM_DebugMenu:
 		clr.b	(v_dbgmenu_sndid).w
 		move.b	#$81,(v_dbgmenu_pcmid).w
 		clr.b	(v_dbgmenu_exit).w
+		clr.l	dbugmenuSinCntr
+		clr.l	dbugmenuScrCnt
+		clr.l	dbugmenuCos
+		clr.l	dbugmenuFactor
+		clr.b	dbugmenuFlag
+		clr.b	dbugmenuFlag2
 
 		bsr.w	DebuggerMenu_Redraw
 	;	moveq	#plcid_Main,d0
@@ -91,15 +107,6 @@ DebuggerMenu_Loop:
 		tst.b	(v_dbgmenu_exit).w
 		beq.s	DebuggerMenu_Loop
 		rts
-
-
-dbugmenuSinCntr	= $FFFFF760	; sine info
-dbugmenuScrCnt	= $FFFFF764      
-dbugmenuCos	= $FFFFF768
-dbugmenuFactor	= $FFFFF76C	; mul. factor
-dbugmenuFlag	= $FFFFF770	
-dbugmenuFlag2	= $FFFFF771
-
 _dbugmenuSineSlide:
         lea     v_hscrolltablebuffer,a1
 	eor.b	#1,dbugmenuFlag2

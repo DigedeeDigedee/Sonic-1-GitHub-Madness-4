@@ -36,7 +36,7 @@ SampleTable:
 	dcSample	TYPE_DPCM,	CF_DrumLoopB,	16000		; $9B
 
 	; SFX SAMPLES
-	dcSample	TYPE_PCM,	DAMN,		16000		; $9C
+	dcSample	TYPE_PCM,	DAMN,		16000,FLAGS_SFX	; $9C
 	dcSample	TYPE_PCM,	Trevor,		0,FLAGS_SFX	; $9D
 	dcSample	TYPE_DPCM,	yume2kki,	16000,FLAGS_SFX	; $9E
 	dcSample	TYPE_PCM,	DooDoo,		8000,		; $9F
@@ -81,8 +81,9 @@ SampleTable:
 	dcSample	TYPE_PCM,	QuakeJump,	0,	FLAGS_SFX	; $C1
 	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0,	FLAGS_SFX	; $C2
 	dcSample	TYPE_PCM,	letsgoeee,	0,	FLAGS_SFX	; $C3
-	dcSample	TYPE_PCM,	Lg,			16000, FLAGS_SFX	; $C4
-	dcSample	TYPE_PCM,	Segay,	0, FLAGS_SFX	; $C5
+	dcSample	TYPE_PCM,	Lg,		16000, FLAGS_SFX	; $C4
+	dcSample	TYPE_PCM,	Segay,		0, FLAGS_SFX		; $C5
+	dcSample	TYPE_DPCM,	Pyo,		11025, FLAGS_SFX	; $C6
 	dc.w	-1	; end marker
 
 ; ---------------------------------------------------------------
@@ -144,6 +145,7 @@ SampleTable:
 	incdac	QuakeJump, "sound/dac/quakejump.wav"
 	incdac	letsgoeee, "sound/dac/letsgoeee.wav"   ; hi
 	incdac	Lg, "sound/dac/lg/Echo.pcm"
+	incdac	Pyo, "sound/dac/pyo-11khz.dpcm"
 ; ---------------------------------------------------------------
 ; Null level end
 	incdac	BoingBoing, "sound/dac/BoingBoing.dpcm"
