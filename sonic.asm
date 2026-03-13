@@ -1487,6 +1487,7 @@ PaletteFadeOut:
 		bsr.s	FadeOut_ToBlack
 		bsr.w	RunPLC
 		dbf	d4,.mainloop
+		clr.b	(v_waterflag).w
 		rts
 ; End of function PaletteFadeOut
 
@@ -1675,6 +1676,7 @@ PaletteWhiteOut:
 		bsr.s	WhiteOut_ToWhite
 		bsr.w	RunPLC
 		dbf	d4,.mainloop
+		clr.b	(v_waterflag).w
 		rts
 ; End of function PaletteWhiteOut
 
