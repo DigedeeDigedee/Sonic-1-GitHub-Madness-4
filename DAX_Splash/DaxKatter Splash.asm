@@ -53,8 +53,8 @@ DaxKatter_SplashScreen:
 		move.b	d0,(v_d_anim_done).w
 
 		; load art
-		QueueKosPlusModule	ArtKosPM_DaxKatter_D, $1
-		QueueKosPlusModule	ArtKosPM_DaxKatter_Text, $80
+		QueueKosPlusModule	ArtNem_DaxKatter_D, $1
+		QueueKosPlusModule	ArtNem_DaxKatter_Text, $80
 
 		EniDecomp	EniMap_DaxKatterText,RAM_start,$80,0,0	; Decompress title text plane mappings
 		copyTilemap128	VRAM_Plane_A_Name_Table+$A52,31-1,4-1	; Send plane mappings to VRAM
@@ -243,39 +243,39 @@ Pal_FadeBringsYou:
 ; ---------------------------------------------------------------------------
 
 Map_DaxKatterD:
-	include		"Data/Screens/DaxKatter/Maps/Map - DaxKatter Splash.asm"
+	include		"Dax_Splash/Maps/Map - DaxKatter Splash.asm"
 	even
 
 EniMap_DaxKatterText:
-	binclude	"Data/Screens/DaxKatter/Maps/Map - DaxKatter Mappings.eni"
+	binclude	"Dax_Splash/Maps/Map - DaxKatter Mappings.eni"
 	even
 
 EniMap_BringsYou:
-	binclude	"Data/Screens/DaxKatter/Maps/Map - Brings You Mappings.eni"
+	binclude	"Dax_Splash/Maps/Map - Brings You Mappings.eni"
 	even
 
 ; ---------------------------------------------------------------------------
 
 Pal_DaxKatterOff:
-	binclude	"Data/Screens/DaxKatter/Pal/Pal - Init.bin"
+	binclude	"Dax_Splash/Pal/Pal - Init.bin"
 	even
 
 Pal_DaxKatterOn:
-	binclude	"Data/Screens/DaxKatter/Pal/Pal - After Flash.bin"
+	binclude	"Dax_Splash/Pal/Pal - After Flash.bin"
 	even
 
 Pal_DaxKatterBringsYou:
-	binclude	"Data/Screens/DaxKatter/Pal/Pal - Brings You.bin"
+	binclude	"Dax_Splash/Pal/Pal - Brings You.bin"
 	even
 
 ; ---------------------------------------------------------------------------
 
-ArtKosPM_DaxKatter_D:
-	binclude	"Data/Screens/DaxKatter/Art/DaxKatter Splash - D.kospm"
+ArtNem_DaxKatter_D:
+	binclude	"Dax_Splash/Art/DaxKatter Splash - D.nem"
 	even
 
-ArtKosPM_DaxKatter_Text:
-	binclude	"Data/Screens/DaxKatter/Art/DaxKatter Splash - Text.kospm"
+ArtNem_DaxKatter_Text:
+	binclude	"Dax_Splash/Art/DaxKatter Splash - Text.nem"
 	even
 
 ; ---------------------------------------------------------------------------
