@@ -20,7 +20,7 @@ CheatsOn = 1
 ; 	| If 0, build it with no cheats active
 ; 	| If 1, build it with all cheats active
 
-MSUEnabled = 1
+MSUEnabled = 0
 
 FixBugs = 1
 ;	| If 1, enables various bugfixes across the game and sound driver

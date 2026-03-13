@@ -3264,13 +3264,16 @@ ptr_sndCC:	dc.l SoundCC
 ptr_sndCD:	dc.l SoundCD
 ptr_sndCE:	dc.l SoundCE
 ptr_sndCF:	dc.l SoundCF
+ptr_sndD0:	dc.l SoundD0
+ptr_sndD1:	dc.l SoundD1
+ptr_sndD2:	dc.l SoundD2
 ptr_sndend
 
 ; ---------------------------------------------------------------------------
 ; Special sound effect pointers
 ; ---------------------------------------------------------------------------
 SpecSoundIndex:
-ptr_sndD0:	dc.l SoundD0
+ptr_sndF0:	dc.l SoundF0
 ptr_specend
 
 ; ---------------------------------------------------------------------------
@@ -3372,9 +3375,15 @@ SoundCE:	include "sound/sfx/SndCE - Ring Left Speaker.asm"
 		even
 SoundCF:	include "sound/sfx/SndCF - Signpost.asm"
 		even
+SoundD0:	include "sound/sfx/Snd - Thud.asm"
+		even
+SoundD1:	include "sound/sfx/Snd - Dash.asm"
+		even
+SoundD2:	include "sound/sfx/Snd - Menu Confirm.asm"
+		even
 
 ; ---------------------------------------------------------------------------
 ; Special sound effect data
 ; ---------------------------------------------------------------------------
-SoundD0:	include "sound/sfx/SndD0 - Waterfall.asm"
+SoundF0:	include "sound/sfx/SndD0 - Waterfall.asm"
 		even

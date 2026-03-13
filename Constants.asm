@@ -349,11 +349,14 @@ sfx_Spring:	equ ((ptr_sndCC-SoundIndex)/4)+sfx__First
 sfx_Switch:	equ ((ptr_sndCD-SoundIndex)/4)+sfx__First
 sfx_RingLeft:	equ ((ptr_sndCE-SoundIndex)/4)+sfx__First
 sfx_Signpost:	equ ((ptr_sndCF-SoundIndex)/4)+sfx__First
+sfx_Thud:	equ ((ptr_sndD0-SoundIndex)/4)+sfx__First
+sfx_Dash:	equ ((ptr_sndD1-SoundIndex)/4)+sfx__First
+sfx_MenuConfirm:	equ ((ptr_sndD2-SoundIndex)/4)+sfx__First
 sfx__Last:	equ ((ptr_sndend-SoundIndex-4)/4)+sfx__First
 
 ; Special sound effects
 spec__First:	equ $F0
-sfx_Waterfall:	equ ((ptr_sndD0-SpecSoundIndex)/4)+spec__First
+sfx_Waterfall:	equ ((ptr_sndF0-SpecSoundIndex)/4)+spec__First
 spec__Last:	equ ((ptr_specend-SpecSoundIndex-4)/4)+spec__First
 
 flg__First:	equ $FB

@@ -7,7 +7,7 @@ Sound_MenuConfirm_Header:
 	smpsHeaderSFXChannel	cFM3, Sound_MenuConfirm_FM3, $00, $1C
 	smpsHeaderSFXChannel	cFM4, Sound_MenuConfirm_FM4, $00, $08
 	smpsHeaderSFXChannel	cFM5, Sound_MenuConfirm_FM5, $00, $00
-	smpsHeaderSFXChannel	cPSG1, Sound_MenuConfirm_PSG1, $E8, $07
+	smpsHeaderSFXChannel	cPSG1, Sound_MenuConfirm_PSG1, $DC, $07
 
 Sound_MenuConfirm_FM3:
 	smpsSetvoice	$04
