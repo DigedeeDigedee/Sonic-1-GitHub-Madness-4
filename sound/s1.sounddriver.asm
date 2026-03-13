@@ -3111,14 +3111,10 @@ Music20:	include	"sound/music/TG2000Tracks/SadMac.asm"
 		even
 Music21:	include	"sound/music/TG2000Tracks/TG2000Jingle.asm"
 		even
-
-	
 Music23:	incbin	"sound/music/TG2000Tracks/SwingSinners.bin"
 		even
 Music24:	incbin	"sound/music/TG2000Tracks/AVGNInvF.bin"
 		even
-
-
 Music26:	include	"sound/music/TG2000Tracks/Minuscule.asm"
 		even
 Music27:	include	"sound/music/TG2000Tracks/Folgers.asm"
@@ -3127,7 +3123,6 @@ Music28:	include	"sound/music/TG2000Tracks/Rickroll.asm"
 		even
 Music29:	include	"sound/music/TG2000Tracks/Wormy.asm"
 		even
-
 Music2A:	include	"sound/music/TG2000Tracks/Starman.asm"
 		even
 Music2B:	include	"sound/music/TG2000Tracks/MayoDed.asm"
@@ -3142,7 +3137,6 @@ Music2F:	include	"sound/music/TG2000Tracks/AlexKiddEnd.asm"
 		even
 Music30:	include	"sound/music/TG2000Tracks/Cheetah.asm"
 		even
-
 Music31:	include	"sound/music/TG2000Tracks/DJKK.asm"
 		even
 Music32:	include	"sound/music/TG2000Tracks/FuneralMarch.asm"
@@ -3201,7 +3195,6 @@ Music50:	include	"sound/music/Mus90 - Continue Screen.asm"
 		even
 Music51:	include	"sound/music/TG2000Tracks/Coffinman.asm"
 		even
-		
 ;!@ GenesisDoes
 Music52:	include	"sound/music/GenesisDoes/GenesisDoes1.asm"
 		even
