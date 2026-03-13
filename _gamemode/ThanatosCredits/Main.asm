@@ -318,6 +318,7 @@ thantxt: macro txt
 	thantxt	"CONINIGHT"
 	thantxt	"FREAKY BILLY"
 	thantxt	"ROJO MMX"
+	thantxt	"DAXKATTER"
 	thantxt	"ADD YOUR NAME HERE"
 	dc.b	1,1
 
