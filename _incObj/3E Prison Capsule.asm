@@ -91,7 +91,8 @@ Pri_Switched:	; Routine 4
 		move.b	#$A,obRoutine(a0)
 		move.w	#60,obTimeFrame(a0) ; set time between animal spawns
 		clr.b	(f_timecount).w	; stop time counter
-		clr.b	(f_lockscreen).w ; lock screen position
+		move.w	(v_screenposx).w,(v_limitleft1).w	; lock screen if DLEs haven't already
+		move.w	(v_screenposx).w,(v_limitleft2).w	; looking at you Dax
 		clr.b	ob2ndRout(a0)
 		bclr	#3,(v_player+obStatus).w
 		bset	#1,(v_player+obStatus).w
