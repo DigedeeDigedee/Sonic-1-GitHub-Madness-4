@@ -71,11 +71,11 @@ ReactToItem_Other:
 .outsidey:
 		cmp.w	d5,d0
 		bhi.w	.next
-		RaiseError "oy"
+		; RaiseError "outside y"
 
 ; we're all set and can run the callback
 .withiny:
-		RaiseError "wy"
+		; RaiseError "within y"
 		move.b	obColType(a0),d1 ; load collision type of host
 		move.b	obColType(a1),d2 ; load collision type of victim
 		movea.l	obColCallback(a0), a3
