@@ -7,11 +7,11 @@
 VDPData:         equ   $C00000
 VDPCtrl:         equ   $C00004
 Chunk:	         equ   $FF0000
-Timer:           equ   $FFFFF614
+Timer:           equ   v_generictimer
 SmilingBomb:     equ   bgm_Title
 FadeOut:         equ   $FE
-vblank:          equ   $FFFFF62A
-VDP_buff:	     equ   $FFFFF60C	
+vblank:          equ   v_vbla_routine
+VDP_buff:	     equ   v_vdp_buffer1
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------

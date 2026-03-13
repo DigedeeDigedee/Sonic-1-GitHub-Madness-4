@@ -455,6 +455,7 @@ dSega				ds.b 1
 dLetsGOO			ds.b 1
 dLg				ds.b 1
 dSega2				ds.b 1
+dPyo				ds.b 1
 	dephase
 	!org -
 
