@@ -264,7 +264,7 @@ ptr_mus51:		dc.l Music51
 ;ptr_mus54:		dc.l Music54
 ;ptr_mus55:		dc.l Music55
 ptr_mus56:		dc.l Music56
-;ptr_mus57:		dc.l Music57
+ptr_mus57:		dc.l Music57
 ;ptr_mus58:		dc.l Music58
 ;ptr_mus59:		dc.l Music59
 ;ptr_mus5A:		dc.l Music5A
@@ -273,7 +273,7 @@ ptr_mus56:		dc.l Music56
 ;ptr_mus5D:		dc.l Music5D
 ;ptr_mus5E:		dc.l Music5E
 ;ptr_mus5F:		dc.l Music5F
-
+	dc.l 0	; i had to do this because for some reason it wouldnt play the final track otherwise - coni
 ptr_musend
 
 ;Note to TG2000 or any other track implementors, remove semicolons on pointers upon implementing a track on a commented pointer! 
@@ -3202,6 +3202,8 @@ Music51:	include	"sound/music/TG2000Tracks/Coffinman.asm"
 ;Music55:	include	"sound/music/GenesisDoes/SM64_MM.asm"
 ;		even
 Music56:	include	"sound/music/CNTracks/CometSTG2.asm"
+		even
+Music57:	include	"sound/music/CNTracks/TheCheetosChairRoom.asm"
 		even
 ; ---------------------------------------------------------------------------
 ; Sound effect pointers
