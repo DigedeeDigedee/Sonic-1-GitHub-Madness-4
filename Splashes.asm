@@ -66,8 +66,15 @@ RunSplashes:
 		dbf	d7,.loop_pal
 
 		move.b	(a2)+,d0 ; music
+		btst	#7, d0
+		bne.s	.sampleid
 		jsr	PlaySound_Special
+		bra.s	.musicid
 
+	.sampleid:
+		jsr	MegaPCM_PlaySample
+
+	.musicid:
 		move.w	(a2)+,(v_generictimer).w ; duration in seconds
 		jsr	PaletteFadeIn
 	.loop:
@@ -143,10 +150,10 @@ splash_turd macro routine
 	splash_liquid Yume2kki
 	
 	;!@ GenesisDoes
-	splash_solid GenesisDoes1,$40,bgm_GenesisDoes1,60*10
-	splash_solid GenesisCan1,$40,bgm_GenesisCan1,60*3
-	splash_solid GenesisCan2,$40,bgm_GenesisCan2,60*3
-	splash_solid SM64_MM,$40,bgm_SM64_MM,60*4
+	splash_solid GenesisDoes1,$40,dGenesisDoes1,60*10
+	splash_solid GenesisCan1,$40,dGenesisCan1,60*3
+	splash_solid GenesisCan2,$40,dGenesisCan2,60*3
+	splash_solid SM64_MM,$40,dSM64_MM,60*4
 	
 	splash_solid Blessed,$40,$A8,200
 	splash_solid Shiki,$20,$2A,280
