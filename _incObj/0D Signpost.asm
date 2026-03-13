@@ -105,8 +105,8 @@ Sign_SparkPos:	dc.b -$18,-$10		; x-position, y-position
 
 
 Sign_SonicRun:	; Routine 6
-                cmpi.w (id_SBZ<<8)+1,(v_zone).w ; check if level is CLOCK WORK 2
-                beq.s fuckyou76
+                cmpi.w	#(id_SBZ<<8)+1,(v_zone).w ; check if level is CLOCK WORK 2
+                beq.s	fuckyou76
 		tst.w	(v_debuguse).w	; is debug mode on?
 		bne.w	locret_ECEE	; if yes, branch
 	if FixBugs
@@ -133,7 +133,7 @@ loc_EC70:
 		move.w	(v_limitright2).w,d1
 		addi.w	#$128,d1
 		cmp.w	d1,d0
-		blo.s	locret_ECEE
+		blo.w	locret_ECEE
 
 loc_EC86:
 		addq.b	#2,obRoutine(a0)
@@ -153,7 +153,7 @@ loc_EC70fuck:
 		 move.w	(v_limitright2).w,d1
 		 addi.w	#$128,d1
 		 cmp.w	d1,d0
-		 bcs.s	locret_ECEE
+		 bcs.w	locret_ECEE
 loc_EC869:
               addq.b #2,obRoutine(a0);absolute fucking cinema
 ;NMRTT SBZ2 shittery fixer
