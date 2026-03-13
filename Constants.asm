@@ -299,7 +299,7 @@ bgm_GenesisDoes1:	equ ((ptr_mus52-MusicIndex)/4)+bgm__First
 bgm_GenesisCan1:	equ ((ptr_mus53-MusicIndex)/4)+bgm__First
 bgm_GenesisCan2:	equ ((ptr_mus54-MusicIndex)/4)+bgm__First
 bgm_SM64_MM:	equ ((ptr_mus55-MusicIndex)/4)+bgm__First
-
+bgm_ColdBrew:	equ ((ptr_mus56-MusicIndex)/4)+bgm__First
 bgm__Last:	equ ((ptr_musend-MusicIndex-4)/4)+bgm__First
 
 ; Sound effects

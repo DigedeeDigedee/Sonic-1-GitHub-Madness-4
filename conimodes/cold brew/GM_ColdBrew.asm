@@ -59,7 +59,7 @@ GM_CB_ClrObjRam:
 		moveq	#palid_ColdBrew,d0
 		jsr		(PalLoad1).l		; load palette
 		jsr		(PaletteFadeIn).l
-		move.b	#$19,d0
+		move.b	#bgm_ColdBrew,d0
 		jsr		(PlaySound).l ; music
 
 GM_CB_MainLoop:

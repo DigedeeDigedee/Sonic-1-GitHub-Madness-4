@@ -2493,10 +2493,10 @@ MusicList:
 		dc.b bgm_FZ		; Ending2
 		dc.b bgm_FZ		; Ending3
 		dc.b bgm_FZ		; Ending4
-		dc.b bgm_FZ		; cold brew but use that in case you want to hijack music or something
-		dc.b bgm_FZ		; cold brew2
-		dc.b bgm_FZ		; cold brew3
-		dc.b bgm_FZ		; cold brew4
+		dc.b bgm_ColdBrew; cold brew
+		dc.b bgm_ColdBrew; cold brew2
+		dc.b bgm_ColdBrew; cold brew3
+		dc.b bgm_ColdBrew; cold brew4
 		dc.b bgm_FZ		; WIN98 1
 		dc.b bgm_FZ		; WIN98 2
 		dc.b bgm_FZ		; WIN98 3

@@ -265,7 +265,7 @@ ptr_mus52:		dc.l Music52
 ptr_mus53:		dc.l Music53
 ptr_mus54:		dc.l Music54
 ptr_mus55:		dc.l Music55
-;ptr_mus56:		dc.l Music56
+ptr_mus56:		dc.l Music56
 ;ptr_mus57:		dc.l Music57
 ;ptr_mus58:		dc.l Music58
 ;ptr_mus59:		dc.l Music59
@@ -3204,7 +3204,8 @@ Music54:	include	"sound/music/GenesisDoes/GenesisCan2.asm"
 		even
 Music55:	include	"sound/music/GenesisDoes/SM64_MM.asm"
 		even
-
+Music56:	include	"sound/music/CNTracks/CometSTG2.asm"
+		even
 ; ---------------------------------------------------------------------------
 ; Sound effect pointers
 ; ---------------------------------------------------------------------------
