@@ -59,8 +59,6 @@ PBullet_Callback:
 		cmpi.b	#$46, d1	; is collision type $46 ?
 		beq.s	.OpenMonitor	; if yes, branch
 		
-		andi.b	#$C0, d1	; is obColType $40 or higher?
-		beq.s	.DestroyTouched	; if YEAhg, branch
 		rts
 
 .DestroyTouched:
@@ -68,13 +66,4 @@ PBullet_Callback:
 		jsr  AddPoints
     		move.b	#id_ExplosionItem, obID(a1) ; change object to explosion
 		move.b	#0,obRoutine(a1)
-		rts
-
-.OpenMonitor:
-		move.w	#-$180,obVelY(a1)
-		tst.b	ob2ndRout(a1)
-		bne.s	.DoNotOpen
-		addq.b	#4,ob2ndRout(a1)
-
-.DoNotOpen
 		rts
