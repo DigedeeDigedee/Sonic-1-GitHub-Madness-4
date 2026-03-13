@@ -41,6 +41,7 @@ ClintonFucker:
 
 CliFucker_Init:
 	addq.b	#2,obRoutine(a0)
+	move.l	(v_palette_line_1+20),(v_palette_line_2+20)
 	move.b	#bgm_Fade,d0
 	jsr	QueueSound2
 
@@ -123,7 +124,7 @@ Ani_Clinton:
 .tbl:
 	dc.w	clintonwalk-.tbl
 
-clintonwalk:	dc.b	4
+clintonwalk:	dc.b	3
 	dc.b	1,2,3,4,5,6,7,-1
 	even
 
