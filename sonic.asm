@@ -7055,8 +7055,6 @@ Map_SS_Down:	include	"_maps/SS DOWN Block.asm"
 
 		include	"_incObj/09 Sonic in Special Stage.asm"
 
-		include	"_incObj/10.asm"
-
 		include	"_inc/AnimateLevelGfx.asm"
 
 		include	"_incObj/21 HUD.asm"
@@ -7967,7 +7965,8 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 	endif
 
 		include "clinton fucker/Clinton Fucker.asm"
-		; ===========================================================================
+		include	"_incObj/10 Player Bullet.asm"
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; ART, MAPS AND PALETTE
 ; ---------------------------------------------------------------------------

@@ -840,7 +840,7 @@ PlaySoundID:
 
 		cmpi.b	#bgm__Last,d7		; Is this music ($81-$93)?
 	if MSUEnabled
-		blo.w	Sound_PlayCDA				; Branch if yes
+		blo.w	Sound_PlayBGM				; Branch if yes
 	else
 		blo.w	Sound_PlayBGM				; Branch if yes
 	endif
@@ -954,8 +954,6 @@ Sound_PlayCDA:
 PlayCD_Index:
 
 	; flag, loop time
-
-	; Levels
 	dc.L	_MCD_PlayTrack<<24|$00000000	; $01
 	dc.l	$00000000
 	dc.l	$00000000

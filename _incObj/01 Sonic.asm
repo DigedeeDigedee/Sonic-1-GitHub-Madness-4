@@ -71,6 +71,30 @@ Sonic_Control:	; Routine 2
 .ignorecontrols:
 		btst	#0,(f_playerctrl).w ; are controls locked?
 		bne.s	.ignoremodes	; if yes, branch
+
+		btst	#6,(v_jpadpress1)
+		beq.s	.nobullets
+
+		moveq   #3, d2
+		moveq   #0, d1
+		moveq   #0, d0
+
+.makebullets:
+		bsr.w	FindFreeObj
+		bne.s	.nobullets
+
+		move.b	#id_PlayerBullet, obID(a1)
+		move.w	obX(a0), obX(a1)
+		move.w	obY(a0), obY(a1)
+		move.b	d1, obAngle(a1)
+		add.b	$40, d1
+		; dbf	d2, .makebullets
+
+		move.w  #$25, v_screenshaketime  ; tonic has insane firepower
+		move.w  #sfx_Bomb, d0
+		jsr  PlaySound_Special
+
+.nobullets:
 		moveq	#0,d0
 		move.b	obStatus(a0),d0
 		andi.w	#6,d0
@@ -946,7 +970,7 @@ Sonic_ChkRoll:
 
 Sonic_Jump:
 		move.b	(v_jpadpress2).w,d0
-		andi.b	#btnABC,d0	; is A, B or C pressed?
+		andi.b	#btnB|btnC,d0	; is B or C pressed?
 		beq.w	.return	; if not, branch
 		moveq	#0,d0
 		move.b	obAngle(a0),d0

@@ -1,36 +1,33 @@
 ; ---------------------------------------------------------------------------
-; Subroutine to react to obColType(a0)
+; Subroutine to react to obColType(a0), for objects that are not Sonic
+;
+; Non-Sonic objects have a pointer to a callback routine in an offset,
+; which is used if this routine is called.
 ; ---------------------------------------------------------------------------
-
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-
-
-ReactToItem:
+ReactToItem_Other:
 		nop	
-		move.w	obX(a0),d2	; load Sonic's x-axis position
-		move.w	obY(a0),d3	; load Sonic's y-axis position
+		move.w	obX(a0),d2	; load host x-axis position
+		move.w	obY(a0),d3	; load host y-axis position
 		subq.w	#8,d2
 		moveq	#0,d5
-		move.b	obHeight(a0),d5	; load Sonic's height
+		move.b	obHeight(a0),d5	; load host height
 		subq.b	#3,d5
 		sub.w	d5,d3
-		cmpi.b	#fr_Duck,obFrame(a0) ; is Sonic ducking?
-		bne.s	.notducking	; if not, branch
-		addi.w	#$C,d3
-		moveq	#$A,d5
-
-.notducking:
+		
 		move.w	#$10,d4
 		add.w	d5,d5
 		lea	(v_lvlobjspace).w,a1 ; set object RAM start address
 		move.w	#(v_lvlobjend-v_lvlobjspace)/$40-1,d6
 
 .loop:
+		cmpa.l	a0,a1
+		beq.s 	.next
 		tst.b	obRender(a1)
 		bpl.s	.next
 		move.b	obColType(a1),d0 ; load collision type
 		bne.s	.proximity	; if nonzero, branch
 
+; ==========================================================================='
 .next:
 		lea	object_size(a1),a1	; next object RAM
 		dbf	d6,.loop	; repeat $5F more times
@@ -38,7 +35,60 @@ ReactToItem:
 		moveq	#0,d0
 		rts
 ; ===========================================================================
-.sizes:		;   width, height
+.proximity:
+		andi.w	#$3F,d0
+		add.w	d0,d0
+		lea	.sizes-2(pc,d0.w),a2
+		moveq	#0,d1
+		move.b	(a2)+,d1
+		move.w	obX(a1),d0
+		sub.w	d1,d0
+		sub.w	d2,d0
+		bcc.s	.outsidex	; branch if not touching
+		add.w	d1,d1
+		add.w	d1,d0
+		bcs.s	.checky	; branch if touching
+		bra.w	.next
+; ===========================================================================
+
+.outsidex:
+		cmp.w	d4,d0
+		bhi.w	.next
+
+.checky:
+		moveq	#0,d1
+		move.b	(a2)+,d1
+		move.w	obY(a1),d0
+		sub.w	d1,d0
+		sub.w	d3,d0
+		bcc.s	.outsidey	; branch if not touching
+		add.w	d1,d1
+		add.w	d0,d1
+		bcs.s	.withiny	; branch if touching
+		bra.w	.next
+; ===========================================================================
+
+.outsidey:
+		cmp.w	d5,d0
+		bhi.w	.next
+		RaiseError "oy"
+
+; we're all set and can run the callback
+.withiny:
+		RaiseError "wy"
+		move.b	obColType(a0),d1 ; load collision type of host
+		move.b	obColType(a1),d2 ; load collision type of victim
+		movea.l	obColCallback(a0), a3
+		jsr 	(a3)
+		
+		; might add more stuff here please don't kill me dax
+		rts
+; ===========================================================================
+
+; AS is forcing my hand to make this a local label or else it won't build
+; so i just have to make a duplicate
+; fuck you
+.sizes:	;   width, height
 		dc.b  $14, $14		; $01
 		dc.b   $C, $14		; $02
 		dc.b  $14,  $C		; $03
@@ -75,7 +125,47 @@ ReactToItem:
 		dc.b  $18, $18		; $22
 		dc.b   $C, $18		; $23
 		dc.b  $48,   8		; $24
+
+; ---------------------------------------------------------------------------
+; Subroutine to react to obColType(a0)
+; ---------------------------------------------------------------------------
+
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+ReactToItem:
+		nop	
+		move.w	obX(a0),d2	; load Sonic's x-axis position
+		move.w	obY(a0),d3	; load Sonic's y-axis position
+		subq.w	#8,d2
+		moveq	#0,d5
+		move.b	obHeight(a0),d5	; load Sonic's height
+		subq.b	#3,d5
+		sub.w	d5,d3
+		cmpi.b	#fr_Duck,obFrame(a0) ; is Sonic ducking?
+		bne.s	.notducking	; if not, branch
+		addi.w	#$C,d3
+		moveq	#$A,d5
+
+.notducking:
+		move.w	#$10,d4
+		add.w	d5,d5
+		lea	(v_lvlobjspace).w,a1 ; set object RAM start address
+		move.w	#(v_lvlobjend-v_lvlobjspace)/$40-1,d6
+
+.loop:
+		tst.b	obRender(a1)
+		bpl.s	.next
+		move.b	obColType(a1),d0 ; load collision type
+		bne.s	.proximity	; if nonzero, branch
+
+.next:
+		lea	object_size(a1),a1	; next object RAM
+		dbf	d6,.loop	; repeat $5F more times
+
+		moveq	#0,d0
+		rts
 ; ===========================================================================
+
 
 .proximity:
 		andi.w	#$3F,d0
@@ -136,6 +226,47 @@ ReactToItem:
 
 .invincible:
 		rts
+
+; ===========================================================================
+
+.sizes:	;   width, height
+		dc.b  $14, $14		; $01
+		dc.b   $C, $14		; $02
+		dc.b  $14,  $C		; $03
+		dc.b	4, $10		; $04
+		dc.b   $C, $12		; $05
+		dc.b  $10, $10		; $06
+		dc.b	6,   6		; $07
+		dc.b  $18,  $C		; $08
+		dc.b   $C, $10		; $09
+		dc.b  $10,  $C		; $0A
+		dc.b	8,   8		; $0B
+		dc.b  $14, $10		; $0C
+		dc.b  $14,   8		; $0D
+		dc.b   $E,  $E		; $0E
+		dc.b  $18, $18		; $0F
+		dc.b  $28, $10		; $10
+		dc.b  $10, $18		; $11
+		dc.b	8, $10		; $12
+		dc.b  $20, $70		; $13
+		dc.b  $40, $20		; $14
+		dc.b  $80, $20		; $15
+		dc.b  $20, $20		; $16
+		dc.b	8,   8		; $17
+		dc.b	4,   4		; $18
+		dc.b  $20,   8		; $19
+		dc.b   $C,  $C		; $1A
+		dc.b	8,   4		; $1B
+		dc.b  $18,   4		; $1C
+		dc.b  $28,   4		; $1D
+		dc.b	4,   8		; $1E
+		dc.b	4, $18		; $1F
+		dc.b	4, $28		; $20
+		dc.b	4, $20		; $21
+		dc.b  $18, $18		; $22
+		dc.b   $C, $18		; $23
+		dc.b  $48,   8		; $24
+
 ; ===========================================================================
 
 React_Monitor:

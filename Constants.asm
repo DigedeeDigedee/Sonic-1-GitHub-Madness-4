@@ -200,6 +200,10 @@ objoff_38:	equ $38
 objoff_39:	equ $39
 objoff_3A:	equ $3A
 objoff_3B:	equ $3B
+
+; Optional callback routine pointer if using ReactToItem_Other... 
+; It's quite obvious, but please don't use the offsets past this if you call that routine.
+obColCallback	= objoff_3C
 objoff_3C:	equ $3C
 objoff_3D:	equ $3D
 objoff_3E:	equ $3E
