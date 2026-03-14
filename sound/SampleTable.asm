@@ -1,4 +1,4 @@
-
+;yall fucking nuts we have so many fucking samples *insert angry bird listening image*
 ; ---------------------------------------------------------------
 SampleTable:
 	;		type		pointer		Hz
@@ -84,6 +84,7 @@ SampleTable:
 	dcSample	TYPE_PCM,	Lg,		16000, FLAGS_SFX	; $C4
 	dcSample	TYPE_PCM,	Segay,		0, FLAGS_SFX		; $C5
 	dcSample	TYPE_DPCM,	Pyo,		11025, FLAGS_SFX	; $C6
+    dcSample	TYPE_PCM,	Stupid,		0, FLAGS_SFX	; $C7
 	dc.w	-1	; end marker
 
 ; ---------------------------------------------------------------
@@ -146,6 +147,7 @@ SampleTable:
 	incdac	letsgoeee, "sound/dac/letsgoeee.wav"   ; hi
 	incdac	Lg, "sound/dac/lg/Echo.pcm"
 	incdac	Pyo, "sound/dac/pyo-11khz.dpcm"
+	incdac	Stupid, "sound/dac/youstupid.wav"
 ; ---------------------------------------------------------------
 ; Null level end
 	incdac	BoingBoing, "sound/dac/BoingBoing.dpcm"
