@@ -3,38 +3,45 @@
 ;
 ; Non-Sonic objects have a pointer to a callback routine in an offset,
 ; which is used if this routine is called.
+;
+; Do note that this ignores collision types' specified sizes, and instead
+; opts to use the object's width and height properties. This is done because
+; that's actually really fucking stupid and Naka Is In Jail For This
 ; ---------------------------------------------------------------------------
 ReactToItem_Other:
-		nop	
-		move.w	obX(a0),d2	; load host x-axis position
-		move.w	obY(a0),d3	; load host y-axis position
+		move.w	obX(a0), d2	; load host x-axis position
+		move.w	obY(a0), d3	; load host y-axis position
 		subq.w	#8,d2
 		moveq	#0,d5
 		move.b	obHeight(a0),d5	; load host height
 		subq.b	#3,d5
 		sub.w	d5,d3
+
 		
 		move.w	#$10,d4
 		add.w	d5,d5
 		lea	(v_lvlobjspace).w,a1 ; set object RAM start address
 		move.w	#(v_lvlobjend-v_lvlobjspace)/$40-1,d6
 
+; ==========================================================================='
+
 .loop:
 		cmpa.l	a0,a1
 		beq.s 	.next
 		tst.b	obRender(a1)
 		bpl.s	.next
-		move.b	obColType(a1),d0 ; load collision type
+		move.b	obColType(a1),d0
 		bne.s	.proximity	; if nonzero, branch
 
-; ==========================================================================='
 .next:
 		lea	object_size(a1),a1	; next object RAM
 		dbf	d6,.loop	; repeat $5F more times
 
 		moveq	#0,d0
 		rts
+
 ; ===========================================================================
+
 .proximity:
 		andi.w	#$3F,d0
 		add.w	d0,d0
@@ -88,7 +95,7 @@ ReactToItem_Other:
 ; AS is forcing my hand to make this a local label or else it won't build
 ; so i just have to make a duplicate
 ; fuck you
-.sizes:	;   width, height
+.sizes:		;   width, height
 		dc.b  $14, $14		; $01
 		dc.b   $C, $14		; $02
 		dc.b  $14,  $C		; $03
