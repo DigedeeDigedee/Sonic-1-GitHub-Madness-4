@@ -275,7 +275,7 @@ ptr_mus56:		dc.l Music56
 ptr_mus57:		dc.l Music57
 ptr_mus58:		dc.l Music58
 ptr_mus59:		dc.l Music59
-;ptr_mus5A:		dc.l Music5A
+ptr_mus5A:		dc.l Music5A
 ;ptr_mus5B:		dc.l Music5B
 ;ptr_mus5C:		dc.l Music5C
 ;ptr_mus5D:		dc.l Music5D
@@ -3203,6 +3203,8 @@ Music57:	include	"sound/music/CNTracks/TheCheetosChairRoom.asm"
 Music58:	include	"sound/music/TG2000Tracks/DoleBOSS.asm" ;Boss Track
 		even
 Music59:	include	"sound/music/Robi(Ronan)/ShitSlate.asm" ;fuck you, lol
+		even
+Music5A:	include	"sound/music/Robi(Ronan)/GreenHillZone.asm" ;fuck you, lol
 		even
 ; ---------------------------------------------------------------------------
 ; Sound effect pointers

@@ -310,6 +310,7 @@ bgm_Coffinman:		equ ((ptr_mus51-MusicIndex)/4)+bgm__First
 bgm_ColdBrew:		equ ((ptr_mus56-MusicIndex)/4)+bgm__First
 bgm_DoleBOSS:		equ ((ptr_mus58-MusicIndex)/4)+bgm__First
 bgm_CleanSlate:		equ ((ptr_mus59-MusicIndex)/4)+bgm__First
+bgm_GreenHill:		equ ((ptr_mus5A-MusicIndex)/4)+bgm__First
 bgm__Last:	equ ((ptr_musend-MusicIndex-4)/4)+bgm__First
 
 ; Sound effects
