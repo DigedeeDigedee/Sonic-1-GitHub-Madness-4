@@ -528,6 +528,7 @@ GamemodeNameTable:
 		dc.w	.DamnScreen-.t
 		rept ( (GameModeArray_End-GameModeArray)-(((*)-.t)*2) )/4
 		dc.w	.IDFK-.t
+		dc.w	.Skipper-.t
 		endr
 
 .Sega:		dc.b	"SEGA SCREEN     "
@@ -547,6 +548,7 @@ GamemodeNameTable:
 .Difficulty:	dc.b	"DIFFICULTY      "
 .DamnScreen:	dc.b	"DAMN!!!!!!!!!!!!"
 .IDFK:		dc.b	"PLACEHOLDER NAME"
+.Skipper:	dc.b	"SPLASH SKIPPER "
 		even
 
 CharacterNameTable:

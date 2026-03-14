@@ -413,6 +413,7 @@ ptr_GM_Fetus:		dc.l	GM_Fetus		; Difficulty Select screen out of spite ($3C)
 ptr_GM_Damn:		dc.l	GM_Damn			; DAMN!!!!!!!!!!!!!!!!!!!!!!!
 ptr_GM_TGSplash:	dc.l	GM_TGSplash		; TG2000 Splash Screen ($44)
 ;ptr_GM_RPGBattle:	dc.l	GM_RPGBattle		; RPG Battle (for Azure Rainforest) ($48)
+ptr_SplashScreenSkipper:dc.l	GM_SplashScreenSkipper	; My Stupid Splash is here
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -1949,6 +1950,7 @@ Pal_SegaBG:		bincludeEndMarker	"palette/Sega Background.bin"
 Pal_Title:		bincludeEndMarker	"palette/Title Screen.bin"
 Pal_LevelSel:		bincludeEndMarker	"palette/Level Select.bin"
 Pal_Sonic:		bincludeEndMarker	"palette/Sonic.bin"
+Pal_SplScrSki:		bincludeEndMarker	"Nano's SHIT/splash/data/pal.pal"
 Pal_GHZ:		bincludeEndMarker	"palette/Green Hill Zone.bin"
 Pal_LZ:			bincludeEndMarker	"palette/Labyrinth Zone.bin"
 Pal_LZWater:		bincludeEndMarker	"palette/Labyrinth Zone Underwater.bin"
@@ -5779,7 +5781,7 @@ Map_WFall:	include	"_maps/Waterfalls.asm"
 
 ResumeMusic:
 		cmpi.w	#12,(v_air).w	; more than 12 seconds of air left?
-		bhi.s	.over12		; if yes, branch
+		bhi.s	over12yo		; if yes, branch
 		moveq	#0,d0
 		move.b	(v_zonemusic).w,d0
 		tst.b	(v_invinc).w ; is Sonic invincible?
@@ -5787,12 +5789,14 @@ ResumeMusic:
 		move.w	#bgm_Invincible,d0
 .notinvinc:
 		tst.b	(f_lockscreen).w ; is Sonic at a boss?
-		beq.s	.playselected ; if not, branch
+		beq.s	playselectedlele ; if not, branch
 		move.w	#bgm_Boss,d0
-.playselected:
+		cmpi.w	#(id_SLZ<<8)+2,(v_zone).w ; ist das level mein?
+        bne.s   playselectedlele
+        move.w  #$1F,d0 ; MEGALOVANIA BABY
+playselectedlele:
 		jsr	(QueueSound1).l
-
-.over12:
+over12yo:
 		move.w	#30,(v_air).w	; reset air to 30 seconds
 		clr.b	(v_sonicbubbles+objoff_32).w
 		rts
