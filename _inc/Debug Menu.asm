@@ -313,8 +313,29 @@ DebuggerMenu_LoadGame:
 		move.l	d0,(v_emldlist+4).w ; clear emeralds
 		move.b	#2,(v_continues).w ; set continues to 2 for the accurate felix experience		
 		move.l	#5000,(v_scorelife).w ; extra life is awarded at 50000 points
-		move.b	#1,(v_dbgmenu_exit).w		
+		move.b	#1,(v_dbgmenu_exit).w
+		cmpi.b	#3,(v_act).w		; is act 4?
+		bne.s	.KeepAsAct4			; if not, keep act
+;DebuggerMenu_AntiAct4:			; support act 4, but ensure if the zone does not have one (if not, set to 3) - CONI
+		move.b	(v_zone).w,d1	; send zone id to d0
+		move.b	DebuggerMenu_Act4EnablerTable(pc,d1.w),d0	; reference a table
+		tst.b	d0
+		bne.s	.KeepAsAct4
+		move.b	#2,(v_act).w		; act 3
+.KeepAsAct4:
 		rts
+
+DebuggerMenu_Act4EnablerTable:
+		dc.b	$0		; GHZ
+		dc.b	$0		; LZ
+		dc.b	$0		; MZ
+		dc.b	$0		; SLZ
+		dc.b	$0		; SYZ
+		dc.b	$0		; SBZ
+		dc.b	$0		; END
+		dc.b	$1		; BREW
+		dc.b	$0		; WIN
+		dc.b	$0		; JOINT
 
 ; ---------------------------------------------------------------------------
 ; Play the currently selected sound ID
@@ -344,7 +365,7 @@ Debugger_Data:
 		dc.l	ZoneNameTable
 
 		dc.l	v_act			; ACT ID
-		dc.b	$01,$00,$02,$00		; step 1, range 0-2
+		dc.b	$01,$00,$03,$00		; step 1, range 0-3 - check is done if a zone has a fourth act
 		dc.l	0
 
 		dc.l	v_emeralds			; EMERALDS
