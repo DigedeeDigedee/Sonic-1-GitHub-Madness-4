@@ -16,7 +16,6 @@ PauseGame:
 
 Pause_StopGame:
 		move.w	#1,(f_pause).w	; freeze time
-		pcm	dFabSecPow
 		move.b	#1,(v_snddriver_ram.f_pausemusic).w ; pause music
 
 Pause_Loop:
