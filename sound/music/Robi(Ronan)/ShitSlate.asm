@@ -18,34 +18,34 @@ CleanSlate_Header:
 
 ; DAC Data
 CleanSlate_Drums_Loop:
-	dc.b	dPokeKickCrashHi, $0C, dPokeSnare, $0C, dChunkyKick, $06, $06, dPokeSnare, $0C
-	dc.b	dChunkyKick, $06, $06, dPokeSnare, $0C, dChunkyKick, $06
-	dc.b	dPokeSnare, $0C, dPokeSnare, $06
+	dc.b	dPokeKickCrashHi, $0C, dCrapSnare, $0C, dChunkyKick, $06, $06, dCrapSnare, $0C
+	dc.b	dChunkyKick, $06, $06, dCrapSnare, $0C, dChunkyKick, $06
+	dc.b	dCrapSnare, $0C, dCrapSnare, $06
 
-	dc.b	dChunkyKick, $06, $06, dPokeSnare, $0C, dChunkyKick, $06, $06, dPokeSnare, $0C
-	dc.b	dChunkyKick, $06, $06, dPokeSnare, $0C, dChunkyKick, $06
-	dc.b	dPokeSnare, $0C, dPokeSnare, $06
+	dc.b	dChunkyKick, $06, $06, dCrapSnare, $0C, dChunkyKick, $06, $06, dCrapSnare, $0C
+	dc.b	dChunkyKick, $06, $06, dCrapSnare, $0C, dChunkyKick, $06
+	dc.b	dCrapSnare, $0C, dCrapSnare, $06
 
-	dc.b	dChunkyKick, $06, $06, dPokeSnare, $0C, dChunkyKick, $06, $06, dPokeSnare, $0C
-	dc.b	dChunkyKick, $06, $06, dPokeSnare, $0C, dChunkyKick, $06
-	dc.b	dPokeSnare, $0C, dPokeSnare, $06
+	dc.b	dChunkyKick, $06, $06, dCrapSnare, $0C, dChunkyKick, $06, $06, dCrapSnare, $0C
+	dc.b	dChunkyKick, $06, $06, dCrapSnare, $0C, dChunkyKick, $06
+	dc.b	dCrapSnare, $0C, dCrapSnare, $06
 
-	dc.b	dChunkyKick, $06, $06, dPokeSnare, $0C, dChunkyKick, $06, $06, dPokeSnare, $0C
-	dc.b	dChunkyKick, $06, $06, dPokeSnare, $0C, dChunkyKick, $06, dPokeSnare, $03, dPokeSnare, $03
-	dc.b	dPokeSnare, $03, dPokeSnare, $03, dPokeSnare, $03, dPokeSnare, $03
+	dc.b	dChunkyKick, $06, $06, dCrapSnare, $0C, dChunkyKick, $06, $06, dCrapSnare, $0C
+	dc.b	dChunkyKick, $06, $06, dCrapSnare, $0C, dChunkyKick, $06, dCrapSnare, $03, dCrapSnare, $03
+	dc.b	dCrapSnare, $03, dCrapSnare, $03, dCrapSnare, $03, dCrapSnare, $03
 
 	smpsLoop	$00,$04,CleanSlate_Drums_Loop
 	smpsReturn
 CleanSlate_DAC:
 	smpsPan             panCenter, $00
-	dc.b	dPokeKickCrashHi, $0C, dPokeSnare, $03, dPokeSnare, $03, dPokeSnare, $03
-	dc.b	dPokeSnare, $03
+	dc.b	dPokeKickCrashHi, $0C, dCrapSnare, $03, dCrapSnare, $03, dCrapSnare, $03
+	dc.b	dCrapSnare, $03
 CleanSlate_Drums:
 	smpsCall	CleanSlate_Drums_Loop
 	dc.b	dPokeKickCrashHi, $0C
-	dc.b	dPokeSnare, $0C, dChunkyKick, $06, $06, dPokeSnare, $0C, dChunkyKick, $0C, dPokeSnare, $06
-	dc.b	dPokeSnare, $06, dChunkyKick, $06, dPokeSnare, $03, dElectricHighTom, $03, dElectricLowTom, $03, dElectricFloorTom, $03
-	dc.b	dElectricFloorTom, $03, dFuck, $7B, dPokeKickCrashHi, $06, dElectricHighTom, $06, dPokeSnare, $03, dPokeSnare, $03, dPokeSnare, $03, dPokeSnare, $03
+	dc.b	dCrapSnare, $0C, dChunkyKick, $06, $06, dCrapSnare, $0C, dChunkyKick, $0C, dCrapSnare, $06
+	dc.b	dCrapSnare, $06, dChunkyKick, $06, dCrapSnare, $03, dElectricHighTom, $03, dElectricLowTom, $03, dElectricFloorTom, $03
+	dc.b	dElectricFloorTom, $03, dRobiScream, $7B, dPokeKickCrashHi, $06, dElectricHighTom, $06, dCrapSnare, $03, dCrapSnare, $03, dCrapSnare, $03, dCrapSnare, $03
 	smpsJump	CleanSlate_Drums
 
 ; FM1 Data
