@@ -5779,7 +5779,7 @@ Map_WFall:	include	"_maps/Waterfalls.asm"
 
 ResumeMusic:
 		cmpi.w	#12,(v_air).w	; more than 12 seconds of air left?
-		bhi.s	.over12		; if yes, branch
+		bhi.s	over12yo		; if yes, branch
 		moveq	#0,d0
 		move.b	(v_zonemusic).w,d0
 		tst.b	(v_invinc).w ; is Sonic invincible?
@@ -5787,12 +5787,14 @@ ResumeMusic:
 		move.w	#bgm_Invincible,d0
 .notinvinc:
 		tst.b	(f_lockscreen).w ; is Sonic at a boss?
-		beq.s	.playselected ; if not, branch
+		beq.s	playselectedlele ; if not, branch
 		move.w	#bgm_Boss,d0
-.playselected:
+		cmpi.w	#(id_SLZ<<8)+2,(v_zone).w ; ist das level mein?
+        bne.s   playselectedlele
+        move.w  #$1F,d0 ; MEGALOVANIA BABY
+playselectedlele:
 		jsr	(QueueSound1).l
-
-.over12:
+over12yo:
 		move.w	#30,(v_air).w	; reset air to 30 seconds
 		clr.b	(v_sonicbubbles+objoff_32).w
 		rts
