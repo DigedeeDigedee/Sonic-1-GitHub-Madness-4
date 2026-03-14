@@ -2449,7 +2449,7 @@ MusicList:
 		dc.b bgm_ColdBrew; cold brew2
 		dc.b bgm_BadEmerald; cold brew3
 		dc.b bgm_BadEmerald; cold brew4
-		dc.b bgm_FZ		; WIN98 1
+		dc.b bgm_CleanSlate	; WIN98 1
 		dc.b bgm_FZ		; WIN98 2
 		dc.b bgm_FZ		; WIN98 3
 		dc.b bgm_FZ		; WIN98 4
