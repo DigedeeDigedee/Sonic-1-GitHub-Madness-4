@@ -84,8 +84,8 @@ Spring_BounceUp:
 		move.b	#2,obRoutine(a1)
 		bclr	#3,obStatus(a0)
 		clr.b	obSolid(a0)
-		move.w	#sfx_Spring,d0
-		jsr	(QueueSound2).l	; play spring sound
+		move.b	#$C7, d0
+		jsr		(MegaPCM_PlaySample).l
 
 Spring_AniUp:	; Routine 4
 		lea	(Ani_Spring).l,a1
