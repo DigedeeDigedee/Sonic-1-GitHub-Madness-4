@@ -2577,11 +2577,16 @@ Level_GetBgm:
 		tst.w	(f_demo).w
 		bmi.s	Level_SkipTtlCard
 		moveq	#0,d0
-		move.b  (v_zone), d0
-		lsl.w   #2, d0
-		add.b   (v_act), d0
-		lea	(MusicList).l,a1 ; load music playlist
-		move.b	(a1,d0.w),d0
+		moveq	#0,d0
+		move.b	(v_zone).w,d0
+		lsl.w	#7,d0
+		lea	(LevelHeaders).l,a2
+		lea	(a2,d0.w),a2
+		moveq	#0,d0
+		move.b	v_act.w,d0
+		lsl.w	#5,d0
+		lea	(a2,d0.w),a2 
+		move.b	13(a2),d0
 		move.b	d0,(v_zonemusic).w
 		bsr.w	QueueSound1	; play music
 		move.b	#id_TitleCard,(v_titlecard).w ; load title card object
