@@ -22,7 +22,7 @@
 TitleCard_GHZ1:	equ  "ORANGE WORLD"
 TitleCard_GHZ2:	equ  "ORANGE WORLD"
 TitleCard_GHZ3:	equ  "TTS BATTLE"
-TitleCard_GHZ4:	equ  "porn"
+TitleCard_GHZ4:	equ  "Robi says hi"
 
 TitleCard_MZ1:	equ  "ALBERTA CANADA"
 TitleCard_MZ2:	equ  "ALBERTA CANADINA"

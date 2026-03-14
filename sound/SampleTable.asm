@@ -84,6 +84,11 @@ SampleTable:
 	dcSample	TYPE_PCM,	Lg,		16000, FLAGS_SFX	; $C4
 	dcSample	TYPE_PCM,	Segay,		0, FLAGS_SFX		; $C5
 	dcSample	TYPE_DPCM,	Pyo,		11025, FLAGS_SFX	; $C6
+	;Robi being a fucking idiot
+	dcSample	TYPE_PCM,	CrapSnare,	11025,	; $C7
+	dcSample	TYPE_PCM,	RobiScream,	11025,	; $C8
+	dcSample	TYPE_PCM,	FabSecPow,	8000,	; $C8
+
     dcSample	TYPE_PCM,	Stupid,		0, FLAGS_SFX	; $C7
 	dc.w	-1	; end marker
 
@@ -175,5 +180,10 @@ SampleTable:
 ; Whatever you want the Sega sound to be
 	incdac	SegaPCM, "sound/dac/sega.wav"
 	incdac	Segay, "sound/dac/sega2.wav" ; (add a region check so the sample will play)
+; ---------------------------------------------------------------
+; Robi's Shit
+	incdac	CrapSnare, "sound/dac/Robi/CrapSnare.wav" ; (add a region check so the sample will play)
+	incdac	RobiScream, "sound/dac/Robi/RobiScreaming.wav" ; (add a region check so the sample will play)
+	incdac	FabSecPow, "sound/dac/Robi/FabSecPow.wav"
 	even
 
