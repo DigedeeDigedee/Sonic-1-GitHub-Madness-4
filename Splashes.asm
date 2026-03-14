@@ -165,7 +165,7 @@ splash_turd macro routine
 	
 	splash_solid	Blessed,	$40, 0,	sfx_SSGoal,	200
 	splash_solid	Shiki,		$20, 0,	bgm_SwingSinners,280
-	splash_solid	SonicBroke,	$20, 0,	bgm_musBomerDude,480
+	splash_solid	SonicBroke,	$20, 0,	bgm_Continue2,480
 	splash_solid	Monke,		$20, 0,	bgm_Carefree,	480
 	splash_solid	Wait,		$60, 0,	bgm_PuyoDrown,	145
 	splash_solid	SadMac,		$60, 0,	bgm_SadMac,	175
@@ -179,16 +179,16 @@ splash_turd macro routine
 	splash_solid	Mines,		$20, 0,	bgm_SLZ,	650
 	splash_solid	Waldo,		$40, 0,	bgm_MayoDed,	100
 	; splash_solid	Undertaley,	$10, 0,	bgm_NewShop,	300
-	splash_solid	StupidBat,	$40, 0,	bgm_BatMan,	480
-	splash_solid	Sad,		$40, 0,	bgm_Spoopy,	200
+	;splash_solid	StupidBat,	$40, 0,	bgm_BatMan,	480
+	;splash_solid	Sad,		$40, 0,	bgm_Spoopy,	200
 	splash_solid	Support,	$60, 0,	bgm_ChickenDance,480
 	splash_solid	Peppa,		$40, 0,	bgm_Ding,	200
 	splash_solid	Snowgrave,	$40, 0,	bgm_Ding,	100
 	splash_solid	Damnit,		$40, 0,	bgm_GCV2005,	500
-	splash_solid	Iceage,		$40, 0,	bgm_JamesPond,	300
-	splash_solid	Fredbear,	$40, 0,	bgm_FuneralMarch,480
+	;splash_solid	Iceage,		$40, 0,	bgm_JamesPond,	300
+	;splash_solid	Fredbear,	$40, 0,	bgm_FuneralMarch,480
 	splash_solid	CRT,		$40, 0,	bgm_PuyoReject,	300
-	splash_solid	Crispbilly,	$40, 0,	bgm_Ding,	200
+	;splash_solid	Crispbilly,	$40, 0,	bgm_Ding,	200
 	splash_solid	Bonniewtf,	$60, 0,	bgm_Resetti,	300
 	splash_solid	Rick,		$40, 0,	bgm_Rickroll,	480
 	splash_solid	W,		$40, 0,	bgm_Emerald,	380
@@ -220,16 +220,16 @@ splash_turd macro routine
 	inc_solid_splash Mines
 	inc_solid_splash Waldo
 	; inc_solid_splash Undertaley
-	inc_solid_splash StupidBat
-	inc_solid_splash Sad
+	;inc_solid_splash StupidBat
+	;inc_solid_splash Sad
 	inc_solid_splash Support
 	inc_solid_splash Peppa
 	inc_solid_splash Snowgrave
 	inc_solid_splash Damnit
-	inc_solid_splash Iceage
-	inc_solid_splash Fredbear
+	;inc_solid_splash Iceage
+	;inc_solid_splash Fredbear
 	inc_solid_splash CRT
-	inc_solid_splash Crispbilly
+	;inc_solid_splash Crispbilly
 	inc_solid_splash Bonniewtf
 	inc_solid_splash Rick
 	inc_solid_splash W
