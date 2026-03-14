@@ -193,3 +193,5 @@ BGM_Clinton_Voices:
 	smpsVcDecayLevel	$0F, $0F, $0F, $0F
 	smpsVcReleaseRate	$07, $07, $07, $08
 	smpsVcTotalLevel	$00, $1D, $15, $23
+
+	smpsFooterEndSong	"Kat/Mus - Clinton Fucker.asm"

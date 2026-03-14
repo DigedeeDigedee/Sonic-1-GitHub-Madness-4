@@ -42,3 +42,4 @@ Sound_B6_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $0E, $12, $04, $09
 
+	smpsFooterEndSong	"Snd - Dash.asm"

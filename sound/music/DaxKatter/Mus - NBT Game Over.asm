@@ -162,3 +162,5 @@ Snd_GameOver_Voices:
 	smpsVcDecayLevel	$0A, $0A, $0F, $00
 	smpsVcReleaseRate	$04, $00, $00, $00
 	smpsVcTotalLevel	$00, $22, $23, $22
+
+	smpsFooterEndSong	"DaxKatter/Mus - NBT Game Over.asm"

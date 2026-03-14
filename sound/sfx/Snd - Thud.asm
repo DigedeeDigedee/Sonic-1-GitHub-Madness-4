@@ -31,3 +31,4 @@ SFX_Thud_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $18, $0A, $04
 
+	smpsFooterEndSong	"Snd - Thud.asm"
