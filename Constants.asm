@@ -88,6 +88,7 @@ id_ButtcrackMan:	equ ptr_GM_ButtcrackMan-GameModeArray
 id_CNNico:	equ ptr_GM_CNNicoJump-GameModeArray; $34
 id_TryAgainEnd:	equ ptr_GM_TryAgainEnd-GameModeArray; $38
 id_Damn:	equ ptr_GM_Damn-GameModeArray
+id_TGSplash:	equ ptr_GM_TGSplash-GameModeArray; $44
 
 ; Levels
 id_GHZ:		equ 0
@@ -307,6 +308,7 @@ bgm_musBomerDude:	equ ((ptr_mus4F-MusicIndex)/4)+bgm__First
 bgm_Continue2:		equ ((ptr_mus50-MusicIndex)/4)+bgm__First
 bgm_Coffinman:		equ ((ptr_mus51-MusicIndex)/4)+bgm__First
 bgm_ColdBrew:		equ ((ptr_mus56-MusicIndex)/4)+bgm__First
+bgm_DoleBOSS:		equ ((ptr_mus58-MusicIndex)/4)+bgm__First
 
 bgm__Last:	equ ((ptr_musend-MusicIndex-4)/4)+bgm__First
 

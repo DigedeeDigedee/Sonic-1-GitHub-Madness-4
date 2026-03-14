@@ -273,7 +273,7 @@ ptr_mus51:		dc.l Music51
 ;ptr_mus55:		dc.l Music55
 ptr_mus56:		dc.l Music56
 ptr_mus57:		dc.l Music57
-;ptr_mus58:		dc.l Music58
+ptr_mus58:		dc.l Music58
 ;ptr_mus59:		dc.l Music59
 ;ptr_mus5A:		dc.l Music5A
 ;ptr_mus5B:		dc.l Music5B
@@ -3040,7 +3040,7 @@ Music89:	include "sound/music/Mus89 - Special Stage.asm"
 		even
 Music8A:	include "sound/music/Mus8A - Title Screen.asm"
 		even
-Music8B:	include "sound/music/MattTracks/Mus - Ending.asm"
+Music8B:	include "sound/music/Mus8B - Ending.asm"
 		even
 Music8C:	binclude "sound/music/boss.bin"
 		even
@@ -3186,7 +3186,7 @@ Music4F:	binclude	"sound/music/Dawid/BomerDudeAtgamesong.bin" ;i have no idea to
 		even
 Music50:	include	"sound/music/Mus90 - Continue Screen.asm"
 		even
-Music51:	include	"sound/music/TG2000Tracks/Coffinman.asm"
+Music51:	include	"sound/music/TG2000Tracks/Coffinman.asm" ;Boss Track
 		even
 ;Music52:	include	"sound/music/GenesisDoes/GenesisDoes1.asm"
 ;		even
@@ -3199,6 +3199,8 @@ Music51:	include	"sound/music/TG2000Tracks/Coffinman.asm"
 Music56:	include	"sound/music/CNTracks/CometSTG2.asm"
 		even
 Music57:	include	"sound/music/CNTracks/TheCheetosChairRoom.asm"
+		even
+Music58:	include	"sound/music/TG2000Tracks/DoleBOSS.asm" ;Boss Track
 		even
 ; ---------------------------------------------------------------------------
 ; Sound effect pointers

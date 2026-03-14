@@ -1,7 +1,7 @@
 ;----------------------------------------------------------------------------
-; EUROPEAN SEGA SPLASH SCREEN (PORTED FROM 3.5)
+; TG2000 Splash Screen
 ;----------------------------------------------------------------------------
-GM_SegaEU:
+GM_TGSplash:
 		;move.w    #$8024,(vdp_control_port).l
 		move.b	#bgm_Fade,d0
 		jsr	ClearPLC
@@ -22,9 +22,9 @@ GM_SegaEU:
 		moveq	#0,d0
 		move.w	#$7FF,d1
 
-GM_SegaEU_ClrObjRam:
+GM_TGSplash_ClrObjRam:
 		move.l	d0,(a1)+
-		dbf	d1,GM_SegaEU_ClrObjRam ; clear object RAM
+		dbf	d1,GM_TGSplash_ClrObjRam ; clear object RAM
 		
 		lea	(v_palette_fading).w,a1
 		moveq	#cBlack,d0
@@ -36,11 +36,11 @@ GM_SegaEU_ClrObjRam:
 	
 		
 		move.l  #$40000000,($C00004).l
-		lea     (Nem_SplashTiles).l,a0
+		lea     (Nem_TGTiles).l,a0
 		jsr  NemDec		
 
 		lea	($FF0000).l,a1
-		lea	(Eni_SplashMap).l,a0 ; load mappings for Background Art
+		lea	(Eni_TGMap).l,a0 ; load mappings for Background Art
 
 		
 		move.w	#0,d0
@@ -48,33 +48,39 @@ GM_SegaEU_ClrObjRam:
 
 		copyTilemap	v_256x256&$FFFFFF,vram_fg,40,28
 
-		moveq	#palid_SplashPal,d0
+		moveq	#palid_TGPal,d0
 		jsr	PalLoad1	; load Sonic's palette
 		clr.w	(v_palette_fading+$40).w
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		jsr	PaletteFadeIn
-		move.b	#bgm_EuroSega,d0
+		move.b	#bgm_TG2000Jingle,d0
 		jsr	PlaySound_Special	
 
 
-GM_SegaEU_MainLoop:
+GM_TGSplash_MainLoop:
+		move.b	#2,(v_vbla_routine).w
+		jsr	WaitForVBla
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
+		move.w	#2*60,(v_generictimer).w 
+		andi.b	#btnStart,(v_jpadpress1).w		
+		beq.s	GM_TGSplash_MainLoop
+
+
+
+
 
 
 .Loop:
-	move.b	#$2,(v_vbla_routine).w
+	move.w	#60*9, (v_generictimer).w
+	move.b	#$4,(v_vbla_routine).w
 	jsr	WaitForVBla
 
 	tst.w	(v_generictimer).w
-	beq.w	.Exit
 
-	bra.s	.Loop
 
-.Exit:
 		move.b	#id_Title,(v_gamemode).w ; go to splash screen
 
-GM_SegaEU_Return:
+GM_TGSplash_Return:
 		rts	
-;.skipsplashEU:
-;		move.b	#id_Title,(v_gamemode).w ; go to splash screen
-;		rts	

@@ -411,6 +411,7 @@ ptr_GM_CNNicoJump:	dc.l	GM_CNNicoJump		; CN Logo ($34)
 ptr_GM_TryAgainEnd:	dc.l	TryAgainEnd		; Testable TRY AGAIN/END screen ($38)
 ptr_GM_Fetus:		dc.l	GM_Fetus		; Difficulty Select screen out of spite ($3C)
 ptr_GM_Damn:		dc.l	GM_Damn			; DAMN!!!!!!!!!!!!!!!!!!!!!!!
+ptr_GM_TGSplash:	dc.l	GM_TGSplash		; TG2000 Splash Screen ($44)
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -1973,6 +1974,7 @@ Pal_Joint:		bincludeEndMarker	"palette/Joint Zone.bin"
 Pal_SplashPal:	bincludeEndMarker	"eurosega/pal.bin"
 Pal_ColdBrew:	bincludeEndMarker	"conimodes/cold brew/palette.bin"
 Pal_ColdBrewG:	bincludeEndMarker	"conimodes/cold brew/palette grayscale.bin"
+Pal_TGPal:	bincludeEndMarker	"TGSplash/pal.bin"
 
 Pal_SonicRetro: bincludeEndMarker "LiquidSplashes/Rerto/Palette.bin"
 Pal_SonisRetro: bincludeEndMarker "LiquidSplashes/Rerto/PaletteSonis.bin"
@@ -7137,6 +7139,10 @@ Nem_JapNames:	binclude	"artnem/Hidden Japanese Credits.nem"
 Eni_SplashMap:	binclude	"eurosega/map.bin"
 		even
 Nem_SplashTiles:	binclude	"eurosega/tiles.bin"
+		even
+Eni_TGMap:	binclude	"TGSplash/map.bin"
+		even
+Nem_TGTiles:	binclude	"TGSplash/tiles.bin"
 		even
 
 ; ---------------------------------------------------------------------------
