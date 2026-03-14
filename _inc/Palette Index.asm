@@ -17,7 +17,7 @@ palid_SegaBG:		makePalEntry	Pal_SegaBG, 		v_palette_line_1
 palid_Title:		makePalEntry	Pal_Title,		v_palette_line_1
 palid_LevelSel:		makePalEntry	Pal_LevelSel,		v_palette_line_1
 palid_Sonic:		makePalEntry	Pal_Sonic,		v_palette_line_1
-
+palid_SplScrSki:	makePalEntry	Pal_SplScrSki,		v_palette_line_1
 Pal_Levels:
 
 palid_GHZ:		makePalEntry	Pal_GHZ, 		v_palette_line_2
