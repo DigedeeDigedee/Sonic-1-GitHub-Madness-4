@@ -413,6 +413,7 @@ ptr_GM_Fetus:		dc.l	GM_Fetus		; Difficulty Select screen out of spite ($3C)
 ptr_GM_Damn:		dc.l	GM_Damn			; DAMN!!!!!!!!!!!!!!!!!!!!!!!
 ptr_GM_TGSplash:	dc.l	GM_TGSplash		; TG2000 Splash Screen ($44)
 ;ptr_GM_RPGBattle:	dc.l	GM_RPGBattle		; RPG Battle (for Azure Rainforest) ($48)
+ptr_SplashScreenSkipper:dc.l	GM_SplashScreenSkipper	; My Stupid Splash is here
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -1949,6 +1950,7 @@ Pal_SegaBG:		bincludeEndMarker	"palette/Sega Background.bin"
 Pal_Title:		bincludeEndMarker	"palette/Title Screen.bin"
 Pal_LevelSel:		bincludeEndMarker	"palette/Level Select.bin"
 Pal_Sonic:		bincludeEndMarker	"palette/Sonic.bin"
+Pal_SplScrSki:		bincludeEndMarker	"Nano's SHIT/splash/data/pal.pal"
 Pal_GHZ:		bincludeEndMarker	"palette/Green Hill Zone.bin"
 Pal_LZ:			bincludeEndMarker	"palette/Labyrinth Zone.bin"
 Pal_LZWater:		bincludeEndMarker	"palette/Labyrinth Zone Underwater.bin"
