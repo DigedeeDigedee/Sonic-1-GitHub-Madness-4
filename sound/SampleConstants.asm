@@ -82,6 +82,5 @@ dSega2				ds.b 1
 dPyo				ds.b 1
 dCrapSnare			ds.b 1
 dRobiScream			ds.b 1
-dFabSecPow			ds.b 1
 	dephase
 	!org -

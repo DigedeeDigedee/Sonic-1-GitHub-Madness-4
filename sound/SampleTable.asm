@@ -87,9 +87,8 @@ SampleTable:
 	;Robi being a fucking idiot
 	dcSample	TYPE_PCM,	CrapSnare,	11025,	; $C7
 	dcSample	TYPE_PCM,	RobiScream,	11025,	; $C8
-	dcSample	TYPE_PCM,	FabSecPow,	8000,	; $C8
 
-    dcSample	TYPE_PCM,	Stupid,		0, FLAGS_SFX	; $C7
+    	dcSample	TYPE_PCM,	Stupid,		0, FLAGS_SFX	; $C9
 	dc.w	-1	; end marker
 
 ; ---------------------------------------------------------------
@@ -184,6 +183,5 @@ SampleTable:
 ; Robi's Shit
 	incdac	CrapSnare, "sound/dac/Robi/CrapSnare.wav" ; (add a region check so the sample will play)
 	incdac	RobiScream, "sound/dac/Robi/RobiScreaming.wav" ; (add a region check so the sample will play)
-	incdac	FabSecPow, "sound/dac/Robi/FabSecPow.wav"
 	even
 
