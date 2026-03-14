@@ -176,9 +176,9 @@ Sonic_Display:
 		beq.s	.exit
 		subq.w	#1,shoetime(a0)	; subtract 1 from time
 		bne.s	.exit
-		move.w	#$600,(v_sonspeedmax).w ; restore Sonic's speed
-		move.w	#$C,(v_sonspeedacc).w ; restore Sonic's acceleration
-		move.w	#$80,(v_sonspeeddec).w ; restore Sonic's deceleration
+		move.w	#$900,(v_sonspeedmax).w ; Sonic's top speed
+		move.w	#$F,(v_sonspeedacc).w ; Sonic's acceleration
+		move.w	#$80,(v_sonspeeddec).w ; Sonic's deceleration
 		move.b	#0,(v_shoes).w	; cancel speed shoes
 		move.w	#bgm_Slowdown,d0
 		jmp	(QueueSound1).l	; run music at normal speed
@@ -238,9 +238,9 @@ Sonic_Water:
 		bclr	#6,obStatus(a0)
 		beq.s	.exit
 		bsr.w	ResumeMusic
-		move.w	#$600,(v_sonspeedmax).w ; restore Sonic's speed
-		move.w	#$C,(v_sonspeedacc).w ; restore Sonic's acceleration
-		move.w	#$80,(v_sonspeeddec).w ; restore Sonic's deceleration
+		move.w	#$900,(v_sonspeedmax).w ; Sonic's top speed
+		move.w	#$F,(v_sonspeedacc).w ; Sonic's acceleration
+		move.w	#$80,(v_sonspeeddec).w ; Sonic's deceleration
 		asl.w	obVelY(a0)
 		beq.w	.exit
 		move.b	#id_Splash,(v_splash).w ; load splash object

@@ -51,8 +51,8 @@ TitleCard_SBZ4:	equ  "porn"
 
 TitleCard_Brew1:	equ  "COLD BREW"
 TitleCard_Brew2:	equ  "HOT BREW"
-TitleCard_Brew3:	equ  "Hostile Soul"
-TitleCard_Brew4:	equ  "AGGA"
+TitleCard_Brew3:	equ  "Roast Brew"
+TitleCard_Brew4:	equ  "Hostile Soul"
 
 TitleCard_WIN1:	equ  "Insert Title"
 TitleCard_WIN2:	equ  "Insert Tit"
@@ -424,8 +424,8 @@ TTLCard_Brew3:	titlecard TitleCard_Brew3,1,0
 TTLCard_Brew4:	titlecard TitleCard_Brew4,0,0
 TTLCard_WIN1:	titlecard TitleCard_WIN1,0,0
 TTLCard_WIN2:	titlecard TitleCard_WIN2,0,0
-TTLCard_WIN3:	titlecard TitleCard_WIN3,1,0
-TTLCard_WIN4:	titlecard TitleCard_WIN4,0,0
+TTLCard_WIN3:	titlecard TitleCard_WIN3,0,0
+TTLCard_WIN4:	titlecard TitleCard_WIN4,1,0
 TTLCard_Joint1:	titlecard TitleCard_Joint1,1,0 ; one act fakeout
 TTLCard_Joint2:	titlecard TitleCard_Joint2,0,0
 TTLCard_Joint3:	titlecard TitleCard_Joint3,0,0
