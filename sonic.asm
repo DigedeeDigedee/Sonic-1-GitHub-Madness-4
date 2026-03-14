@@ -55,9 +55,6 @@ ZoneCount = 6
 	include "Constants.asm"
 	include "Variables.asm"
 	include "Debugger.asm"
-FixMusicAndSFXDataBugs = FixBugs
-SonicDriverVer = 1 ; Tell SMPS2ASM that we're using Sonic 1's driver.
-	include "sound/_smps2asm_inc.asm"
 SonicMappingsVer = 1
 SonicDplcVer = 1
 	include "_maps/_MapMacros.asm"
