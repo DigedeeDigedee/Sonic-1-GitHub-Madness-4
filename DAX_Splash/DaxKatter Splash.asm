@@ -2,12 +2,13 @@
 ; DaxKatter Splash Screen
 ; ---------------------------------------------------------------------------
 
-; =============== S U B R O U T I N E =======================================
+	include	"DAX_Splash/Dax_Macros.asm"
+
 v_splash_logo = v_objspace
 
-DaxKatterSplash_VDP:
+; =============== S U B R O U T I N E =======================================
 
-DaxKatter_SplashScreen:
+DaxKatter_Splash:
 		move.b	#bgm_Stop,d0
 		jsr	(PlaySound_Special).l		; fade out music
 		jsr	(ClearPLC).l
@@ -50,19 +51,27 @@ DaxKatter_SplashScreen:
 		lea	(EniMap_DaxKatterText).l,a0
 		lea	(v_ram_start).l,a1
 		move.w	#make_art_tile($80,0,0),d0
-		jsr	(Eni_Decomp).w
+		jsr	(EniDec).w
 
-		copyTilemap128	vram_fg+$A52,31-1,4-1	; Send plane mappings to VRAM
+;		copyTilemap128	vram_fg+$A52,31-1,4-1	; Send plane mappings to VRAM
+		locVRAM	vram_fg+$A52,d0
+		moveq	#(31-1/8-1),d1
+		moveq	#(4-1/8-1),d2
+		bsr.w	Dax_PlaneMap
 
 		lea	(EniMap_BringsYou).l,a0
 		lea	(v_ram_start).l,a1
 		move.w	#make_art_tile($80,1,0),d0
-		jsr	(Eni_Decomp).w
+		jsr	(EniDec).w
 
-		copyTilemap128	vram_fg+$E5A,18-1,3-1	; Send plane mappings to VRAM
+;		copyTilemap128	vram_fg+$E5A,18-1,3-1	; Send plane mappings to VRAM
+		locVRAM	vram_fg+$E5A,d0
+		moveq	#(18-1/8-1),d1
+		moveq	#(3-1/8-1),d2
+		bsr.w	Dax_PlaneMap
 
 		; load palette
-		moveq	#16/2-1,d0
+		moveq	#64/2-1,d0
 		lea	(Pal_DaxKatterOff).l,a1
 		lea	(v_palette_fading).w,a2
 .loadpal:
@@ -71,7 +80,7 @@ DaxKatter_SplashScreen:
 
 		move.b	#$12,(v_vbla_routine).w
 		jsr	(WaitForVBla).w
-		move.l	#5,(v_splash_logo).w
+		move.b	#5,(v_splash_logo).w
 		move.b	#$12,(v_vbla_routine).w
 		jsr	(WaitForVBla).w
 		jsr	(ExecuteObjects).l
@@ -85,7 +94,7 @@ DaxKatter_SplashScreen:
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		andi.b	#btnStart,(v_jpadpress1).w	; check if Start is pressed
-		bne.s	.done				; if yes, branch
+		bne.w	.done				; if yes, branch
 		tst.w	(v_d_anim_done).w
 		beq.s	.main
 
@@ -96,7 +105,7 @@ DaxKatter_SplashScreen:
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		andi.b	#btnStart,(v_jpadpress1).w	; check if Start is pressed
-		bne.s	.done				; if yes, branch
+		bne.w 	.done				; if yes, branch
 		cmp.w	#-272,(v_screenposx).l
 		ble.s	.flash				; NOTE: unsigned
 		sub.l	#$AE128,(v_screenposx).l	; move .75 pixels per frame
@@ -127,7 +136,7 @@ DaxKatter_SplashScreen:
 
 		move.b	#sfx_MenuConfirm,d0
 		jsr	(PlaySound_Special).l		; play Menu Confirmation SFX
-		bsr.w	Pal_FadeBringsYou
+;		bsr.w	Pal_FadeBringsYou
 		move.w	#5*30,(v_generictimer).w
 
 .mainloop2
@@ -164,10 +173,10 @@ DaxKatterD_Index:
 Obj_DaxD_Init:
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_DaxKatterD,obMap(a0)
-		move.w	#make_art_tile($1,0,1),art_tile(a0)	; Start at $A000
+		move.w	#$1,obGfx(a0)	; Start at $A000
 		move.w	#$80+360,obX(a0)
 		move.w	#$80+94,obY(a0)
-		move.w	#$80,obPriority(a0)
+		move.b	#1,obPriority(a0)
 		move.b	#0,obAnim(a0)
 		move.b	#0,obFrame(a0)
 
@@ -185,7 +194,7 @@ Obj_DaxD_Move:
 
 Obj_DaxD_TestobAnim:
 		tst.b	obAnim(a0)
-		bne.s	.display
+		bne.s	Obj_DaxD_Display
 		addq.b	#2,obRoutine(a0)
 		move.b	#1,(v_d_anim_done).w
 
@@ -207,7 +216,7 @@ Ani_DaxKatterD:
 
 DKSS_Scroll:
 ; render
-	lea	(v_bgscroll_buffer).w,a0
+	lea	(v_hscrolltablebuffer).w,a0
 	move.w	(v_screenposx).w,d0		; Plane A uses this
 	swap	d0
 	clr.w	d0			; Plane B uses this
@@ -217,22 +226,39 @@ DKSS_Scroll:
 	dbf	d1,.loop
 	rts
 
-Pal_FadeBringsYou:
-		move.w	#bytes_to_word((palette_line_1>>8),48-1),(Palette_fade_info).w	; set fade info and fade count
-		jsr	(Pal_FillBlack).l
-		move.b	#$E,(Palette_fade_max_color_check).w	; MJ: prepare maximum colour check
-		clr.b	(Palette_fade_delay_count).w	; MJ: clear Palette_fade_delay_count (changed to RAM for compatability
+;Pal_FadeBringsYou:
+;		move.w	#bytes_to_word((palette_line_1>>8),48-1),(Palette_fade_info).w	; set fade info and fade count
+;		jsr	(Pal_FillBlack).l
+;		move.b	#$E,(Palette_fade_max_color_check).w	; MJ: prepare maximum colour check
+;		clr.b	(Palette_fade_delay_count).w	; MJ: clear Palette_fade_delay_count (changed to RAM for compatability
+;
+;.fadein:
+;		move.b	#$12,(v_vbla_routine).w
+;		jsr	(WaitForVBla).w
+;		jsr	(ExecuteObjects).l
+;		jsr	(BuildSprites).l
+;		bchg	#0,(Palette_fade_delay_count).w	; MJ: change delay counter
+;		beq.s	.fadein				; MJ: if null, delay a frame
+;		jsr	(Pal_FromBlack).w
+;		subq.b	#2,(Palette_fade_max_color_check).w	; MJ: decrease colour check
+;		bne.s	.fadein				; MJ: if it has not reached null, branch
+;		rts
 
-.fadein:
-		move.b	#$12,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
-		jsr	(ExecuteObjects).l
-		jsr	(BuildSprites).l
-		bchg	#0,(Palette_fade_delay_count).w	; MJ: change delay counter
-		beq.s	.fadein				; MJ: if null, delay a frame
-		jsr	(Pal_FromBlack).w
-		subq.b	#2,(Palette_fade_max_color_check).w	; MJ: decrease colour check
-		bne.s	.fadein				; MJ: if it has not reached null, branch
+Dax_PlaneMap:
+		move.l	#vdpCommDelta(planeLoc(128,0,1)),d4			; row increment value
+
+		lea	(vdp_data_port).l,a6
+		lea	vdp_control_port-vdp_data_port(a6),a5
+
+.loop2
+		move.w	d1,d3
+		move.l	d0,vdp_control_port-vdp_control_port(a5)
+
+.loop
+		move.w	(a1)+,vdp_data_port-vdp_data_port(a6)
+		dbf	d3,.loop											; copy one row
+		add.l	d4,d0										; move onto next row
+		dbf	d2,.loop2											; and copy it
 		rts
 
 ; ---------------------------------------------------------------------------
