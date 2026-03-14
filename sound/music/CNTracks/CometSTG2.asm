@@ -5,108 +5,84 @@ CometSTG2_Header:
 	smpsHeaderTempo     $02, $0D
 
 	smpsHeaderDAC       CometSTG2_DAC
-	smpsHeaderFM        CometSTG2_FM1,	$00, $00
-	smpsHeaderFM        CometSTG2_FM2,	$00, $00
-	smpsHeaderFM        CometSTG2_FM3,	$00, $00
-	smpsHeaderFM        CometSTG2_FM4,	$00, $08
-	smpsHeaderFM        CometSTG2_FM5,	$00, $08
-	smpsHeaderPSG       CometSTG2_PSG1,	$00, $00, $00, $00
-	smpsHeaderPSG       CometSTG2_PSG2,	$00, $00, $00, $00
-	smpsHeaderPSG       CometSTG2_PSG3,	$00, $04, $00, $00
-
-; DAC Data
-CometSTG2_DAC:
-	dc.b	dKick, $03, dSnare, dSnare, dSnare, $06, $06, $1B
-CometSTG2_DACJ:
-	dc.b	dKick
-CometSTG2_Loop00:
-	dc.b	$03, $03, $03, $03, dSnare, dKick, dKick, dKick, dKick, dKick, dKick, $06
-	dc.b	dSnare, dKick, $03, $03
-	smpsLoop            $00, $07, CometSTG2_Loop00
-	dc.b	$03, $03, $03, $03, dSnare, dKick, dKick, dKick, dKick, dKick, dKick, $06
-	dc.b	dSnare, $03, $03, $03
-
-CometSTG2_Loop01:
-	dc.b	$03, dKick, dKick, dKick, dKick, dSnare, dKick, dKick, dKick, dKick, dKick, dKick
-	dc.b	$06, dSnare, dKick, $03
-	smpsLoop            $00, $07, CometSTG2_Loop01
-	dc.b	$03, $03, $03, $03, $03, dSnare, dKick, dKick, dSnare, dSnare, dSnare, dSnare
-	dc.b	$06, $03, $03, $03
-
-CometSTG2_Loop02:
-	dc.b	$03, dKick, dKick, dKick, dKick, dSnare, dKick, dKick, dKick, dKick, dKick, dKick
-	dc.b	$06, dSnare, dKick, $03
-	smpsLoop            $00, $03, CometSTG2_Loop02
-	dc.b	$03, $03, $03, $03, $03, dSnare, dKick, dKick, dKick, dKick, dKick, dKick
-	dc.b	$06, dSnare, $03, $03, $03
-
-CometSTG2_Loop03:
-	dc.b	$03, dKick, dKick, dKick, dKick, dSnare, dKick, dKick, dKick, dKick, dKick, dKick
-	dc.b	$06, dSnare, dKick, $03
-	smpsLoop            $00, $03, CometSTG2_Loop03
-	dc.b	$03, $03, $03, $03, $03, dSnare, dKick, dKick
-
-CometSTG2_Loop04:
-	dc.b	dSnare
-	smpsLoop            $00, $08, CometSTG2_Loop04
-	dc.b	dSnare, $06
-	smpsJump				CometSTG2_DACJ
+	smpsHeaderFM        CometSTG2_FM1,	$00, $0C
+	smpsHeaderFM        CometSTG2_FM2,	$00, $08
+	smpsHeaderFM        CometSTG2_FM3,	$F4, $10
+	smpsHeaderFM        CometSTG2_FM4,	$F4, $10
+	smpsHeaderFM        CometSTG2_FM5,	$F4, $10
+	smpsHeaderPSG       CometSTG2_PSG1,	$00, $02, $00, $00
+	smpsHeaderPSG       CometSTG2_PSG2,	$00, $02, $00, $00
+	smpsHeaderPSG       CometSTG2_PSG3,	$00, $03, $00, $00
 
 ; FM1 Data
 CometSTG2_FM1:
+	smpsSetvoice        $02
+	dc.b	nD5, $03, nD5, nD5, nD5, nRst, nD5, nRst, nD5, nRst, $18
 	smpsSetvoice        $00
-CometSTG2_Loop0F:
-	dc.b	nD6, $02, nRst, $01
-	smpsLoop            $00, $03, CometSTG2_Loop0F
-	dc.b	nD6, $02, nRst, $04, nD6, $02, nRst, $04, nD6, $03, nRst, $18
 CometSTG2_FM1J:
-	dc.b	nA4, $03, nB4, nCs5, nE5, nFs5, $24, nRst, $0F, nF5, $03, nFs5
-	dc.b	nAb5, nA5, $06, nB5, $02, nRst, $04, nAb5, $03, nRst, nFs5, nE5
-	dc.b	$33, nRst, $0F, nE5, $03, nD5, nA4, nB4, $06, nCs5, $02, nRst
-	dc.b	$04, nD5, $03, nE5, nF5, nFs5, $21, nE5, $02, nRst, $01, nE5
-	dc.b	$02, nRst, $01, nD5, $03, nE5, nRst, nFs5, $06
+	dc.b	nA4, $03, nB4, nCs5, nE5
+	smpsCall            CometSTG2_FM1C1
+	dc.b	nD5, nE5, nF5
+	smpsCall            CometSTG2_FM1C2
+	dc.b	nRst, $1A
+	smpsAlterNote       $00
+	dc.b	nAb5, $03, nA5, nB5, nA5, nAb5, nFs5, nFs5, nG5, $01, nAb5, $03, nRst, $02
+	dc.b	nE5, $21, nRst, $05, nA4, $01, nBb4, $02, nB4, $01, nCs5, $03, nFs5, nE5, nRst, $24
+	
+	dc.b	nA4, $03, nB4, nCs5, nD5
+	smpsCall            CometSTG2_FM1C1
+	dc.b	nA5, nRst, nAb5, $03
+	
+	smpsCall            CometSTG2_FM1C2
+	dc.b	nRst, $0B
+	smpsAlterNote       $00
+	dc.b	nF5, $03, nFs5, nAb5, nA5, $06, nB5, $03, nRst, nCs6, nD6, nRst
+	dc.b	nE6, $33, nRst, $0F, nE6, $03, nF6, nFs6, nE6, $02, smpsNoAttack, nF6, smpsNoAttack, nE6, nD6, $03, nRst, nCs6, nRst, nB5
+;	dc.b	nD4, $03, nE4, nFs4, nB4, nCs5, nD5, nFs5, $09, nE5, nD5, $03, nRst, nD5, $12, nCs5, $1E, nRst, $06
+;	smpsAlterVol        $04
+;	dc.b	nCs4, $03, nD4, nE4, nA4, nB4, nCs5, nE5, $09, nD5, nCs5, $03, nRst, nAb4, $12, nFs4, $1E
+;	dc.b	nFs4, $03, nAb4, nA4, nCs5, nFs5, $24, nE4, $03, nFs4, nAb4
+;	dc.b	nA4, nE5, $24, nD4, $03, nE4, nFs4, nAb4, nD5, $24
+;;	smpsAlterVol        $FC
+;	dc.b	nA3, $03, nB3, nCs4, nD4, nFs4, nE4, nFs4, nAb4, nB4, $02, nCs5
+;	dc.b	nA4, nB4, $03, nCs5, nE5, nFs5, nAb5, nB5
+	dc.b	nCs6, $2F
+	smpsSetvoice        $03
+	smpsAlterPitch    $0C
+	smpsAlterVol     $0C
+	dc.b	nE5, $01
+	smpsAlterVol     $FE
+	dc.b	nFs5
+	smpsAlterVol     $FE
+	dc.b	nA5
+	smpsAlterVol     $FE
+	dc.b	nB5, nCs6, $12, nB5, nA5, $0C, nAb5, $12, nFs5, $0B, nG5, $01
+	dc.b	nAb5, $0C, nA5, $03, nRst, nG5, $01, nAb5, $02, nRst, $03, nG5
+	dc.b	$01, nAb5, $0B, nFs5, $1E, nRst, $11, nE5, $01, nFs5, $06, nE5
+	dc.b	nD5, $03, nRst, nCs5, nRst, nB4, $06, nCs5, $12
+	dc.b	nB4, $0C, nA4, nFs4, $06, nB4, $1D, nC5, $01, nCs5, $06, nD5
+	dc.b	$03, nRst, nE5, $06, nCs5, $12, nB4, $1E
+	smpsAlterVol     $FA
+	smpsAlterPitch    $F4
+	smpsJump				CometSTG2_FM1J
+
+CometSTG2_FM1C1:
+	dc.b	nFs5, $24, nRst, $0F, nF5, $03, nFs5, nAb5, nA5, $06, nB5, $03, nRst, nAb5, nRst, nFs5
+	dc.b	nE5, $33, nRst, $0F, nE5, $03, nD5, nA4, nB4, $06, nCs5, $03, nRst
+	smpsReturn
+CometSTG2_FM1C2:
+	dc.b	nFs5, $21, nE5, $03, nE5, nD5, nE5, nRst, nFs5, $06
 	smpsAlterNote       $E7
 	dc.b	smpsNoAttack, $01
 	smpsAlterNote       $E6
-	dc.b	nRst
-	smpsAlterNote       $00
-	dc.b	$19, nAb5, $03, nA5, nB5, nA5, nAb5, nFs5, nFs5, nG5, $01, nAb5
-	dc.b	$03, nRst, $02, nE5, $21, nRst, $05, nA4, $01, nBb4, $02, nB4
-	dc.b	$01, nCs5, $03, nFs5, nE5, nRst, $24, nA4, $03, nB4, nCs5, nD5
-	dc.b	nFs5, $24, nRst, $0F, nF5, $03, nFs5, nAb5, nA5, $06, nB5, $02
-	dc.b	nRst, $04, nAb5, $03, nRst, nFs5, nE5, $33, nRst, $0F, nE5, $03
-	dc.b	nD5, nA4, nB4, $06, nCs5, $02, nRst, $04, nA5, $02, nRst, $04
-	dc.b	nAb5, $03, nFs5, $21, nE5, $02, nRst, $01, nE5, $02, nRst, $01
-	dc.b	nD5, $03, nE5, nRst, nFs5, $06
-	smpsAlterNote       $E7
-	dc.b	smpsNoAttack, $01
-	smpsAlterNote       $EB
-	dc.b	nRst
-	smpsAlterNote       $00
-	dc.b	$0A, nF5, $03, nFs5, nAb5, nA5, $06, nB5, $02, nRst, $04, nCs6
-	dc.b	$03, nD6, nRst, nE6, $33, nRst, $0F, nE6, $03, nF6, nFs6, nE6
-	dc.b	$02, smpsNoAttack, nF6, smpsNoAttack, nE6, nD6, $03, nRst, nCs6, nRst, nB5, nRst
-	dc.b	$09, nD4, $03, nE4, nFs4, $02, nRst, $01, nB4, $03, nCs5, nD5
-	dc.b	nFs5, $09, nE5, nD5, $02, nRst, $04, nD5, $12, nCs5, $1E, nRst
-	dc.b	$06
-	smpsAlterVol        $04
-	dc.b	nCs4, $03, nD4, nE4, $02, nRst, $01, nA4, $03, nB4, nCs5, nE5
-	dc.b	$09, nD5, nCs5, $02, nRst, $04, nAb4, $12, nFs4, $1E, nRst, $03
-	dc.b	nAb4, nA4, nCs5, $02, nRst, $01, nFs5, $24, nE4, $03, nFs4, nAb4
-	dc.b	nA4, $02, nRst, $01, nE5, $24, nD4, $03, nE4, nFs4, nAb4, $02
-	dc.b	nRst, $01, nD5, $24
-	smpsAlterVol        $FC
-	dc.b	nA3, $03, nB3, nCs4, nD4, nFs4, nE4, nFs4, nAb4, nB4, $02, nCs5
-	dc.b	nA4, nB4, $03, nCs5, nE5, nFs5, nAb5, nB5
-	smpsJump				CometSTG2_FM1J
+	smpsReturn
 
 ; FM2 Data
 CometSTG2_FM2:
-	smpsSetvoice        $00
+;	smpsStop
+	smpsSetvoice        $01
 CometSTG2_Loop0C:
-	dc.b	nA1, $02, nRst, $01
-	smpsLoop            $00, $03, CometSTG2_Loop0C
-	dc.b	nA1, $02, nRst, $04, nA1, $02, nRst, $04, nA1, $03, nRst, $0C
+	dc.b	nA1, $03, nA1, nA1, nA1, nRst, nA1, nRst, nA1, nRst, $0C
 	smpsAlterNote       $FE
 	dc.b	nE2, $06
 	smpsAlterNote       $F3
@@ -121,92 +97,71 @@ CometSTG2_Loop0C:
 	dc.b	smpsNoAttack, nD2
 	smpsAlterNote       $00
 	dc.b	smpsNoAttack, $01
+
 CometSTG2_FM2J:
-	dc.b	$09, $02, nRst, $07, nA1, $03, nB1, $02, nRst, $07
-	dc.b	nD2, $02, nRst, $04, nA1, $03, nB1, $09, nD2, $07, nRst, $02
-	dc.b	nD2, nRst, $07, nA1, $03, nB1, $02, nRst, $07, nD2, $02, nRst
-	dc.b	$04, nA1, $03, nB1, $09, nCs2, nCs2, $02, nRst, $07, nAb1, $03
-	dc.b	nB1, $02, nRst, $07, nCs2, $02, nRst, $04, nAb1, $03, nB1, $09
-	dc.b	nA1, $02, nRst, $04, nA1, $02, nRst, $04, nE1, $03, nFs1, $02
-	dc.b	nRst, $04, nA1, $06, $02, nRst, $04, nE1, $03, nFs1, $06, nE2
-	dc.b	nD2, $09, $02, nRst, $04, nA1, $03, nB1, $02, nRst, $0A, nA1
-	dc.b	$02, nRst, $04, nD2, $03, nCs2, $09, nB1, nB1, $02, nRst, $04
-	dc.b	nFs1, $03, nA1, $02, nRst, $0A, nB1, $02, nRst, $04, nFs1, $03
-	dc.b	nA1, nB1, $06, nE1, $09, $02, nRst, $04, nB1, $03, nE1, $02
-	dc.b	nRst, $0A, nE1, $02, nRst, $04, nB1, $03, nE1, $09, $09, $02
-	dc.b	nRst, $04, nB1, $03, nE1, $02, nRst, $0A, nE1, $02, nRst, $04
-	dc.b	nE2, $03, nEb2, $09, nD2, nD2, $02, nRst, $07, nA1, $03, nB1
-	dc.b	$02, nRst, $07, nD2, $02, nRst, $04, nA1, $03, nB1, $09, nD2
-	dc.b	$07, nRst, $02, nD2, nRst, $07, nA1, $03, nB1, $02, nRst, $07
-	dc.b	nD2, $02, nRst, $04, nA1, $03, nB1, $09, nCs2, nCs2, $02, nRst
-	dc.b	$07, nAb1, $03, nB1, $02, nRst, $07, nCs2, $02, nRst, $04, nAb1
-	dc.b	$03, nB1, $09, nA1, $02, nRst, $04, nA1, $02, nRst, $04, nE1
-	dc.b	$03, nFs1, $02, nRst, $04, nA1, $06, $02, nRst, $04, nE1, $03
-	dc.b	nFs1, $06, nE2, nD2, $09, $02, nRst, $04, nA1, $03, nB1, $02
-	dc.b	nRst, $0A, nA1, $02, nRst, $04, nD2, $03, nCs2, $09, nB1, nB1
-	dc.b	$02, nRst, $04, nFs1, $03, nA1, $02, nRst, $0A, nB1, $02, nRst
-	dc.b	$04, nFs1, $03, nA1, nB1, $06, nE1, $09, $02, nRst, $04, nB1
-	dc.b	$03, nE1, $02, nRst, $0A, nE1, $02, nRst, $04, nB1, $03, nE1
-	dc.b	$09, $09, $02, nRst, $04, nB1, $03
-
-CometSTG2_Loop0D:
-	dc.b	nE1, $02, nRst, $04
-	smpsLoop            $00, $03, CometSTG2_Loop0D
-	dc.b	nE1, $03, nFs1, $09
-
+	smpsCall            CometSTG2_FM2C1
+	dc.b	nRst, $06, nE1, $03, nRst, nE2, nEb2, $09
+	smpsCall            CometSTG2_FM2C1
+	dc.b	nE1, nRst, nE1, nRst, nE1, nFs1, $09
 CometSTG2_Loop0E:
-	dc.b	nG1, $08, nRst, $01, nG1, $02, nRst, $07, nD1, $02, nRst, $0A
-	dc.b	nD1, $02, nRst, $04, nG1, $06, nD1
+	dc.b	nG1, $09, $03, nRst, $06, nD1, $03, nRst, $09, nD1, $03, nRst, nG1, $06, nD1
 	smpsLoop            $00, $02, CometSTG2_Loop0E
-	dc.b	nFs1, $08, nRst, $01, nFs1, $02, nRst, $07, nCs2, $02, nRst, $0A
-	dc.b	nCs2, $02, nRst, $04
+	dc.b	nFs1, $09, $03, nRst, $06, nCs2, $03, nRst, $09, nCs2, $03, nRst
 	smpsAlterNote       $0E
 	dc.b	nE2, $01, smpsNoAttack, nF2
 	smpsAlterNote       $00
-	dc.b	smpsNoAttack, nFs2, $04, nE2, $06, nEb2, $08, nRst, $01, nEb2, $02, nRst
-	dc.b	$07, nEb2, $02, nRst, $16, nEb2, $06, nD2, $08, nRst, $01, nD2
-	dc.b	$02, nRst, $07, nA1, $02, nRst, $0A, nA1, $02, nRst, $04, nD2
-	dc.b	$06, nCs2, nB1, $08, nRst, $01, nB1, $02, nRst, $07, nFs1, $02
-	dc.b	nRst, $0A, nFs1, $02, nRst, $04, nB1, $06, nA1, nAb1, $08, nRst
-	dc.b	$01, nAb1, $02, nRst, $07, nAb1, $02, nRst, $0A, nA1, $02, nRst
-	dc.b	$04, nB1, $06, nCs2, nE2, $08, nRst, $01, nE2, $02, nRst, $07
-	dc.b	nE2, $02, nRst, $16, nE2, $06
+	dc.b	smpsNoAttack, nFs2, $04, nE2, $06
+	dc.b	nEb2, $09, $03, nRst, $06, nEb2, $03, nRst, $15, nEb2, $06
+	dc.b	nD2, $09, nD2, $03, nRst, $06, nA1, $03, nRst, $09, nA1, $03, nRst, nD2, $06, nCs2
+	dc.b	nB1, $09, nB1, $03, nRst, $06, nFs1, $03, nRst, $09, nFs1, $03, nRst, nB1, $06, nA1
+	dc.b	nAb1, $09, nAb1, $03, nRst, $06, nAb1, $03, nRst, $09, nA1, $03, nRst, nB1, $06, nCs2
+	dc.b	nE2, $09, nE2, $03, nRst, $06, nE2, $03, nRst, $15, nE2, $06
 	smpsJump				CometSTG2_FM2J
+
+CometSTG2_FM2C1:
+	smpsCall            CometSTG2_FM2CC1
+	smpsLoop            $00, $02, CometSTG2_FM2C1
+	dc.b	nCs2, $09, $03, nRst, $06, nAb1, $03, nB1, nRst, $06, nCs2, $03, nRst, nAb1, nB1, $09
+	dc.b	nA1, $03, nRst, nA1, nRst, nE1, nFs1, nRst, nA1, $06, $03, nRst, nE1, nFs1, $06, nE2
+
+	smpsCall            CometSTG2_FM2CC1
+	dc.b	nB1, $09, $03, nRst, $06, nFs1, $03, nA1, nRst, $06, nB1, $03, nRst, nFs1, nA1, nB1, $06
+
+	dc.b	nE1, $09, $03, nRst, $06, nB1, $03, nE1, nRst, $06, nE1, $03, nRst, nB1, nE1, $09
+	dc.b	$09, $03, nRst, $06, nB1, $03, nE1
+	smpsReturn
+
+CometSTG2_FM2CC1:
+	dc.b	nD2, $09, $03, nRst, $06, nA1, $03, nB1, nRst, $06, nD2, $03, nRst, nA1, nB1, $09
+	smpsReturn
 
 ; FM3 Data
 CometSTG2_FM3:
-	smpsSetvoice        $00
+;	smpsStop
+	smpsSetvoice        $02
 CometSTG2_Loop09:
-	dc.b	nB5, $02, nRst, $01
-	smpsLoop            $00, $03, CometSTG2_Loop09
-	dc.b	nB5, $02, nRst, $04, nB5, $02, nRst, $04, nB5, $02, nRst, $19
+	dc.b	nB5, $03, nB5, nB5, nB5, nRst, nB5, nRst, nB5, nRst, $18
 CometSTG2_FM3J:
 CometSTG2_Loop0A:
-	dc.b	nCs5, $08, nRst, $01, nCs5, $02, nRst, $07, nCs5, $1E, nRst, $06
-	dc.b	nCs5, $02, nRst, $07, nCs5, $02, nRst, $07, nCs5, $0C, nB4, nRst
-	dc.b	$09, nB4, $02, nRst, $07, nB4, $1E, nRst, $06, nB4, $02, nRst
-	dc.b	$07, nB4, $02, nRst, $07, nD5, $0B, nRst, $01, nD5, $0B, nRst
-	dc.b	$01, nCs5, $08, nRst, $01, nCs5, $02, nRst, $07, nCs5, $1E, nRst
-	dc.b	$06, nCs5, $02, nRst, $07, nCs5, $02, nRst, $07, nCs5, $0C, nD5
-	dc.b	nE5, $08, nRst, $01, nE5, $02, nRst, $07, nE5, $1E, nRst, $06
-	dc.b	nE5, $02, nRst, $07, nE5, $02, nRst, $07, nD5, $0B, nRst, $01
-	dc.b	nD5, $0B, nRst, $01
+	smpsCall            CometSTG2_FM3C1
+	dc.b	nB4, $09, $03, nRst, $06, nB4, $1E, nRst, $06, nB4, $03, nRst, $06, nB4, $03, nRst, $06, nD5, $0C, nD5
+	smpsCall            CometSTG2_FM3C1
+	dc.b	nE5, $09, $03, nRst, $06, nE5, $1E, nRst, $06, nE5, $03, nRst, $06, nE5, $03, nRst, $06, nD5, $0C, nD5
 	smpsLoop            $00, $02, CometSTG2_Loop0A
-	dc.b	nCs5, $30, nD5, $0F, nRst, $03, nCs5, $1E
-
-CometSTG2_Loop0B:
-	dc.b	nB4, $0F, nRst, $03, nA4, $1E
-	smpsLoop            $00, $02, CometSTG2_Loop0B
-	dc.b	nRst, $24, nB4, $0C, nCs5, $02, smpsNoAttack, nD5, $01, smpsNoAttack, nCs5, $21
-	dc.b	nE5, $0C, nD5, $30, nRst, $12, nE5, $1E
+	dc.b	nCs5, $30, nD5, $12, nCs5, $1E, nB4, $12, nA4, $1E, nB4, $12, nA4, $1E
+	dc.b	nA4, $24, nB4, $0C, nCs5, $24, nE5, $0C, nD5, $30, nD5, $12, nE5, $1E
 	smpsJump				CometSTG2_FM3J
+
+CometSTG2_FM3C1:
+	dc.b	nCs5, $09, $03, nRst, $06, nCs5, $1E, nRst, $06, nCs5, $03, nRst, $06, nCs5, $03, nRst, $06, nCs5, $0C, nB4
+	smpsReturn
 
 ; FM4 Data
 CometSTG2_FM4:
+;	smpsStop
+	smpsSetvoice        $02
 CometSTG2_Loop07:
-	dc.b	nG5, $02, nRst, $01
-	smpsLoop            $00, $03, CometSTG2_Loop07
-	dc.b	nG5, $02, nRst, $04, nG5, $02, nRst, $04, nG5, $02, nRst, $19
+	dc.b	nG5, $03, nG5, nG5, nG5, nRst, nG5, nRst, nG5, nRst, $18
 CometSTG2_FM4J:
 CometSTG2_Loop08:
 	dc.b	nA4, $08, nRst, $01, nA4, $02, nRst, $07, nA4, $1E, nRst, $06
@@ -226,10 +181,10 @@ CometSTG2_Loop08:
 
 ; FM5 Data
 CometSTG2_FM5:
+;	smpsStop
+	smpsSetvoice        $02
 CometSTG2_Loop05:
-	dc.b	nE5, $02, nRst, $01
-	smpsLoop            $00, $03, CometSTG2_Loop05
-	dc.b	nE5, $02, nRst, $04, nE5, $02, nRst, $05, nE5, $02, nRst, $18
+	dc.b	nE5, $03, nE5, nE5, nE5, nRst, nE5, nRst, nE5, nRst, $18
 CometSTG2_FM5J:
 CometSTG2_Loop06:
 	dc.b	nFs4, $08, nRst, $01, nFs4, $02, nRst, $07, nFs4, $1E, nRst, $06
@@ -249,6 +204,7 @@ CometSTG2_Loop06:
 
 ; PSG1 Data
 CometSTG2_PSG1:
+	smpsStop
 	dc.b	nRst, $30
 CometSTG2_PSG1J:
 CometSTG2_Loop21:
@@ -272,6 +228,7 @@ CometSTG2_Loop21:
 
 ; PSG2 Data
 CometSTG2_PSG2:
+;	smpsStop
 	dc.b	nRst, $30
 CometSTG2_PSG2J:
 	dc.b	nD1, $03, nFs1, nA1
@@ -390,42 +347,124 @@ CometSTG2_Loop11:
 	smpsPSGvoice        fTone_02
 	dc.b	$03, $03
 	smpsPSGvoice        fTone_01
-	dc.b	$09
+	dc.b	$06
 	smpsJump				CometSTG2_Loop10
 
+; DAC Data
+CometSTG2_DAC:
+;	smpsStop
+	dc.b	dSnare, $03, dSnare, dSnare, dSnare, $06, $06, $1B
+CometSTG2_DACJ:
+CometSTG2_Loop00:
+	smpsCall            CometSTG2_DACC1
+	smpsLoop            $00, $07, CometSTG2_Loop00
+	smpsCall            CometSTG2_DACC2
+	smpsCall            CometSTG2_DACC3
+
+CometSTG2_Loop01:
+	smpsCall            CometSTG2_DACC1
+	smpsLoop            $00, $07, CometSTG2_Loop01
+	smpsCall            CometSTG2_DACC2
+	dc.b	dSnare, dSnare, dSnare, dSnare, $06, $03, dSnare, dSnare, dSnare
+
+
+CometSTG2_Loop02:
+	smpsCall            CometSTG2_DACC1
+	smpsLoop            $00, $03, CometSTG2_Loop02
+	smpsCall            CometSTG2_DACC2
+	smpsCall            CometSTG2_DACC3
+
+CometSTG2_Loop03:
+	smpsCall            CometSTG2_DACC1
+	smpsLoop            $00, $03, CometSTG2_Loop03
+	smpsCall            CometSTG2_DACC2
+CometSTG2_Loop04:
+	dc.b	dSnare
+	smpsLoop            $00, $09, CometSTG2_Loop04
+	smpsJump				CometSTG2_DACJ
+
+CometSTG2_DACC1:
+	dc.b	dKick, $03, dKick, dKick, dKick, dSnare, dKick, dKick, dKick, dKick, dKick, dKick, $06
+	dc.b	dSnare, dKick, $03, dKick
+	smpsReturn
+
+CometSTG2_DACC2:
+	dc.b	dKick, dKick, dKick, dKick, dSnare, dKick, dKick
+	smpsReturn
+
+CometSTG2_DACC3:
+	dc.b	dKick, dKick, dKick, dKick, $06, dSnare, $03, dSnare, dSnare, dSnare
+	smpsReturn
+
 CometSTG2_Voices:
-;	Voice $00
+;	Voice $01
+;	$35
+;	$01, $01, $13, $00, 	$1F, $1D, $18, $19, 	$00, $09, $06, $0D
+;	$00, $00, $02, $03, 	$00, $06, $15, $16, 	$1E, $80, $83, $80
+	smpsVcAlgorithm     $05
+	smpsVcFeedback      $06
+	smpsVcUnusedBits    $00
+	smpsVcDetune        $00, $01, $00, $00
+	smpsVcCoarseFreq    $00, $03, $01, $01
+	smpsVcRateScale     $00, $00, $00, $00
+	smpsVcAttackRate    $19, $18, $1D, $1F
+	smpsVcAmpMod        $00, $00, $00, $00
+	smpsVcDecayRate1    $0D, $06, $09, $00
+	smpsVcDecayRate2    $03, $02, $00, $00
+	smpsVcDecayLevel    $01, $01, $00, $00
+	smpsVcReleaseRate   $06, $05, $06, $00
+	smpsVcTotalLevel    $00, $03, $00, $1E
+
+;	Voice $01
 ;	$3A
-;	$01, $07, $01, $01, 	$8E, $8E, $8D, $53, 	$0E, $0E, $0E, $03
-;	$00, $00, $00, $00, 	$1F, $FF, $1F, $0F, 	$18, $28, $27, $80
+;	$61, $3C, $14, $31, 	$9C, $DB, $9C, $DA, 	$04, $09, $04, $03
+;	$03, $01, $03, $00, 	$1F, $0F, $0F, $AF, 	$21, $47, $31, $80
 	smpsVcAlgorithm     $02
 	smpsVcFeedback      $07
 	smpsVcUnusedBits    $00
-	smpsVcDetune        $00, $00, $00, $00
-	smpsVcCoarseFreq    $01, $01, $07, $01
-	smpsVcRateScale     $01, $02, $02, $02
-	smpsVcAttackRate    $13, $0D, $0E, $0E
+	smpsVcDetune        $03, $01, $03, $06
+	smpsVcCoarseFreq    $01, $04, $0C, $01
+	smpsVcRateScale     $03, $02, $03, $02
+	smpsVcAttackRate    $1A, $1C, $1B, $1C
 	smpsVcAmpMod        $00, $00, $00, $00
-	smpsVcDecayRate1    $03, $0E, $0E, $0E
-	smpsVcDecayRate2    $08, $00, $00, $00
-	smpsVcDecayLevel    $00, $01, $0F, $01
+	smpsVcDecayRate1    $03, $04, $09, $04
+	smpsVcDecayRate2    $00, $03, $01, $03
+	smpsVcDecayLevel    $0A, $00, $00, $01
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
-	smpsVcTotalLevel    $00, $27, $28, $18
+	smpsVcTotalLevel    $00, $31, $47, $21
 
-;	Voice $1D
-;	$08
-;	$0A, $70, $30, $00, 	$1F, $1F, $5F, $5F, 	$12, $0E, $0A, $0A
-;	$00, $04, $04, $03, 	$2F, $2F, $2F, $2F, 	$24, $2D, $13, $80
-	smpsVcAlgorithm     $00
-	smpsVcFeedback      $01
+;	Voice $02
+;	$04
+;	$72, $42, $32, $32, 	$1F, $1F, $1F, $1F, 	$00, $00, $00, $00
+;	$00, $00, $00, $00, 	$00, $07, $00, $07, 	$23, $80, $23, $80
+	smpsVcAlgorithm     $04
+	smpsVcFeedback      $00
 	smpsVcUnusedBits    $00
-	smpsVcDetune        $00, $03, $07, $00
-	smpsVcCoarseFreq    $00, $00, $00, $0A
-	smpsVcRateScale     $01, $01, $00, $00
+	smpsVcDetune        $03, $03, $04, $07
+	smpsVcCoarseFreq    $02, $02, $02, $02
+	smpsVcRateScale     $00, $00, $00, $00
 	smpsVcAttackRate    $1F, $1F, $1F, $1F
 	smpsVcAmpMod        $00, $00, $00, $00
-	smpsVcDecayRate1    $0A, $0A, $0E, $12
-	smpsVcDecayRate2    $03, $04, $04, $00
-	smpsVcDecayLevel    $02, $02, $02, $02
-	smpsVcReleaseRate   $0F, $0F, $0F, $0F
-	smpsVcTotalLevel    $00, $13, $2D, $24
+	smpsVcDecayRate1    $00, $00, $00, $00
+	smpsVcDecayRate2    $00, $00, $00, $00
+	smpsVcDecayLevel    $00, $00, $00, $00
+	smpsVcReleaseRate   $07, $00, $07, $00
+	smpsVcTotalLevel    $00, $23, $00, $23
+
+;	Voice $01
+;	$35
+;	$01, $01, $13, $00, 	$1F, $1D, $18, $19, 	$00, $09, $06, $0D
+;	$00, $00, $02, $03, 	$00, $06, $15, $16, 	$1E, $80, $83, $80
+	smpsVcAlgorithm     $05
+	smpsVcFeedback      $06
+	smpsVcUnusedBits    $00
+	smpsVcDetune        $00, $01, $00, $00
+	smpsVcCoarseFreq    $00, $03, $01, $01
+	smpsVcRateScale     $00, $00, $00, $00
+	smpsVcAttackRate    $19, $18, $1D, $1F
+	smpsVcAmpMod        $00, $00, $00, $00
+	smpsVcDecayRate1    $0D, $06, $09, $00
+	smpsVcDecayRate2    $03, $02, $00, $00
+	smpsVcDecayLevel    $01, $01, $00, $00
+	smpsVcReleaseRate   $06, $05, $06, $00
+	smpsVcTotalLevel    $00, $03, $00, $1E
