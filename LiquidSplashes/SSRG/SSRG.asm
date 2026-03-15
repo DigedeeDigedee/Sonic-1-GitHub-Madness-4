@@ -701,7 +701,7 @@ OL_NoMove:
 
 OL_NoFinish:
 		; !@ play glass block sound
-		move.b	#dBoik,d0	; Boik
+		move.b	#dFuck,d0	; Fuck
 		jsr	(MegaPCM_PlaySample).l
 		addi.b	#$20,$02(a0)				; increase palette line being used
 
