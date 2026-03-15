@@ -79,9 +79,8 @@ RickTeamheads_Screen:
 		
 		moveq   #palid_Savethemoonsonic,d0      
 		bsr.w   Set_PalLoad1
-		move.b	#$B4,d0	; Boik
-		jsr		(MegaPCM_PlaySample).l
-		
+		move.b	#dBoik,d0	; Boik
+		jsr	(MegaPCM_PlaySample).l
 		move.w  #$40,(Timer).w          ; Time
 		move.w  (VDP_buff).w,d0
 		ori.b   #$40,d0
@@ -129,7 +128,7 @@ Testicle_Wait:
 		bne.s   Testicle_Wait
 
 Exit_Splashes:
- 		jmp	RunSplashes	
+ 		rts
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; MISC
