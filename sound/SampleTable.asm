@@ -92,7 +92,7 @@ SampleTable:
 	dcSample	TYPE_PCM,	letsgoeee,	0,	FLAGS_SFX	; $C3
 	dcSample	TYPE_PCM,	Lg,		16000, FLAGS_SFX	; $C4
 	dcSample	TYPE_PCM,	Segay,		0, FLAGS_SFX		; $C5
-
+	dcSample	TYPE_PCM,	Foxy,		0, FLAGS_SFX		; $C6
 
 	; ADVISORY: If you're coming to this repo just to add samples,
 	; they are going to get removed. Sorry!
@@ -165,6 +165,7 @@ SampleTable:
 	incdac	QuakeJump, "sound/dac/quakejump.wav"
 	incdac	letsgoeee, "sound/dac/letsgoeee.wav"   ; hi
 	incdac	Lg, "sound/dac/lg/Echo.pcm"
+	incdac	Foxy, "sound/dac/foxy.wav"
 ; ---------------------------------------------------------------
 ; Null level end
 	incdac	BoingBoing, "sound/dac/BoingBoing.dpcm"

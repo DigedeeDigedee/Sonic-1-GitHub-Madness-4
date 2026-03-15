@@ -400,7 +400,7 @@ ptr_GM_Cont:		dc.l	GM_Continue		; Continue Screen ($14)
 ptr_GM_Ending:		dc.l	GM_Ending		; End of game sequence ($18)
 ptr_GM_Credits:		dc.l	GM_Credits		; Credits ($1C)
 ptr_GM_ColdBrew:	dc.l	GM_ColdBrew		; Cold Brew ($20)
-ptr_GM_SegaEU:		dc.l	GM_ColdBrew		; Sega Screen EU ($24)
+ptr_GM_FoxyBoo:		dc.l	GM_FoxyBoo		; Foxy Scare ($24)
 ptr_GM_DebugMode:	dc.l	GM_DebugMenu		; Debug Menu ($28)
 ptr_GM_ThanatosCredits:	dc.l	GM_ThanatosCredits	; Credits - Thanatos ver. ($2C)
 ptr_GM_ButtcrackMan:	dc.l	GM_ButtcrackMan		; BUTTCRACK MAN ($30)
@@ -2762,6 +2762,10 @@ Level_SkipScroll:
 Level_Restarted:
 		cmpi.b	#id_Demo,(v_gamemode).w
 		beq.s	Level_EndDemo
+		cmpi.w	#2,(f_restart).w
+		bne.s	NotFoxy
+		jsr	(GM_FoxyBoo).l
+NotFoxy:
 		bra.w	GM_Level
 ; ===========================================================================
 
@@ -7137,6 +7141,7 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 		include "conimodes/winxp/GM_NTOSKRNL.asm"
 		include "conimodes/splash/GM_CNNicoJump.asm"
 		include "conimodes/fetus/GM_Fetus.asm"
+		include "conimodes/FoxyBoo/GM_FoxyBoo.asm"
 		include "_gamemode/ThanatosCredits/Main.asm"
 
 		include "Buttcrack/Game.asm"
