@@ -2968,7 +2968,7 @@ GM_Special:
 		move.b	#id_SonicSpecial,(v_player).w ; load special stage Sonic object
 		bsr.w	PalCycle_SS
 		clr.w	(v_ssangle).w	; set stage angle to "upright"
-		move.w	#$40,(v_ssrotate).w ; set stage rotation speed
+		move.w	#$90,(v_ssrotate).w ; set stage rotation speed
 		move.w	#bgm_SS,d0
 		bsr.w	QueueSound1	; play special stage BG music
 		move.w	#0,(v_btnpushtime1).w
