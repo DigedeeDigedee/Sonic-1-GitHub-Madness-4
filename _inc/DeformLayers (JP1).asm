@@ -462,71 +462,25 @@ Deform_SYZ:
 		bsr.w	Bg_Scroll_Y
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_vdp).w
 	; calculate background scroll buffer
-		lea	(v_bgscroll_buffer).w,a1
-		move.w	(v_screenposx).w,d2
-		neg.w	d2
+		lea	(v_hscrolltablebuffer).w,a1
+		add.w	#4,v_bgscroll_buffer
+		move.w	(v_bgscroll_buffer).w,d2
+		move.w	(v_screenposx).w,d0
+		neg	d0
+		swap 	d0
 		move.w	d2,d0
-		asr.w	#3,d0
-		sub.w	d2,d0
-		ext.l	d0
-		asl.l	#3,d0
-		divs.w	#8,d0
-		ext.l	d0
-		asl.l	#4,d0
-		asl.l	#8,d0
-		moveq	#0,d3
-		move.w	d2,d3
-		asr.w	#1,d3
-		move.w	#7,d1
-	.cloudLoop:		
-		move.w	d3,(a1)+
-		swap	d3
-		add.l	d0,d3
-		swap	d3
-		dbf	d1,.cloudLoop
-
-		move.w	d2,d0
-		asr.w	#3,d0
-		move.w	#4,d1
-	.mountainLoop:		
-		move.w	d0,(a1)+
-		dbf	d1,.mountainLoop
-
-		move.w	d2,d0
-		asr.w	#2,d0
-		move.w	#5,d1
+		move.w	#256-1,d1
 	.buildingLoop:		
-		move.w	d0,(a1)+
+		move.l	d0,(a1)+
 		dbf	d1,.buildingLoop
-
-		move.w	d2,d0
-		move.w	d2,d1
-		asr.w	#1,d1
-		sub.w	d1,d0
-		ext.l	d0
-		asl.l	#4,d0
-		divs.w	#$E,d0
-		ext.l	d0
-		asl.l	#4,d0
-		asl.l	#8,d0
-		moveq	#0,d3
-		move.w	d2,d3
-		asr.w	#1,d3
-		move.w	#$D,d1
-	.bushLoop:		
-		move.w	d3,(a1)+
-		swap	d3
-		add.l	d0,d3
-		swap	d3
-		dbf	d1,.bushLoop
-
-		lea	(v_bgscroll_buffer).w,a2
-		move.w	(v_bgscreenposy).w,d0
-		move.w	d0,d2
-		andi.w	#$1F0,d0
-		lsr.w	#3,d0
-		lea	(a2,d0.w),a2
-		bra.w	Bg_Scroll_X
+		rts
+		;lea	(v_bgscroll_buffer).w,a2
+		;move.w	(v_bgscreenposy).w,d0
+		;move.w	d0,d2
+		;andi.w	#$1F0,d0
+		;lsr.w	#3,d0
+		;lea	(a2,d0.w),a2
+		;bra.w	Bg_Scroll_X
 ; End of function Deform_SYZ
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
