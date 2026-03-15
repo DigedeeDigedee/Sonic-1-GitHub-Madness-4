@@ -206,7 +206,7 @@ splash_turd macro routine
 	;inc_solid_splash GenesisCan2
 	;inc_solid_splash SM64_MM
 
-	;inc_solid_splash Blessed
+	inc_solid_splash Blessed
 	;inc_solid_splash Shiki
 	;inc_solid_splash SonicBroke
 	;inc_solid_splash Monke
