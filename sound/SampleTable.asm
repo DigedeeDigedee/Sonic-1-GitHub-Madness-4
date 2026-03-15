@@ -66,8 +66,9 @@ SampleTable:
 	;!@ DELETED - NOP'd out with dummy.wav
 	;dcSample	TYPE_DPCM,	GenesisCan1,16000,FLAGS_SFX		; $B1
 	;dcSample	TYPE_DPCM,	GenesisCan2,16000,FLAGS_SFX		; $B2
+	;dcSample	TYPE_DPCM,	SM64_MM,16000,FLAGS_SFX			; $B3
 	dcSample	TYPE_DPCM,	dummy,16000,FLAGS_SFX			; $B1
-	dcSample	TYPE_DPCM,	dummy,16000,FLAGS_SFX			; $B2	
+	dcSample	TYPE_DPCM,	dummy,16000,FLAGS_SFX			; $B2
 	dcSample	TYPE_DPCM,	Boost,		16000,FLAGS_SFX		; $B3
 	
 	dcSample	TYPE_DPCM,	DAMN,		16000				; $B4

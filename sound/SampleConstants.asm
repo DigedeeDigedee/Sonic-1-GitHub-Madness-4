@@ -70,7 +70,7 @@ dEggmanLaugh		ds.b 1
 dGenesisDoes1		ds.b 1
 dGenesisCan1		ds.b 1
 dGenesisCan2		ds.b 1
-;dSM64_MM			ds.b 1
+dSM64_MM			ds.b 1
 dBoostPower			ds.b 1
 
 dQuakeRocket		ds.b 1
