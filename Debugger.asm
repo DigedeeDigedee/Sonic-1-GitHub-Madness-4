@@ -58,7 +58,7 @@ symdisp	equ		$C0				; flag to display as symbol's displacement alone (DO NOT USE
 str		equ		$D0				; flag to display as string (treat as offset, insert string from that offset)
 
 ; NOTES:
-;	* By default, the "sym" flag displays both symbol and displacement (e.g.: "Map_Sonic+$2E")
+;	* By default, the "sym" flag displays both symbol and displacement (e.g.: "Map_Tonic+$2E")
 ;		In case, you need a different formatting for the displacement part (different text color and such),
 ;		use "sym|split", so the displacement won't be displayed until symdisp is met
 ;	* The "symdisp" can only be used after the "sym|split" instance, which decodes offset, otherwise, it'll
