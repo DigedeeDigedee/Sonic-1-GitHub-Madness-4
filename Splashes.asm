@@ -149,11 +149,13 @@ splash_turd macro routine
 	endm
 
 ; Entries
+	splash_liquid	MultiSplash_Init
 	splash_liquid	SonicRetro
 	splash_liquid	GM_SSRGScreen
 	splash_liquid	GM_EagleSoft
 	splash_liquid	GM_CNNicoJump
 	splash_liquid	DaxKatter_Splash
+	splash_liquid	Malachi_Splash
 	splash_liquid	GM_TGSplash
 	splash_liquid	Yume2kki
 
@@ -240,6 +242,7 @@ splash_turd macro routine
 	include "LiquidSplashes/SSRG/SSRG.asm"
 	include "LiquidSplashes/EagleSoft/EagleSoft.asm"
 	include "DAX_Splash/DaxKatter Splash.asm"
+	include "_gamemode/vmss/_runcode.asm"
 	include "Nano's SHIT/splash/GM_SplashScreenSkipper.asm"
 	include "LiquidSplashes/2kki/2kki.asm"
 	include "eurosega/eurosega.asm"
