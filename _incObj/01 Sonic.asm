@@ -867,7 +867,7 @@ Sonic_LevelBound:
 		blo.s	.skip
 		move.w	d1,d0
 .skip:
-		addi.w	#324,d0
+		addi.w	#224,d0
 		cmp.w	obY(a0),d0	; has Sonic touched the bottom boundary?
 		blt.s	.bottom		; if yes, branch
 		rts
@@ -875,6 +875,19 @@ Sonic_LevelBound:
 
 ; Boundary_Bottom
 .bottom:
+		addi.w	#$4C4,d0
+		cmp.w	obY(a0),d0	; has Sonic touched the bottom boundary?
+		blt.s	.bottom2		; if yes, branch 
+		tst.b   $3A(a0)     ; codeeeee
+		bne.s   .no_sfx 
+		move.b  #1, $3A(a0) 
+		bsr.w	reproduceSFX	
+		
+.no_sfx:
+		rts
+; ===========================================================================
+		
+.bottom2:		
 		cmpi.w	#(id_SBZ<<8)+1,(v_zone).w ; is level SBZ2 ?
 		bne.s	.JUMP_KillSonic	; if not, kill Sonic
 		cmpi.w	#$2000,(v_player+obX).w
@@ -884,9 +897,7 @@ Sonic_LevelBound:
 		move.w	#(id_LZ<<8)+3,(v_zone).w ; set level to SBZ3 (LZ4)
 		rts
 .JUMP_KillSonic:	
-           			move.w	#sfx_Lamppost,d0
-		jsr	(QueueSound2).l	; play lamppost sound
-		   jmp (KillSonic).l
+		jmp (KillSonic).l
 ; ===========================================================================
 
 ; Boundary_Sides
@@ -903,10 +914,14 @@ Sonic_LevelBound:
 		move.w	#0,obX+2(a0)
 		move.w	#0,obInertia(a0)
 		move.w	#-$200,obVelY(a0)
-		move.w	#sfx_Bonus,d0
-		jsr	QueueSound2
+		move.b	#dBoik,d0	; Boik
+		jsr		(MegaPCM_PlaySample).l
 		bra.w	.chkbottom
 ; End of function Sonic_LevelBound
+
+reproduceSFX:
+        move.w	#sfx_Lamppost,d0
+		jmp	(QueueSound2).l	; play lamppost sound
 
 ; ---------------------------------------------------------------------------
 ; Subroutine allowing Sonic to roll when he's moving
