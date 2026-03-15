@@ -1,6 +1,7 @@
 REM Custom build process to re-compress all art assets, for space saving$
 
 Set Recomp=0
+Set musiccomp=0
 IF %Recomp% EQU 0 GOTO SKIP
 
 cls
@@ -106,6 +107,14 @@ call recmp.bat
 cd ..
 
 :SKIP
+
+if %MusicComp% equ 0 goto skip2
+
+cd "sound"
+call compile_sound.bat
+cd ..
+
+:skip2
 
 @ECHO OFF
 REM // This file has been gutted and replaced with the Lua build script.
