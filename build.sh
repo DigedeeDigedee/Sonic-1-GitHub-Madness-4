@@ -1,5 +1,13 @@
 #!/bin/bash
 
+comp_music=0
+
+if [ $comp_music -eq 1 ]; then
+    cd sound
+    ./compile_sound.sh
+    cd ..
+fi
+
 # Translation of lua into bash
 input_filename="sonic"
 output_filename="gm4built"
