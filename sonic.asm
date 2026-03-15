@@ -1985,6 +1985,7 @@ Pal_TryAgain:		bincludeEndMarker	"palette/TryAgain.bin"
 Pal_FelixDecision:	bincludeEndMarker	"ContinueScreen/Graphics/Tile/Decision/Palette.bin"
 Pal_FelixGameOver:	bincludeEndMarker	"ContinueScreen/Graphics/Tile/GameOver/Palette.bin"
 Pal_Joint:		bincludeEndMarker	"palette/Joint Zone.bin"
+Pal_DVZ:		bincludeEndMarker	"palette/DoleVille Zone.bin"
 
 Pal_SplashPal:	bincludeEndMarker	"eurosega/pal.bin"
 Pal_ColdBrew:	bincludeEndMarker	"conimodes/cold brew/palette.bin"
@@ -2432,7 +2433,7 @@ Demo_Levels:	binclude	"misc/Demo Level Order - Intro.bin"
 ; ---------------------------------------------------------------------------
 ;MusicList:
 ;		dc.b bgm_GHZ		; GHZ1
-;		dc.b bgm_Carefree	; GHZ2
+;		dc.b bgm_OrangeSong	; GHZ2
 ;		dc.b bgm_GreenHills	; GHZ3
 ;		dc.b bgm_GHZ		; GHZ4
 ;		dc.b bgm_LZ		; LZ1

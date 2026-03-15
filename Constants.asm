@@ -102,6 +102,7 @@ id_SS:		equ 6
 id_CBZ:		equ 7
 id_WIN:		equ 8
 id_Joint:	equ 9
+id_DVZ:		equ 10
 
 ; Playable Characters
 chrid_tonic	equ 0
@@ -311,7 +312,8 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_DoleBOSS
 	nextenum bgm_GreenHill
 	nextenum bgm_CleanSlate
-bgm__Last = bgm_DoleBOSS
+	nextenum bgm_OrangeSong
+bgm__Last = bgm_OrangeSong
 
 ; Sound effects
 	enum	sfx__First=$A0
@@ -472,6 +474,9 @@ fr_Float6:	equ 1+$54
 fr_Injury:	equ 1+$55
 fr_GetAir:	equ 1+$56
 fr_WaterSlide:	equ 1+$57
+; rape
+fr_Spring2:	equ 1+$5C
+fr_Spring3:	equ 1+$5D
 
 ; Boss locations
 ; The main values are based on where the camera boundaries mainly lie
