@@ -1,40 +1,28 @@
-; ---------------------------------------------------------------------------
-; Sprite mappings - swinging ball on a chain from GHZ boss
-; ---------------------------------------------------------------------------
-Map_GBall_internal:	mappingsTable
-	mappingsTableEntry.w	.shiny
-	mappingsTableEntry.w	.check1
-	mappingsTableEntry.w	.check2
-	mappingsTableEntry.w	.check3
+; --------------------------------------------------------------------------------
+; Sprite mappings - output from SonMapEd - Sonic 1 format
+; --------------------------------------------------------------------------------
 
-.shiny:	spriteHeader
-	spritePiece	-$10, -$10, 2, 1, $24, 0, 0, 0, 0
-	spritePiece	-$10, -8, 2, 1, $24, 0, 1, 0, 0
-	spritePiece	-$18, -$18, 3, 3, 0, 0, 0, 0, 0
-	spritePiece	0, -$18, 3, 3, 0, 1, 0, 0, 0
-	spritePiece	-$18, 0, 3, 3, 0, 0, 1, 0, 0
-	spritePiece	0, 0, 3, 3, 0, 1, 1, 0, 0
-.shiny_End
-
-.check1:	spriteHeader
-	spritePiece	-$18, -$18, 3, 3, 9, 0, 0, 0, 0
-	spritePiece	0, -$18, 3, 3, 9, 1, 0, 0, 0
-	spritePiece	-$18, 0, 3, 3, 9, 0, 1, 0, 0
-	spritePiece	0, 0, 3, 3, 9, 1, 1, 0, 0
-.check1_End
-
-.check2:	spriteHeader
-	spritePiece	-$18, -$18, 3, 3, $12, 0, 0, 0, 0
-	spritePiece	0, -$18, 3, 3, $1B, 0, 0, 0, 0
-	spritePiece	-$18, 0, 3, 3, $1B, 1, 1, 0, 0
-	spritePiece	0, 0, 3, 3, $12, 1, 1, 0, 0
-.check2_End
-
-.check3:	spriteHeader
-	spritePiece	-$18, -$18, 3, 3, $1B, 1, 0, 0, 0
-	spritePiece	0, -$18, 3, 3, $12, 1, 0, 0, 0
-	spritePiece	-$18, 0, 3, 3, $12, 0, 1, 0, 0
-	spritePiece	0, 0, 3, 3, $1B, 0, 1, 0, 0
-.check3_End
-
-	even
+SME_AogG6:	
+		dc.w SME_AogG6_8-SME_AogG6, SME_AogG6_1D-SME_AogG6	
+		dc.w SME_AogG6_32-SME_AogG6, SME_AogG6_47-SME_AogG6	
+SME_AogG6_8:	dc.b 4	
+		dc.b $E8, $A, 0, 0, $E8	
+		dc.b 0, $A, 0, 9, $E8	
+		dc.b $E8, $A, 0, $12, 0	
+		dc.b 0, $A, 0, $1B, 0	
+SME_AogG6_1D:	dc.b 4	
+		dc.b $E8, $A, 0, 0, $E8	
+		dc.b 0, $A, 0, 9, $E8	
+		dc.b $E8, $A, 0, $12, 0	
+		dc.b 0, $A, 0, $1B, 0	
+SME_AogG6_32:	dc.b 4	
+		dc.b $E8, $A, 0, 0, $E8	
+		dc.b 0, $A, 0, 9, $E8	
+		dc.b $E8, $A, 0, $12, 0	
+		dc.b 0, $A, 0, $1B, 0	
+SME_AogG6_47:	dc.b 4	
+		dc.b $E8, $A, 0, 0, $E8	
+		dc.b 0, $A, 0, 9, $E8	
+		dc.b $E8, $A, 0, $12, 0	
+		dc.b 0, $A, 0, $1B, 0	
+		even
