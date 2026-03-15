@@ -63,6 +63,9 @@ ptr_sndCF:	dc.l SoundCF
 ptr_sndD0:	dc.l SoundD0
 ptr_sndD1:	dc.l SoundD1
 ptr_sndD2:	dc.l SoundD2
+ptr_sndD3:	dc.l SoundD3
+ptr_sndD4:	dc.l SoundD4
+ptr_sndD5:	dc.l SoundD5
 
 ; ---------------------------------------------------------------------------
 ; Sound effect data
@@ -169,5 +172,10 @@ SoundD1:	include "sfx/Snd - Dash.asm"
 		even
 SoundD2:	include "sfx/Snd - Menu Confirm.asm"
 		even
-
+SoundD3:	include "sfx/TonicTongue.asm"
+		even
+SoundD4:	include "sfx/FC Blip.asm"
+		even
+SoundD5:	include "sfx/FC Select.asm"
+		even
 	END
