@@ -412,6 +412,7 @@ ptr_GM_TGSplash:	dc.l	GM_TGSplash		; TG2000 Splash Screen ($44)
 ptr_GM_NMR:		dc.l	GM_NT			; Shitle Team ($48)
 ptr_GM_DaxKatter:	dc.l	GM_DaxKatter		; DaxKatter Brings You
 ptr_SplashScreenSkipper:dc.l	GM_SplashScreenSkipper	; My Stupid Splash is here
+ptr_Advert:		dc.l	GM_Advert		; For all the reject splash screens I guess
 ;ptr_GM_RPGBattle:	dc.l	GM_RPGBattle		; RPG Battle (for Azure Rainforest) ($4C)
 GameModeArray_End:
 ; ===========================================================================
@@ -2869,6 +2870,23 @@ ColPointers:	dc.l Col_GHZ
 
 
 SynchroAnimate:
+; Used for giving advertisements
+		addq.l	#1,(v_adverttimer).w
+		cmp.l	#((5*60)*60),(v_adverttimer).w
+		blo.s	.notyet
+		subq.l	#1,(v_adverttimer).w			; wait upon the following criteria
+		tst.b	(f_timecount).w				; 1. HUD timer is paused (signposts)
+		beq.s	.notyet
+		tst.b	(v_bossstatus).w			; 2. Boss is defeated or prison is opened
+		bne.s	.notyet
+		cmp.b	#id_Level,(v_gamemode).w		; 3. It's not a level (demo, ending, etc)
+		bne.s	.notyet
+		clr.l	(v_adverttimer).w			; play an advertisement
+		move.b	#id_Advert,(v_gamemode).w
+	;	moveq	#1,d0					; TODO: need to differenciate the advert from the lamppost
+	;	lea	v_player,a0
+	;	jsr	Advert_StoreInfo
+.notyet:
 
 ; Used for GHZ spiked log
 Sync1:
@@ -7165,6 +7183,7 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 		include	"ContinueScreen/Continue.asm"
 
 		include "Splashes.asm"
+		include "_gamemode/advert/advert.asm"
 		include	"_inc/GHM3Explode.asm"
 
 		include	"_gamemode/damn/damn.asm"

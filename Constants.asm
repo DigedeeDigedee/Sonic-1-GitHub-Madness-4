@@ -93,6 +93,7 @@ id_TGSplash:	equ ptr_GM_TGSplash-GameModeArray; $44
 id_NMR:		equ ptr_GM_NMR-GameModeArray
 id_DaxKatter:	equ ptr_GM_DaxKatter-GameModeArray
 id_SplashSkip:	equ ptr_SplashScreenSkipper-GameModeArray
+id_Advert:	equ ptr_Advert-GameModeArray
 ;id_RPGBattle:	equ ptr_GM_RPGBattle-GameModeArray
 
 ; Levels

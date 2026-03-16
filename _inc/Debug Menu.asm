@@ -533,8 +533,10 @@ GamemodeNameTable:
 		dc.w	.TG2000Logo-.t
 		dc.w	.NMR-.t
 		dc.w	.DaxKatter-.t
-		rept ( (GameModeArray_End-GameModeArray)-(((*)-.t)*2) )/4
 		dc.w	.Skipper-.t
+		dc.w	.Advert-.t
+		rept ( (GameModeArray_End-GameModeArray)-(((*)-.t)*2) )/4
+		dc.w	.Placeholder-.t
 		endr
 
 .Sega:		dc.b	"SEGA SCREEN     "
@@ -558,6 +560,8 @@ GamemodeNameTable:
 .NMR:		dc.b	"NEEDLEMOUSE TEAM"
 .DaxKatter:	dc.b	"DAXKATTER LOGO  "
 .Skipper:	dc.b	"SPLASH SKIPPER  "
+.Advert:	dc.b	"ADVERTISEMENTS  "
+.Placeholder:	dc.b	"PLACEHOLDER NAME"
 		even
 
 CharacterNameTable:

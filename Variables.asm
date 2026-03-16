@@ -428,9 +428,10 @@ v_bg1_scroll_flags_dup:	ds.w	1
 v_bg2_scroll_flags_dup:	ds.w	1
 v_bg3_scroll_flags_dup:	ds.w	1
 			ds.b 	1
-			ds.b	$47		; unused
+			ds.b	$43		; unused
 v_timingandscreenvariables_end:
 
+v_adverttimer:		ds.l	1
 v_levseldelay:		ds.w	1		; level select - time until change when up/down is held
 v_levselitem:		ds.w	1		; level select - item selected
 v_levselsound:		ds.w	1		; level select - sound selected

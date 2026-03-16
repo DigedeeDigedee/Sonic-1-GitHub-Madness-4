@@ -135,11 +135,15 @@ Lamp_Twirl:	; Routine 6
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to store information when you hit a lamppost
+; d0 = lamppost number
+; a0 = object
 ; ---------------------------------------------------------------------------
 
 Lamp_StoreInfo:
-		move.b	obSubtype(a0),(v_lastlamp).w 		; lamppost number
-		move.b	(v_lastlamp).w,(v_lastlamp+1).w
+		move.b	obSubtype(a0),d0
+		move.b	d0,(v_lastlamp+1).w			; saved lamppost number
+Advert_StoreInfo:
+		move.b	d0,(v_lastlamp).w 			; lamppost number
 		move.w	obX(a0),(v_lamp_xpos).w			; x-position
 		move.w	obY(a0),(v_lamp_ypos).w			; y-position
 		move.w	(v_rings).w,(v_lamp_rings).w 		; rings
@@ -190,14 +194,9 @@ Lamp_LoadInfo:
 		move.w	(v_lamp_bg2scry).w,(v_bg2screenposy).w
 		move.w	(v_lamp_bg3scrx).w,(v_bg3screenposx).w
 		move.w	(v_lamp_bg3scry).w,(v_bg3screenposy).w
-		tst.b	(v_waterflag).w	; is this Labyrinth Zone?
-		bpl.s	.notlabyrinth	; if not, branch
-
 		move.w	(v_lamp_wtrpos).w,(v_waterpos2).w
 		move.b	(v_lamp_wtrrout).w,(v_wtr_routine).w
 		move.b	(v_lamp_wtrstat).w,(f_wtr_state).w
-
-.notlabyrinth:
 		tst.b	(v_lastlamp).w
 		bpl.s	locret_170F6
 		move.w	(v_lamp_xpos).w,d0
