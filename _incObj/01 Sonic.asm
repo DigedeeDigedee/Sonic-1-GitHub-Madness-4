@@ -84,7 +84,7 @@ GetPlayerData:
 
 PlayerMapList:
 	dc.l	Map_Tonic,Dgfx_Tonic,Art_Tonic,Pal_Tonic
-	dc.l	Map_Sonic,Dgfx_Sonic,Art_Sonic,Pal_Sonic_2
+	dc.l	Map_Maniac,Dgfx_Maniac,Art_Maniac,Pal_Maniac
 
 ; ----------------------------------------------------------------------------
 ; TeethTonic character init routine
