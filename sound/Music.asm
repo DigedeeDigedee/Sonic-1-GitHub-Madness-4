@@ -336,4 +336,6 @@ Music60:	include	"music/TG2000Tracks/Elevator.asm"
 		even
 Music61:	include	"music/CNTracks/SUNSET.asm"
 		even
+Music62:	include	"music/TG2000Tracks/SonUnderground.asm" 
+		even
 	END
