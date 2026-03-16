@@ -35,27 +35,39 @@ Nem_TGTiles:	binclude	"TGSplash/tiles.bin"
 		even
 
 ; ---------------------------------------------------------------------------
-; Uncompressed graphics - Sonic
+; Uncompressed graphics - Sonic (base)
 ; ---------------------------------------------------------------------------
-Map_Tonic:	include		"_maps/Tonic.asm"
-		even
-Dgfx_Tonic:	include		"_maps/Tonic DGFX.asm"
-		even
-Art_Tonic:	binclude	"artunc/Tonic.bin"	; Sonic
-		even
-Pal_Tonic:	binclude	"palette/Tonic.bin"
+;Map_Sonic:	include		"char_assets/Sonic Map.asm"
+;		even
+;Dgfx_Sonic:	include		"char_assets/Sonic DGFX.asm"
+;		even
+;Art_Sonic:	binclude	"char_assets/Sonic Art.bin"	; Sonic
+;		even
+;Pal_Sonic_2:	binclude	"char_assets/Sonic Pal.bin"
 		even
 ; ---------------------------------------------------------------------------
-; Uncompressed graphics - Sonic
+; Uncompressed graphics - Teeth Tonic
 ; ---------------------------------------------------------------------------
-Map_Sonic:	include		"_maps/Sonic.asm"
+Map_Tonic:	include		"char_assets/Tonic Map.asm"
 		even
-Dgfx_Sonic:	include		"_maps/Sonic - Dynamic Gfx Script.asm"
+Dgfx_Tonic:	include		"char_assets/Tonic DGFX.asm"
 		even
-Art_Sonic:	binclude	"artunc/Sonic.bin"	; Sonic
+Art_Tonic:	binclude	"char_assets/Tonic Art.bin"	; Sonic
 		even
-Pal_Sonic_2:	binclude	"palette/Sonic.bin"
+Pal_Tonic:	binclude	"char_assets/Tonic Pal.bin"
 		even
+; ---------------------------------------------------------------------------
+; Uncompressed graphics - Maniac Mouse
+; ---------------------------------------------------------------------------
+Map_Maniac:	include		"char_assets/Maniac Map.asm"
+		even
+Dgfx_Maniac:	include		"char_assets/Maniac DGFX.asm"
+		even
+Art_Maniac:	binclude	"char_assets/Maniac Art.bin"	; Sonic
+		even
+Pal_Maniac:	binclude	"char_assets/Maniac Pal.bin"
+		even
+
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
 ; ---------------------------------------------------------------------------
