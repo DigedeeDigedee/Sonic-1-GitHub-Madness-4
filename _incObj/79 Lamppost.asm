@@ -162,6 +162,9 @@ Advert_StoreInfo:
 		move.w	(v_waterpos2).w,(v_lamp_wtrpos).w 	; water height
 		move.b	(v_wtr_routine).w,(v_lamp_wtrrout).w	; rountine counter for water
 		move.b	(f_wtr_state).w,(v_lamp_wtrstat).w 	; water direction
+		; added to prevent a bug in CBZ3 - CONI
+		move.w	(v_limitleft2).w,(v_lamp_limitleft).w 	; lower left-boundary of level
+		move.w	(v_limitright2).w,(v_lamp_limitright).w 	; lower right-boundary of level
 		rts
 
 ; ---------------------------------------------------------------------------
@@ -186,6 +189,12 @@ Lamp_LoadInfo:
 		move.b	(v_lamp_wtrrout).w,(v_wtr_routine).w
 		move.w	(v_lamp_limitbtm).w,(v_limitbtm2).w
 		move.w	(v_lamp_limitbtm).w,(v_limitbtm1).w
+		; THIS WILL WORK - CONI
+		move.w	(v_lamp_limitleft).w,(v_limitleft2).w
+		move.w	(v_lamp_limitleft).w,(v_limitleft1).w
+		move.w	(v_lamp_limitright).w,(v_limitright2).w
+		move.w	(v_lamp_limitright).w,(v_limitright1).w
+		; I PROMISE - CONI
 		move.w	(v_lamp_scrx).w,(v_screenposx).w
 		move.w	(v_lamp_scry).w,(v_screenposy).w
 		move.w	(v_lamp_bgscrx).w,(v_bgscreenposx).w

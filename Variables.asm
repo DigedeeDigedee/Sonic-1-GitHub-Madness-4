@@ -399,7 +399,9 @@ v_timingvariables:
 			ds.b	$40		; values which oscillate - for swinging platforms, et al
 v_layoutptr		ds.l	1
 v_bglayoutptr		ds.l	1
-			ds.b	24		; unused
+v_lamp_limitleft:	ds.w	1		; level left boundary at lamppost
+v_lamp_limitright:	ds.w	1		; level right boundary at lamppost
+			ds.b	20		; unused
 v_ani0_time:		ds.b	1		; synchronised sprite animation 0 - time until next frame (used for synchronised animations)
 v_ani0_frame:		ds.b	1		; synchronised sprite animation 0 - current frame
 v_ani1_time:		ds.b	1		; synchronised sprite animation 1 - time until next frame

@@ -753,9 +753,9 @@ BrewAutoScroll:
 		add.w	d0,(v_limitright2).w
 
 		add.w	d0,(v_screenposx).w
-		move.w	(v_screenposx).w,d0
-		asr.w	#2,d0
-		move.w	d0,(v_bg2screenposx).w
+;		move.w	(v_screenposx).w,d0
+;		asr.w	#2,d0
+;		move.w	d0,(v_bg2screenposx).w
 		bra.w	DLE_BREW3end
 
 ; ===========================================================================
