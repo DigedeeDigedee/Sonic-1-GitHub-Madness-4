@@ -106,6 +106,8 @@ SampleTable:
 	dcSample	TYPE_PCM,	Segay,		0, FLAGS_SFX		; $CC
 	dcSample	TYPE_PCM,	Foxy,		0, FLAGS_SFX		; $CD
 	dcSample	TYPE_PCM,	GayNeil,	0, FLAGS_SFX		; $CE
+	dcSample	TYPE_DPCM,	funnyb_utthole,	8000, FLAGS_SFX		; $CF
+
 	; ADVISORY: If you're coming to this repo just to add samples,
 	; they are going to get removed. Sorry!
 	; Wait until more important shit is implemented
@@ -188,6 +190,7 @@ SampleTable:
 	incdac	Lg, "sound/dac/lg/Echo.pcm"
 	incdac	Foxy, "sound/dac/Foxy.wav"
 	incdac	GayNeil, "sound/dac/gayneil.wav"
+	incdac	funnyb_utthole, "sound/dac/funnybutthole.dpcm"
 ; ---------------------------------------------------------------
 ; Null level end
 	incdac	BoingBoing, "sound/dac/BoingBoing.dpcm"

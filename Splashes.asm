@@ -149,6 +149,7 @@ splash_turd macro routine
 	endm
 
 ; Entries
+	splash_liquid	funnybutthole
 	splash_liquid	MultiSplash_Init
 	splash_liquid	SonicRetro
 	splash_liquid	GM_SSRGScreen
@@ -192,7 +193,7 @@ splash_turd macro routine
 	;splash_solid	Damnit,		$40, 0,	bgm_GCV2005,	500
 	;splash_solid	Iceage,		$40, 0,	bgm_JamesPond,	300
 	;splash_solid	Fredbear,	$40, 0,	bgm_FuneralMarch,480
-	splash_solid	CRT,		$40, 0,	bgm_PuyoReject,	300
+	;splash_solid	CRT,		$40, 0,	bgm_PuyoReject,	300
 	;splash_solid	Crispbilly,	$40, 0,	bgm_Ding,	200
 	;splash_solid	Bonniewtf,	$60, 0,	bgm_Resetti,	300
 	;splash_solid	Rick,		$40, 0,	bgm_Rickroll,	480
@@ -252,9 +253,9 @@ splash_turd macro routine
 	include "LiquidSplashes/2kki/2kki.asm"
 	include "eurosega/eurosega.asm"
 	include "TGSplash/TGSplash.asm"
+	include "LiquidSplashes/funny butthole/poop.asm"
 	include "dotgen/Giovanni Splash Screen.asm"
 	include "dotgen/DynPaletteTransition.asm"
-
 ; Files for turd
 	include "CrazyRemilia/Remi/Remi.asm"
 
