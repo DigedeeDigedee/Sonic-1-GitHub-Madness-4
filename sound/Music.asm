@@ -148,9 +148,9 @@ Music01:	include "music/LiquidTracks/Mus - Mega Water S.asm"
 		even
 Music02:	include "music/DaxKatter/Mus - Azure Rainforest.asm"
 		even
-Music03:	binclude "music/Vertz1515/LaSuerteDeLosTontos.bin"
+Music03:	include "music/Vertz1515/Mus - La Suerte De Los Tontos.asm"
 		even
-Music04:	binclude "music/Dawid/Minecraft.bin"
+Music04:	include "music/Dawid/Mus - Minecraft.asm"
 		even
 Music05:	include "music/DaxKatter/Mus - Limited Yard.asm"
 		even
@@ -166,7 +166,7 @@ Music0A:	include "music/GuykeTracks/Mus - Smiling Bomb.asm"
 		even
 Music0B:	include "music/MattTracks/Mus - Ending.asm"
 		even
-Music0C:	binclude "music/MattTracks/boss.bin"
+Music0C:	include "music/MattTracks/Mus - Boss (Matt).asm"
 		even
 Music0D:	include "music/Dawid/Extremely_intense_boss_song_for_someone.asm" ;very intense not really but eh idgaf
 		even
@@ -226,9 +226,9 @@ Music28:	include	"music/TG2000Tracks/SadMac.asm"
 		even
 Music29:	include	"music/TG2000Tracks/TG2000Jingle.asm"
 		even
-Music2A:	binclude	"music/TG2000Tracks/SwingSinners.bin"
+Music2A:	include	"music/TG2000Tracks/Mus - Swing Sinners.asm"
 		even
-Music2B:	binclude	"music/TG2000Tracks/AVGNInvF.bin"
+Music2B:	include	"music/TG2000Tracks/Mus - AVGN Invincibility.asm"
 		even
 Music2C:	include	"music/TG2000Tracks/Minuscule.asm"
 		even
@@ -304,7 +304,7 @@ Music4F:	include	"music/LiquidTracks/Mus - CCLobby.asm"
 		even
 Music50:	include	"music/CNTracks/MEMORIES.asm"
 		even
-Music51:	binclude	"music/Dawid/BomerDudeAtgamesong.bin"	;i have no idea too
+Music51:	include	"music/Dawid/Mus - Bomer Dude.asm"	;i have no idea too
 		even
 Music52:	include	"music/Mus90 - Continue Screen.asm"
 		even
