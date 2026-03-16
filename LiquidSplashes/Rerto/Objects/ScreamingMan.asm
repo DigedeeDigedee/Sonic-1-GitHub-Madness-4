@@ -1,7 +1,7 @@
 ; ---------------------------------------------------------------------------
-; Object 03 - 「ソニック・レトロ」
+; Object 01 - Emerald
 ; ---------------------------------------------------------------------------   
-RetroSubtitle:
+ScreamingMan:
         moveq   #0, d0
         move.b  obRoutine(a0), d0
         move.w  .Index(pc, d0.w), d1
@@ -13,21 +13,17 @@ RetroSubtitle:
 
 .Main:
         addq.b  #2, obRoutine(a0)               ; Next Action (Display)
-        move.w  #$124, obX(a0)                  ; X Position
-        move.w  #$FF, obScreenY(a0)             ; Y Position
-        move.l  #.SubtitleMappings, obMap(a0)   ; Mappings
-        move.w  #$0, obGfx(a0)                  ; Art Offset in VRAM
+        move.w  #$A4, obX(a0)                  ; X Position
+        move.w  #$EC, obScreenY(a0)             ; Y Position
+        move.l  #.MapOldMan, obMap(a0)           ; Mappings
+        move.w  #$295, obGfx(a0)                ; Art Offset in VRAM
         move.b  #0, obRender(a0)                ; Action Flags
-        move.b  #0, obPriority(a0)              ; Sprite Priority (0 = Front)
-
-        tst.b   obSubtype(a0)
-        beq.s   .Display
-        move.w  #$15C, obX(a0)                  ; X Position
+        move.b  #5, obPriority(a0)              ; Sprite Priority (0 = Front)
 
 .Display:
         jmp     DisplaySprite
 
 ; ====================================================================================
 
-.SubtitleMappings: include "LiquidSplashes/Rerto/Sprites/RetroSubtitle.asm"
-    even
+.MapOldMan:	include	"LiquidSplashes/Rerto/Sprites/SetroMan.asm"
+	even

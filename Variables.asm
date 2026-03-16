@@ -139,7 +139,7 @@ v_spritecount:		ds.b	1		; number of sprites on-screen
 			ds.b	5		; unused
 v_pcyc_num:		ds.w	1		; palette cycling - current reference number
 v_pcyc_time:		ds.w	1		; palette cycling - time until the next change
-v_random:		ds.l	1		; pseudo random number buffer
+			ds.l	1		; pseudo random number buffer
 f_pause:		ds.w	1		; flag set to pause the game
 			ds.b	4		; unused
 v_vdp_buffer2:		ds.w	1		; VDP instruction buffer
@@ -440,7 +440,8 @@ v_characterid:		ds.b	1
 v_zonemusic:		ds.b	1
 			ds.b	7		; unused
 MegaCDMode:		ds.b 	1
-			ds.b 	$10
+			ds.b 	$C
+v_random:		ds.l	1
 f_levselcheat:		ds.b	1		; level select cheat flag
 f_slomocheat:		ds.b	1		; slow motion & frame advance cheat flag
 f_debugcheat:		ds.b	1		; debug mode cheat flag

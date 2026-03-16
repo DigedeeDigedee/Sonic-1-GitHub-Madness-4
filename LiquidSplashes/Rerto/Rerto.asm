@@ -36,15 +36,16 @@ SonicRetro:
 	locVRAM $172*$20
 	lea	(.SonicArt).l, a0
 	jsr	NemDec
+
+	; Old Man
+	locVRAM $295*$20
+	lea	(.OldManArt).l, a0
+	jsr	NemDec
 	move.l	#$6AE00000, (vdp_control_port).l
 
 	; Palette
 	moveq	#palid_SonicRetro, d0
 	jsr	PalLoad1
-
-	; Music
-	move.b	#bgm_Retro,d0
-	jsr	QueueSound2
 
 	; This randomizer sucks from the front rather then the back
 	jsr	RandomNumber
@@ -65,6 +66,7 @@ SonicRetro:
 	bra.w	.Default
 	bra.w	.SonisRetros
 	bra.w	.SonisRetros
+	bra.w	.RonicSetro
 .InitRoutinesEnd:
 
 ; ====================================================================================
@@ -78,6 +80,9 @@ SonicRetro:
 	; Initialize
 	lea	.LogoMappings, a0
 	bsr.w	.DrawLogo
+
+	move.b	#bgm_Retro,d0
+	jsr	QueueSound2
 
 	jsr	.ExecuteObjects
 	jsr	BuildSprites
@@ -100,6 +105,9 @@ SonicRetro:
 	moveq	#palid_SonicRetro, d0
 	jsr	PalLoad1
 
+	move.b	#bgm_Retro,d0
+	jsr	QueueSound2
+
 	jsr	.ExecuteObjects
 	jsr	BuildSprites
 	jsr	PaletteFadeIn
@@ -121,6 +129,9 @@ SonicRetro:
 	lea	.LogoMappings, a0
 	bsr.w	.DrawLogo
 
+	move.b	#bgm_Retro,d0
+	jsr	QueueSound2
+
 	jsr	.ExecuteObjects
 	jsr	BuildSprites
 	jsr	PaletteFadeIn
@@ -128,6 +139,28 @@ SonicRetro:
 	move.w	#13*60,(v_generictimer).w
 	rts
 
+.RonicSetro:
+	; Objects
+	move.b	#3,(v_objspace+$40*3).w		; 「ソ レトロ」
+	move.b	#1,(v_objspace+$40*3+$28)	; ^ Subtype
+	move.b	#6,(v_objspace+$40*4).w		; Old Man
+
+	; Initialize
+	lea	.RonicLogoMappings, a0
+	bsr.w	.DrawLogo
+
+	moveq	#palid_SonicRetro, d0
+	jsr	PalLoad1
+
+	move.b	#bgm_RonicSetro,d0
+	jsr	QueueSound2
+
+	jsr	.ExecuteObjects
+	jsr	BuildSprites
+	jsr	PaletteFadeIn
+
+	move.w	#13*60, (v_generictimer).w
+	rts
 ; ====================================================================================
 
 .Loop:
@@ -179,6 +212,7 @@ SonicRetro:
 	dc.l	RetroSubtitle		; $03
 	dc.l	RetroSonis		; $04
 	dc.l	RetroRunningSonic	; $05
+	dc.l	ScreamingMan		; $06
 	even
 
 ; ====================================================================================
@@ -208,6 +242,8 @@ SonicRetro:
 	even
 .SonisLogoMappings:	incbin	"LiquidSplashes/Rerto/Tilemaps/RetroLogoSonis.bin"
 	even
+.RonicLogoMappings:	incbin	"LiquidSplashes/Rerto/Tilemaps/RetroLogoSetro.bin"
+	even
 .LogoArt:	incbin	"LiquidSplashes/Rerto/GFX/Logo.bin"
 	even
 
@@ -215,7 +251,8 @@ SonicRetro:
 	even
 .SonicArt:	incbin	"LiquidSplashes/Rerto/GFX/Sonic.bin"
 	even
-
+.OldManArt	incbin	"LiquidSplashes/Rerto/GFX/OldMan.bin"
+	even
 ; ====================================================================================
 
 	include	"LiquidSplashes/Rerto/Objects/Emerald.asm"
@@ -223,6 +260,7 @@ SonicRetro:
 	include	"LiquidSplashes/Rerto/Objects/Subtitle.asm"
 	include	"LiquidSplashes/Rerto/Objects/Sonis.asm"
 	include	"LiquidSplashes/Rerto/Objects/RunningSonic.asm"
+	include	"LiquidSplashes/Rerto/Objects/ScreamingMan.asm"
 
 ; ===========================================================================   
 
