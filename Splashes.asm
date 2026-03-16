@@ -201,6 +201,7 @@ splash_turd macro routine
 
 	splash_liquid	GM_SegaEU
 	splash_turd	Remilia
+	splash_liquid	GiovanniSplash					; the later you have this, the funnier it is		
 	dc.l	-1 ; end marker
 
 
@@ -253,6 +254,8 @@ splash_turd macro routine
 	include "eurosega/eurosega.asm"
 	include "TGSplash/TGSplash.asm"
 	include "LiquidSplashes/funny butthole/poop.asm"
+	include "dotgen/Giovanni Splash Screen.asm"
+	include "dotgen/DynPaletteTransition.asm"
 ; Files for turd
 	include "CrazyRemilia/Remi/Remi.asm"
 
