@@ -180,7 +180,10 @@ Debug_ChgItem:
 		beq.s	.stayindebug	; if not, branch
 		moveq	#0,d0
 		move.w	d0,(v_debuguse).w ; deactivate debug mode
-		move.l	#Map_Tonic,(v_player+obMap).w
+		jsr	GetPlayerData
+		move.l	d0,(v_player+obMap).w
+		move.l	d1,(v_player+dgfxaddr).w
+		move.l	d2,(v_player+artaddr).w
 		move.w	#$780,(v_player+obGfx).w
 		move.b	d0,(v_player+obAnim).w
 		move.w	d0,obX+2(a0)
@@ -192,7 +195,10 @@ Debug_ChgItem:
 
 		clr.w	(v_ssangle).w
 		move.w	#$40,(v_ssrotate).w ; set new level rotation speed
-		move.l	#Map_Tonic,(v_player+obMap).w
+		jsr	GetPlayerData
+		move.l	d0,(v_player+obMap).w
+		move.l	d1,(v_player+dgfxaddr).w
+		move.l	d2,(v_player+artaddr).w
 		move.w	#$780,(v_player+obGfx).w
 		move.b	#id_Roll,(v_player+obAnim).w
 		bset	#2,(v_player+obStatus).w
@@ -200,11 +206,6 @@ Debug_ChgItem:
 
 .stayindebug:
 		rts
-; End of function Debug_Control
-
-
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-
 
 Debug_ShowItem:
 		moveq	#0,d0

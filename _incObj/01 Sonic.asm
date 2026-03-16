@@ -40,6 +40,7 @@ SonicPlayer:
 	dc.w	Sonic_Death-.Index
 	dc.w	Sonic_ResetLevel-.Index
 	dc.w	Sonic_Drowned-.Index		; ??? 
+
 ; ----------------------------------------------------------------------------
 ; This is going to look confusing because Sonic Hackers are geniuses and
 ; decided to name the player object "Sonic" because there are definitely
@@ -62,6 +63,28 @@ Player_Init:	; Routine 0
 		dc.l	Maniac_Init
 
 ; ----------------------------------------------------------------------------
+; Get player's current character data.
+; d0 = map
+; d1 = dgfx
+; d2 = art
+; ----------------------------------------------------------------------------
+
+GetPlayerData:
+	moveq	#0,d0
+	move.b	(v_characterid).w,d0
+	chk	#chrid_last,d0
+	lsl.w	#4,d0
+	lea	PlayerMapList(pc,d0.w),a2
+	move.l	(a2)+,d0
+	move.l	(a2)+,d1
+	move.l	(a2)+,d2
+	rts
+
+PlayerMapList:
+	dc.l	Map_Tonic,Dgfx_Tonic,Art_Tonic,0
+	dc.l	Map_Sonic,Dgfx_Sonic,Art_Sonic,0
+
+; ----------------------------------------------------------------------------
 ; TeethTonic character init routine
 ; ----------------------------------------------------------------------------
 
@@ -69,9 +92,10 @@ Tonic_Init:
 		addq.b	#2,obRoutine(a0)
 		move.b	#$13,obHeight(a0)
 		move.b	#9,obWidth(a0)
-		move.l	#Map_Tonic,obMap(a0)
-		move.l	#Dgfx_Tonic,dgfxaddr(a0)
-		move.l	#Art_Tonic,artaddr(a0)
+		bsr.w	GetPlayerData
+		move.l	d0,obMap(a0)
+		move.l	d1,dgfxaddr(a0)
+		move.l	d2,artaddr(a0)
 		move.w	#make_art_tile(ArtTile_Sonic,0,0),obGfx(a0)
 		move.b	#2,obPriority(a0)
 		move.b	#$18,obActWid(a0)
@@ -89,9 +113,10 @@ Maniac_Init:
 		addq.b	#2,obRoutine(a0)
 		move.b	#$13,obHeight(a0)
 		move.b	#9,obWidth(a0)
-		move.l	#Map_Sonic,obMap(a0)
-		move.l	#Dgfx_Sonic,dgfxaddr(a0)
-		move.l	#Art_Sonic,artaddr(a0)
+		bsr.w	GetPlayerData
+		move.l	d0,obMap(a0)
+		move.l	d1,dgfxaddr(a0)
+		move.l	d2,artaddr(a0)
 		move.w	#make_art_tile(ArtTile_Sonic,0,0),obGfx(a0)
 		move.b	#2,obPriority(a0)
 		move.b	#$18,obActWid(a0)
