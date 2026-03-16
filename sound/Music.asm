@@ -165,7 +165,7 @@ Music0A:	include "music/GuykeTracks/Mus - Smiling Bomb.asm"
 		even
 Music0B:	include "music/MattTracks/Mus - Ending.asm"
 		even
-Music0C:	binclude "music/boss.bin"
+Music0C:	binclude "music/MattTracks/boss.bin"
 		even
 Music0D:	include "music/Dawid/Extremely_intense_boss_song_for_someone.asm" ;very intense not really but eh idgaf
 		even
@@ -191,7 +191,7 @@ Music17:	include "music/TG2000Tracks/1UPEmerald.asm"
 		even
 MusicRetro:	include "music/LiquidTracks/Mus - Sonic Retro.asm"
 		even
-Music19:	include "../conimodes/splash/Jingle.asm"
+Music19:	include "music/CNTracks/Mus - Coni Jingle.asm"
 		even
 Music1A:	include	"music/TG2000Tracks/VampireKiller.asm"
 		even
@@ -205,8 +205,6 @@ Music1E:	include	"music/TG2000Tracks/Dingaling.asm"
 		even
 Music1F:	include	"music/TG2000Tracks/Megalovania.asm"
 		even
-
-
 Music20:	include	"music/TG2000Tracks/Aporia.asm"
 		even
 Music21:	include	"music/TG2000Tracks/Gadget.asm"
@@ -275,7 +273,7 @@ Music40:	include	"music/TG2000Tracks/BadEmerald.asm"
 		even
 Music41:	include	"music/TG2000Tracks/SkyBase.asm"
 		even
-Music42:	include	"music/Mus84 - SLZ.asm"
+Music42:	include	"music/TheWTracks/Mus - UnOwenWasHer.asm"
 		even
 Music43:	include	"music/TG2000Tracks/Scrappy.asm"
 		even
@@ -293,13 +291,13 @@ Music49:	include	"music/Kat/Mus - Clinton Fucker.asm"
 		even
 Music4A:	include	"music/HS_Tracks/GCV2005.asm"
 		even
-Music4B:	include	"music/Misc/DeltaTale fighte.asm"
+Music4B:	include	"music/Dawid/DeltaTale fighte.asm"
 		even
-Music4C:	include	"music/Misc/Pac2.asm"
+Music4C:	include	"music/TG2000Tracks/Pac2.asm"
 		even
 Music4D:	include	"music/TG2000Tracks/Passport.asm"
 		even
-Music4E:	include	"music/Mus83 - MZ.asm"
+Music4E:	include	"music/GuykeTracks/Mus - Area 5.asm"
 		even
 Music4F:	include	"music/LiquidTracks/Mus - CCLobby.asm"
 		even
