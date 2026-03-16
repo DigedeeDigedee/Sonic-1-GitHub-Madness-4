@@ -1,5 +1,5 @@
 @echo off
 rem Build all 3 files
-call compile_file.bat Music
-call compile_file.bat SFX
-call compile_file.bat SFX_Special
+call compiler_functions\compile_file.bat Music
+call compiler_functions\compile_file.bat SFX
+call compiler_functions\compile_file.bat SFX_Special

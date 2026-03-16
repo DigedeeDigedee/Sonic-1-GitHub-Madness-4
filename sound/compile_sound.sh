@@ -1,4 +1,4 @@
 #!/bin/bash
-./compile_file.sh "Music"
-./compile_file.sh "SFX"
-./compile_file.sh "SFX_Special"
+compiler_functions/compile_file.sh "Music"
+compiler_functions/compile_file.sh "SFX"
+compiler_functions/compile_file.sh "SFX_Special"
