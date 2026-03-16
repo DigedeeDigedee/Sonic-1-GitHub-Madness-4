@@ -135,7 +135,7 @@ GM_Advert:
 		advertdata 5,10,Ad_YuriPropaganda.art,Ad_YuriPropaganda.fg,Ad_YuriPropaganda.pal,bgm_LZ,0
 .tablee:
 
-.eyecatch1:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg1,Ad_Eyecatch.pal,bgm_BeRightBack,0
+.eyecatch1:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg1,Ad_Eyecatch.pal,0,dRightBack
 .eyecatch2:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg2,Ad_Eyecatch.pal,bgm_EuroSega,0
 
 Ad_Eyecatch:

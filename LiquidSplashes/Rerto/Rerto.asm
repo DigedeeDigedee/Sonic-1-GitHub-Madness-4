@@ -234,6 +234,8 @@ SonicRetro:
 	move.b	#bgm_Stop,d0
 	jsr	(QueueSound2).l		; stop music
 	jsr	PaletteFadeOut
+	jsr	VDPSetupGame
+	enable_display
 	rts
 
 ; ====================================================================================
