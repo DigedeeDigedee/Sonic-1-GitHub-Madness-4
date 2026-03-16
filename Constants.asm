@@ -87,8 +87,13 @@ id_Thanatos:	equ ptr_GM_ThanatosCredits-GameModeArray; $2C
 id_ButtcrackMan:	equ ptr_GM_ButtcrackMan-GameModeArray
 id_CNNico:	equ ptr_GM_CNNicoJump-GameModeArray; $34
 id_TryAgainEnd:	equ ptr_GM_TryAgainEnd-GameModeArray; $38
+id_Fetus:	equ ptr_GM_Fetus-GameModeArray; $38
 id_Damn:	equ ptr_GM_Damn-GameModeArray
 id_TGSplash:	equ ptr_GM_TGSplash-GameModeArray; $44
+id_NMR:		equ ptr_GM_NMR-GameModeArray
+id_DaxKatter:	equ ptr_GM_DaxKatter-GameModeArray
+id_SplashSkip:	equ ptr_SplashScreenSkipper-GameModeArray
+;id_RPGBattle:	equ ptr_GM_RPGBattle-GameModeArray
 
 ; Levels
 id_GHZ:		equ 0

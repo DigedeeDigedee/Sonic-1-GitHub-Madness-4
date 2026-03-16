@@ -59,6 +59,7 @@ GM_TGSplash:
 	bra.s	.Loop
 
 .Exit:
+	move.b	#id_Title,(v_gamemode).w
 	rts
 
 .Mappings: incbin "TGSplash/map.bin"
