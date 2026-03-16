@@ -107,7 +107,19 @@ GM_CB_MainLoop2:
 		jsr		(ClearScreen).l
 		moveq	#plcid_Main,d0
 		jsr		(AddPLC).l			; load standard patterns
-
+;		moveq	#0,d0
+;		move.b	(v_zone).w,d0
+;		lsl.w	#7,d0
+;		lea	(LevelHeaders).l,a2
+;		lea	(a2,d0.w),a2
+;		moveq	#0,d0
+;		move.b	v_act.w,d0
+;		lsl.w	#5,d0
+;		lea	(a2,d0.w),a2 
+;		move.b	(a2),d0
+;		beq.s	CBCred_SkipObjGfx
+;		jsr	(AddPLC).l		; load object graphics
+;CBCred_SkipObjGfx:
 		lea	(vdp_control_port).l,a6
 		move.w	#$8B03,(a6)	; line scroll mode
 		move.w	#$8200+(vram_fg>>10),(a6) ; set foreground nametable address
@@ -118,7 +130,7 @@ GM_CB_MainLoop2:
 		move.w	#$8720,(a6)		; set background colour (line 3; colour 0)
 		move.w	#30,(v_air).w
 		enable_ints
-
+		move.w	#id_CBZ,(v_zone).w ; set level number to COLD BREW BABYYY
 		jsr		(LevelSizeLoad).l
 		jsr		(DeformLayers).l
 		bset	#2,(v_fg_scroll_flags).w
@@ -126,7 +138,7 @@ GM_CB_MainLoop2:
 		jsr		(LevelDataLoad).l ; load block mappings and palettes
 		jsr		(LoadTilesFromStart).l
 
-		move.b	#id_SonicPlayer,(v_player).w ; load "that guy who is he"
+		move.b	#id_SonicPlayer,(v_player).w ; load "that guy who is he seriously"
 
 		move.w	#0,(v_jpadhold2).w
 		move.w	#0,(v_jpadhold1).w
