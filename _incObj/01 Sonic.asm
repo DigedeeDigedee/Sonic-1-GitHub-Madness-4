@@ -21,7 +21,17 @@ jumping:	equ $3C	; flag set while Sonic is jumping
 standonobject:	equ $3D	; object index Sonic stands on
 locktime:	equ $3E	; temporary D-Pad control lock timer (2 bytes)
 
+
 ; ---------------------------------------------------------------------------
+; Playable Characters
+; ---------------------------------------------------------------------------
+
+chrid_tonic	equ 0
+chrid_maniac	equ 1
+chrid_last	equ 1
+
+; ---------------------------------------------------------------------------
+
 SonicPlayer:
 		tst.w	(v_debuguse).w		; is debug mode being used?
 		beq.s	.nodbug			; if not, branch
