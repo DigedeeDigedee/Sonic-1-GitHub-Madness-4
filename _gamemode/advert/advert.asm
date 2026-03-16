@@ -5,7 +5,7 @@ advertdata macro seconds,skipsec,art,map,pal,bgm,pcm
 advertdatasize equ 16
 ; ---------------------------------------------------------------------------
 GM_Advert:
-		move.b	#bgm_Fade,d0
+		move.b	#bgm_Stop,d0
 		jsr	QueueSound2
 		jsr	ClearPLC
 		jsr	PaletteWhiteOut
@@ -140,6 +140,7 @@ GM_Advert:
 		advertdata 30,10,Ad_Carbuncle.art,Ad_Carbuncle.fg,Ad_Carbuncle.pal,bgm_Sunset,0
 		advertdata 30,5,Ad_Support.art,Ad_Support.fg,Ad_Support.pal,bgm_ChickenDance,0
 		advertdata 12,5,Ad_Tonic.art,Ad_Tonic.fg,Ad_Tonic.pal,bgm_Elevator,0
+		advertdata 30,5,Ad_SonicUnderground.art,Ad_SonicUnderground.fg,Ad_SonicUnderground.pal,bgm_Continue,0		
 .tablee:
 .eyecatch1:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg1,Ad_Eyecatch.pal,0,dRightBack
 .eyecatch2:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg2,Ad_Eyecatch.pal,bgm_EuroSega,0
@@ -207,4 +208,8 @@ Ad_Tonic:
 .fg:		binclude "_gamemode/advert/Tonic Map.eni"
 .art:		binclude "_gamemode/advert/Tonic Art.nem"
 		even
-
+Ad_SonicUnderground:
+.pal:		binclude "_gamemode/advert/ad-sonic-underground-pal.unc"
+.fg:		binclude "_gamemode/advert/ad-sonic-underground-map.eni"
+.art:		binclude "_gamemode/advert/ad-sonic-underground-art.nem"
+		even
