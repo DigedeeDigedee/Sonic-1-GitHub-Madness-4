@@ -1004,11 +1004,11 @@ LoadDynPLC:
 
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
-
 ClearScreen:
 		fillVRAM	0, 0, $40 ; clear first two tiles
 		fillVRAM	0, vram_fg, vram_fg+plane_size_64x32 ; clear foreground namespace
 		fillVRAM	0, vram_bg, vram_bg+plane_size_64x32 ; clear background namespace
+.merge
 		clr.l	(v_scrposy_vdp).w
 		clr.l	(v_scrposx_vdp).w
 		clearRAM v_spritetablebuffer,v_spritetablebuffer_end
