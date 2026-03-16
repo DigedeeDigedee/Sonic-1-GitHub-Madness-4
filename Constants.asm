@@ -311,14 +311,15 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_Continue2
 	nextenum bgm_Coffinman
 	nextenum bgm_ColdBrew
+	nextenum bgm_ChairRoom
 	nextenum bgm_DoleBOSS
-	nextenum bgm_GreenHill
 	nextenum bgm_OrangeSong
 	nextenum bgm_TreasureCaves
 	nextenum bgm_DoleDetective
 	nextenum bgm_Win2K
 	nextenum bgm_Easton
 	nextenum bgm_SneakySnitch
+	nextenum bgm_GEMSHill
 	; Keep this last
 	nextenum bgm__Last
 
