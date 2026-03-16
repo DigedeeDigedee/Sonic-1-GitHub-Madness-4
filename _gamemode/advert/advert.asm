@@ -127,7 +127,7 @@ GM_Advert:
 		jsr	PaletteWhiteOut
 		rts
 ; ---------------------------------------------------------------------------
-.table:
+.table:	; seconds, seconds to skip, art, map, palette, SMPS sound ID, MPCM sound ID
 		advertdata 30,5,Ad_Lactose.art,Ad_Lactose.fg,Ad_Lactose.pal,bgm_ClintonFuck,0
 		advertdata 5,10,Art_CRT,Map_CRT,Pal_CRT,bgm_PuyoReject,0
 		advertdata 30,5,Ad_Deltarune.art,Ad_Deltarune.fg,Ad_Deltarune.pal,bgm_DeltaTale,0
@@ -135,8 +135,10 @@ GM_Advert:
 		advertdata 5,10,Ad_YuriPropaganda.art,Ad_YuriPropaganda.fg,Ad_YuriPropaganda.pal,bgm_LZ,0
 		advertdata 30,5,Ad_Eggblock.art,Ad_Eggblock.fg,Ad_Eggblock.pal,bgm_Continue,0
 		advertdata 30,5,Ad_Willys.art,Ad_Willys.fg,Ad_Willys.pal,bgm_GHZ,0
+		advertdata 15,5,Ad_GameStar.art,Ad_GameStar.fg,Ad_GameStar.pal,bgm_NewShop,0
+		advertdata 10,10,Ad_Craig.art,Ad_Craig.fg,Ad_Craig.pal,bgm_LG,0
+		advertdata 30,10,Ad_Carbuncle.art,Ad_Carbuncle.fg,Ad_Carbuncle.pal,bgm_Sunset,0
 .tablee:
-
 .eyecatch1:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg1,Ad_Eyecatch.pal,0,dRightBack
 .eyecatch2:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg2,Ad_Eyecatch.pal,bgm_EuroSega,0
 
@@ -175,4 +177,19 @@ Ad_Willys:
 .pal:		binclude "_gamemode/advert/ad-willys-pal.unc"
 .fg:		binclude "_gamemode/advert/ad-willys-map.eni"
 .art:		binclude "_gamemode/advert/ad-willys-art.nem"
+		even
+Ad_GameStar:
+.pal:		binclude "_gamemode/advert/ad-gamestar-pal.unc"
+.fg:		binclude "_gamemode/advert/ad-gamestar-map.eni"
+.art:		binclude "_gamemode/advert/ad-gamestar-art.nem"
+		even
+Ad_Craig:
+.pal:		binclude "_gamemode/advert/ad-craig-pal.unc"
+.fg:		binclude "_gamemode/advert/ad-craig-map.eni"
+.art:		binclude "_gamemode/advert/ad-craig-art.nem"
+		even
+Ad_Carbuncle:
+.pal:		binclude "_gamemode/advert/ad-carbuncle-pal.unc"
+.fg:		binclude "_gamemode/advert/ad-carbuncle-map.eni"
+.art:		binclude "_gamemode/advert/ad-carbuncle-art.nem"
 		even
