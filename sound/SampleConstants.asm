@@ -52,6 +52,9 @@ dAmenCrash:			ds.b 1
 dClintLoopA:		ds.b 1
 dClintLoopB:		ds.b 1
 
+; Conic 1 DAC
+dTick:			ds.b 1
+
 ; SFX Samples
 dDAMN				ds.b 1
 dTrevor				ds.b 1
@@ -102,5 +105,7 @@ dLg					ds.b 1
 dSega2				ds.b 1
 dTwerkOf87			ds.b 1
 dGayNeil			ds.b 1
+dfunnyb_utthole			ds.b 1
+dIntel				ds.b 1
 	dephase
 	!org -

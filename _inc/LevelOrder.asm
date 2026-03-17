@@ -44,6 +44,12 @@
 
 		dc.l 0,0 ; ending
 
+		; COLD BREW Zone
+		dc.b id_CBZ, 1	; Act 1
+		dc.b id_CBZ, 2	; Act 2
+		dc.b id_CBZ, 3	; Act 3
+		dc.b id_WIN, 0	; Act 4
+
 		; WINDOWS Zone
 		dc.b id_WIN, 1	; Act 1
 		dc.b id_WIN, 2	; Act 2

@@ -325,6 +325,10 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_RonicSetro
 	nextenum bgm_Donnie
 	nextenum bgm_Elevator
+	nextenum bgm_Sunset
+	nextenum bgm_SonUnderground
+	nextenum bgm_Skinner
+	nextenum bgm_Danstar
 	; Keep this last
 	nextenum bgm__Last
 
@@ -553,6 +557,7 @@ ArtTile_GHZ_Big_Flower_2:	equ ArtTile_Level+$390
 ArtTile_GHZ_Spike_Pole:		equ $398
 ArtTile_GHZ_Giant_Ball:		equ $3AA
 ArtTile_GHZ_Purple_Rock:	equ $3D0
+ArtTile_CBZ_Waterfall:		equ ArtTile_Level+$37C
 
 ; Marble Zone
 ArtTile_MZ_Block:		equ $2B8
@@ -686,7 +691,7 @@ ArtTile_Sega_Tiles:		equ $000
 ArtTile_Title_Japanese_Text:	equ $000
 ArtTile_Title_S2Font:		equ	$28	;!@ GenesisDoes
 ArtTile_Title_Foreground:	equ $200
-ArtTile_Title_Sonic:		equ $300
+ArtTile_Title_Sonic:		equ $400
 ArtTile_Title_Trademark:	equ $510
 ArtTile_Level_Select_Font:	equ $680
 

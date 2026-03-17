@@ -1990,7 +1990,7 @@ Pal_FelixDecision:	bincludeEndMarker	"ContinueScreen/Graphics/Tile/Decision/Pale
 Pal_FelixGameOver:	bincludeEndMarker	"ContinueScreen/Graphics/Tile/GameOver/Palette.bin"
 Pal_Joint:		bincludeEndMarker	"palette/Joint Zone.bin"
 Pal_DVZ:		bincludeEndMarker	"palette/DoleVille Zone.bin"
-
+Pal_NGZ:		bincludeEndMarker	"palette/Nogales Zone.bin"
 Pal_SplashPal:	bincludeEndMarker	"eurosega/pal.bin"
 Pal_ColdBrew:	bincludeEndMarker	"conimodes/cold brew/palette.bin"
 Pal_ColdBrewG:	bincludeEndMarker	"conimodes/cold brew/palette grayscale.bin"
@@ -2198,9 +2198,9 @@ FinalTitle:
 	if FixBugs
 		; Fix title screen position
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Title_Screen_position_in_Sonic_1
-		copyTilemap	v_ram_start,vram_fg+$208,34,22
+		copyTilemap	v_ram_start,vram_fg,40,38
 	else
-		copyTilemap	v_ram_start,vram_fg+$206,34,22
+		copyTilemap	v_ram_start,vram_fg,40,38
 	endif
 
 		disable_ints
@@ -2210,9 +2210,10 @@ FinalTitle:
 		locVRAM	ArtTile_Title_Sonic*tile_size
 		lea	(Nem_TitleSonic).l,a0 ; load Sonic title screen patterns
 		bsr.w	NemDec
-		locVRAM	ArtTile_Title_Trademark*tile_size
-		lea	(Nem_TitleTM).l,a0 ; load "TM" patterns
-		bsr.w	NemDec
+;		locVRAM	ArtTile_Title_Trademark*tile_size
+;		lea	(Nem_TitleTM).l,a0 ; load "TM" patterns
+;		bsr.w	NemDec
+		; TM removed, rubs my belly - coni
 		enable_ints
 		
 		;!@ GenesisDoes
@@ -2222,7 +2223,7 @@ FinalTitle:
 		moveq	#palid_Title,d0	; load title screen palette
 		bsr.w	PalLoad_Fade
 		move.b	#0,(f_debugmode).w ; disable debug mode
-		move.w	#376,(v_generictimer).w ; run title screen for 376 frames
+		move.w	#60*60,(v_generictimer).w ; run title screen for NOT 376 frames
 		
 	if FixBugs
 		; Fix the Press Start Button text
@@ -2239,11 +2240,12 @@ FinalTitle:
 		move.b	#id_PSBTM,(v_pressstart).w ; load "PRESS START BUTTON" object
 		;clr.b	(v_pressstart+obRoutine).w ; The 'Mega Games 10' version of Sonic 1 added this line, to fix the 'PRESS START BUTTON' object not appearing
 
-		tst.b	(v_megadrive).w	; is console Japanese?
-		bpl.s	.isjap		; if yes, branch
-		move.b	#id_PSBTM,(v_titletm).w ; load "TM" object
-		move.b	#3,(v_titletm+obFrame).w
-.isjap:
+;		tst.b	(v_megadrive).w	; is console Japanese?
+;		bpl.s	.isjap		; if yes, branch
+;		move.b	#id_PSBTM,(v_titletm).w ; load "TM" object
+;		move.b	#3,(v_titletm+obFrame).w
+;.isjap:
+		; i feel like a rectangle cuz my rectangle is hard - rectangle from breakout (PS1)
 		move.b	#id_PSBTM,(v_ttlsonichide).w ; load object which hides part of Sonic
 		move.b	#2,(v_ttlsonichide+obFrame).w
 		jsr	(ExecuteObjects).l
@@ -2387,17 +2389,7 @@ loc_33B6:
 		bne.w	loc_33B6
 		move.b	#bgm_Fade,d0
 		bsr.w	QueueSound2 ; fade out music
-		move.w	(v_demonum).w,d0 ; load demo number
-		andi.w	#7,d0
-		add.w	d0,d0
-		move.w	Demo_Levels(pc,d0.w),d0	; load level number for demo
-		move.w	d0,(v_zone).w
-		addq.w	#1,(v_demonum).w ; add 1 to demo number
-		cmpi.w	#5,(v_demonum).w ; is demo number less than 5?
-		blo.s	loc_3422	; if yes, branch
-		move.w	#0,(v_demonum).w ; reset demo number to 0
-
-loc_3422:
+		bsr.w	DemoSetup
 		move.w	#1,(f_demo).w	; turn demo mode on
 		move.b	#id_Demo,(v_gamemode).w ; set screen mode to 08 (demo)
 		cmpi.w	#$700,d0	; is level number 0700 (the cold brew zone)?
@@ -2420,6 +2412,47 @@ Demo_Level:
 Demo_Brew:
 		move.b	#id_ColdBrew,(v_gamemode).w ; set screen mode to $34
 		rts	
+
+DemoSetup:
+		move.w	(v_demonum).w,d0 ; load demo number
+		andi.w	#7,d0
+		add.w	d0,d0
+		move.w	Demo_Levels(pc,d0.w),d0	; load level number for demo
+		move.w	d0,(v_zone).w
+		addq.w	#1,(v_demonum).w ; add 1 to demo number
+		cmpi.w	#5,(v_demonum).w ; is demo number less than 5?
+		blo.s	loc_3422	; if yes, branch
+		move.w	#0,(v_demonum).w ; reset demo number to 0
+loc_3422:
+		rts
+
+PalCycle_Title:
+		subq.w	#1,(v_pcyc_time).w
+		bpl.s	PalCycTit_Skip
+		move.w	#3,(v_pcyc_time).w
+
+		; increment palette frame and update palette
+		lea	(Pal_TitleCyc).l,a0
+		move.w	(v_pcyc_num).w,d0
+
+		add.w	#1,(v_pcyc_num).w	; next frame
+		cmpi.w	#$54,(v_pcyc_num).w	; is it the last frame?
+		bls.s	.update			; if not, branch
+		clr.w	(v_pcyc_num).w		; reset frame counter
+.update:
+		lsl.w	#1,d0
+		lea	(v_pal_dry+$22).w,a1
+		adda.w  d0,a0
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.w  (a0)+,(a1)+
+PalCycTit_Skip:
+		rts
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -7192,7 +7225,7 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 		include	"ContinueScreen/Continue.asm"
 
 		include "Splashes.asm"
-		include "_gamemode/advert/advert.asm"
+		include "_gamemode/advert/_advert.asm"
 		include	"_inc/GHM3Explode.asm"
 
 		include	"_gamemode/damn/damn.asm"

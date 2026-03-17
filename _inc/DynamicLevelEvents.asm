@@ -153,7 +153,7 @@ loc_6EB0:
 
 loc_6ED0:
 		move.w	#bgm_Boss,d0
-		bsr.w	QueueSound1	; play boss music
+		jsr		(QueueSound1).l	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_Boss,d0
@@ -370,7 +370,7 @@ DLE_MZ3boss:
 
 loc_70D0:
 		move.w	#bgm_Boss,d0
-		bsr.w	QueueSound1	; play boss music
+		jsr		(QueueSound1).l	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_Boss,d0
@@ -468,7 +468,7 @@ DLE_SLZ3boss:
 
 loc_7144:
 		move.w	#bgm_Megalovania,d0
-		bsr.w	QueueSound1	; play boss music
+		jsr		(QueueSound1).l	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_Boss,d0
@@ -551,7 +551,7 @@ DLE_SYZ3boss:
 
 loc_71EC:
 		move.w	#bgm_Boss,d0
-		bsr.w	QueueSound1	; play boss music
+		jsr		(QueueSound1).l	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		moveq	#plcid_Boss,d0
 		bra.w	AddPLC		; load boss patterns
@@ -818,7 +818,7 @@ loc_6EB0BR:
 
 loc_6ED0BR:
 		move.w	#bgm_Boss,d0
-		bsr.w	QueueSound1	; play boss music
+		jsr		(QueueSound1).l	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_Boss,d0
@@ -853,4 +853,46 @@ DLE_Joint:
 ; kys
 ; ---------------------------------------------------------------------------
 DLE_DVZ:
-		rts
+
+; ---------------------------------------------------------------------------
+; Nogales Zone direct port from ice cc remake :^)
+; ---------------------------------------------------------------------------
+
+DLE_NGZ:
+		moveq	#0,d0
+		move.b	(v_act).w,d0
+		add.w	d0,d0
+		move.w	DLE_NGZx(pc,d0.w),d0
+		jmp	DLE_NGZx(pc,d0.w)
+; ===========================================================================
+DLE_NGZx:	dc.w DLE_NGZ1-DLE_NGZx
+		dc.w DLE_NGZ2-DLE_NGZx
+		dc.w DLE_NGZ3-DLE_NGZx
+; ===========================================================================
+
+DLE_NGZ1:
+		move.w	#$200,(v_limitbtm1).w ; set lower y-boundary
+                 cmpi.b    #1,($FFFFF600).w
+                 beq.s    .locret_6E08
+                 NOP
+.locret_6E08:
+		rts	
+; ===========================================================================
+
+DLE_NGZ2:
+		move.w	#$200,(v_limitbtm1).w ; set lower y-boundary
+                 cmpi.b    #1,($FFFFF600).w
+                 beq.s    locret_POOPFART
+                 NOP
+locret_POOPFART:
+		rts		
+DLE_NGZ3:
+		move.w	#$200,(v_limitbtm1).w ; set lower y-boundary
+		;cmpi.w	#$E50,(v_screenposx).w
+		;bcs.s	locret_VOMITCOOKIE
+		;move.w	#$210,(v_limitbtm1).w
+                 cmpi.b    #1,($FFFFF600).w
+                 beq.s    locret_VOMITCOOKIE
+                 NOP
+locret_VOMITCOOKIE:
+		rts	
