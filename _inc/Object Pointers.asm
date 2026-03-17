@@ -142,6 +142,7 @@ ptr_EndSTH:		dc.l EndSTH
 ptr_CreditsText:	dc.l CreditsText
 ptr_EndEggman:		dc.l EndEggman
 ptr_TryChaos:		dc.l TryChaos
+ptr_Roaring_Knight:	dc.l Obj_Roaring_Knight
 
 NullObject:
 		jmp	(DeleteObject).l	; It would be safer to have this instruction here, but instead it just falls through to ObjectFall
@@ -286,3 +287,4 @@ id_EndSTH:		equ ((ptr_EndSTH-Obj_Index)/4)+1
 id_CreditsText:		equ ((ptr_CreditsText-Obj_Index)/4)+1
 id_EndEggman:		equ ((ptr_EndEggman-Obj_Index)/4)+1
 id_TryChaos:		equ ((ptr_TryChaos-Obj_Index)/4)+1
+id_Roaring_Knight:	equ ((ptr_Roaring_Knight-Obj_Index)/4)+1

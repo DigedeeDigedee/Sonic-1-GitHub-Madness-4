@@ -2946,6 +2946,8 @@ SignpostArtLoad:
 		bne.w	.exit		; if yes, branch
 		cmpi.b	#2,(v_act).w	; is act number 02 (act 3)?
 		beq.s	.exit		; if yes, branch
+		cmpi.w	#$0203,(v_zone).w	; is this giovanni's test level?
+		beq.s	.exit		; if yes, branch
 
 		move.w	(v_screenposx).w,d0
 		move.w	(v_limitright2).w,d1
@@ -7162,6 +7164,12 @@ Art_LivesNums:	binclude	"artunc/Lives Counter Numbers.bin" ; 8x8 pixel numbers o
 		include	"_inc/DebugList.asm"
 		include	"_inc/LevelHeaders.asm"
 		include	"_inc/Pattern Load Cues.asm"
+		
+; ===========================================================================
+; where the fuck do you put object includes idk
+; ===========================================================================
+		
+		include "dotgen/knight/[CODE] The Roaring Knight.asm"
 		
 ; ===========================================================================
 		include	"data.asm"		; data includes in here

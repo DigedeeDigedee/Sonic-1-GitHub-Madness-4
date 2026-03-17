@@ -639,6 +639,10 @@ Level_MZ3:	binclude	"levels/mz3.bin"
 Level_MZ3bg:	binclude	"levels/mz3bg.bin"
 		even
 Level_MZ3Unk:	dc.l 0
+Level_MZ4:	binclude	"levels/mz4.bin"
+		even
+Level_MZ4bg:	binclude	"levels/mz4bg.bin"
+		even
 Level_MZ4Unk:	dc.l 0
 
 Level_SLZ1:	binclude	"levels/slz1.bin"
@@ -829,6 +833,8 @@ ObjPos_MZ2:	binclude	"objpos/mz2.bin"
 		even
 ObjPos_MZ3:	binclude	"objpos/mz3.bin"
 		even
+ObjPos_MZ4:	binclude	"objpos/mz4.bin"
+		even		
 
 ObjPos_SLZ1:	binclude	"objpos/slz1.bin"
 		even
@@ -921,3 +927,9 @@ Pal_STMsonic:   bincludeEndMarker  "ATOGKsplashesWIP/STMsonic.bin"
 
 Nem_Giovanni:	incbin	"dotgen/Giovanni Logo Graphics.nem"
 
+; ---------------------------------------------------------------------------
+; Roaring Knight graphics
+; ---------------------------------------------------------------------------
+
+Unc_RoaringKnight:
+		incbin	"dotgen/knight/graphics/The Roaring Knight.unc"

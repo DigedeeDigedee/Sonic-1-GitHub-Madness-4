@@ -15,7 +15,7 @@
 		binclude	"startpos/mz1.bin"
 		binclude	"startpos/mz2.bin"
 		binclude	"startpos/mz3.bin"
-		dc.w	$80,$A8
+		binclude	"startpos/mz4.bin"
 
 		binclude	"startpos/slz1.bin"
 		binclude	"startpos/slz2.bin"
