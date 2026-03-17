@@ -18,7 +18,7 @@ GM_NT:
         lea     ART_NT.l,a0 ; load background art
         jsr     NemDec ; run NemDec to decompress art for display
         lea     PAL_NT.l,a0 ; load this palette
-        lea     ($FFFFFB80).l,a1 ; set as line 2
+        lea     (v_palette_fading).l,a1 ; set as line 2
         move.w  #$F,d0
 
 GM_NT_PAL_Loop:
@@ -26,16 +26,16 @@ GM_NT_PAL_Loop:
         move.l  (a0)+,(a1)+ ; ''
         dbf d0,GM_NT_PAL_Loop ; repeat until done
         jsr     PaletteFadeIn ; fade palette in
-		move.b  #$C5,d0 ; that one cash register sound lel
+		move.b  #sfx_Cash,d0 ; that one cash register sound lel
         jsr     PlaySound_Special.w ; play ID
-		move.w  #3*60,($FFFFF614).w ; set delay time (3 seconds on a 60hz system)
+		move.w  #3*60,(v_generictimer).w ; set delay time (3 seconds on a 60hz system)
 
 GM_NT_Main_Loop:
-        move.b  #2,($FFFFF62A).w ; set V-blank routine to run
+        move.b  #2,(v_vbla_routine).w ; set V-blank routine to run
         jsr     WaitForVBla.w ; wait for V-blank (decreases "Demo_Time_left")
-        tst.b   ($FFFFF605).w ; has player 1 pressed start button?
+        tst.b   (v_jpadpress1).w ; has player 1 pressed start button?
         bmi.s   TransitToTitles ; if so, branch
-        tst.w   ($FFFFF614).w ; has the delay time finished?
+        tst.w   (v_generictimer).w ; has the delay time finished?
         bne.s   GM_NT_Main_Loop ; if not, branch
 		
 TransitToTitles:
