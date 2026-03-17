@@ -940,3 +940,9 @@ Pal_S2:         bincludeEndMarker  "ATOGKsplashesWIP/sonic2main.bin"
 Pal_STMsonic:   bincludeEndMarker  "ATOGKsplashesWIP/STMsonic.bin"	  
                 even
 
+; ---------------------------------------------------------------------------
+; "GIOVANNI.GEN" Splash Screen Graphics
+; ---------------------------------------------------------------------------
+
+Nem_Giovanni:	incbin	"dotgen/Giovanni Logo Graphics.nem"
+

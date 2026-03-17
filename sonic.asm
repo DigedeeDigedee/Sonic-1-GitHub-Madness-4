@@ -7237,12 +7237,6 @@ ART_NT:   incbin	"NMRTT/NM_ART.bin"
 MAP_NT:   incbin	"NMRTT/NM_MAP.bin"
         even
 	
-; ---------------------------------------------------------------------------
-; "GIOVANNI.GEN" Splash Screen Graphics
-; ---------------------------------------------------------------------------
-
-Nem_Giovanni:	incbin	"dotgen/Giovanni Logo Graphics.nem"
-
 ; end of 'ROM'
 		even
 ; ==============================================================
