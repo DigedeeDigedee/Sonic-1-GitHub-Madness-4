@@ -27,36 +27,42 @@ Elevator_FM1:
 	smpsFMvoice	$00
 	smpsAlterVol	$09
 	smpsPan		panCentre,	$00
-	dc.b		nC5,	$7F,	smpsNoAttack,	$21,	nC5,	$7F,	smpsNoAttack,	$21
-	dc.b		nCs5,	$7F,	smpsNoAttack,	$21,	nE5,	$7F,	smpsNoAttack,	$21
-	smpsAlterVol	$F7
+	dc.b		nC5,	$01
+Elevator_Jump01:
+	dc.b		smpsNoAttack,	nC5,	$7F,	smpsNoAttack,	$20,	nC5,	$7F,	smpsNoAttack
+	dc.b		$21,	nCs5,	$7F,	smpsNoAttack,	$21,	nE5,	$7F,	smpsNoAttack
+	dc.b		$21,	nC5,	$01
 	smpsPan		panCentre,	$00
-	smpsJump	Elevator_FM1
+	smpsJump	Elevator_Jump01
 
 ; FM2 Data
 Elevator_FM2:
 	smpsFMvoice	$00
 	smpsAlterVol	$09
 	smpsPan		panCentre,	$00
-	dc.b		nAb4,	$7F,	smpsNoAttack,	$21,	nG4,	$7F,	smpsNoAttack,	$21
-	dc.b		nFs4,	$7F,	smpsNoAttack,	$21,	nA4,	$7F,	smpsNoAttack,	$21
-	smpsAlterVol	$F7
+	dc.b		nAb4,	$01
+Elevator_Jump02:
+	dc.b		smpsNoAttack,	nAb4,	$7F,	smpsNoAttack,	$20,	nG4,	$7F,	smpsNoAttack
+	dc.b		$21,	nFs4,	$7F,	smpsNoAttack,	$21,	nA4,	$7F,	smpsNoAttack
+	dc.b		$21,	nAb4,	$01
 	smpsPan		panCentre,	$00
-	smpsJump	Elevator_FM2
+	smpsJump	Elevator_Jump02
 
 ; FM3 Data
 Elevator_FM3:
 	smpsFMvoice	$01
 	smpsPan		panCentre,	$00
-	dc.b		nCs3,	$14,	nRst,	$0A,	nCs3,	$02,	nRst,	$08
-	dc.b		nAb2,	$1E,	nRst,	$0A,	nCs3,	$14,	nRst,	$0A
-	dc.b		nCs3,	$02,	nRst,	$08,	nAb2,	$1E,	nRst,	$0A
-	dc.b		nC3,	$14,	nRst,	$0A,	nC3,	$02,	nRst,	$08
-	dc.b		nG3,	$1E,	nRst,	$0A,	nC3,	$14,	nRst,	$0A
-	dc.b		nC3,	$02,	nRst,	$08,	nG3,	$1E,	nRst,	$0A
-	dc.b		nEb3,	$14,	nRst,	$0A,	nEb3,	$02,	nRst,	$08
-	dc.b		nBb2,	$1E,	nRst,	$0A,	nEb3,	$14,	nRst,	$0A
-	dc.b		nEb3,	$02,	nRst,	$08,	nBb3,	$14,	smpsNoAttack
+	dc.b		nCs3,	$01
+Elevator_Jump03:
+	dc.b		smpsNoAttack,	nCs3,	$13,	nRst,	$0A,	nCs3,	$02,	nRst
+	dc.b		$08,	nAb2,	$1E,	nRst,	$0A,	nCs3,	$14,	nRst
+	dc.b		$0A,	nCs3,	$02,	nRst,	$08,	nAb2,	$1E,	nRst
+	dc.b		$0A,	nC3,	$14,	nRst,	$0A,	nC3,	$02,	nRst
+	dc.b		$08,	nG3,	$1E,	nRst,	$0A,	nC3,	$14,	nRst
+	dc.b		$0A,	nC3,	$02,	nRst,	$08,	nG3,	$1E,	nRst
+	dc.b		$0A,	nEb3,	$14,	nRst,	$0A,	nEb3,	$02,	nRst
+	dc.b		$08,	nBb2,	$1E,	nRst,	$0A,	nEb3,	$14,	nRst
+	dc.b		$0A,	nEb3,	$02,	nRst,	$08,	nBb3,	$14,	smpsNoAttack
 	smpsAlterNote	$F0
 	dc.b		nBb3,	$01,	smpsNoAttack
 	smpsAlterNote	$20
@@ -75,53 +81,53 @@ Elevator_FM3:
 	dc.b		nAb3,	$01,	smpsNoAttack
 	smpsAlterNote	$ED
 	dc.b		nAb3,	$01,	smpsNoAttack
-	smpsAlterNote	$16
+	smpsAlterNote	$17
 	dc.b		nG3,	nRst,	$0A
 	smpsAlterNote	$00
 	dc.b		nFs3,	$14,	nRst,	$0A,	nFs3,	$02,	nRst,	$08
 	dc.b		nCs3,	$1E,	nRst,	$0A,	nA2,	$14,	nRst,	$0A
 	dc.b		nA2,	$02,	nRst,	$08,	nFs2,	$1E,	nRst,	$0A
-	smpsFMvoice	$00
+	dc.b		nCs3,	$01
 	smpsPan		panCentre,	$00
-	smpsJump	Elevator_FM3
+	smpsJump	Elevator_Jump03
 
 ; FM4 Data
 Elevator_FM4:
 	smpsFMvoice	$02
 	smpsAlterVol	$0E
 	smpsPan		panRight,	$00
-	dc.b		nC4,	$0A,	nRst,	nC4,	nRst,	nC4,	$14,	nRst
-	dc.b		$0A,	nC4,	nRst,	nC4,	nRst,	nC4,	nBb3,	nBb3
-	dc.b		nBb3,	nRst,	nC4,	nRst,	nC4,	nRst,	nBb3,	$14
-	dc.b		nRst,	$0A,	nC4,	nRst,	nC4,	nRst,	nC4,	nBb3
-	dc.b		nBb3,	nBb3,	nRst,	nCs4,	nRst,	nCs4,	nRst,	nBb3
-	dc.b		nBb3,	nRst,	nBb3,	nBb3,	nBb3,	nRst,	nBb3,	nC4
-	dc.b		nC4,	nBb3,	nRst,	nA3,	nRst,	nA3,	nRst,	nA3
-	dc.b		nA3,	nRst,	nA3,	nRst,	nA3,	nRst,	nA3,	nA3
-	dc.b		nA3,	nA3,	nRst
-	smpsFMvoice	$00
-	smpsAlterVol	$F2
-	smpsPan		panCentre,	$00
-	smpsJump	Elevator_FM4
+	dc.b		nC4,	$01
+Elevator_Jump04:
+	dc.b		smpsNoAttack,	nC4,	$09,	nRst,	$0A,	nC4,	nRst,	nBb3
+	dc.b		$14,	nRst,	$0A,	nC4,	nRst,	nC4,	nRst,	nC4
+	dc.b		nBb3,	nBb3,	nBb3,	nRst,	nC4,	nRst,	nC4,	nRst
+	dc.b		nBb3,	$14,	nRst,	$0A,	nC4,	nRst,	nC4,	nRst
+	dc.b		nC4,	nBb3,	nBb3,	nBb3,	nRst,	nCs4,	nRst,	nCs4
+	dc.b		nRst,	nBb3,	nBb3,	nRst,	nBb3,	nBb3,	nBb3,	nRst
+	dc.b		nBb3,	nC4,	nC4,	nBb3,	nRst,	nA3,	nRst,	nA3
+	dc.b		nRst,	nA3,	nA3,	nRst,	nA3,	nRst,	nA3,	nRst
+	dc.b		nA3,	nA3,	nA3,	nA3,	nRst,	nC4,	$01
+	smpsPan		panRight,	$00
+	smpsJump	Elevator_Jump04
 
 ; FM5 Data
 Elevator_FM5:
 	smpsFMvoice	$02
-	smpsAlterVol	$12
+	smpsAlterVol	$13
 	smpsPan		panLeft,	$00
-	dc.b		nAb3,	$0A,	nRst,	nAb3,	nRst,	nAb3,	$14,	nRst
-	dc.b		$0A,	nAb3,	nRst,	nAb3,	nRst,	nAb3,	nAb3,	$1E
-	dc.b		nRst,	$0A,	nG3,	nRst,	nG3,	nRst,	nG3,	$14
-	dc.b		nRst,	$0A,	nG3,	nRst,	nG3,	nRst,	nG3,	nG3
-	dc.b		$1E,	nRst,	$0A,	nFs4,	nRst,	nFs4,	nRst,	nEb4
-	dc.b		nEb4,	nRst,	nEb4,	nEb4,	nEb4,	nRst,	nEb4,	nEb4
-	dc.b		nEb4,	nEb4,	nRst,	nFs3,	nRst,	nFs3,	nRst,	nFs3
-	dc.b		nFs3,	nRst,	nFs3,	nRst,	nFs3,	nRst,	nFs3,	nFs3
-	dc.b		nFs3,	nFs3,	nRst
-	smpsFMvoice	$00
-	smpsAlterVol	$EE
-	smpsPan		panCentre,	$00
-	smpsJump	Elevator_FM5
+	dc.b		nAb3,	$01
+Elevator_Jump05:
+	dc.b		smpsNoAttack,	nAb3,	$09,	nRst,	$0A,	nAb3,	nRst,	nAb3
+	dc.b		$14,	nRst,	$0A,	nAb3,	nRst,	nAb3,	nRst,	nAb3
+	dc.b		nAb3,	$1E,	nRst,	$0A,	nG3,	nRst,	nG3,	nRst
+	dc.b		nG3,	$14,	nRst,	$0A,	nG3,	nRst,	nG3,	nRst
+	dc.b		nG3,	nG3,	$1E,	nRst,	$0A,	nFs4,	nRst,	nFs4
+	dc.b		nRst,	nEb4,	nEb4,	nRst,	nEb4,	nEb4,	nEb4,	nRst
+	dc.b		nEb4,	nEb4,	nEb4,	nEb4,	nRst,	nFs3,	nRst,	nFs3
+	dc.b		nRst,	nFs3,	nFs3,	nRst,	nFs3,	nRst,	nFs3,	nRst
+	dc.b		nFs3,	nFs3,	nFs3,	nFs3,	nRst,	nAb3,	$01
+	smpsPan		panLeft,	$00
+	smpsJump	Elevator_Jump05
 
 ; PSG3 Data
 Elevator_PSG3:
@@ -129,6 +135,7 @@ Elevator_PSG3:
 	smpsPSGform	$E7
 	smpsAlterNote	$01
 	dc.b		nA5,	$01
+Elevator_Jump06:
 	smpsPSGAlterVol	$02
 	smpsAlterNote	$01
 	dc.b		nA5
@@ -1662,22 +1669,27 @@ Elevator_PSG3:
 	smpsPSGAlterVol	$01
 	smpsAlterNote	$01
 	dc.b		nA5,	$01
-	smpsPSGAlterVol	$F2
-	smpsJump	Elevator_PSG3
+	smpsPSGAlterVol	$F4
+	smpsAlterNote	$01
+	dc.b		nA5
+	smpsPSGAlterVol	$FE
+	smpsJump	Elevator_Jump06
 
 ; DAC Data
 Elevator_DAC:
-	dc.b		dKick,	$14,	dSnare,	dKick,	$0A,	dSnare,	$14,	dKick
-	dc.b		$0A,	dKick,	$14,	dSnare,	dKick,	$0A,	dSnare,	$14
+	dc.b		dKick,	$01
+Elevator_Jump07:
+	dc.b		nRst,	$13,	dSnare,	$14,	dKick,	$0A,	dSnare,	$14
 	dc.b		dKick,	$0A,	dKick,	$14,	dSnare,	dKick,	$0A,	dSnare
 	dc.b		$14,	dKick,	$0A,	dKick,	$14,	dSnare,	dKick,	$0A
-	dc.b		dSnare,	$14,	dSnare,	$0A,	dKick,	$14,	dSnare,	dKick
-	dc.b		$0A,	dSnare,	$14,	dKick,	$0A,	dKick,	$14,	dSnare
+	dc.b		dSnare,	$14,	dKick,	$0A,	dKick,	$14,	dSnare,	dKick
+	dc.b		$0A,	dSnare,	$14,	dSnare,	$0A,	dKick,	$14,	dSnare
 	dc.b		dKick,	$0A,	dSnare,	$14,	dKick,	$0A,	dKick,	$14
 	dc.b		dSnare,	dKick,	$0A,	dSnare,	$14,	dKick,	$0A,	dKick
-	dc.b		$14,	dSnare,	dKick,	$0A,	dSnare,	$05,	dSnare,	dSnare
-	dc.b		$0A,	dSnare
-	smpsJump	Elevator_DAC
+	dc.b		$14,	dSnare,	dKick,	$0A,	dSnare,	$14,	dKick,	$0A
+	dc.b		dKick,	$14,	dSnare,	dKick,	$0A,	dSnare,	$05,	dSnare
+	dc.b		dSnare,	$0A,	dSnare,	$0B
+	smpsJump	Elevator_Jump07
 
 Elevator_Voices:
 	dc.b		$05,$08,$37,$01,$74,$1F,$1F,$1F,$1F,$0C,$92,$87,$0C,$02,$00,$00
