@@ -78,7 +78,9 @@ SonicRetro:
 	move.l	.InitRoutines(pc,d0.w),a2
 
 	else
-	lea	((retrodebug-1)*4)+.InitRoutines(pc),a2
+	moveq	#0,d0
+	move.w	#(retrodebug-1)*4,d0
+	move.l	.InitRoutines(pc,d0.w),a2
 
 	endif
 	jsr	(a2)
