@@ -173,6 +173,7 @@ GM_Advert:
 		advertdata 30,10,Ad_TamperThingy.art,Ad_TamperThingy.fg,Ad_TamperThingy.pal,bgm_Basillica,0
 		advertdata 3,3,Ad_Intel.art,Ad_Intel.fg,Ad_Intel.pal,0,dIntel
 		advertdata 30,5,Ad_ElmLab.art,Ad_ElmLab.fg,Ad_ElmLab.pal,bgm_NewBarkTown,0
+		advertdata 5,10,Ad_VH.art,Ad_VH.fg,Ad_VH.pal,bgm_LZ,0
 .tablee:
 .eyecatch1:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg1,Ad_Eyecatch.pal,0,dRightBack
 .eyecatch2:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg2,Ad_Eyecatch.pal,bgm_EuroSega,0
@@ -277,4 +278,10 @@ Ad_ElmLab:
 .pal:		binclude "_gamemode/advert/ad-ElmLab-pal.unc"
 .fg:		binclude "_gamemode/advert/ad-ElmLab-map.eni"
 .art:		binclude "_gamemode/advert/ad-ElmLab-art.nem"
+		even
+		
+Ad_VH:
+.pal:		binclude "_gamemode/advert/ad-VH-pal.unc"
+.fg:		binclude "_gamemode/advert/ad-VH-map.eni"
+.art:		binclude "_gamemode/advert/ad-VH-art.nem"
 		even
