@@ -175,6 +175,7 @@ GM_Advert:
 		advertdata 30,5,Ad_ElmLab.art,Ad_ElmLab.fg,Ad_ElmLab.pal,bgm_NewBarkTown,0
 		advertdata 5,10,Ad_VH.art,Ad_VH.fg,Ad_VH.pal,bgm_LZ,0
 		advertdata 3,8,Ad_SuperChallenges.art,Ad_SuperChallenges.fg,Ad_SuperChallenges.pal,bgm_Son1UP,0		
+		advertdata 5,10,Ad_IWBTH.art,Ad_IWBTH.fg,Ad_IWBTH.pal,bgm_GEMSHill,0		
 .tablee:
 .eyecatch1:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg1,Ad_Eyecatch.pal,0,dRightBack
 .eyecatch2:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg2,Ad_Eyecatch.pal,bgm_EuroSega,0
@@ -291,4 +292,9 @@ Ad_SuperChallenges:
 .pal:		binclude "_gamemode/advert/ad-super-challenges-pal.unc"
 .fg:		binclude "_gamemode/advert/ad-super-challenges-map.eni"
 .art:		binclude "_gamemode/advert/ad-super-challenges-art.nem"
+		even
+Ad_IWBTH:
+.pal:		binclude "_gamemode/advert/ad-IWBTH-pal.unc"
+.fg:		binclude "_gamemode/advert/ad-IWBTH-map.eni"
+.art:		binclude "_gamemode/advert/ad-IWBTH-art.nem"
 		even		
