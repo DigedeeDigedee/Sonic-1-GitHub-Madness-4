@@ -2223,7 +2223,7 @@ FinalTitle:
 		moveq	#palid_Title,d0	; load title screen palette
 		bsr.w	PalLoad_Fade
 		move.b	#0,(f_debugmode).w ; disable debug mode
-		move.w	#60*540,(v_generictimer).w ; run title screen for NOT 376 frames
+		move.w	#60*60,(v_generictimer).w ; run title screen for NOT 376 frames
 		
 	if FixBugs
 		; Fix the Press Start Button text
@@ -2424,6 +2424,34 @@ DemoSetup:
 		blo.s	loc_3422	; if yes, branch
 		move.w	#0,(v_demonum).w ; reset demo number to 0
 loc_3422:
+		rts
+
+PalCycle_Title:
+		subq.w	#1,(v_pcyc_time).w
+		bpl.s	PalCycTit_Skip
+		move.w	#3,(v_pcyc_time).w
+
+		; increment palette frame and update palette
+		lea	(Pal_TitleCyc).l,a0
+		move.w	(v_pcyc_num).w,d0
+
+		add.w	#1,(v_pcyc_num).w	; next frame
+		cmpi.w	#$54,(v_pcyc_num).w	; is it the last frame?
+		bls.s	.update			; if not, branch
+		clr.w	(v_pcyc_num).w		; reset frame counter
+.update:
+		lsl.w	#1,d0
+		lea	(v_pal_dry+$22).w,a1
+		adda.w  d0,a0
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.w  (a0)+,(a1)+
+PalCycTit_Skip:
 		rts
 
 ; ===========================================================================

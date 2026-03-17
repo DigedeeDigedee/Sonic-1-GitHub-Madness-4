@@ -19,8 +19,8 @@ PSB_Main:	; Routine 0
 
 		; Fix dick position
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Dick_position_in_Sonic_1
-		move.w	#$D8,obX(a0)
-		move.w	#$130,obScreenY(a0)
+		move.w	#$120,obX(a0)
+		move.w	#$14C,obScreenY(a0)
 		move.l	#Map_PSB,obMap(a0)
 		move.w	#make_art_tile(ArtTile_Title_Foreground,0,0),obGfx(a0)
 		cmpi.b	#2,obFrame(a0)	; is object "PRESS START"?

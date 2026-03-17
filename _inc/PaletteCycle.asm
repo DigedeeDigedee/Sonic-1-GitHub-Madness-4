@@ -44,11 +44,6 @@ PalCycle_Index:	dc.w PalCycle_GHZ-PalCycle_Index
 
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
-
-PalCycle_Title:
-		lea	(Pal_TitleCyc).l,a0
- ; ===========================================================================
-
 PalCycle_GHZ:
 		rts
 ; End of function PalCycle_GHZ
