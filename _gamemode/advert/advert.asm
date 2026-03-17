@@ -3,6 +3,7 @@ advertdata macro seconds,skipsec,art,map,pal,bgm,pcm
 	dc.b seconds,skipsec,bgm,pcm
 	endm
 advertdatasize equ 16
+advertdebug equ 0
 ; ---------------------------------------------------------------------------
 GM_Advert:
 		move.b	#bgm_Stop,d0
@@ -11,6 +12,7 @@ GM_Advert:
 		jsr	PaletteWhiteOut
 		disable_ints
 		disable_display
+		lea	(vdp_control_port).l,a6
 		move.w	#$8004,(a6)				; 8-colour mode
 		move.w	#$8200+(vram_fg>>10),(a6)		; set foreground nametable address
 		move.w	#$8400+(vram_bg>>13),(a6)		; set background nametable address
@@ -20,17 +22,19 @@ GM_Advert:
 		move.w	#$8B03,(a6)
 		move.w	#$8AFF,(a6)
 		move.w	#$8AFF,(v_hbla_hreg).w			; set palette change position (for water)
-		move.w	#$8720,(a6)				; set background colour (palette line 2, entry 0)
+		move.w	#$8700,(a6)				; set background colour (palette line 0, entry 0)
 		jsr	ClearScreen
 		clr.b	(f_wtr_state).w
 
 		lea	.eyecatch1(pc),a2
 		bsr.s	.render
 
+	if advertdebug==0
+		; Random ads, random amount between 2 and 5
 		jsr	RandomNumber				; RAND8(2,5)
-		and.b	#3,d0
-		addq.b	#2,d0
-		move.b	d0,(v_pcyc_num).w
+		and.w	#3,d0
+		addq.w	#2,d0
+		move.w	d0,(v_pcyc_num).w
 .adsloop:
 		lea	.table(pc),a2
 		jsr	RandomNumber				; RAND16(0,adcnt)
@@ -40,8 +44,21 @@ GM_Advert:
 		mulu.w	#advertdatasize,d0
 		add.w	d0,a2
 		bsr.s	.render
-		subq.b	#1,(v_pcyc_num).w
+		subq.w	#1,(v_pcyc_num).w
 		bne.s	.adsloop
+	elseif advertdebug<0
+		; All ads in sequence
+		lea	.table(pc),a2
+		move.w	#(.tablee-.table)/advertdatasize,(v_pcyc_num).w
+.adsloop:
+		bsr.s	.render
+		subq.w	#1,(v_pcyc_num).w
+		bne.s	.adsloop
+	else
+		; Specific ad
+		lea	((advertdebug-1)*advertdatasize)+.table(pc),a2
+		bsr.s	.render
+	endif
 
 		lea	.eyecatch2(pc),a2
 		bsr.s	.render
@@ -55,12 +72,12 @@ GM_Advert:
 		jsr	ClearPLC
 		lea	v_plc_buffer.w,a1
 		move.l	a0,(a1)+
-		move.w	#0,(a1)+
+		move.w	#1<<5,(a1)+
 		move.l	(sp)+,a2
 
 		move.l	(a2)+,a0
 		lea	(v_ram_start).l,a1
-		moveq	#0,d0
+		moveq	#1,d0
 		move.l	a2,-(sp)
 		jsr	EniDec
 		copyTilemap	v_ram_start,vram_fg,40,28
@@ -106,6 +123,7 @@ GM_Advert:
 		jsr	MegaPCM_PlaySample
 .nopcm:
 
+		move.l	a2,-(sp)
 		jsr	PaletteWhiteIn
 .mainloop:
 		move.b	#2,(v_vbla_routine).w
@@ -125,6 +143,7 @@ GM_Advert:
 		move.b	#bgm_Fade,d0
 		jsr	QueueSound2
 		jsr	PaletteWhiteOut
+		move.l	(sp)+,a2
 		rts
 ; ---------------------------------------------------------------------------
 .table:	; seconds, seconds to skip, art, map, palette, SMPS sound ID, MPCM sound ID
