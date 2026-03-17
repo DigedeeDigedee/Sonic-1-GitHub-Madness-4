@@ -147,6 +147,12 @@ GM_Advert:
 		move.b	#bgm_Fade,d0
 		jsr	QueueSound2
 		jsr	PaletteWhiteOut
+		;!@ GD: PCM SFX fix if in advert debugger
+		if advertdebug<0
+		move.b	#bgm_Stop,d0
+		jsr	QueueSound2
+		stopPCM
+		endif
 		move.l	(sp)+,a2
 		rts
 ; ---------------------------------------------------------------------------
@@ -167,6 +173,10 @@ GM_Advert:
 		advertdata 30,5,Ad_SonicUnderground.art,Ad_SonicUnderground.fg,Ad_SonicUnderground.pal,bgm_SonUnderground,0
 		advertdata 30,5,Ad_RaidShadowLegends.art,Ad_RaidShadowLegends.fg,Ad_RaidShadowLegends.pal,bgm_Easton,0
 		advertdata 30,10,Ad_TamperThingy.art,Ad_TamperThingy.fg,Ad_TamperThingy.pal,bgm_Basillica,0
+		
+		;!@ GD: Sonic Soup adverts
+		advertdata 5,1,Ad_GenesisCan1.art,Ad_GenesisCan1.fg,Ad_GenesisCan1.pal,0,dGenesisCan1
+		advertdata 5,1,Ad_GenesisCan2.art,Ad_GenesisCan2.fg,Ad_GenesisCan2.pal,0,dGenesisCan2
 .tablee:
 .eyecatch1:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg1,Ad_Eyecatch.pal,0,dRightBack
 .eyecatch2:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg2,Ad_Eyecatch.pal,bgm_EuroSega,0
@@ -259,4 +269,16 @@ Ad_HK97:
 .pal:		binclude "_gamemode/advert/ad-hong-kong-97-pal.unc"
 .fg:		binclude "_gamemode/advert/ad-hong-kong-97-map.eni"
 .art:		binclude "_gamemode/advert/ad-hong-kong-97-art.nem"
+		even
+		
+;!@ GD: Sonic Soup advert
+Ad_GenesisCan1:
+.pal:		binclude "_gamemode/advert/ad-GenesisCan1-pal.unc"
+.fg:		binclude "_gamemode/advert/ad-GenesisCan1-map.eni"
+.art:		binclude "_gamemode/advert/ad-GenesisCan1-art.nem"
+		even
+Ad_GenesisCan2:
+.pal:		binclude "_gamemode/advert/ad-GenesisCan2-pal.unc"
+.fg:		binclude "_gamemode/advert/ad-GenesisCan2-map.eni"
+.art:		binclude "_gamemode/advert/ad-GenesisCan2-art.nem"
 		even

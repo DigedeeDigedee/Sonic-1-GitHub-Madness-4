@@ -3,8 +3,9 @@
 ; Song Samples
 
 -
-	phase $81
+	phase $80
 ; Sonic 1
+DACMIN				ds.b 1	;!@ GD: Minimumum DAC sample - 1 (silence). Used for enum/array bounds
 dKick				ds.b 1
 dSnare				ds.b 1
 dProtoSnare			ds.b 1
@@ -106,5 +107,10 @@ dSega2				ds.b 1
 dTwerkOf87			ds.b 1
 dGayNeil			ds.b 1
 dfunnyb_utthole			ds.b 1
+
+;!@ GD: Maximum DAC sample (exclusive range). Used for enum/array bounds
+;Please reserve this as last
+dsfxSilence			ds.b 1
+DACMAX = dsfxSilence
 	dephase
 	!org -
