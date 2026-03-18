@@ -2594,6 +2594,17 @@ Level_NoMusicFade:
 		jsr	(TitleCards_LoadArt).l
 		moveq	#plcid_Main,d0
 		bsr.w	AddPLC			; load standard patterns
+		; load player hud lives art
+		move.w	#ch_hudlives,d0
+		jsr	(GetOtherPlayerData).l
+
+		add.l	#Nem_Lives,d0 ; use RAM for PLC
+		lea	(v_ram_start).l,a1
+		move.l	d0,(a1)
+		move.w	#ArtTile_Lives_Counter*$20,4(a1)
+		move.l	#-1,6(a1)
+		bsr.w	UserPLC
+
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		lsl.w	#7,d0

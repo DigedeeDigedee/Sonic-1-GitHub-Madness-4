@@ -30,6 +30,36 @@ chrid_tonic	equ 0
 chrid_maniac	equ 1
 chrid_last	equ 1
 
+; ----------------------------------------------------------------------------
+; Get player's data for things other than the object data.
+; Input: d0.w -> what variable to get
+
+; HipSnake: move this code to somewhere you fit I added this here cause I
+; didn't know where to put it.
+; ----------------------------------------------------------------------------
+
+GetOtherPlayerData:
+	moveq	#0,d1
+	move.b	(v_characterid).w,d1
+	chk	#chrid_last,d1
+
+	add.w	d1,d1
+	add.w	d0,d1
+	add.w	d1,d1 ; 2 * d0 + 4 * charid
+
+	moveq	#0,d0
+	move.w	OtherPlayerData(pc,d1.w),d0
+	rts
+
+	; HUD Life Icon Art, Damage SFX
+ch_hudlives	equ 0
+ch_hurtpcm	equ 2
+OtherPlayerData:
+	dc.w	Nem_TonicLives-Nem_Lives
+	dc.w	dFuck
+	dc.w	Nem_ManiacLives-Nem_Lives
+	dc.w	dGayNeil
+
 ; ---------------------------------------------------------------------------
 
 SonicPlayer:
