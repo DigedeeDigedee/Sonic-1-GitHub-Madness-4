@@ -478,7 +478,12 @@ Nem_EndStH:	binclude	"artnem/Ending - StH Logo.nem"
 		even
 Eni_TheIdiotBros:	binclude	"tilemaps/Idiots.eni"
 		even
-
+; ---------------------------------------------------------------------------
+; Cold Brew
+; ---------------------------------------------------------------------------
+Nem_EizaNorm:	binclude	"coniobjs/eiza/artNORM.bin"
+Nem_EizaAtt:	binclude	"coniobjs/eiza/artATT.bin"
+		even
 ; ---------------------------------------------------------------------------
 ; Collision data
 ; ---------------------------------------------------------------------------

@@ -732,10 +732,9 @@ off_6E4ABR:	dc.w DLE_BREW3main-off_6E4ABR
 ; ===========================================================================
 
 EizaArtList:
-	dc.l	Nem_Clinton
-;	dc.l	Nem_Eiza
-	dc.w	$8000
-	dc.l	-1		; Was it that hard?
+	dc.l	Nem_EizaNorm
+	dc.w	$7080
+	dc.l	-1		; Load in her GFX, likely gobbling up all of obj vram
 
 DLE_BREW3main:
 		add.w	#1,(v_limitleft2).w

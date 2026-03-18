@@ -558,6 +558,8 @@ ArtTile_GHZ_Spike_Pole:		equ $398
 ArtTile_GHZ_Giant_Ball:		equ $3AA
 ArtTile_GHZ_Purple_Rock:	equ $3D0
 ArtTile_CBZ_Waterfall:		equ ArtTile_Level+$37C
+ArtTile_CBZ_Eiza:		equ ArtTile_Level+$380
+
 
 ; Marble Zone
 ArtTile_MZ_Block:		equ $2B8
