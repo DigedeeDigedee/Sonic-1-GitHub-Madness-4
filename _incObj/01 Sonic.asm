@@ -44,8 +44,8 @@ GetOtherPlayerData:
 	chk	#chrid_last,d1
 
 	add.w	d1,d1
+	add.w	d1,d1 ; d0 + 4 * charid
 	add.w	d0,d1
-	add.w	d1,d1 ; 2 * d0 + 4 * charid
 
 	moveq	#0,d0
 	move.w	OtherPlayerData(pc,d1.w),d0
