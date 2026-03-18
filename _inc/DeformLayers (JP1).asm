@@ -497,7 +497,27 @@ AppleScrMv:	equ   $FFFFA806
 Deform_SBZ:
 		tst.b	(v_act).w
 		bne.w	Deform_SBZ2
-	     move.w	(v_scrshiftx).w,d4
+	; vertical scrolling
+		move.w	#0,v_bgscreenposy
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_vdp).w
+	; calculate background scroll buffer
+		lea	(v_hscrolltablebuffer).w,a1
+		add.w	#1,v_bgscroll_buffer
+		move.w	(v_bgscroll_buffer).w,d2
+		move.w	(v_screenposx).w,d0
+		neg	d0
+		swap 	d0
+		move.w	d2,d0
+		move.w	#256-1,d1
+	.buildingLoop:		
+		move.l	d0,(a1)+
+		dbf	d1,.buildingLoop
+		rts
+
+		; i'm not quite sure what this is going to be used for
+		; code above is for act 1
+
+		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
 		move.w	(v_scrshifty).w,d5
