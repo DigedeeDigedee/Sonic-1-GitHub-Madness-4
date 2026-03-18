@@ -180,6 +180,7 @@ GM_Advert:
 		advertdata 5,1,Ad_GenesisCan1.art,Ad_GenesisCan1.fg,Ad_GenesisCan1.pal,0,dGenesisCan1
 		advertdata 5,1,Ad_GenesisCan2.art,Ad_GenesisCan2.fg,Ad_GenesisCan2.pal,0,dGenesisCan2
 		advertdata 8,1,Ad_GenesisCan3.art,Ad_GenesisCan3.fg,Ad_GenesisCan3.pal,0,dGenesisCan3
+		advertdata 120,5,Ad_Nep5.art,Ad_Nep5.fg,Ad_Nep5.pal,bgm_NepAnime,dNep
 .tablee:
 .eyecatch1:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg1,Ad_Eyecatch.pal,0,dRightBack
 .eyecatch2:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg2,Ad_Eyecatch.pal,bgm_EuroSega,0
@@ -290,3 +291,11 @@ Ad_GenesisCan3:
 .fg:		binclude "_gamemode/advert/ad-GenesisCan3-map.eni"
 .art:		binclude "_gamemode/advert/ad-GenesisCan3-art.nem"
 		even
+
+;!@ Neptunia 5: The Next Dimension video game ad		
+Ad_Nep5:
+.pal:		binclude "_gamemode/advert/ad-nep5-pal.unc"
+.fg:		binclude "_gamemode/advert/ad-nep5-map.eni"
+.art:		binclude "_gamemode/advert/ad-nep5-art.nem"
+		even
+

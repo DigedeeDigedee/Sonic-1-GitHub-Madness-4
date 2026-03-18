@@ -73,6 +73,7 @@ SampleTable:
 	dcSample	TYPE_DPCM,	GenesisCan1,16000,FLAGS_SFX		; $B3
 	dcSample	TYPE_DPCM,	GenesisCan2,16000,FLAGS_SFX		; $B4
 	dcSample	TYPE_DPCM,	GenesisCan3,16000,FLAGS_SFX		; $B5
+	dcSample	TYPE_DPCM,	nep,16000,FLAGS_SFX				; $B5
 	;!@ DELETED - NOP'd out with dummy.wav
 	;dcSample	TYPE_DPCM,	SM64_MM,16000,FLAGS_SFX			; $B5
 	dcSample	TYPE_DPCM,	Boost,		16000,FLAGS_SFX		; $B6
@@ -212,6 +213,7 @@ SampleTable:
 	incdac	GenesisCan1,"sound/dac/GenesisDoes/GenesisCan1.dpcm"
 	incdac	GenesisCan2,"sound/dac/GenesisDoes/GenesisCan2.dpcm"
 	incdac	GenesisCan3,"sound/dac/GenesisDoes/GenesisCan3.dpcm"
+	incdac	nep,"sound/dac/GenesisDoes/nep.dpcm"
 	;!@ DELETED - NOP'd out with Dummy.wav
 	;incdac	SM64_MM,"sound/dac/GenesisDoes/SM64_MM.dpcm"
 	incdac	SM64_MM,"sound/dac/dummy.dpcm"
