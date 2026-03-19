@@ -5942,7 +5942,7 @@ Map_Drown:	include	"_maps/Drowning Countdown.asm"
 ;		include	"_incObj/4A Special Stage Entry (Unused).asm"	; REMOVE UNUSED DATA - CONI
 		include	"_incObj/08 Water Splash.asm"
 		include	"_anim/Shield and Invincibility.asm"
-Map_Shield:	include	"_maps/Shield and Invincibility.asm"
+;Map_Shield:	include	"_maps/Shield and Invincibility.asm"
 ;		include	"_anim/Special Stage Entry (Unused).asm"	; REMOVE UNUSED DATA - CONI
 ;Map_Vanish:	include	"_maps/Special Stage Entry (Unused).asm"	; REMOVE UNUSED DATA - CONI
 		include	"_anim/Water Splash.asm"
