@@ -438,7 +438,7 @@ KillSonic:
 	endif
 		move.b	#id_Null,obAnim(a0)
 		bset	#7,obGfx(a0)
-		move.b	#dTrevor, d0
+		move.b	#dFannys, d0
 		jsr	(MegaPCM_PlaySample).l
 		move.b	#$8, d1
 		jmp	(GHM3Explode_Custom).l
