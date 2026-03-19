@@ -114,7 +114,7 @@ ptr_mus62:		dc.l Music62
 ptr_mus63:		dc.l Music63
 ptr_mus64:		dc.l Music64
 ptr_mus65:		dc.l Music65
-ptr_mus66:		dc.l Music66
+;ptr_mus66:		dc.l Music66
 ;ptr_mus67:		dc.l Music67
 ;ptr_mus68:		dc.l Music68
 ;ptr_mus69:		dc.l Music69
@@ -284,66 +284,64 @@ Music46:	include	"music/TG2000Tracks/Thomas.asm"
 		even
 Music47:	include	"music/TG2000Tracks/ILBT.asm"
 		even
-Music48:	include	"music/HS_Tracks/Basillica.asm"
-		even ; oof
-Music49:	include	"music/Kat/Mus - Clinton Fucker.asm"
+Music48:	include	"music/Kat/Mus - Clinton Fucker.asm"
 		even
-Music4A:	include	"music/HS_Tracks/GCV2005.asm"
+Music49:	include	"music/HS_Tracks/GCV2005.asm"
 		even
-Music4B:	include	"music/Dawid/DeltaTale fighte.asm"
+Music4A:	include	"music/Dawid/DeltaTale fighte.asm"
 		even
-Music4C:	include	"music/TG2000Tracks/Pac2.asm"
+Music4B:	include	"music/TG2000Tracks/Pac2.asm"
 		even
-Music4D:	include	"music/TG2000Tracks/Passport.asm"
+Music4C:	include	"music/TG2000Tracks/Passport.asm"
 		even
-Music4E:	include	"music/GuykeTracks/Mus - Area 5.asm"
+Music4D:	include	"music/GuykeTracks/Mus - Area 5.asm"
 		even
-Music4F:	include	"music/LiquidTracks/Mus - CCLobby.asm"
+Music4E:	include	"music/LiquidTracks/Mus - CCLobby.asm"
 		even
-Music50:	include	"music/CNTracks/MEMORIES.asm"
+Music4F:	include	"music/CNTracks/MEMORIES.asm"
 		even
-Music51:	include	"music/Dawid/Mus - Bomer Dude.asm"	;i have no idea too
+Music50:	include	"music/Dawid/Mus - Bomer Dude.asm"	;i have no idea too
 		even
-Music52:	include	"music/Mus90 - Continue Screen.asm"
+Music51:	include	"music/Mus90 - Continue Screen.asm"
 		even
-Music53:	include	"music/TG2000Tracks/Coffinman.asm"	;Boss Track
+Music52:	include	"music/TG2000Tracks/Coffinman.asm"	;Boss Track
 		even
-Music54:	include	"music/CNTracks/CometSTG2.asm"
+Music53:	include	"music/CNTracks/CometSTG2.asm"
 		even
-Music55:	include	"music/CNTracks/TheCheetosChairRoom.asm"
+Music54:	include	"music/CNTracks/TheCheetosChairRoom.asm"
 		even
-Music56:	include	"music/TG2000Tracks/DoleBOSS.asm"	;Boss Track
+Music55:	include	"music/TG2000Tracks/DoleBOSS.asm"	;Boss Track
 		even
-Music57:	include	"music/TG2000Tracks/OrangeSong.asm" 
+Music56:	include	"music/TG2000Tracks/OrangeSong.asm" 
 		even
-Music58:	include	"music/PikaNoob/treasurecaves.asm" 
+Music57:	include	"music/PikaNoob/treasurecaves.asm" 
 		even
-Music59:	include	"music/Kat/Mus - Dole Detective.asm"
+Music58:	include	"music/Kat/Mus - Dole Detective.asm"
 		even
-Music5A:	include "music/Dawid/WINDOWS2000.asm"		;you got a windows 2000 product activation key!!!!!!!!! (or you used kgen you fucking idiot)
+Music59:	include "music/Dawid/WINDOWS2000.asm"		;you got a windows 2000 product activation key!!!!!!!!! (or you used kgen you fucking idiot)
 		even
-Music5B:	include	"music/TG2000Tracks/Easton.asm" 
+Music5A:	include	"music/TG2000Tracks/Easton.asm" 
 		even
-Music5C:	include	"music/CNTracks/SneakySnitch.asm"
+Music5B:	include	"music/CNTracks/SneakySnitch.asm"
 		even
-Music5D:	include	"music/AburtosTracks/Mus - GEMS Hill.asm"
+Music5C:	include	"music/AburtosTracks/Mus - GEMS Hill.asm"
 		even
-Music5E:	include	"music/PikaNoob/Mus - Ronic Setro.asm"
+Music5D:	include	"music/PikaNoob/Mus - Ronic Setro.asm"
 		even
-Music5F:	include	"music/NiaTracks/Mus - Donnie1.asm"
+Music5E:	include	"music/NiaTracks/Mus - Donnie1.asm"
 		even	
-Music60:	include	"music/TG2000Tracks/Elevator.asm" 
+Music5F:	include	"music/TG2000Tracks/Elevator.asm" 
 		even
-Music61:	include	"music/CNTracks/SUNSET.asm"
+Music60:	include	"music/CNTracks/SUNSET.asm"
 		even
-Music62:	include	"music/TG2000Tracks/SonUnderground.asm" 
+Music61:	include	"music/TG2000Tracks/SonUnderground.asm" 
 		even
-Music63:	include	"music/TG2000Tracks/Skinner.asm" 
+Music62:	include	"music/TG2000Tracks/Skinner.asm" 
 		even
-Music64:	include	"music/TG2000Tracks/Danstar.asm" 
+Music63:	include	"music/TG2000Tracks/Danstar.asm" 
 		even
-Music65:	include	"music/BigNate/Mus - SHC Splash Screen.asm" 
+Music64:	include	"music/BigNate/Mus - SHC Splash Screen.asm" 
 		even
-Music66:	include	"music/GenesisDoes/NepAnime.asm" 
+Music65:	include	"music/GenesisDoes/NepAnime.asm" 
 		even
 	END

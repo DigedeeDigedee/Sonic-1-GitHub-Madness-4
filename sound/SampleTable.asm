@@ -45,13 +45,6 @@ SampleTable:
 	dcSample	TYPE_DPCM,	CF_DrumLoopA,	16000			; $9F
 	dcSample	TYPE_DPCM,	CF_DrumLoopB,	16000			; $A0
 
-	dcSample	TYPE_PCM,	Amen_Kick,	0					; $97
-	dcSample	TYPE_PCM,	Amen_Snare1,	0				; $98
-	dcSample	TYPE_PCM,	Amen_Snare2,	0				; $99
-	dcSample	TYPE_PCM,	Amen_ShortKick1,0				; $9A
-	dcSample	TYPE_PCM,	Amen_ShortKick2,0				; $9B
-	dcSample	TYPE_PCM,	Amen_Ride1,	0					; $9C
-	dcSample	TYPE_PCM,	Amen_Ride2,	0					; $9D
 	dcSample	TYPE_PCM,	Amen_Crash,	0					; $9E
 
 	; PCM Music Tracks (Should probably make this a sequence instead)
@@ -162,13 +155,6 @@ SampleTable:
 
 ; ---------------------------------------------------------------
 ; Amen Breaks -  for use in songs (sampled from cw_amen_classic on rhythmlab) ported by Saneway
-	incdac	Amen_Kick, "sound/dac/amenbreak/kick.wav"
-	incdac	Amen_Snare1, "sound/dac/amenbreak/snare1.wav"
-	incdac	Amen_Snare2, "sound/dac/amenbreak/snare2.wav"
-	incdac	Amen_ShortKick1, "sound/dac/amenbreak/shortkick1.wav"
-	incdac	Amen_ShortKick2, "sound/dac/amenbreak/shortkick2.wav"
-	incdac	Amen_Ride1, "sound/dac/amenbreak/ride1.wav"
-	incdac	Amen_Ride2, "sound/dac/amenbreak/ride2.wav"
 	incdac	Amen_Crash, "sound/dac/amenbreak/crash.wav"
 
 ; ---------------------------------------------------------------

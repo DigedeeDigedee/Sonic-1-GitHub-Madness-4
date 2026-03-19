@@ -50,13 +50,6 @@ dClintLoopA:			ds.b 1
 dClintLoopB:			ds.b 1
 
 ; Amen Break Sample Set
-dAmenKick:			ds.b 1
-dAmenSnare1:			ds.b 1
-dAmenSnare2:			ds.b 1
-dAmenShortKick1:		ds.b 1
-dAmenShortKick2:		ds.b 1
-dAmenRide1:			ds.b 1
-dAmenRide2:			ds.b 1
 dAmenCrash:			ds.b 1
 
 ; PCM Music Tracks
