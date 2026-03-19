@@ -160,7 +160,7 @@ Music08:	include "music/DaxKatter/Mus - NBT Extra Life.asm"
 		even
 Music09:	include "music/LiquidTracks/Mus - Special Stage.asm"
 		even
-Music0A:	include "music/GuykeTracks/Mus - Smiling Bomb.asm"
+Music0A:	include "music/TheWTracks/Mus - Smiling Bomb.asm"
 		even
 Music0B:	include "music/MattTracks/Mus - Ending.asm"
 		even
