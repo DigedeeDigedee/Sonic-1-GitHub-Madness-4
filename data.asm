@@ -35,6 +35,16 @@ Nem_TGTiles:	binclude	"TGSplash/tiles.bin"
 		even
 
 ; ---------------------------------------------------------------------------
+; Uncompressed graphics - Shield
+; ---------------------------------------------------------------------------	
+
+Map_Shield:	include		"_maps/Shield Map.asm"	
+		even
+Dgfx_Shield:	include		"_maps/Shield DGFX.asm"	
+		even
+Art_Shield:	binclude	"artunc/Shield.bin"	
+		even
+; ---------------------------------------------------------------------------
 ; Uncompressed graphics - Sonic (base)
 ; ---------------------------------------------------------------------------
 ;Map_Sonic:	include		"char_assets/Sonic Map.asm"
@@ -71,8 +81,8 @@ Pal_Maniac:	binclude	"char_assets/Maniac Pal.bin"
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
 ; ---------------------------------------------------------------------------
-Nem_Shield:	binclude	"artnem/Shield.nem"
-		even
+;Nem_Shield:	binclude	"artnem/Shield.nem"
+;		even
 Nem_Stars:	binclude	"artnem/Invincibility Stars.nem"
 		even
 

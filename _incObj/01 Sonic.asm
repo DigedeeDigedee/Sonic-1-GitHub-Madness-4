@@ -190,74 +190,8 @@ Sonic_Control:	; Routine 2
 
 .ignorecontrols:
 		btst	#0,(f_playerctrl).w 		; are controls locked?
-		bne.w	.ignoremodes			; if yes, branch
-
-		cmpi.b	#chrid_maniac,v_characterid	; check if needle
-		bne.s	.Skipma				; skip if not
-		btst	#6,(v_jpadpress1)
-		beq.w	.nobullets
-
-; ----------------------------------------------------------------------------
-; needlemouse bullet spawn
-; ----------------------------------------------------------------------------
-
-		moveq   #3, d2
-		moveq   #0, d1
-		moveq   #0, d0
-		move.b	obAngle(a0), d1
-		btst	#0,obStatus(a0)
-		beq.s	.notflip1
-		add.b	#$80,d1
-.notflip1:
-		sub.w	#$C,d1
-
-.makebullets1:
-		bsr.w	FindFreeObj
-		bne.w	.nobullets
-
-		move.b	#id_PlayerBullet, obID(a1)
-		move.w	#$B00,bulletfactor(a1)
-		move.w	obX(a0), obX(a1)
-		move.w	obY(a0), obY(a1)
-		move.b	d1, obAngle(a1)
-		add.b	#$8, d1
-		dbf	d2, .makebullets1
-
-		move.w	#$F, v_screenshaketime		; tonic has insane firepower
-		move.w	#sfx_Bomb, d0
-		jsr	PlaySound_Special		
-		bra.w	.nobullets			; skip ahead
-
-; ----------------------------------------------------------------------------
-; needlemouse bullet spawn
-; ----------------------------------------------------------------------------
-
-.Skipma
-		btst	#6,(v_jpadpress1)
-		beq.s	.nobullets
-
-
-		moveq   #3, d2
-		moveq   #0, d1
-		moveq   #0, d0
-
-.makebullets:
-		bsr.w	FindFreeObj
-		bne.s	.nobullets
-
-		move.b	#id_PlayerBullet, obID(a1)
-		move.w	#$600,bulletfactor(a1)
-		move.w	obX(a0), obX(a1)
-		move.w	obY(a0), obY(a1)
-		move.b	d1, obAngle(a1)
-		add.b	#$40, d1
-		dbf	d2, .makebullets
-
-		move.w	#$25, v_screenshaketime		; tonic has insane firepower
-		move.w	#sfx_Bomb, d0
-		jsr	PlaySound_Special
-
-.nobullets:
+		bne.s	.ignoremodes			; if yes, branch
+		bsr.w	PlayerBulletHandle
 		moveq	#0,d0
 		move.b	obStatus(a0),d0
 		andi.w	#6,d0
@@ -489,6 +423,75 @@ Sonic_MdJump2:
 		bsr.w	Sonic_Floor
 		rts
 
+
+; ----------------------------------------------------------------------------
+; Subroutine for handling selected player's attack "bullets"
+; ----------------------------------------------------------------------------
+PlayerBulletHandle:
+
+		cmpi.b	#chrid_maniac,v_characterid	; check if needle
+		bne.s	.Skipma				; skip if not
+		btst	#6,(v_jpadpress1)
+		beq.w	.nobullets
+
+		moveq   #3, d2
+		moveq   #0, d1
+		moveq   #0, d0
+		move.b	obAngle(a0), d1
+		btst	#0,obStatus(a0)
+		beq.s	.notflip1
+		add.b	#$80,d1
+.notflip1:
+		sub.w	#$C,d1
+
+.makebullets1:
+		bsr.w	FindFreeObj
+		bne.w	.nobullets
+
+		move.b	#id_PlayerBullet, obID(a1)
+		move.w	#$B00,bulletfactor(a1)
+		move.w	obX(a0), obX(a1)
+		move.w	obY(a0), obY(a1)
+		move.b	d1, obAngle(a1)
+		add.b	#$8, d1
+		dbf	d2, .makebullets1
+
+		move.w	#$F, v_screenshaketime
+		move.w	#sfx_Bomb, d0
+		jsr	PlaySound_Special		
+		bra.w	.nobullets			; skip ahead
+
+; ----------------------------------------------------------------------------
+; Tonic bullet spawn
+; ----------------------------------------------------------------------------
+
+.Skipma
+		btst	#6,(v_jpadpress1)
+		beq.s	.nobullets
+
+
+		moveq   #3, d2
+		moveq   #0, d1
+		moveq   #0, d0
+
+.makebullets:
+		bsr.w	FindFreeObj
+		bne.s	.nobullets
+
+		move.b	#id_PlayerBullet, obID(a1)
+		move.w	#$600,bulletfactor(a1)
+		move.w	obX(a0), obX(a1)
+		move.w	obY(a0), obY(a1)
+		move.b	d1, obAngle(a1)
+		add.b	#$40, d1
+		dbf	d2, .makebullets
+
+		move.w	#$25, v_screenshaketime		; tonic has insane firepower
+		move.w	#sfx_Bomb, d0
+		jsr	PlaySound_Special
+.nobullets:
+		rts
+		
 ; ---------------------------------------------------------------------------
 ; Subroutine to make Sonic walk/run
 ; ---------------------------------------------------------------------------

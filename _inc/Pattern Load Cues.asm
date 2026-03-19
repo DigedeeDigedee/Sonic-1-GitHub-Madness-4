@@ -74,7 +74,7 @@ PLC_Mainend:
 ; Pattern load cues - standard block 2
 ; ---------------------------------------------------------------------------
 PLC_Main2:	dc.w ((PLC_Main2end-PLC_Main2-2)/6)-1
-		plcm	Nem_Shield,   ArtTile_Shield        ; shield
+		;plcm	Nem_Shield,   ArtTile_Shield        ; shield
 		plcm	Nem_Stars,    ArtTile_Invincibility ; invincibility stars
 PLC_Main2end:
 ; ---------------------------------------------------------------------------
