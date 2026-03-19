@@ -20,8 +20,8 @@ SampleTable:
 	dcSample	TYPE_PCM,	Tom,		13714			; $8C S2 Floor-Tom
 
 	; SONIC 3 & KNUCKLES (AND 3D BLAST)
-	dcSample	TYPE_DPCM,	SnareS3,	19090			; $8D
 	dcSample	TYPE_DPCM,	KickS3,		19090			; $8D
+	dcSample	TYPE_DPCM,	SnareS3,	19090			; $8D
 	dcSample	TYPE_DPCM,	CrashCymbal,	16766			; $8D
 	dcSample	TYPE_DPCM,	ElectricTom,	20513			; $8D
 	dcSample	TYPE_DPCM,	ElectricTom,	15803			; $8E
