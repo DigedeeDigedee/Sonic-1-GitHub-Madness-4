@@ -232,59 +232,84 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	enum	SNDMIN=$0				;!@ GD: Minimum sound ID (silence)
 	nextenum bgm__First
 	nextenum bgm_MWaterS=bgm__First
+	nextenum bgm_OrangeSong
+	nextenum bgm_GreenHills
 	nextenum bgm_Dungeon3
 	nextenum bgm_LosTontos
+	nextenum bgm_Area5
+	nextenum bgm_Easton
 	nextenum bgm_Minecraft
-	nextenum bgm_LimitedYard
+	nextenum bgm_Doom
+	nextenum bgm_BadEmerald
+	nextenum bgm_TreasureCaves
+	nextenum bgm_CanCan
+	nextenum bgm_GCV2005
 	nextenum bgm_fightMID
-	nextenum bgm_Invincible
-	nextenum bgm_ExtraLife
-	nextenum bgm_SS
-	nextenum bgm_Title
-	nextenum bgm_Ending
-	nextenum bgm_Boss
+	nextenum bgm_Cheetah
+	nextenum bgm_REMansion
+	nextenum bgm_ColdBrew
+	nextenum bgm_UNOwenWasHer
+	nextenum bgm_Passport
+	nextenum bgm_DoleDetective
 	nextenum bgm_Final
+	nextenum bgm_SS
+	nextenum bgm_Boss
+	nextenum bgm_ClintonFuck
+	nextenum bgm_Megalovania
+	nextenum bgm_DoleBOSS
+	nextenum bgm_Coffinman
+	nextenum bgm_Invincible
+	nextenum bgm_AVGNInv
+	nextenum bgm_Title
+	nextenum bgm_NewBarkTown
+	nextenum bgm_Memories
+	nextenum bgm_Continue
+	nextenum bgm_Ending
+	nextenum bgm_Jeopardy
 	nextenum bgm_S1ActClear
 	nextenum bgm_GameOver
-	nextenum bgm_Continue
-	nextenum bgm_S1Credits
+	nextenum bgm_ExtraLife
 	nextenum bgm_Drowning
 	nextenum bgm_Emerald
-	nextenum bgm_NewBarkTown
-	nextenum bgm_REMansion
-	nextenum bgm_Jeopardy
-	nextenum bgm_EuroSega
 	nextenum bgm_Retro
+	nextenum bgm_RonicSetro
+	nextenum bgm_SHCSplash
 	nextenum bgm_ConiJingle
-	nextenum bgm_VampKiller
+	nextenum bgm_TG2000Jingle
+	nextenum bgm_Donnie
+	nextenum bgm_S1Continue
 	nextenum bgm_PuyoDrown
+	nextenum bgm_Win2K
+	nextenum bgm_EuroSega
+	nextenum bgm_PuyoReject
+	nextenum bgm_LG
+	nextenum bgm_ILBT
+	nextenum bgm_Sunset
+	nextenum bgm_Elevator
+	nextenum bgm_SonUnderground
+	nextenum bgm_Son1UP
+	nextenum bgm_GEMSHill
+	nextenum bgm_LimitedYard
+	nextenum bgm_NepAnime
+	nextenum bgm_BomerDude
+	nextenum bgm_DeltaTale
+	nextenum bgm_NewShop
+	nextenum bgm_ChickenDance
+	nextenum bgm_VampKiller
 	nextenum bgm_Carefree
-	nextenum bgm_Doom
 	nextenum bgm_Dingaling
-	nextenum bgm_Megalovania
 	nextenum bgm_Aporia
 	nextenum bgm_Gadget
 	nextenum bgm_CanCanInv
 	nextenum bgm_TwoSteps
 	nextenum bgm_FurElise
-	nextenum bgm_Ding
-	nextenum bgm_GreenHills
-	nextenum bgm_Son1UP
-	nextenum bgm_SadMac
-	nextenum bgm_TG2000Jingle
 	nextenum bgm_SwingSinners
-	nextenum bgm_AVGNInv
-	nextenum bgm_Minuscule
-	nextenum bgm_Folgers
+	nextenum bgm_Miniscule
 	nextenum bgm_Rickroll
 	nextenum bgm_Wormy
 	nextenum bgm_Starman
-	nextenum bgm_MayoDed
-	nextenum bgm_PuyoReject
-	nextenum bgm_NewShop
 	nextenum bgm_JamesPond
 	nextenum bgm_AlexKiddEnd
-	nextenum bgm_Cheetah
 	nextenum bgm_DJKK
 	nextenum bgm_FuneralMarch
 	nextenum bgm_Levian
@@ -292,47 +317,22 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_Peppa
 	nextenum bgm_Resetti
 	nextenum bgm_Spoopy
-	nextenum bgm_ChickenDance
-	nextenum bgm_CanCan
-	nextenum bgm_BadEmerald
 	nextenum bgm_SkyBase
-	nextenum bgm_UNOwenWasHer
 	nextenum bgm_Scrappy
 	nextenum bgm_WeAreTheSonic
-	nextenum bgm_LG
 	nextenum bgm_Thomas
-	nextenum bgm_ILBT
-	nextenum bgm_ClintonFuck
-	nextenum bgm_GCV2005
-	nextenum bgm_DeltaTale
 	nextenum bgm_Pac2
-	nextenum bgm_Passport
-	nextenum bgm_Area5
 	nextenum bgm_CCLobby
-	nextenum bgm_Memories
-	nextenum bgm_BomerDude
-	nextenum bgm_S1Continue
-	nextenum bgm_Coffinman
-	nextenum bgm_ColdBrew
 	nextenum bgm_ChairRoom
-	nextenum bgm_DoleBOSS
-	nextenum bgm_OrangeSong
-	nextenum bgm_TreasureCaves
-	nextenum bgm_DoleDetective
-	nextenum bgm_Win2K
-	nextenum bgm_Easton
 	nextenum bgm_SneakySnitch
-	nextenum bgm_GEMSHill
-	nextenum bgm_RonicSetro
-	nextenum bgm_Donnie
-	nextenum bgm_Elevator
-	nextenum bgm_Sunset
-	nextenum bgm_SonUnderground
 	nextenum bgm_Skinner
 	nextenum bgm_Danstar
-	nextenum bgm_SHCSplash
-	nextenum bgm_NepAnime
 	nextenum bgm_Hidden
+	nextenum bgm_Ding
+	nextenum bgm_SadMac
+	nextenum bgm_Folgers
+	nextenum bgm_MayoDed
+	nextenum bgm_S1Credits
 	; Keep this last
 	nextenum bgm__Last
 
