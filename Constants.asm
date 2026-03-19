@@ -231,23 +231,23 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	enumconf $1
 	enum	SNDMIN=$0				;!@ GD: Minimum sound ID (silence)
 	nextenum bgm__First
-	nextenum bgm_GHZ=bgm__First
-	nextenum bgm_LZ
-	nextenum bgm_MZ
-	nextenum bgm_SLZ
-	nextenum bgm_SYZ
-	nextenum bgm_SBZ
+	nextenum bgm_MWaterS=bgm__First
+	nextenum bgm_Dungeon3
+	nextenum bgm_LosTontos
+	nextenum bgm_Minecraft
+	nextenum bgm_LimitedYard
+	nextenum bgm_fightMID
 	nextenum bgm_Invincible
 	nextenum bgm_ExtraLife
 	nextenum bgm_SS
 	nextenum bgm_Title
 	nextenum bgm_Ending
 	nextenum bgm_Boss
-	nextenum bgm_FZ
-	nextenum bgm_GotThrough
+	nextenum bgm_Final
+	nextenum bgm_S1ActClear
 	nextenum bgm_GameOver
 	nextenum bgm_Continue
-	nextenum bgm_Credits
+	nextenum bgm_S1Credits
 	nextenum bgm_Drowning
 	nextenum bgm_Emerald
 	nextenum bgm_NewBarkTown
@@ -307,7 +307,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_DeltaTale
 	nextenum bgm_Pac2
 	nextenum bgm_Passport
-	nextenum bgm_music83
+	nextenum bgm_Area5
 	nextenum bgm_CCLobby
 	nextenum bgm_Memories
 	nextenum bgm_musBomerDude

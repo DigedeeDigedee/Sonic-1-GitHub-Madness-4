@@ -3199,7 +3199,7 @@ loc_47D4:
 		move.w	(v_rings).w,d0
 		mulu.w	#10,d0		; multiply rings by 10
 		move.w	d0,(v_ringbonus).w ; set rings bonus
-		move.w	#bgm_GotThrough,d0
+		move.w	#bgm_S1ActClear,d0
 		jsr	(QueueSound2).l	 ; play end-of-level music
 
 		clearRAM v_objspace
@@ -3694,7 +3694,7 @@ End_MainLoop:
 		beq.s	End_ChkEmerald	; if yes, branch
 
 		move.b	#id_Credits,(v_gamemode).w ; goto credits
-		move.b	#bgm_Credits,d0
+		move.b	#bgm_S1Credits,d0
 		bsr.w	QueueSound2 ; play credits music
 		move.w	#0,(v_creditsnum).w ; set credits index number to 0
 		rts
