@@ -11,10 +11,10 @@
 ReactToItem_Other:
 		move.w	obX(a0), d2	; load host x-axis position
 		move.w	obY(a0), d3	; load host y-axis position
-		subq.w	#8,d2
+;		subq.w	#8,d2
 		moveq	#0,d5
 		move.b	obHeight(a0),d5	; load host height
-		subq.b	#3,d5
+;		subq.b	#3,d5
 		sub.w	d5,d3
 
 		
