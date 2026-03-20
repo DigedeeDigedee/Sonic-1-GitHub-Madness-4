@@ -131,13 +131,17 @@ PLC_LZ2end:
 PLC_MZ:		dc.w ((PLC_MZ2-PLC_MZ-2)/6)-1
 ;		plcm	Nem_MZ,       ArtTile_Level              ; MZ main patterns
 		plcm	Nem_MzMetal,  ArtTile_MZ_Spike_Stomper   ; metal blocks
-		plcm	Nem_Basaran,  ArtTile_Basaran            ; basaran enemy
+		; hate this system
+		dc.l Nem_Basaran  
+    	dc.w $68A0            ; basaran enemy
+		; bye  
 		plcm	Nem_Swing,    ArtTile_GHZ_MZ_Swing       ; swinging platform
 		plcm	Nem_MzGlass,  ArtTile_MZ_Glass_Pillar    ; green glassy block
 		plcm	Nem_Lava,     ArtTile_MZ_Lava            ; lava
 		plcm	Nem_Buzz,     ArtTile_Buzz_Bomber        ; buzz bomber enemy
 		plcm	Nem_Yadrin,   ArtTile_Yadrin             ; yadrin enemy
-		plcm	Nem_Cater,    ArtTile_MZ_SYZ_Caterkiller ; caterkiller enemy
+		dc.l Nem_Cater		; caterkiller enemy
+		dc.w $A0E0
 
 PLC_MZ2:	dc.w ((PLC_MZ2end-PLC_MZ2-2)/6)-1
 		plcm	Nem_MzSwitch, ArtTile_Button+4           ; switch
@@ -177,13 +181,13 @@ PLC_SYZ:	dc.w ((PLC_SYZ2-PLC_SYZ-2)/6)-1
 		plcm	Nem_Crabmeat,  ArtTile_Crabmeat            ; crabmeat enemy
 		plcm	Nem_Buzz,      ArtTile_Buzz_Bomber         ; buzz bomber enemy
 		plcm	Nem_Yadrin,    ArtTile_Yadrin              ; yadrin enemy
-		plcm	Nem_Roller,    ArtTile_Roller              ; roller enemy
 
 PLC_SYZ2:	dc.w ((PLC_SYZ2end-PLC_SYZ2-2)/6)-1
 		plcm	Nem_Bumper,    ArtTile_SYZ_Bumper          ; bumper
 		plcm	Nem_SyzSpike1, ArtTile_SYZ_Big_Spikeball   ; large spikeball
 		plcm	Nem_SyzSpike2, ArtTile_SYZ_Spikeball_Chain ; small spikeball
-		plcm	Nem_Cater,     ArtTile_MZ_SYZ_Caterkiller  ; caterkiller enemy
+		dc.l Nem_Cater		; caterkiller enemy
+		dc.w $A0E0
 		plcm	Nem_LzSwitch,  ArtTile_Button              ; switch
 		plcm	Nem_Spikes,    ArtTile_Spikes              ; spikes
 		plcm	Nem_HSpring,   ArtTile_Spring_Horizontal   ; horizontal spring
