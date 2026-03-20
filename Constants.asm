@@ -274,8 +274,8 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_Emerald
 	nextenum bgm_Retro
 	nextenum bgm_RonicSetro
-	nextenum bgm_SHCSplash
 	nextenum bgm_S1ActClear
+	nextenum bgm_SHCSplash
 	nextenum bgm_ConiJingle
 	nextenum bgm_TG2000Jingle
 	nextenum bgm_Donnie
@@ -292,11 +292,11 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_Son1UP
 	nextenum bgm_GEMSHill
 	nextenum bgm_LimitedYard
-	nextenum bgm_NepAnime
 	nextenum bgm_BomerDude
 	nextenum bgm_DeltaTale
 	nextenum bgm_NewShop
 	nextenum bgm_ChickenDance
+	nextenum bgm_NepAnime
 	nextenum bgm_VampKiller
 	nextenum bgm_Carefree
 	nextenum bgm_Dingaling

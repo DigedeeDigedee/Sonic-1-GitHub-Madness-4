@@ -333,22 +333,26 @@ Music3D:
 		include "music/DaxKatter/Mus - Limited Yard.asm"
 		even
 Music3E:
-		include	"music/GenesisDoes/NepAnime.asm" 
-		even
-Music3F:
 		include	"music/Dawid/Mus - Bomer Dude.asm"	;i have no idea too
-		even
-Music40:
-		include	"music/Dawid/DeltaTale fighte.asm"
-		even
-Music41:
-		include	"music/TG2000Tracks/NewShop.asm"
-		even
-Music42:
-		include	"music/TG2000Tracks/ChickenDance.asm"
 		even
 
 ; Unused Tracks (so far)
+
+Music3F:
+		include	"music/Dawid/DeltaTale fighte.asm"
+		even
+
+Music40:
+		include	"music/TG2000Tracks/NewShop.asm"
+		even
+
+Music41:
+		include	"music/TG2000Tracks/ChickenDance.asm"
+		even
+
+Music42:
+		include	"music/GenesisDoes/NepAnime.asm" 
+		even
 
 Music43:
 		include	"music/TG2000Tracks/VampireKiller.asm"

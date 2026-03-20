@@ -48,54 +48,54 @@ SampleTable:
 	dcSample	TYPE_DPCM,	Amen_Crash,	11025			; $9E
 
 	; In-Game SFX SAMPLES
-	dcSample	TYPE_PCM,	letsgoeee,	0,	FLAGS_SFX	; This is the most important one!!! :fire: :fire: :fire:
+	dcSample	TYPE_PCM,	letsgoeee,	8000,	FLAGS_SFX	; This is the most important one!!! :fire: :fire: :fire:
 	dcSample	TYPE_PCM,	Boik,		5250,	FLAGS_SFX	; $C4
-	dcSample	TYPE_PCM,	QuakeJump,	0,	FLAGS_SFX		; $C8
-	dcSample	TYPE_PCM,	Fannys,		0,FLAGS_SFX		; $A3
-	dcSample	TYPE_PCM,	QuakeRocket,	11297,			; $B8
-	dcSample	TYPE_PCM,	CL_STFU,	11297,FLAGS_SFX		; $BB
-	dcSample	TYPE_PCM,	CL_Fuck,	11297,			; $BC
+	dcSample	TYPE_PCM,	QuakeJump,	0,	FLAGS_SFX	; $C8
+	dcSample	TYPE_PCM,	Fannys,		0,	FLAGS_SFX	; $A3
+	dcSample	TYPE_PCM,	QuakeRocket,	11297			; $B8
+	dcSample	TYPE_PCM,	CL_STFU,	11297,	FLAGS_SFX	; $BB
+	dcSample	TYPE_PCM,	CL_Fuck,	11297			; $BC
 	dcSample	TYPE_DPCM,	Chicken,	16000,	FLAGS_SFX	; $CD if my oc dongles has been added, use this sound effect as a sfx_death replacement
-	dcSample	TYPE_PCM,	GayNeil,	0, FLAGS_SFX		; $CE
-	dcSample	TYPE_PCM,	CL_Dicks,	11297,				; $BF
-	dcSample	TYPE_PCM,	BabyAlarm,	0,FLAGS_SFX			; $C2
-	dcSample	TYPE_PCM,	CL_YouCanSuck,	11297,FLAGS_SFX		; $BD
-	dcSample	TYPE_PCM,	Lg,		16000, FLAGS_SFX		; $CB
-	dcSample	TYPE_DPCM,	Boost,		16000,FLAGS_SFX		; $B6
+	dcSample	TYPE_PCM,	GayNeil,	0,	FLAGS_SFX	; $CE
+	dcSample	TYPE_PCM,	CL_Dicks,	11297			; $BF
+	dcSample	TYPE_PCM,	BabyAlarm,	0,	FLAGS_SFX	; $C2
+	dcSample	TYPE_PCM,	CL_YouCanSuck,	11297,	FLAGS_SFX	; $BD
+	dcSample	TYPE_PCM,	Lg,		16000,	FLAGS_SFX	; $CB
+	dcSample	TYPE_DPCM,	Boost,		16000,	FLAGS_SFX	; $B6
 	dcSample	TYPE_DPCM,	ClintonHi,	20600,	FLAGS_SFX	; $C6
-	dcSample	TYPE_PCM,	CL_DoYouSuck,	11297,FLAGS_SFX		; $BE
-	dcSample	TYPE_PCM,	CL_OnTheBall,	11297,			; $C0
-	dcSample	TYPE_DPCM,	DAMN,		16000,FLAGS_SFX		; $A2
-	dcSample	TYPE_PCM,	Foxy,		0, FLAGS_SFX		; $CD
+	dcSample	TYPE_PCM,	CL_DoYouSuck,	11297,	FLAGS_SFX	; $BE
+	dcSample	TYPE_PCM,	CL_OnTheBall,	11297			; $C0
+	dcSample	TYPE_DPCM,	DAMN,		16000,	FLAGS_SFX	; $A2
+	dcSample	TYPE_PCM,	Foxy,		0,	FLAGS_SFX	; $CD
 
 	; Title Screen Samples
-	dcSample	TYPE_DPCM,	YoFreddy,	16000,FLAGS_SFX		; $AB
-	dcSample	TYPE_DPCM,	Github,		16000,FLAGS_SFX		; $AC
-	dcSample	TYPE_DPCM,	Madness,	16000,FLAGS_SFX		; $AD
-	dcSample	TYPE_DPCM,	MadnessR,	16000,FLAGS_SFX		; $AE
-	dcSample	TYPE_DPCM,	TheFourth,	16000,FLAGS_SFX		; $AF
-	dcSample	TYPE_DPCM,	eggmanLaugh,	16000,FLAGS_SFX	; $B0
+	dcSample	TYPE_DPCM,	YoFreddy,	16000,	FLAGS_SFX	; $AB
+	dcSample	TYPE_DPCM,	Github,		16000,	FLAGS_SFX	; $AC
+	dcSample	TYPE_DPCM,	Madness,	16000,	FLAGS_SFX	; $AD
+	dcSample	TYPE_DPCM,	MadnessR,	16000,	FLAGS_SFX	; $AE
+	dcSample	TYPE_DPCM,	TheFourth,	16000,	FLAGS_SFX	; $AF
+	dcSample	TYPE_DPCM,	eggmanLaugh,	16000,	FLAGS_SFX	; $B0
 
 	; Splash Screens
-	dcSample	TYPE_PCM,	EggNo,		11297,				; $C1
-	dcSample	TYPE_DPCM,	funnyb_utthole,	8000, FLAGS_SFX		; $CF
-	dcSample	TYPE_DPCM,	yume2kki,	16000,FLAGS_SFX		; $A4
-	dcSample	TYPE_DPCM,	EagleSoft_Song,	16000,FLAGS_SFX	; $AA
+	dcSample	TYPE_PCM,	EggNo,		11297			; $C1
+	dcSample	TYPE_DPCM,	funnyb_utthole,	8000,	FLAGS_SFX	; $CF
+	dcSample	TYPE_DPCM,	yume2kki,	16000,	FLAGS_SFX	; $A4
+	dcSample	TYPE_DPCM,	EagleSoft_Song,	16000,	FLAGS_SFX	; $AA
 	dcSample	TYPE_DPCM,	GenesisDoes1,	16000			; $B1
-	dcSample	TYPE_PCM,	supbeaches,	11297,				; $B9
+	dcSample	TYPE_PCM,	supbeaches,	11297			; $B9
 
 	; Commercial Samples
 	dcSample	TYPE_PCM,	BeRightBack,	16000,			; $B2		
 	dcSample	TYPE_DPCM,	GenesisCan1,	16000,FLAGS_SFX		; $B3
 	dcSample	TYPE_DPCM,	GenesisCan2,	16000,FLAGS_SFX		; $B4
 	dcSample	TYPE_DPCM,	GenesisCan3,	16000,FLAGS_SFX		; $B5
-	dcSample	TYPE_DPCM,	Intel,		16000, FLAGS_SFX		; $D0
+;	dcSample	TYPE_DPCM,	Intel,		16000, FLAGS_SFX		; $D0
 
 	; SEGA Samples
 	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0,	FLAGS_SFX	; $C9
 	dcSample	TYPE_PCM,	Segay,		0,	FLAGS_SFX	; $CC
 	; Unused
-;	dcSample	TYPE_PCM,	CL_Penis,	11297,			; $BA
+;	dcSample	TYPE_PCM,	CL_Penis,	11297			; $BA
 ;	dcSample	TYPE_PCM,	Boioing,	5250,	FLAGS_SFX	; $C5
 ;	dcSample	TYPE_DPCM,	OrngLaugh,	8000,	FLAGS_SFX		; $C6
 ;	dcSample	TYPE_DPCM,	ClintonYeah,	20600,	FLAGS_SFX	; $C7
@@ -142,7 +142,7 @@ SampleTable:
 
 ; ---------------------------------------------------------------
 ; the singular sample file from conic 1 (idgaf if it counts as leaking)
-	incdac	CTC1_Tick, "sound/dac/C1Tick.dpcm"
+	incdac	CTC1_Tick, "sound/dac/Conic/Tick.dpcm"
 
 ; ---------------------------------------------------------------
 ; Clinton Fuckerdrum beat
@@ -155,7 +155,7 @@ SampleTable:
 
 ; ---------------------------------------------------------------
 ; SFX Samples
-	incdac	letsgoeee, "sound/dac/letsgoeee.wav"   ; hi
+	incdac	letsgoeee, "sound/dac/TheSunsetHacker/letsgoeee.pcm"		; :fire: :fire: :fire: :fire: :fire:
 	incdac	Boik, "sound/dac/boik.wav"
 	incdac	QuakeJump, "sound/dac/quakejump.wav"
 	incdac	Fannys, "sound/dac/Trevor.wav"
@@ -170,7 +170,7 @@ SampleTable:
 	incdac	CL_YouCanSuck, "sound/dac/CL_YouCanSuck.wav"
 	incdac	Lg, "sound/dac/lg/Echo.pcm"
 	incdac	Boost,"sound/dac/GenesisDoes/Boost.dpcm"
-	incdac	ClintonHi, "sound/dac/clintonfucker_hi.dpcm"
+	incdac	ClintonHi, "sound/dac/Clinton Fucker/hi.dpcm"
 	incdac	CL_OnTheBall, "sound/dac/CL_OnTheBall.wav"
 	incdac	DAMN, "sound/dac/DAX/DAMN.dpcm"
 	incdac	Foxy, "sound/dac/Foxy.wav"
@@ -199,14 +199,14 @@ SampleTable:
 	incdac	GenesisCan1,"sound/dac/GenesisDoes/GenesisCan1.dpcm"
 	incdac	GenesisCan2,"sound/dac/GenesisDoes/GenesisCan2.dpcm"
 	incdac	GenesisCan3,"sound/dac/GenesisDoes/GenesisCan3.dpcm"
-	incdac	Intel,"sound/dac/Intel.dpcm"
+;	incdac	Intel,"sound/dac/Intel.dpcm"
 
 ; ---------------------------------------------------------------
 ; Unused Samples (Commented Out)
 ;	incdac	CL_Penis, "sound/dac/CL_Penis.wav"
 ;	incdac	Boioing, "sound/dac/boioioing.wav"
 ;	incdac	OrngLaugh, "sound/dac/AnOrangesLaugh.dpcm"
-;	incdac	ClintonYeah, "sound/dac/clintonfucker_yeah.dpcm"
+;	incdac	ClintonYeah, "sound/dac/Clinton Fucker/yeah.dpcm"
 
 	;!@ SAVE THIS AS (LAST SLOT-2)
 	incdac	dummy,"sound/dac/dummy.dpcm"
