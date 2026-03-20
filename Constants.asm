@@ -266,6 +266,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_Memories
 	nextenum bgm_Continue
 	nextenum bgm_Ending
+	nextenum bgm_SSZ
 	nextenum bgm_Jeopardy
 	nextenum bgm_ActClear
 	nextenum bgm_Pac2
@@ -280,6 +281,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_ConiJingle
 	nextenum bgm_TG2000Jingle
 	nextenum bgm_Donnie
+	nextenum bgm_TSHLogo
 	nextenum bgm_S1Continue
 	nextenum bgm_PuyoDrown
 	nextenum bgm_Win2K
