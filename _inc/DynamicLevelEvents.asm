@@ -789,7 +789,7 @@ loc_6ED0BR:
 		move.b	#1,(f_lockscreen).w ; lock screen
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_Boss,d0
-		bra.w	AddPLC		; load boss patterns
+		jmp	AddPLC		; load boss patterns
 ; ===========================================================================
 
 locret_6EE8BR:
