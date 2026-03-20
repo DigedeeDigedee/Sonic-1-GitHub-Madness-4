@@ -188,13 +188,13 @@ GM_Advert:
 		advertdata 8,1,Ad_GenesisCan3.art,Ad_GenesisCan3.fg,Ad_GenesisCan3.pal,0,dGenesisCan3
 ;		advertdata 60+35,5,Ad_Nep5.art,Ad_Nep5.fg,Ad_Nep5.pal,bgm_NepAnime,0
 
-;		advertdata 3,3,Ad_Intel.art,Ad_Intel.fg,Ad_Intel.pal,0,dIntel
+;		advertdata 3,3,Ad_Intel.art,Ad_Intel.fg,Ad_Intel.pal,0,dIntel ;WHYYYYYYYYYYYYY
 		advertdata 30,5,Ad_ElmLab.art,Ad_ElmLab.fg,Ad_ElmLab.pal,bgm_NewBarkTown,0
 		advertdata 5,10,Ad_VH.art,Ad_VH.fg,Ad_VH.pal,bgm_Dungeon3,0
 		advertdata 3,8,Ad_SuperChallenges.art,Ad_SuperChallenges.fg,Ad_SuperChallenges.pal,bgm_Son1UP,0		
 		advertdata 5,10,Ad_IWBTH.art,Ad_IWBTH.fg,Ad_IWBTH.pal,bgm_GEMSHill,0
 		advertdata 30,5,Ad_Limited.art,Ad_Limited.fg,Ad_Limited.pal,bgm_LimitedYard,0				; I plan to change the song to Final Limit
-		advertdata 30,5,Ad_Atgame.art,Ad_Atgame.fg,Ad_Atgame.pal,bgm_BomerDude,0
+		advertdata 30,5,Ad_Atgame.art,Ad_Atgame.fg,Ad_Atgame.pal,bgm_BomerDude,0 ;pls dont touch this very beautiful ad
 .tablee:
 .eyecatch1:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg1,Ad_Eyecatch.pal,0,dRightBack
 .eyecatch2:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg2,Ad_Eyecatch.pal,bgm_EuroSega,0
