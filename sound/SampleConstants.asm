@@ -73,6 +73,7 @@ dDoYouSuck			ds.b 1
 dOnTheBall			ds.b 1
 dDAMN				ds.b 1
 dTwerkOf87			ds.b 1
+dScream				ds.b 1
 
 ; Title Screen Samples
 dYoFreddy			ds.b 1

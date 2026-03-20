@@ -68,6 +68,7 @@ SampleTable:
 	dcSample	TYPE_PCM,	CL_OnTheBall,	11297			; $C0
 	dcSample	TYPE_DPCM,	DAMN,		16000,	FLAGS_SFX	; $A2
 	dcSample	TYPE_PCM,	Foxy,		0,	FLAGS_SFX	; $CD
+	dcSample	TYPE_PCM,	Scream,	8000,	FLAGS_SFX	; $CE
 
 	; Title Screen Samples
 	dcSample	TYPE_DPCM,	YoFreddy,	16000,	FLAGS_SFX	; $AB
@@ -176,7 +177,7 @@ SampleTable:
 	incdac	CL_OnTheBall, "sound/dac/CL_OnTheBall.wav"
 	incdac	DAMN, "sound/dac/DAX/DAMN.dpcm"
 	incdac	Foxy, "sound/dac/Foxy.wav"
-
+    incdac	Scream, "sound/dac/Scream.wav"
 ; ---------------------------------------------------------------
 ; Title Screen Samples
 	incdac	YoFreddy, "sound/dac/GenesisDoes/YoFreddy.dpcm"
