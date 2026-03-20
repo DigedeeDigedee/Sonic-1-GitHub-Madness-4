@@ -91,18 +91,20 @@ dsupbeaches			ds.b 1
 
 ; Commercial Samples
 dRightBack			ds.b 1
-dGenesisCan1			ds.b 1
-dGenesisCan2			ds.b 1
 dGenesisCan3			ds.b 1
-;dIntel				ds.b 1
 
 ; SEGA Samples
 dSega				ds.b 1
 dSega2				ds.b 1
+
+; UNUSED
 ;dPenis				ds.b 1
 ;dBoioing			ds.b 1
 ;dOrangeLaugh			ds.b 1
 ;dClintonYeah			ds.b 1
+;dGenesisCan1			ds.b 1
+;dGenesisCan2			ds.b 1
+;dIntel				ds.b 1
 
 ;!@ GD: Maximum DAC sample (exclusive range). Used for enum/array bounds
 ;Please reserve this as last

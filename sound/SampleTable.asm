@@ -86,10 +86,7 @@ SampleTable:
 
 	; Commercial Samples
 	dcSample	TYPE_PCM,	BeRightBack,	16000,			; $B2		
-	dcSample	TYPE_DPCM,	GenesisCan1,	16000,FLAGS_SFX		; $B3
-	dcSample	TYPE_DPCM,	GenesisCan2,	16000,FLAGS_SFX		; $B4
 	dcSample	TYPE_DPCM,	GenesisCan3,	16000,FLAGS_SFX		; $B5
-;	dcSample	TYPE_DPCM,	Intel,		16000, FLAGS_SFX		; $D0
 
 	; SEGA Samples
 	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0,	FLAGS_SFX	; $C9
@@ -99,6 +96,9 @@ SampleTable:
 ;	dcSample	TYPE_PCM,	Boioing,	5250,	FLAGS_SFX	; $C5
 ;	dcSample	TYPE_DPCM,	OrngLaugh,	8000,	FLAGS_SFX		; $C6
 ;	dcSample	TYPE_DPCM,	ClintonYeah,	20600,	FLAGS_SFX	; $C7
+;	dcSample	TYPE_DPCM,	GenesisCan1,	16000,FLAGS_SFX		; $B3
+;	dcSample	TYPE_DPCM,	GenesisCan2,	16000,FLAGS_SFX		; $B4
+;	dcSample	TYPE_DPCM,	Intel,		16000, FLAGS_SFX		; $D0
 
 	
 	;!@ GD: Last slot always reserved for PCM SFX Silence

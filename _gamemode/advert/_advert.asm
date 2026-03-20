@@ -183,8 +183,8 @@ GM_Advert:
 		advertdata 30,5,Ad_TamperThingy.art,Ad_TamperThingy.fg,Ad_TamperThingy.pal,bgm_PuyoReject,0
 		
 		;!@ GD: Sonic Soup adverts
-		advertdata 5,1,Ad_GenesisCan1.art,Ad_GenesisCan1.fg,Ad_GenesisCan1.pal,0,dGenesisCan1
-		advertdata 5,1,Ad_GenesisCan2.art,Ad_GenesisCan2.fg,Ad_GenesisCan2.pal,0,dGenesisCan2
+;		advertdata 5,1,Ad_GenesisCan1.art,Ad_GenesisCan1.fg,Ad_GenesisCan1.pal,0,dGenesisCan1
+;		advertdata 5,1,Ad_GenesisCan2.art,Ad_GenesisCan2.fg,Ad_GenesisCan2.pal,0,dGenesisCan2
 		advertdata 8,1,Ad_GenesisCan3.art,Ad_GenesisCan3.fg,Ad_GenesisCan3.pal,0,dGenesisCan3
 ;		advertdata 60+35,5,Ad_Nep5.art,Ad_Nep5.fg,Ad_Nep5.pal,bgm_NepAnime,0
 
@@ -302,16 +302,17 @@ Ad_HK97:
 		even
 
 ;!@ GD: Sonic Soup advert
-Ad_GenesisCan1:
-.pal:		binclude "_gamemode/advert/ad-GenesisCan1-pal.unc"
-.fg:		binclude "_gamemode/advert/ad-GenesisCan1-map.eni"
-.art:		binclude "_gamemode/advert/ad-GenesisCan1-art.nem"
-		even
-Ad_GenesisCan2:
-.pal:		binclude "_gamemode/advert/ad-GenesisCan2-pal.unc"
-.fg:		binclude "_gamemode/advert/ad-GenesisCan2-map.eni"
-.art:		binclude "_gamemode/advert/ad-GenesisCan2-art.nem"
-		even
+;Ad_GenesisCan1:
+;.pal:		binclude "_gamemode/advert/ad-GenesisCan1-pal.unc"
+;.fg:		binclude "_gamemode/advert/ad-GenesisCan1-map.eni"
+;.art:		binclude "_gamemode/advert/ad-GenesisCan1-art.nem"
+;		even
+
+;Ad_GenesisCan2:
+;.pal:		binclude "_gamemode/advert/ad-GenesisCan2-pal.unc"
+;.fg:		binclude "_gamemode/advert/ad-GenesisCan2-map.eni"
+;.art:		binclude "_gamemode/advert/ad-GenesisCan2-art.nem"
+;		even
 
 ;Ad_Intel:
 ;.pal:		binclude "_gamemode/advert/ad-Intel-pal.unc"
