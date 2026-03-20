@@ -94,7 +94,6 @@ dRightBack			ds.b 1
 dGenesisCan1			ds.b 1
 dGenesisCan2			ds.b 1
 dGenesisCan3			ds.b 1
-dNep				ds.b 1
 dIntel				ds.b 1
 
 ; SEGA Samples

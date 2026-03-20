@@ -2148,7 +2148,7 @@ Sega_GotoTitle:
 		bne.s	.skip
 		jmp	RunSplashes
 .skip
-		pcm 	dEggNo
+;		pcm 	dEggNo	; This doesn't even work due to the Sega sample having priority and the next screen ceasing sample playback
 		rts				; skip splash screens with heavy
 		
 		include	"ATOGKsplashesWIP/MAIN.asm"	; Code (simply ran by inclusion)
