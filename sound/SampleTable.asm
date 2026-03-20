@@ -55,6 +55,7 @@ SampleTable:
 	dcSample	TYPE_PCM,	QuakeRocket,	11297,			; $B8
 	dcSample	TYPE_PCM,	CL_STFU,	11297,FLAGS_SFX		; $BB
 	dcSample	TYPE_PCM,	CL_Fuck,	11297,			; $BC
+	dcSample	TYPE_DPCM,	Chicken,	16000,	FLAGS_SFX	; $CD if my oc dongles has been added, use this sound effect as a sfx_death replacement
 	dcSample	TYPE_PCM,	GayNeil,	0, FLAGS_SFX		; $CE
 	dcSample	TYPE_PCM,	CL_Dicks,	11297,				; $BF
 	dcSample	TYPE_PCM,	BabyAlarm,	0,FLAGS_SFX			; $C2
@@ -94,7 +95,6 @@ SampleTable:
 	; SEGA Samples
 	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0,	FLAGS_SFX	; $C9
 	dcSample	TYPE_PCM,	Segay,		0,	FLAGS_SFX	; $CC
-	dcSample	TYPE_DPCM,	Chicken,	0,	FLAGS_SFX	; $CD if my oc dongles has been added, use this sound effect as a sfx_death replacement
 	; Unused
 ;	dcSample	TYPE_PCM,	CL_Penis,	11297,			; $BA
 ;	dcSample	TYPE_PCM,	Boioing,	5250,	FLAGS_SFX	; $C5
@@ -163,6 +163,7 @@ SampleTable:
 	incdac	QuakeRocket, "sound/dac/tankfire1.wav"
 	incdac	CL_STFU, "sound/dac/CL_STFU.wav"
 	incdac	CL_Fuck, "sound/dac/CL_Fuck.wav"
+	incdac	Chicken, "sound/dac/Chicken.dpcm"
 	incdac	GayNeil, "sound/dac/gayneil.wav"
 	incdac	CL_DoYouSuck, "sound/dac/CL_DoYouSuck.wav"
 	incdac	CL_Dicks, "sound/dac/CL_Dicks.wav"
@@ -211,9 +212,6 @@ SampleTable:
 ;	incdac	OrngLaugh, "sound/dac/AnOrangesLaugh.dpcm"
 ;	incdac	ClintonYeah, "sound/dac/clintonfucker_yeah.dpcm"
 
-; ---------------------------------------------------------------
-; Dongles' sound effects
-	incdac	Chicken, "sound/dac/Chicken.wav"
 	;!@ SAVE THIS AS (LAST SLOT-2)
 	incdac	dummy,"sound/dac/dummy.dpcm"
 

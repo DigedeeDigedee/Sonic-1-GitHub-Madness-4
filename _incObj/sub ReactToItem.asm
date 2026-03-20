@@ -438,28 +438,18 @@ KillSonic:
 	endif
 		move.b	#id_Null,obAnim(a0)
 		bset	#7,obGfx(a0)
-		move.b	#dFannys, d0
-		jsr	(MegaPCM_PlaySample).l
-		move.b	#$8, d1
-		jmp	(GHM3Explode_Custom).l
-		
-	if FixBugs
-		move.w	#sfx_HitSpikes,d0 ; play spikes death sound
+
+		move.b	#dChicken,d0		; play spikes death sound
 		cmpi.b	#id_Spikes,obID(a2)	; check if you were killed by spikes
 		beq.s	.sound
 		cmpi.b	#id_Harpoon,obID(a2)	; check if you were killed by a harpoon
 		beq.s	.sound
-		move.w	#sfx_Death,d0	; play normal death sound
-	else
-		; This fails to check for the harpoon object.
-		move.w	#sfx_Death,d0	; play normal death sound
-		cmpi.b	#id_Spikes,obID(a2)	; check if you were killed by spikes
-		bne.s	.sound
-		move.w	#sfx_HitSpikes,d0 ; play spikes death sound
-	endif
+		move.b	#dFannys, d0
 
 .sound:
-		jsr	(QueueSound2).l
+		jsr	(MegaPCM_PlaySample).l
+		move.b	#$8, d1
+		jmp	(GHM3Explode_Custom).l
 
 .dontdie:
 		moveq	#-1,d0

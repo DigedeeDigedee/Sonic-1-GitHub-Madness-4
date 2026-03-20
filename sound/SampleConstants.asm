@@ -60,6 +60,7 @@ dFannys				ds.b 1
 dQuakeRocket			ds.b 1
 dSTFU				ds.b 1
 dFuck				ds.b 1
+dChicken			ds.b 1
 dGayNeil			ds.b 1
 dDicks				ds.b 1
 dBabyAlarm			ds.b 1
@@ -99,7 +100,6 @@ dIntel				ds.b 1
 ; SEGA Samples
 dSega				ds.b 1
 dSega2				ds.b 1
-dChicken				ds.b 1
 ;dPenis				ds.b 1
 ;dBoioing			ds.b 1
 ;dOrangeLaugh			ds.b 1
