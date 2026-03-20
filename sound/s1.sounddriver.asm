@@ -521,8 +521,11 @@ NoteTimeoutUpdate:
 
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
+
 ; sub_71DC6:
 DoModulation:
+		btst	#1,SMPS_Track.PlaybackControl(a5)		; Is note playing?
+		bne.s	.locnoret	; no - return
 		btst	#3,SMPS_Track.PlaybackControl(a5)	; Is modulation active?
 		beq.s	.locnoret				; Return if not
 		subq.b	#1,SMPS_Track.ModulationWait(a5)	; Update wait timeout
