@@ -131,13 +131,12 @@ PLC_LZ2end:
 PLC_MZ:		dc.w ((PLC_MZ2-PLC_MZ-2)/6)-1
 ;		plcm	Nem_MZ,       ArtTile_Level              ; MZ main patterns
 		plcm	Nem_MzMetal,  ArtTile_MZ_Spike_Stomper   ; metal blocks
-		plcm	Nem_MzFire,   ArtTile_MZ_Fireball        ; fireballs
+		plcm	Nem_Basaran,  ArtTile_Basaran            ; basaran enemy
 		plcm	Nem_Swing,    ArtTile_GHZ_MZ_Swing       ; swinging platform
 		plcm	Nem_MzGlass,  ArtTile_MZ_Glass_Pillar    ; green glassy block
 		plcm	Nem_Lava,     ArtTile_MZ_Lava            ; lava
 		plcm	Nem_Buzz,     ArtTile_Buzz_Bomber        ; buzz bomber enemy
 		plcm	Nem_Yadrin,   ArtTile_Yadrin             ; yadrin enemy
-		plcm	Nem_Basaran,  ArtTile_Basaran            ; basaran enemy
 		plcm	Nem_Cater,    ArtTile_MZ_SYZ_Caterkiller ; caterkiller enemy
 
 PLC_MZ2:	dc.w ((PLC_MZ2end-PLC_MZ2-2)/6)-1
