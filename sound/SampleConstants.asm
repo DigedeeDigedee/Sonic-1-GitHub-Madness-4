@@ -99,7 +99,7 @@ dIntel				ds.b 1
 ; SEGA Samples
 dSega				ds.b 1
 dSega2				ds.b 1
-
+dChicken				ds.b 1
 ;dPenis				ds.b 1
 ;dBoioing			ds.b 1
 ;dOrangeLaugh			ds.b 1
