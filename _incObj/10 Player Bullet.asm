@@ -12,6 +12,8 @@ PlayerBullet:
 ; ===========================================================================
 PBullet_Index:	dc.w PBullet_Init-PBullet_Index
 		dc.w PBullet_Run-PBullet_Index
+		dc.w PTonicAtt_Init-PBullet_Index
+		dc.w PTonicAtt_Main-PBullet_Index
 ; ===========================================================================
 
 PBullet_Init:
@@ -83,3 +85,49 @@ PBullet_Callback:
 
 .DoNotOpen
 		rts
+
+; ---------------------------------------------------------------------------
+
+PTonicAtt_Init:
+		move.b	#4, obRender(a0)
+		move.b	#5, obPriority(a0)
+		move.b	#2, obHeight(a0)
+		andi.b	#3, obStatus(a0)
+		move.b	#1, obAnim(a0)
+		move.l	#PBullet_Callback, obColCallback(a0)
+		move.l	#Map_Missile, obMap(a0)
+		move.w	#make_art_tile(ArtTile_Buzz_Bomber,1,0),obGfx(a0)
+		addq.b 	#2, obRoutine(a0)
+		rts
+; ---------------------------------------------------------------------------
+PTonicAtt_Main:
+		lea	v_player,a1
+		add.b	#6,obAngle(a0)
+		bmi.w	.Delete
+		move.w	obX(a1),obX(a0)
+		move.w	obY(a1),obY(a0)
+		sub.w	#5,obY(a0)
+		move.b	obAngle(a0),d0  ; get angle to d0
+		btst	#0,obStatus(a1)
+		beq.s	.notflip1
+		neg.w	d0
+.notflip1:
+		jsr	(CalcSine).w	; returns the sine in d0 and the cosine in d1
+		move.w	d0,d2
+		asr.w	#2,d0
+		asr.w	#4,d2
+		add.w	d2,d0
+		add.w	d0,obX(a0)
+	;	jsr	SpeedToPos
+
+	;	jsr	ChkObjectVisible
+	;	bne.s	.Delete
+
+		lea	Ani_Missile, a1
+		jsr	AnimateSprite
+
+		jsr 	ReactToItem_Other
+		jmp	DisplaySprite
+.Delete:
+
+		jmp	DeleteObject
