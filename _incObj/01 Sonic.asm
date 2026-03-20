@@ -15,7 +15,7 @@ shoetime:	equ $34	; time left for speed shoes (2 bytes)
 angleright:	equ $36	; angle of floor on Sonic's right side
 angleleft:	equ $37	; angle of floor on Sonic's left side
 sticktoconvex:	equ $38	; flag set while running on an SBZ gear
-;unused:	equ $39	; unused by Sonic
+attacking:	equ $39	; timset set while attacking
 restartime:	equ $3A	; time left before level restarts after dying (2 bytes)
 jumping:	equ $3C	; flag set while Sonic is jumping
 standonobject:	equ $3D	; object index Sonic stands on
@@ -191,7 +191,7 @@ Sonic_Control:	; Routine 2
 .ignorecontrols:
 		btst	#0,(f_playerctrl).w 		; are controls locked?
 		bne.s	.ignoremodes			; if yes, branch
-		bsr.w	PlayerBulletHandle
+		bsr.w	PlayerAttackHandle
 		moveq	#0,d0
 		move.b	obStatus(a0),d0
 		andi.w	#6,d0
@@ -199,6 +199,10 @@ Sonic_Control:	; Routine 2
 		jsr	Sonic_Modes(pc,d1.w)
 
 .ignoremodes:
+		tst.b	attacking(a0)
+		beq.s	.timeout
+		subq.b	#1,attacking(a0)
+.timeout:
 		bsr.s	Sonic_Display
 		bsr.w	Sonic_RecordPosition
 		bsr.w	Sonic_Water
@@ -425,15 +429,62 @@ Sonic_MdJump2:
 
 
 ; ----------------------------------------------------------------------------
-; Subroutine for handling selected player's attack "bullets"
+; Subroutine for handling selected player's attack 
 ; ----------------------------------------------------------------------------
-PlayerBulletHandle:
 
-		cmpi.b	#chrid_maniac,v_characterid	; check if needle
-		bne.s	.Skipma				; skip if not
+PlayerAttackHandle:
 		btst	#6,(v_jpadpress1)
 		beq.w	.nobullets
+		moveq	#0,d0
+		move.b	(v_characterid).w,d0
+		chk	#chrid_last,d0
+		lsl.w	#2,d0
+		move.l	.lut(pc,d0.w),a1
+		jmp	(a1)
+.nobullets:
+		rts
+; ----------------------------------------------------------------------------
+.lut:
+		dc.l	TonicAttack
+		dc.l	ManiacAttack
 
+; ----------------------------------------------------------------------------
+; Tonic bullet spawn
+; ----------------------------------------------------------------------------
+
+TonicAttack:
+		move.b	#25,attacking(a0)
+		move.b	#id_Attack,obAnim(a0)
+	;	move.b	#id_Attack,obPrevAni(a0)
+
+	;	moveq   #3, d2
+		moveq   #0, d1
+		moveq   #0, d0
+
+.makebullets:
+		bsr.w	FindFreeObj
+	;	bne.s	.nobullets
+
+		move.b	#id_PlayerBullet, obID(a1)
+		move.b	#4, obRoutine(a1)
+		move.w	#$600,bulletfactor(a1)
+		move.w	obX(a0), obX(a1)
+		move.w	obY(a0), obY(a1)
+		move.b	d1, obAngle(a1)
+	;	add.b	#$40, d1
+	;	dbf	d2, .makebullets
+
+	;	move.w	#$25, v_screenshaketime		; tonic has insane firepower
+		move.w	#sfx_TonicTongue, d0
+		jmp	PlaySound_Special
+.nobullets:
+		rts
+
+; ----------------------------------------------------------------------------
+; Tonic bullet spawn
+; ----------------------------------------------------------------------------
+
+ManiacAttack:
 		moveq   #3, d2
 		moveq   #0, d1
 		moveq   #0, d0
@@ -458,39 +509,10 @@ PlayerBulletHandle:
 
 		move.w	#$F, v_screenshaketime
 		move.w	#sfx_Bomb, d0
-		jsr	PlaySound_Special		
-		bra.w	.nobullets			; skip ahead
-
-; ----------------------------------------------------------------------------
-; Tonic bullet spawn
-; ----------------------------------------------------------------------------
-
-.Skipma
-		btst	#6,(v_jpadpress1)
-		beq.s	.nobullets
-
-
-		moveq   #3, d2
-		moveq   #0, d1
-		moveq   #0, d0
-
-.makebullets:
-		bsr.w	FindFreeObj
-		bne.s	.nobullets
-
-		move.b	#id_PlayerBullet, obID(a1)
-		move.w	#$600,bulletfactor(a1)
-		move.w	obX(a0), obX(a1)
-		move.w	obY(a0), obY(a1)
-		move.b	d1, obAngle(a1)
-		add.b	#$40, d1
-		dbf	d2, .makebullets
-
-		move.w	#$25, v_screenshaketime		; tonic has insane firepower
-		move.w	#sfx_Bomb, d0
-		jsr	PlaySound_Special
+		jmp	PlaySound_Special		
 .nobullets:
 		rts
+
 		
 ; ---------------------------------------------------------------------------
 ; Subroutine to make Sonic walk/run
@@ -523,7 +545,10 @@ Sonic_Move:
 		tst.w	obInertia(a0)	; is Sonic moving?
 		bne.w	Sonic_ResetScr	; if yes, branch
 		bclr	#5,obStatus(a0)
+		tst.b	attacking(a0)
+		bne.s	.attacking
 		move.b	#id_Wait,obAnim(a0) ; use "standing" animation
+.attacking:
 		btst	#3,obStatus(a0)
 		beq.s	Sonic_Balance
 		moveq	#0,d0
