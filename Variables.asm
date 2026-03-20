@@ -42,8 +42,7 @@ v_palcycleram:	ds.b $20	; GIO: Buffer for the palette cycling data (as much RAM 
 vscroll_mode:	ds.w 1
 vscroll_buffer:	ds.b $C0	; buffer for vscroll column mode
 				; i don't think it needs nearly this much but i'm just being safe
-
-
+vscroll_buffer_end:
 			ds.b	$104		; unused ($200 were freed up by the new DMA Queue) (and giovanni yoinked some lmao) 
 						; (kat (i) took $C0 for a vscroll buffer might free some of it later
 

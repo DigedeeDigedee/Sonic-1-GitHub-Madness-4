@@ -1059,6 +1059,9 @@ ClearScreen:
 .merge
 		clr.l	(v_scrposy_vdp).w
 		clr.l	(v_scrposx_vdp).w
+		clr.l	(v_screenposy).w
+		clr.l	(v_screenposx).w
+		clearRAM vscroll_buffer,vscroll_buffer_end
 		clearRAM v_spritetablebuffer,v_spritetablebuffer_end
 		clearRAM v_hscrolltablebuffer,v_hscrolltablebuffer_end_padded
 		ResetDMAQueue
