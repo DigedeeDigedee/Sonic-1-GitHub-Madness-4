@@ -4795,7 +4795,7 @@ Map_ChopCBZ:	include	"_maps/ChopperCBZ.asm"
 Map_Jaws:	include	"_maps/Jaws.asm"
 		include	"_incObj/2D Burrobot.asm"
 		include	"_anim/Burrobot.asm"
-Map_Burro:	include	"_maps/Burrobot.asm"
+;Map_Burro:	include	"_maps/Burrobot.asm"
 
 		include	"_incObj/Internet Explorer.asm"
 		include	"_anim/Internet Explorer.asm"
