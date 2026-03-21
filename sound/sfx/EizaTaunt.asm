@@ -18,3 +18,4 @@ EizaTaunt_PSG1:
 
 ; Song seems to not use any FM voices
 EizaTaunt_Voices:
+	smpsFooterEndSong	"EizaTaunt.asm"

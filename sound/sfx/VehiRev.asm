@@ -34,3 +34,4 @@ VehiRev_Voices:
 	smpsVcReleaseRate   $0C, $09, $09, $0A
 	smpsVcTotalLevel    $00, $03, $0C, $05
 
+	smpsFooterEndSong	"VehiRev.asm"

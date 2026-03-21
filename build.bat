@@ -20,6 +20,13 @@ cd ..
 cd "damn"
 call recmp.bat
 cd ..
+cd "RetroBlast"
+cd "ART"
+call recmp.bat
+cd ..
+cd "MAP"
+call recmp.bat
+cd ..\..
 cd "SHC + DeltaW"
 cd "ART"
 call recmp.bat

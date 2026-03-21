@@ -1263,3 +1263,5 @@ DoleBOSS_PSG3_07_0_64_0A:
 	smpsPSGAlterVol	$FF
 	dc.b $02, $02
 	smpsReturn
+
+	smpsFooterEndSong	"TG2000Tracks/DoleBOSS.asm"
