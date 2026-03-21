@@ -172,7 +172,7 @@ Giovanni_MainLoop:
 	bne.s   Giovanni_MainLoop			; if not, branch
 
 Giovanni_GotoTitle:
-	move.b  #id_Title,(v_gamemode).w      	; set the screen mode to Title Screen
+	jsr  AtollySplash
 	rts						; return
 
 
