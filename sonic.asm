@@ -5902,6 +5902,8 @@ Map_LWall:	include	"_maps/Wall of Lava.asm"
 		include	"_incObj/40 Moto Bug.asm" ; includes "_incObj/sub RememberState.asm"
 		include	"_anim/Moto Bug.asm"
 Map_Moto:	include	"_maps/Moto Bug.asm"
+Map_Splats:	 include "_maps/Splats.asm"
+
 Map_MotoCBZ:	include	"_maps/Moto BugCBZ.asm"
 		include	"_incObj/4F.asm"
 
