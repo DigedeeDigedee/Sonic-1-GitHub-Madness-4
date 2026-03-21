@@ -1,10 +1,10 @@
-Map_5fe0:
-Map_5fe0_0: 	dc.w Map_5fe0_A-Map_5fe0
-Map_5fe0_2: 	dc.w Map_5fe0_4C-Map_5fe0
-Map_5fe0_4: 	dc.w Map_5fe0_8E-Map_5fe0
-Map_5fe0_6: 	dc.w Map_5fe0_D0-Map_5fe0
-Map_5fe0_8: 	dc.w Map_5fe0_112-Map_5fe0
-Map_5fe0_A: 	dc.b $D
+Map_1920:
+Map_1920_0: 	dc.w Map_1920_A-Map_1920
+Map_1920_2: 	dc.w Map_1920_4C-Map_1920
+Map_1920_4: 	dc.w Map_1920_8E-Map_1920
+Map_1920_6: 	dc.w Map_1920_D0-Map_1920
+Map_1920_8: 	dc.w Map_1920_112-Map_1920
+Map_1920_A: 	dc.b $D
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $81, $E, $10
 	dc.b $82, $C, $80, $0, $1
@@ -18,7 +18,7 @@ Map_5fe0_A: 	dc.b $D
 	dc.b $8D, $C, $80, $1B, $2D
 	dc.b $98, $8, $80, $1F, $2D
 	dc.b $A3, $8, $80, $23, $2D
-Map_5fe0_4C: 	dc.b $D
+Map_1920_4C: 	dc.b $D
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $81, $E, $10
 	dc.b $82, $C, $80, $0, $1
@@ -32,7 +32,7 @@ Map_5fe0_4C: 	dc.b $D
 	dc.b $8D, $C, $80, $1B, $2D
 	dc.b $98, $8, $80, $1F, $2D
 	dc.b $A3, $8, $80, $23, $2D
-Map_5fe0_8E: 	dc.b $D
+Map_1920_8E: 	dc.b $D
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $81, $E, $10
 	dc.b $82, $C, $80, $0, $1
@@ -46,7 +46,7 @@ Map_5fe0_8E: 	dc.b $D
 	dc.b $8D, $C, $80, $1B, $2D
 	dc.b $98, $8, $80, $1F, $2D
 	dc.b $A3, $8, $80, $23, $2D
-Map_5fe0_D0: 	dc.b $D
+Map_1920_D0: 	dc.b $D
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $81, $E, $10
 	dc.b $82, $C, $80, $0, $1
@@ -60,12 +60,13 @@ Map_5fe0_D0: 	dc.b $D
 	dc.b $8D, $C, $80, $1B, $2D
 	dc.b $98, $8, $80, $1F, $2D
 	dc.b $A3, $8, $80, $23, $2D
-Map_5fe0_112: 	dc.b $7
+Map_1920_112: 	dc.b $8
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $81, $E, $10
-	dc.b $83, $C, $80, $14, $8
-	dc.b $83, $C, $80, $16, $2E
+	dc.b $83, $C, $0, $14, $8
+	dc.b $83, $C, $0, $18, $2E
 	dc.b $90, $C, $80, $1C, $8
 	dc.b $90, $C, $80, $20, $2E
-	dc.b $A0, $4, $80, $24, $3D
+	dc.b $A0, $8, $80, $24, $35
+	dc.b $9F, $4, $0, $27, $17
 	even
