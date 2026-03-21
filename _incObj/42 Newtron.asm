@@ -64,7 +64,7 @@ Newt_Action:	; Routine 2
 		move.w	#make_art_tile(ArtTile_CBZNewtron,1,0),obGfx(a0)
 .NotCBZ:
 		move.b	#6,ob2ndRout(a0) ; goto .type01 next
-		move.b	#4,obAnim(a0)	; use different animation
+		move.b	#3,obAnim(a0)	; use different animation
 
 .outofrange:
 .istype00:
@@ -90,19 +90,19 @@ Newt_Action:	; Routine 2
 		move.b	#$C,obColType(a0)
 
 .loc_DE42:
-		bsr.w	ObjectFall
-		bsr.w	ObjectFall	; loool
-		bsr.w	ObjFloorDist
-		tst.w	d1		; has newtron hit the floor?
-		bpl.s	.keepfalling	; if not, branch
+;		bsr.w	ObjectFall			; phanto does not act like that it immediately jumps onto you
+;		bsr.w	ObjectFall	; loool
+;		bsr.w	ObjFloorDist
+;		tst.w	d1		; has newtron hit the floor?
+;		bpl.s	.keepfalling	; if not, branch
 
-		add.w	d1,obY(a0)
-		move.w	#0,obVelY(a0)	; stop newtron falling
+;		add.w	d1,obY(a0)
+;		move.w	#0,obVelY(a0)	; stop newtron falling
 		addq.b	#2,ob2ndRout(a0)
 		move.b	#2,obAnim(a0)
-		btst	#5,obGfx(a0)
-		beq.s	.notgreen
-		addq.b	#1,obAnim(a0)
+;		btst	#5,obGfx(a0)		; they are only intended to display on sonic as far as im concerned
+;		beq.s	.notgreen			; even as someone who doesnt understand assembly sometimes what the fuck why isnt this noted to begin with
+;		addq.b	#1,obAnim(a0)		; im cumming ooowoahhhh		- coni
 
 .notgreen:
 		move.b	#$D,obColType(a0)
