@@ -2,7 +2,7 @@ Easton_Header:
 	smpsHeaderStartSong 3
 	smpsHeaderVoice		Easton_Voices
 	smpsHeaderChan		$06, $03
-	smpsHeaderTempo		$02, $00
+	smpsHeaderTempo		$01, $76
 ;	Given Tempo = 167.50 BPM
 ;	Approximated Tempo = 167.87 BPM
 
@@ -601,17 +601,19 @@ Easton_PSG3_Jump:
 Easton_PSG3_00_0_48:
 	dc.b nRst, $08
 	smpsPSGvoice	DoleTone_01
-	dc.b nMaxPSG, $04, $04, $20
+	dc.b nMaxPSG2, $04, $04, $20
 	smpsReturn
 
 Easton_PSG3_02_0_32:
 	dc.b nRst, $18
 	smpsPSGvoice	DoleTone_01
-	dc.b nMaxPSG, $08
+	dc.b nMaxPSG2, $08
 	smpsReturn
 
 Easton_PSG3_01_0_64:
 	smpsPSGvoice	DoleTone_01
-	dc.b nMaxPSG, $02, nRst, $06, nMaxPSG, $08, $02, nRst, $06, nMaxPSG, $08, $02, nRst, $06, nMaxPSG, $08
-	dc.b $02, nRst, $06, nMaxPSG, $08
+	dc.b nMaxPSG2, $02, nRst, $06, nMaxPSG2, $08, $02, nRst, $06, nMaxPSG2, $08, $02, nRst, $06, nMaxPSG2, $08
+	dc.b $02, nRst, $06, nMaxPSG2, $08
 	smpsReturn
+
+	smpsFooterEndSong	"TG2000Tracks/Easton.asm"
