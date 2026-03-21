@@ -16,15 +16,15 @@ burro_timedelay = objoff_30		; time between direction changes
 
 Burro_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
-		move.b	#$13,obHeight(a0)
+		move.b	#$1C,obHeight(a0)
 		move.b	#8,obWidth(a0)
-		move.l	#Map_Burro,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Burrobot,0,0),obGfx(a0)
+		move.l	#Map_Len,obMap(a0)
+		move.w	#make_art_tile(ArtTile_CBZLen,0,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#5,obColType(a0)
 		move.b	#$C,obActWid(a0)
-		addq.b	#6,ob2ndRout(a0) ; run "Burro_ChkSonic" routine
+;		addq.b	#6,ob2ndRout(a0) ; run "Burro_ChkSonic" routine
 		move.b	#2,obAnim(a0)
 
 Burro_Action:	; Routine 2
@@ -39,7 +39,7 @@ Burro_Action:	; Routine 2
 .index:		dc.w .changedir-.index
 		dc.w Burro_Move-.index
 		dc.w Burro_Jump-.index
-		dc.w Burro_ChkSonic-.index
+;		dc.w Burro_ChkSonic-.index
 ; ===========================================================================
 
 .changedir:
@@ -118,23 +118,23 @@ locret_ADF0:
 		rts
 ; ===========================================================================
 
-Burro_ChkSonic:
-		move.w	#$60,d2
-		bsr.w	Burro_ChkSonic2
-		bcc.s	locret_AE20
-		move.w	(v_player+obY).w,d0
-		sub.w	obY(a0),d0
-		bcc.s	locret_AE20
-		cmpi.w	#-$80,d0
-		blo.s	locret_AE20
-		tst.w	(v_debuguse).w
-		bne.s	locret_AE20
-		subq.b	#2,ob2ndRout(a0)
-		move.w	d1,obVelX(a0)
-		move.w	#-$400,obVelY(a0)
+;Burro_ChkSonic:
+;		move.w	#$60,d2
+;		bsr.w	Burro_ChkSonic2
+;		bcc.s	locret_AE20
+;		move.w	(v_player+obY).w,d0
+;		sub.w	obY(a0),d0
+;		bcc.s	locret_AE20
+;		cmpi.w	#-$80,d0
+;		blo.s	locret_AE20
+;		tst.w	(v_debuguse).w
+;		bne.s	locret_AE20
+;		subq.b	#2,ob2ndRout(a0)
+;		move.w	d1,obVelX(a0)
+;		move.w	#-$400,obVelY(a0)
 
-locret_AE20:
-		rts
+;locret_AE20:
+;		rts
 
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 

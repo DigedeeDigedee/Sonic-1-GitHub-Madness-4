@@ -304,8 +304,8 @@ Nem_Buzz:	binclude	"artnem/Enemy Buzz Bomber.nem"
 		even
 ;Nem_UnkExplode:	binclude	"artnem/Unused - Explosion.nem"
 ;		even
-Nem_Burrobot:	binclude	"artnem/Enemy Burrobot.nem"
-		even
+;Nem_Burrobot:	binclude	"artnem/Enemy Burrobot.nem"
+;		even
 Nem_Chopper:	binclude	"artnem/Enemy Chopper.nem"
 		even
 Nem_Jaws:	binclude	"artnem/Enemy Jaws.nem"
