@@ -93,8 +93,8 @@ Pal_Maniac:	binclude	"char_assets/Maniac Pal.bin"
 ; ---------------------------------------------------------------------------
 ;Nem_Shield:	binclude	"artnem/Shield.nem"
 ;		even
-Nem_Stars:	binclude	"artnem/Invincibility Stars.nem"
-		even
+;Nem_Stars:	binclude	"artnem/Invincibility Stars.nem"
+;		even
 
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - special stage

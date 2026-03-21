@@ -665,8 +665,8 @@ ArtTile_Button:			equ $50F
 ArtTile_Spikes:			equ $51B
 ArtTile_Spring_Horizontal:	equ $523
 ArtTile_Spring_Vertical:	equ $533
-ArtTile_Shield:			equ $541
-ArtTile_Invincibility:		equ $55C
+ArtTile_Shield:			equ $56E
+ArtTile_Invincibility:		equ $56E
 ArtTile_Game_Over:		equ $55E
 ArtTile_Title_Card:		equ $580
 ArtTile_Animal_1:		equ $580
@@ -686,8 +686,8 @@ ArtTile_CBZ_Eiza:		equ ArtTile_Level+$380
 ArtTile_CBZSpongy:		equ $40B
 ArtTile_CBZNewtron:		equ $456
 ArtTile_CBZBuzz_Bomber:		equ $476
-ArtTile_CBZLen:		equ $497
-ArtTile_CBZChopper:		equ $501
+ArtTile_CBZLen:		equ $4BD
+ArtTile_CBZChopper:		equ $541
 
 ; Eggman
 ArtTile_Eggman:			equ $400
