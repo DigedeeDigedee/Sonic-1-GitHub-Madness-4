@@ -24,7 +24,7 @@
 		; Star Light Zone
 		dc.b id_MCZ, 1	; Act 1
 		dc.b id_MCZ, 2	; Act 2
-		dc.b id_PPZ, 0	; Act 3
+		dc.b id_CBZ, 0	; Act 3
 		dc.b 0, 0
 
 		; Spring Yard Zone
@@ -59,13 +59,19 @@
 		; Joint Zone
 		dc.b id_Joint, 1	; Act 1
 		dc.b id_Joint, 2	; Act 2
-		dc.b id_ARZ, 3	; Act 3
+		dc.b id_PPZ, 0	; Act 3
 		dc.b 0, 0
 
 		; Doleville Zone
 		dc.b id_DVZ, 1	; Act 1
 		dc.b id_DVZ, 2	; Act 2
-		dc.b id_ARZ, 3	; Act 3
+		dc.b id_Nogales, 0	; Act 3
+		dc.b 0, 0
+
+		; Nogales Zone
+		dc.b id_Nogales, 1	; Act 1
+		dc.b id_Nogales, 2	; Act 2
+		dc.b id_PPZ, 0	; Act 3
 		dc.b 0, 0
 
 		even

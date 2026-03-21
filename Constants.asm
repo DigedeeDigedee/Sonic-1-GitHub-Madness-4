@@ -112,6 +112,7 @@ id_CBZ:		equ 7
 id_WIN:		equ 8
 id_Joint:	equ 9
 id_DVZ:		equ 10
+id_Nogales:	equ 11
 
 ; Colours
 cBlack:		equ $000		; colour black
