@@ -61,7 +61,8 @@ SCAA_PSG3:
 
 ; DAC Data
 SCAA_DAC:
-	dc.b	dSnare, $03, $03, $04, $01, $04, $03, $03, $0B
+	dc.b	dKick, $03, $03, dCrashCymbal, $04, dSnare, $01, $04, dKick, $03
+	dc.b	$03, dCrashCymbal, $0B
 	smpsStop
 
 SCAA_Voices:

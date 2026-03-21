@@ -91,12 +91,11 @@ PalCycTSR:
 		rts
 ; ---------------------------------------------------------------------------
 Cyc_Logo:
-	binclude "_gamemode/TSH Splash/Pal/Cycle - Sega.bin"
+	binclude "_gamemode/TSH Splash/Pal/Cycle - TSH.bin"
 	even
 ; ---------------------------------------------------------------------------
 	include "_gamemode/TSH Splash/OBJ/Obj_Sunset.asm"
 	even
-
 ; ---------------------------------------------------------------------------
 Nem_TSHLogo:
 	binclude "_gamemode/TSH Splash/ART/TSH_Logo.nem"
