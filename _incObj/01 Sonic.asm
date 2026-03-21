@@ -1195,10 +1195,10 @@ ExtraJumpUsed:		equ  $3b
 
 Sonic_ExtraJump:
 		tst.b   ExtraJumpUsed(a0)   
-        bne.s   ExtraJumpReturn
+		bne.s   ExtraJumpReturn
 		move.b  (v_jpadpress2).w,d0    ; Is ABC pressed? 
-        andi.b  #$70,d0             ; the button input itself
-        beq.w   ExtraJumpReturn      ; If not, branch
+		andi.b  #btnB|btnC,d0             ; the button input itself
+		beq.w   ExtraJumpReturn      ; If not, branch
 		move.b  #1,ExtraJumpUsed(a0)
 	    move.w  #-$3E0,obVelY(a0)    
         move.w  #-$300,obVelX(a0)
