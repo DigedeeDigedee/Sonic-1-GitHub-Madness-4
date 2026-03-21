@@ -16,3 +16,4 @@ EizaDizzy_PSG1:
 
 ; Song seems to not use any FM voices
 EizaDizzy_Voices:
+	smpsFooterEndSong	"eizadizzy.asm"
