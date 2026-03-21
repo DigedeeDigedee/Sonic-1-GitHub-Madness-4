@@ -121,7 +121,7 @@ ptr_mus67:		dc.l Music67
 ptr_mus68:		dc.l Music68
 ptr_mus69:		dc.l Music69
 ptr_mus6A:		dc.l Music6A
-;ptr_mus6B:		dc.l Music6B
+ptr_mus6B:		dc.l Music6B
 ;ptr_mus6C:		dc.l Music6C
 ;ptr_mus6D:		dc.l Music6D
 ;ptr_mus6E:		dc.l Music6E
@@ -469,5 +469,8 @@ Music69:
 		even
 Music6A:
 		include	"music/TG2000Tracks/MayoDed.asm"
+		even
+Music6B:
+		include	"music/TG2000Tracks/BossaNova.asm"
 		even
 	END
