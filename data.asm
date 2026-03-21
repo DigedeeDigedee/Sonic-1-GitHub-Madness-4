@@ -525,7 +525,11 @@ Nem_Spongy:	binclude	"coniobjs/spongyart.bin"
 		even
 ;Nem_ScareObj:	binclude	"coniobjs/scareobj.bin"
 ;		even
+Nem_BuzzCBZ:	binclude	"artnem/Enemy Buzz BomberCBZ.nem"
+		even
 Nem_ChopperCBZ:	binclude	"artnem/Enemy ChopperCBZ.nem"
+		even
+Nem_MotobugCBZ:	binclude	"artnem/Enemy MotobugCBZ.nem"
 		even
 Nem_EizaNorm:	binclude	"coniobjs/eiza/artnorm.bin"
 		even

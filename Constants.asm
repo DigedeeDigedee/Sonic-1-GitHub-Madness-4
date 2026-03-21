@@ -686,8 +686,9 @@ ArtTile_CBZ_Eiza:		equ ArtTile_Level+$380
 ArtTile_CBZSpongy:		equ $40B
 ArtTile_CBZNewtron:		equ $456
 ArtTile_CBZBuzz_Bomber:		equ $476
-ArtTile_CBZLen:		equ $4BD
+ArtTile_CBZLen:		equ $4C9
 ArtTile_CBZChopper:		equ $541
+ArtTile_CBZMoto_Bug:		equ $559
 
 ; Eggman
 ArtTile_Eggman:			equ $400
