@@ -164,6 +164,8 @@ ReactToItem:
 .withiny:
 .chktype:
 		move.b	obColType(a1),d1 ; load collision type
+		cmpi.b	#$A2,d1		; is obColType $A2?
+		beq.w	KillSonic	; if yes, branch
 		andi.b	#$C0,d1		; is obColType $40 or higher?
 		beq.w	React_Enemy	; if not, branch
 		cmpi.b	#$C0,d1		; is obColType $C0 or higher?

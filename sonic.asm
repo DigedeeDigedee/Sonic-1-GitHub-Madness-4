@@ -5959,7 +5959,7 @@ Map_SSawBall:	include	"_maps/Seesaw Ball.asm"
 		include	"_incObj/5F Bomb Enemy.asm"
 		include	"_anim/Bomb Enemy.asm"
 Map_Bomb:	include	"_maps/Bomb Enemy.asm"
-
+		include	"_incObj/24 RoadRoller.asm"
 		include	"_incObj/60 Orbinaut.asm"
 		include	"_anim/Orbinaut.asm"
 Map_Orb:include	"_maps/Orbinaut.asm"

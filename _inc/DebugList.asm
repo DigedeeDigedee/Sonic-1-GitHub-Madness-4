@@ -3,7 +3,7 @@
 ; ---------------------------------------------------------------------------
 DebugList:
 		dc.w .GHZ-DebugList
-		dc.w .SLZ-DebugList
+;		dc.w .SLZ-DebugList
 		dc.w .LZ-DebugList
 		dc.w .MZ-DebugList
 		dc.w .SLZ-DebugList
@@ -126,6 +126,8 @@ dbug:	macro map,object,subtype,frame,vram
 		dbug	Map_Scen,	id_Scenery,	0,	0,	make_art_tile(ArtTile_SLZ_Fireball_Launcher,2,0)
 		dbug	Map_Bomb,	id_Bomb,	0,	0,	make_art_tile(ArtTile_Bomb,0,0)
 		dbug	Map_Orb,	id_Orbinaut,	0,	0,	make_art_tile(ArtTile_SLZ_Orbinaut,1,0)
+		dbug	Map_RoadRoller,	id_RoadRoller,	0,	0,	make_art_tile(ArtTile_SLZ_RoadRoller,0,0)
+		dbug	Map_RoadRoller,	id_RoadRoller,	1,	0,	make_art_tile(ArtTile_SLZ_RoadRoller,0,0)
 		dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
 .SLZend:
 
