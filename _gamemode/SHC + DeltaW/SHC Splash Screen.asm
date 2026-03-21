@@ -57,7 +57,7 @@ GM_SHCSplash:
 
 		; Load palette
 		lea	(SHC_Pal).l,a0
-		lea	(v_palette_line_1).l,a1
+		lea	(v_palette_fading_line_1).l,a1
 		moveq	#$F,d0	
 .palLoop:
 		move.l	(a0)+,(a1)+
@@ -65,7 +65,7 @@ GM_SHCSplash:
 		dbf	d0,.palLoop
 
 		lea	(Pal_WBomb).l,a0
-		lea	(v_palette_line_2).l,a1
+		lea	(v_palette_fading_line_2).l,a1
 		moveq	#$F,d0
 		
 .bombpalloop:
@@ -74,7 +74,7 @@ GM_SHCSplash:
 		dbf	d0,.bombpalloop
 
 		lea	(Pal_Sonic).l,a0
-		lea	(v_palette_line_3).l,a1
+		lea	(v_palette_fading_line_3).l,a1
 		moveq	#$F,d0
 
 .sonicpalloop:
@@ -146,6 +146,7 @@ SHC_MainLoop:
 		bne.s	.holdWhite			; if not, keep holding
 
 .holdSkipped:
+		move.b	#id_Title,(v_gamemode).w	; go to DeltaW splash screen
 ;		move.b	#id_DWSplash,(v_gamemode).w	; go to DeltaW splash screen
 		rts					; return to normal game execution
 ; ---------------------------------------------------------------------------
