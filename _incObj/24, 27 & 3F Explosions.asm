@@ -146,3 +146,32 @@ ExBom_Main:	; Routine 0
 		move.b	#0,obFrame(a0)
 		move.w	#sfx_Bomb,d0
 		jmp	(QueueSound2).l	; play exploding bomb sound
+
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Explosion from destroying the SHC screen
+; ---------------------------------------------------------------------------
+
+ExplosionSHC:
+		moveq	#0,d0
+		move.b	obRoutine(a0),d0
+		move.w	SHCBom_Index(pc,d0.w),d1
+		jmp	SHCBom_Index(pc,d1.w)
+; ===========================================================================
+SHCBom_Index:	dc.w SHCBom_Main-SHCBom_Index
+		dc.w ExplItem_Main-SHCBom_Index
+; ===========================================================================
+
+SHCBom_Main:	; Routine 0
+		addq.b	#2,obRoutine(a0)
+		move.l	#Map_ExplodeSHC,obMap(a0)
+
+		move.w	#make_art_tile(ArtTile_Explosion,0,0),obGfx(a0)
+		move.b	#4,obRender(a0)
+		move.b	#1,obPriority(a0)
+		move.b	#0,obColType(a0)
+		move.b	#$C,obActWid(a0)
+		move.b	#7,obTimeFrame(a0)
+		move.b	#0,obFrame(a0)
+		move.w	#sfx_Bomb,d0
+		jmp	(QueueSound2).l	; play exploding bomb sound

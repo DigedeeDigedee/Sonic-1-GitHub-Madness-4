@@ -43,6 +43,10 @@ GM_SHCSplash:
 		lea	(SHC_Art).l,a0
 		jsr 	NemDec.w
 
+		locVRAM	$5A0*$20
+		lea	(Nem_Explode_SHC).l,a0
+		jsr 	NemDec.w
+
 		locVRAM $685*$20
 		lea	(Art_WBomb).l,a0
 		jsr 	NemDec.w
@@ -305,6 +309,10 @@ SHC_Pal:
 
 		include "_gamemode\SHC + DeltaW\OBJ\7C The W Bomb.asm"
 
+Nem_Explode_SHC:	binclude "_gamemode\SHC + DeltaW\ART\Explosion_SHC.nem"
+Nem_Explode_SHC_end:
+		even
+
 Art_WBomb:	binclude "_gamemode\SHC + DeltaW\ART\The W Bomb.nem"
 Art_WBomb_end:
 		even
@@ -313,3 +321,5 @@ Map_WBomb:	include "_gamemode\SHC + DeltaW\MAP\The W Bomb.asm"
 
 Pal_WBomb:	binclude "_gamemode\SHC + DeltaW\PAL\The W Bomb.bin"
 		even
+
+Map_ExplodeSHC:	include "_gamemode\SHC + DeltaW\MAP\Explosions - Bomb (SHC).asm"
