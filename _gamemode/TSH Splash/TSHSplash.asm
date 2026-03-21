@@ -42,7 +42,7 @@ GM_TheSunsetHacker:
 
 		moveq	#1,d0
 		jsr	(PalLoad).l
-		moveq	#3,d0 ; Move the logo palette to d0
+		moveq	#3,d0			; Move the logo palette to d0
 		jsr	(PalLoad_Fade).l	; I forgot what this does
 		move.b	#$10,(v_objspace+$40).w ; load Sunset object
 		move.b  #0,(v_objspace+$64).w	; set the routine 

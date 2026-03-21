@@ -74,8 +74,8 @@ ptr_MarbleBrick:	dc.l MarbleBrick
 ptr_Bumper:		dc.l Bumper
 ptr_BossBall:		dc.l BossBall		; $48
 ptr_WaterSound:		dc.l WaterSound
-;ptr_WBomb:		dc.l Obj_WBomb
-ptr_WBomb:		dc.l NullObject		; Until I can get the SHC Screen working
+ptr_WBomb:		dc.l Obj_WBomb
+;ptr_WBomb:		dc.l NullObject		; Until I can get the SHC Screen working
 ptr_GiantRing:		dc.l GiantRing
 ptr_GeyserMaker:	dc.l GeyserMaker
 ptr_LavaGeyser:		dc.l LavaGeyser
@@ -142,6 +142,7 @@ ptr_EndSTH:		dc.l EndSTH
 ptr_CreditsText:	dc.l CreditsText
 ptr_EndEggman:		dc.l EndEggman
 ptr_TryChaos:		dc.l TryChaos
+ptr_ExplosionSHC:	dc.l ExplosionSHC
 
 NullObject:
 		jmp	(DeleteObject).l	; It would be safer to have this instruction here, but instead it just falls through to ObjectFall
@@ -286,3 +287,4 @@ id_EndSTH:		equ ((ptr_EndSTH-Obj_Index)/4)+1
 id_CreditsText:		equ ((ptr_CreditsText-Obj_Index)/4)+1
 id_EndEggman:		equ ((ptr_EndEggman-Obj_Index)/4)+1
 id_TryChaos:		equ ((ptr_TryChaos-Obj_Index)/4)+1
+id_ExplosionSHC:	equ ((ptr_ExplosionSHC-Obj_Index)/4)+1

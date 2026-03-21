@@ -159,7 +159,7 @@ ExplosionSHC:
 		jmp	SHCBom_Index(pc,d1.w)
 ; ===========================================================================
 SHCBom_Index:	dc.w SHCBom_Main-SHCBom_Index
-		dc.w ExplItem_Main-SHCBom_Index
+		dc.w SHCBom_Anim-SHCBom_Index
 ; ===========================================================================
 
 SHCBom_Main:	; Routine 0
@@ -175,3 +175,17 @@ SHCBom_Main:	; Routine 0
 		move.b	#0,obFrame(a0)
 		move.w	#sfx_Bomb,d0
 		jmp	(QueueSound2).l	; play exploding bomb sound
+
+SHCBom_Anim:	; Routine 4 (2 for ExplosionBomb)
+		subq.b	#1,obTimeFrame(a0)	; subtract 1 from frame duration
+		bpl.s	.display
+		move.b	#7,obTimeFrame(a0)	; set frame duration to 7 frames
+		addq.b	#1,obFrame(a0)		; next frame
+		cmpi.b	#5,obFrame(a0)		; is the final frame (05) displayed?
+		beq.w	.delete			; if yes, branch
+
+.display:
+		jmp		DisplaySprite
+
+.delete:
+		jmp		DeleteObject
