@@ -172,7 +172,7 @@ Giovanni_MainLoop:
 	bne.s   Giovanni_MainLoop			; if not, branch
 
 Giovanni_GotoTitle:
-	jsr  AtollySplash
+	move.b	#id_Title,(v_gamemode).w
 	rts						; return
 
 

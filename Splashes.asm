@@ -161,8 +161,9 @@ splash_turd macro routine
 	splash_liquid	Malachi_Splash
 	splash_liquid	GM_TGSplash
 	splash_liquid	TeamOverload_Splash
-	splash_liquid	Yume2kki
+	splash_liquid	AtollySplash
 	splash_liquid	GM_NT
+	splash_liquid	Yume2kki
 
 	;!@ GenesisDoes
 	splash_solid	Compile,	$40, 0,	$00,		60*3

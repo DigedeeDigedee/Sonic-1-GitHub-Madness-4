@@ -121,7 +121,7 @@ ptr_mus67:		dc.l Music67
 ptr_mus68:		dc.l Music68
 ptr_mus69:		dc.l Music69
 ptr_mus6A:		dc.l Music6A
-;ptr_mus6B:		dc.l Music6B
+ptr_mus6B:		dc.l Music6B
 ;ptr_mus6C:		dc.l Music6C
 ;ptr_mus6D:		dc.l Music6D
 ;ptr_mus6E:		dc.l Music6E
@@ -283,37 +283,37 @@ Music_Setro:
 		include	"music/PikaNoob/Mus - Ronic Setro.asm"
 		even
 Music2E:
-		include "music/Mus8E - Sonic Got Through.asm"
+		include	"music/TG2000Tracks/MayoDed.asm"
 		even
 Music2F:
-		include	"music/BigNate/Mus - SHC Splash Screen.asm" 
+		include "music/Mus8E - Sonic Got Through.asm"
 		even
 Music30:
-		include "music/CNTracks/Mus - Coni Jingle.asm"
+		include	"music/BigNate/Mus - SHC Splash Screen.asm" 
 		even
 Music31:
-		include	"music/TG2000Tracks/TG2000Jingle.asm"
+		include "music/CNTracks/Mus - Coni Jingle.asm"
 		even
 Music32:
-		include	"music/NiaTracks/Mus - Donnie1.asm"
+		include	"music/TG2000Tracks/TG2000Jingle.asm"
 		even
 Music33:
-		include	"music/TSHTracks/Mus - TSH Logo.asm"
+		include	"music/NiaTracks/Mus - Donnie1.asm"
 		even
 Music34:
-		include	"music/Mus90 - Continue Screen.asm"
+		include	"music/TSHTracks/Mus - TSH Logo.asm"
 		even
 Music35:
-		include	"music/TG2000Tracks/WarnOfSon.asm"
+		include	"music/Mus90 - Continue Screen.asm"
 		even
 Music36:
-		include "music/Dawid/WINDOWS2000.asm"		;you got a windows 2000 product activation key!!!!!!!!! (or you used kgen you fucking idiot)
+		include	"music/TG2000Tracks/WarnOfSon.asm"
 		even
 Music37:
-		include "music/TG2000Tracks/1UPEmerald.asm"
+		include "music/Dawid/WINDOWS2000.asm"		;you got a windows 2000 product activation key!!!!!!!!! (or you used kgen you fucking idiot)
 		even
 Music38:
-		include "music/TheWTracks/Chaos Emerald.asm"
+		include "music/TG2000Tracks/1UPEmerald.asm"
 		even
 ; Used for Commericals
 
@@ -459,15 +459,18 @@ Music66:
 		include	"music/Dawid/Hidden.asm" 
 		even
 Music67:
-		include	"music/TG2000Tracks/Ding.asm"
+		include	"music/TG2000Tracks/BossaNova.asm"
 		even
 Music68:
-		include	"music/TG2000Tracks/SadMac.asm"
+		include	"music/TG2000Tracks/Ding.asm"
 		even
 Music69:
-		include	"music/TG2000Tracks/Folgers.asm"
+		include	"music/TG2000Tracks/SadMac.asm"
 		even
 Music6A:
-		include	"music/TG2000Tracks/MayoDed.asm"
+		include	"music/TG2000Tracks/Folgers.asm"
+		even
+Music6B:
+		include "music/TheWTracks/Chaos Emerald.asm"
 		even
 	END

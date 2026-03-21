@@ -232,36 +232,43 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	enumconf $1
 	enum	SNDMIN=$0				;!@ GD: Minimum sound ID (silence)
 	nextenum bgm__First
-	nextenum bgm_MWaterS=bgm__First
-	nextenum bgm_OrangeSong
-	nextenum bgm_GreenHills
-	nextenum bgm_Dungeon3
-	nextenum bgm_LosTontos
-	nextenum bgm_Area5
-	nextenum bgm_Easton
-	nextenum bgm_Minecraft
-	nextenum bgm_Doom
-	nextenum bgm_BadEmerald
-	nextenum bgm_TreasureCaves
-	nextenum bgm_CanCan
-	nextenum bgm_GCV2005
-	nextenum bgm_fightMID
-	nextenum bgm_Cheetah
-	nextenum bgm_REMansion
-	nextenum bgm_ColdBrew
-	nextenum bgm_UNOwenWasHer
-	nextenum bgm_Passport
-	nextenum bgm_DoleDetective
-	nextenum bgm_HardwareStore
-	nextenum bgm_Final
-	nextenum bgm_SS
+	; Stage BGM
+	nextenum bgm_MWaterS=bgm__First		; Orange World	(Act 1)
+	nextenum bgm_OrangeSong			; 		(Act 2)
+	nextenum bgm_GreenHills			; 		(Act 3)
+	nextenum bgm_Dungeon3			; Azure Rainforest
+	nextenum bgm_LosTontos			; Alberta Canada	(Act 1)
+	nextenum bgm_Area5			; 			(Act 2)
+	nextenum bgm_Easton			; 			(Act 3)
+	nextenum bgm_Minecraft			; Minecraft	(Act 1)
+	nextenum bgm_Doom			; 		(Act 2)
+	nextenum bgm_BadEmerald			; 		(Act 3) + Cold Brew (Act 3)
+	nextenum bgm_TreasureCaves		; Spring Field	(Act 1)
+	nextenum bgm_CanCan			; 		(Act 2)
+	nextenum bgm_GCV2005			; 		(Act 3)
+	nextenum bgm_fightMID			; Prongle Plant	(Act 1)
+	nextenum bgm_Cheetah			; 		(Act 2)
+	nextenum bgm_REMansion			; 		(Act 3)
+	nextenum bgm_ColdBrew			; Cold Brew	(Act 1+2)
+	nextenum bgm_UNOwenWasHer		; Windows	(Act 1)
+	nextenum bgm_Passport			; 		(Act 2)
+	nextenum bgm_DoleDetective		; Doleville	(Act 1)
+	nextenum bgm_HardwareStore		; 		(Act 2)
+	nextenum bgm_Final			; DUMMY Level BGM
+	nextenum bgm_SS				; Special Stage
+
+	; Boss BGM
 	nextenum bgm_Boss
 	nextenum bgm_ClintonFuck
 	nextenum bgm_Megalovania
 	nextenum bgm_DoleBOSS
 	nextenum bgm_Coffinman
+
+	; Power Up BGM
 	nextenum bgm_Invincible
 	nextenum bgm_AVGNInv
+
+	; UI + Scene BGM
 	nextenum bgm_Title
 	nextenum bgm_NewBarkTown
 	nextenum bgm_Memories
@@ -269,14 +276,19 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_Ending
 	nextenum bgm_SSZ
 	nextenum bgm_Jeopardy
+
+	; In-Game Jingles
 	nextenum bgm_ActClear
 	nextenum bgm_Pac2
 	nextenum bgm_GameOver
 	nextenum bgm_ExtraLife
 	nextenum bgm_Drowning
 	nextenum bgm_Emerald
+
+	; Splash Screen BGM
 	nextenum bgm_Retro
 	nextenum bgm_RonicSetro
+	nextenum bgm_MayoDed
 	nextenum bgm_S1ActClear
 	nextenum bgm_SHCSplash
 	nextenum bgm_ConiJingle
@@ -287,7 +299,8 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_PuyoDrown
 	nextenum bgm_Win2K
 	nextenum bgm_EuroSega
-	nextenum bgm_ChaosEmerald
+
+	; Advertisement BGM
 	nextenum bgm_PuyoReject
 	nextenum bgm_LG
 	nextenum bgm_ILBT
@@ -298,6 +311,8 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_GEMSHill
 	nextenum bgm_LimitedYard
 	nextenum bgm_BomerDude
+
+	; Unused Full/Looping BGM
 	nextenum bgm_DeltaTale
 	nextenum bgm_NewShop
 	nextenum bgm_ChickenDance
@@ -334,10 +349,13 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_Skinner
 	nextenum bgm_Danstar
 	nextenum bgm_Hidden
+	nextenum bgm_BossaNova
+
+	; Unused Jingle BGM
 	nextenum bgm_Ding
 	nextenum bgm_SadMac
 	nextenum bgm_Folgers
-	nextenum bgm_MayoDed
+	nextenum bgm_ChaosEmerald
 	; Keep this last
 	nextenum bgm__Last
 
