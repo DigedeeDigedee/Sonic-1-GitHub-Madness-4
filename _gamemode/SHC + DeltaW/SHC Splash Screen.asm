@@ -20,24 +20,34 @@ tiles_to_bytes function addr,((addr&$7FF)<<5)
 
 GM_SHCSplash:
 		move.b	#bgm_Stop,d0
-		jsr	PlaySound_Special
-		jsr	PaletteFadeOut.w
-		jsr	ClearScreen.w
+		jsr	(PlaySound_Special).l
+		jsr	(PaletteFadeOut).w
+		jsr	(ClearScreen).w
 		lea	(vdp_control_port).l,a6
 		move.w	#$8004,(a6)			; 8-color mode
 		move.w	#$8174,(a6)		
 		move.w	#$8700,(a6)			; background color (palette 0, color 0)
 		move.w	#$9001,(a6)			; 64-cell horizontal scroll size
 		move.w	#$9200,(a6)			; window vertical position
-		
-		lea	SHC_Art.l,a1
+
+		clearRAM	v_ram_start, (v_ram_start+$2000)			; clear foreground buffers
+		clearRAM	v_objspace, v_snddriver_ram				; clear the object RAM
+		clearRAM	v_levelvariables, v_levelvariables_end				; clear the camera RAM
+
+		; clear
+		moveq	#0,d0
+		move.b	d0,(f_wtr_state).w
+		move.b	d0,(f_water).w
+
+
+		lea	(SHC_Art).l,a1
 		moveq	#tiles_to_bytes(0),d2
 
-		lea Art_WBomb.l,a1  
-		move.w #tiles_to_bytes($685),d2 
+		lea	(Art_WBomb).l,a1  
+		move.w	#tiles_to_bytes($685),d2 
 		jsr 	NemDec.w
 
-		lea	SHC_Map_Comp.l,a0
+		lea	(SHC_Map_Comp).l,a0
 		move.w	#$6000,d7
 		lea	(vdp_control_port).l,a6
 		bsr.w	SHC_CompDec
@@ -46,10 +56,10 @@ GM_SHCSplash:
 		move.w	d5,(a6)				; set initial plane A address
 
 		; Load palette
-		lea	SHC_Pal.l,a0
+		lea	(SHC_Pal).l,a0
 		lea	(v_palette_line_1).l,a1
 		moveq	#$F,d0	
-.palLoop:	
+.palLoop:
 		move.l	(a0)+,(a1)+
 		move.l	(a0)+,(a1)+
 		dbf	d0,.palLoop
@@ -66,7 +76,7 @@ GM_SHCSplash:
 		lea	(Pal_Sonic).l,a0
 		lea	(v_palette_line_3).l,a1
 		moveq	#$F,d0
-		
+
 .sonicpalloop:
 		move.l	(a0)+,(a1)+
 		move.l	(a0)+,(a1)+
@@ -79,7 +89,7 @@ GM_SHCSplash:
 		dbf	d1,-
 		move.b	#id_WBomb,(v_objspace+$C0).w	; load the bomb
 		jsr	(PaletteFadeIn).w
-		
+
 		move.b	#bgm_SHCSplash,d0
 		jsr	PlaySound_Unused
 
@@ -161,7 +171,7 @@ SHC_UpdateScreen:	; no shaking yet
 ; ---------------------------------------------------------------------------
 SHC_CompDec:
 		move.w	#$8F02,(a6)		; set auto-incremement size to word
-		
+
 		bsr.s	.convertAddress		; build and send the VRAM write mode command
 		ori.l	#$40000000,d6		; VRAM write mode
 		move.l	d6,(a6)			; send the command to the VDP control port
@@ -182,7 +192,7 @@ SHC_CompDec:
 		move.b	(a0)+,d1		; load displacement
 		add.w	d1,d1
 		add.w	d7,d1
-		
+
 		moveq	#0,d2
 		move.b	(a0)+,d2		; load copy length
 		beq.s	.end			; if zero, branch
@@ -274,6 +284,7 @@ SHC_Anim:
 		dc.b	117-1, SHC_frame2
 
 		dc.b	-1, -1			; end marker
+		even
 
 ; ---------------------------------------------------------------------------
 
