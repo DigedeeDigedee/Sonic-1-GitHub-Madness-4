@@ -21,7 +21,7 @@ AtollySplash_Screen:
 		bsr.w   Set_ClearScreen
 		move.l  #$40000000,($C00004).l      ; Art
 		lea     (Nem_Atolly).l,a0  
-		bsr.w   Set_NemDec		
+		bsr.w   NemDec		
 		lea     (Chunk).l,a1
 		lea     (Eni_Atolly).l,a0  
 		bsr.w   Set_VDPLoc
