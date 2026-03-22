@@ -7387,7 +7387,14 @@ Nem_Atolly:   binclude	"LiquidSplashes/ATOownscreen/art/Atolly.nem"
 
 Eni_Atolly:   binclude	"LiquidSplashes/ATOownscreen/eni/Atolly.eni"
         even	
+; ---------------------------------------------------------------------------
+; FORTNITE RIFT - that shit 
+; ---------------------------------------------------------------------------
 	
+FortnitePortal:		  
+		  include	"_incObj/ObjRiftToGo.asm"
+Nem_Rift:	binclude	"artnem/RiftToGo.nem"
+            even			
 	
 ; end of 'ROM'
 		even
