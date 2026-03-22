@@ -106,6 +106,8 @@ PLC_GHZ:	dc.w ((PLC_GHZ2-PLC_GHZ-2)/6)-1
 		plcm	Nem_Spikes,    ArtTile_Spikes                 ; spikes
 		plcm	Nem_HSpring,   ArtTile_Spring_Horizontal      ; horizontal spring
 		plcm	Nem_VSpring,   ArtTile_Spring_Vertical        ; vertical spring
+		dc.l    Nem_Rift		; rift 
+		dc.w    $8F60
 
 PLC_GHZ2:	dc.w ((PLC_GHZ2end-PLC_GHZ2-2)/6)-1
 		plcm	Nem_Swing,     ArtTile_GHZ_MZ_Swing           ; swinging platform
@@ -297,8 +299,6 @@ PLC_DVZ2end:
 PLC_NGZ:	dc.w ((PLC_NGZ2-PLC_NGZ-2)/6)-1
 		plcm	Nem_Stalk, $6B00/32	; flower stalk
 	;	plcm	Nem_Ballhog, $8000/32	; crabmeat enemy
-		plcm	Nem_Splats, $9C80/32	; Splats
-
              ;   plcm    byte_2BBC2, $8300/32
 PLC_NGZ2:	dc.w ((PLC_NGZ2end-PLC_NGZ2-2)/6)-1
 		plcm	Nem_Bridge, $71C0/32	; bridge
