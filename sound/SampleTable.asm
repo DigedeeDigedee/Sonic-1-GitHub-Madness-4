@@ -51,6 +51,8 @@ SampleTable:
 
 	dcSample	TYPE_DPCM,	Amen_Crash,	11025			; $9E
 
+	dcSample	TYPE_PCM,	Homero,	16000			; $9E
+
 	; In-Game SFX SAMPLES
 	dcSample	TYPE_PCM,	letsgoeee,	8000,	FLAGS_SFX	; This is the most important one!!! :fire: :fire: :fire:
 	dcSample	TYPE_PCM,	Boik,		5250,	FLAGS_SFX	; $C4
@@ -158,6 +160,10 @@ SampleTable:
 ; ---------------------------------------------------------------
 ; Amen Breaks -  for use in songs (sampled from cw_amen_classic on rhythmlab) ported by Saneway
 	incdac	Amen_Crash, "sound/dac/amenbreak/crash.dpcm"
+
+; ---------------------------------------------------------------
+; Homero
+	incdac	Homero, "sound/dac/homero.wav"
 
 ; ---------------------------------------------------------------
 ; SFX Samples

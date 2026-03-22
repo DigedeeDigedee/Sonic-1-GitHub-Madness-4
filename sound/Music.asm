@@ -131,7 +131,7 @@ ptr_mus71:		dc.l Music71
 ptr_mus72:		dc.l Music72
 ptr_mus73:		dc.l Music73
 ptr_mus74:		dc.l Music74
-;ptr_mus75:		dc.l Music75
+ptr_mus75:		dc.l Music75
 ;ptr_mus76:		dc.l Music76
 ;ptr_mus77:		dc.l Music77
 ;ptr_mus78:		dc.l Music78
@@ -256,7 +256,7 @@ Music25:
 		include "music/CNTracks/Jeopardy.asm"
 		even
 Music26:
-		include	"music/Dawid/crazymario.asm"		; Uhhh, what did I just listen to?
+		include	"music/CNTracks/Homero.asm"		; homero
 		even
 Music27:
 		include	"music/TG2000Tracks/Pac2.asm"		; Dawids track btw but eh
@@ -501,5 +501,7 @@ Music73:
 Music74:
 		include	"music/TG2000Tracks/Folgers.asm"
 		even
-
+Music75:
+		include	"music/Dawid/crazymario.asm"		; Uhhh, what did I just listen to?
+		even
 	END

@@ -56,6 +56,9 @@ dClintLoopB:			ds.b 1
 ; Amen Break Sample Set
 dAmenCrash:			ds.b 1
 
+; HOMERO
+dHomero:				ds.b 1
+
 ; In-Game SFX Samples
 dLetsGOO			ds.b 1
 dBoik				ds.b 1
