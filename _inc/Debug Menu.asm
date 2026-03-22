@@ -585,6 +585,7 @@ GamemodeNameTable:
 		dc.w	.NewSSRG-.t
 		dc.w	.Atollygk-.t
 		dc.w	.Earthbou-.t
+		dc.w	.NTOSKRNL-.t
 		rept ( (GameModeArray_End-GameModeArray)-(((*)-.t)*2) )/4
 		dc.w	.Placeholder-.t
 		endr
@@ -615,6 +616,7 @@ GamemodeNameTable:
 .NewSSRG:	dc.b	"NEW SSRG SCREEN "
 .Atollygk:	dc.b	"ATOLLYGK SPLASH "
 .Earthbou:	dc.b	"EARTHBOUND BTL  "
+.NTOSKRNL:	dc.b	"NTOSKRNL        "
 .Placeholder:	dc.b	"PLACEHOLDER NAME"
 		even
 

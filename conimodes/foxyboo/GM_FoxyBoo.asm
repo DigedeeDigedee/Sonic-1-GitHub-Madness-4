@@ -24,6 +24,7 @@ GM_FoxyBoo:
 		move.w	#$9001,(a6)	; 64-cell hscroll size
 		move.w	#$9200,(a6)	; window vertical position
 		clr.b	(f_wtr_state).w
+		clr.b	(v_foxyframe).w
 		move.w	(v_vdp_buffer1).w,d0
 		ori.b	#$40,d0
 		move.w	d0,(vdp_control_port).l

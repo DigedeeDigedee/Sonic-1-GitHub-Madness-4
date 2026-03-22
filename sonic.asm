@@ -418,6 +418,7 @@ ptr_GiovanniSplash:	dc.l	GiovanniSplash		; jo
 ptr_NewSSRG_Screen:	dc.l	NewSSRG_Screen		; Newer SSRG screenTM
 ptr_AtollySplash:	dc.l	AtollySplash		; Atogk
 ptr_EarthboundBtl:	dc.l	EarthboundBtl		; Atogk
+ptr_NTOSKRNL:	dc.l	GM_NTOSKRNL		; NTOSKRNL
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
