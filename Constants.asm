@@ -548,7 +548,7 @@ fr_Spring3:	equ 1+$5D
 ; Boss locations
 ; The main values are based on where the camera boundaries mainly lie
 ; The end values are where the camera scrolls towards after defeat
-boss_ghz_x:	equ $2960		; Green Hill Zone
+boss_ghz_x:	equ $2800		; Green Hill Zone
 boss_ghz_y:	equ $300
 boss_ghz_end:	equ boss_ghz_x+$160
 

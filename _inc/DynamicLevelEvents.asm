@@ -146,18 +146,26 @@ DLE_GHZ3boss:
 loc_6EB0:
 		cmpi.w	#boss_ghz_x,(v_screenposx).w
 		blo.s	locret_6EE8
-		bsr.w	FindFreeObj
-		bne.s	loc_6ED0
-		_move.b	#id_Arif,obID(a1) ; load GHZ boss object
-		move.w	#boss_ghz_x+$100,obX(a1)
-		move.w	#boss_ghz_y-$80,obY(a1)
 
-loc_6ED0:
+		; load boss
+		bsr.w	FindFreeObj
+		bne.s	.noobj
+
+		move.b	#id_Arif,obID(a1) ; load GHZ boss object
+		move.w	#$292F,obX(a1)
+		move.w	#$400,obY(a1)
+
+.noobj:
 		move.w	#bgm_Boss,d0
 		bsr.w	QueueSound1		; play boss music
-		move.b	#1,(f_lockscreen).w	; lock screen
+
+		move.w	#$280B, (v_limitleft2).w	; limit left bound
+		move.w	#$2A90, (v_limitright2).w ; limit right bound
+		move.b	#1, (f_lockscreen).w 	; lock screen
+
 		addq.b	#2,(v_dle_routine).w
-		lea	CliFuckArtList,a1
+
+		lea	PLC_Arif,a1
 		jmp	UserPLC	
 
 ; ===========================================================================
