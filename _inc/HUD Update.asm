@@ -314,44 +314,44 @@ loc_1C92C:
 ; ---------------------------------------------------------------------------
 ; Subroutine to load countdown numbers on the continue screen
 ; ---------------------------------------------------------------------------
-
+;
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-
-
-ContScrCounter:
-		locVRAM	ArtTile_Continue_Number*tile_size
-		lea	(vdp_data_port).l,a6
-		lea	(Hud_10).l,a2
-		moveq	#2-1,d6
-		moveq	#0,d4
-		lea	Art_Text,a1 ; load numbers patterns
-
-ContScr_Loop:
-		moveq	#0,d2
-		move.l	(a2)+,d3
-
-loc_1C95A:
-		sub.l	d3,d1
-		blo.s	loc_1C962
-		addq.w	#1,d2
-		bra.s	loc_1C95A
+;
+;
+;ContScrCounter:
+;		locVRAM	ArtTile_Continue_Number*tile_size
+;		lea	(vdp_data_port).l,a6
+;		lea	(Hud_10).l,a2
+;		moveq	#2-1,d6
+;		moveq	#0,d4
+;		lea	Art_Text,a1 ; load numbers patterns
+;
+;ContScr_Loop:
+;		moveq	#0,d2
+;		move.l	(a2)+,d3
+;
+;loc_1C95A:
+;		sub.l	d3,d1
+;		blo.s	loc_1C962
+;		addq.w	#1,d2
+;		bra.s	loc_1C95A
 ; ===========================================================================
-
-loc_1C962:
-		add.l	d3,d1
-		lsl.w	#5,d2
-		lea	(a1,d2.w),a3
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		dbf	d6,ContScr_Loop	; repeat 1 more time
-
-		rts
+;
+;loc_1C962:
+;		add.l	d3,d1
+;		lsl.w	#5,d2
+;		lea	(a1,d2.w),a3
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		dbf	d6,ContScr_Loop	; repeat 1 more time
+;
+;		rts
 ; End of function ContScrCounter
 
 ; ---------------------------------------------------------------------------

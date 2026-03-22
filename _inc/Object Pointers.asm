@@ -128,8 +128,8 @@ ptr_RingFlash:		dc.l RingFlash
 ptr_HiddenBonus:	dc.l HiddenBonus
 ptr_SSResult:		dc.l SSResult
 ptr_SSRChaos:		dc.l SSRChaos
-ptr_ContScrCur:		dc.l ContScrCur		; $80
-ptr_ContSonic:		dc.l ContSonic
+ptr_ContScrCur:		dc.l NullObject		; $80
+ptr_ContSonic:		dc.l NullObject
 ptr_ScrapEggman:	dc.l ScrapEggman
 ptr_FalseFloor:		dc.l FalseFloor
 ptr_EggmanCylinder:	dc.l EggmanCylinder

@@ -374,8 +374,8 @@ Nem_WINNERCard:	binclude	"artnem/WIN Cards.nem"
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - continue screen
 ; ---------------------------------------------------------------------------
-Nem_ContSonic:	binclude	"artnem/Continue Screen Sonic.nem"
-		even
+;Nem_ContSonic:	binclude	"artnem/Continue Screen Sonic.nem"
+;		even
 Nem_MiniSonic:	binclude	"artnem/Continue Screen Stuff.nem"
 		even
 
