@@ -24,7 +24,7 @@ HUD_Main:	; Routine 0
 HUD_Flash:	; Routine 2
 		; Fix the HUD blinking
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_HUD_blinking
-		tst.b	f_debugmode
+		tst.w	(f_debugmode).w
 		beq.s	.normal
 		move.b	#4,obFrame(a0)
 		bra.s	.lol
