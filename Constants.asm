@@ -246,7 +246,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_Doom			; 		(Act 2)
 	nextenum bgm_BadEmerald			; 		(Act 3) + Cold Brew (Act 3)
 	nextenum bgm_TreasureCaves		; Spring Field	(Act 1)
-	nextenum bgm_CanCan			; 		(Act 2)
+	nextenum bgm_Danstar			; 		(Act 2)
 	nextenum bgm_GCV2005			; 		(Act 3)
 	nextenum bgm_fightMID			; Prongle Plant	(Act 1)
 	nextenum bgm_Cheetah			; 		(Act 2)
@@ -308,6 +308,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_ChaosEmerald
 	nextenum bgm_LimitedClear
 	nextenum bgm_Moonwalker
+	nextenum bgm_CleanSlate
 
 	; Advertisement BGM
 	nextenum bgm_PuyoReject
@@ -356,10 +357,11 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_ChairRoom
 	nextenum bgm_SneakySnitch
 	nextenum bgm_Skinner
-	nextenum bgm_Danstar
+	nextenum bgm_CanCan
 	nextenum bgm_Hidden
 	nextenum bgm_BossaNova
 	nextenum bgm_dam_dariram
+	nextenum Bgm_GooglePlayStock
 
 	; Unused Jingle BGM
 	nextenum bgm_Ding
