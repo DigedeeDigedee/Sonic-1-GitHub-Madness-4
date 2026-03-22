@@ -922,26 +922,24 @@ ScrollHoriz:
 MoveScreenHoriz:
 		move.w	(v_player+obX).w,d0
 		sub.w	(v_screenposx).w,d0 ; Sonic's distance from left edge of screen
-	if FixBugs
-		; Fix horizontal wrap bug
-		; https://info.sonicretro.org/SCHG_How-to:Fix_the_camera_follow_bug
-		
-		; It's too stupid to put links in this lol - ato
-		
-		; https://www.youtube.com/watch?v=xvFZjo5PgG0
-		
+		cmpi.b	#id_ColdBrew,(v_gamemode).w
+		beq.s	.UseColdBrewCam
 		subi.w	#(320/2)-16,d0	; is distance less than 144px?
 		blt.s	SH_BehindMid	; if yes, branch
 		subi.w	#16,d0		; is distance more than 160px?
 		bge.s	SH_AheadOfMid	; if yes, branch
-	else
-		subi.w	#(320/2)-16,d0	; is distance less than 144px?
-		bcs.s	SH_BehindMid	; if yes, branch
-		subi.w	#16,d0		; is distance more than 160px?
-		bcc.s	SH_AheadOfMid	; if yes, branch
-	endif
 		clr.w	(v_scrshiftx).w
 		rts
+
+.UseColdBrewCam:
+		subi.w	#(256/2)-16,d0	; is distance less than 144px?
+		blt.s	SH_BehindMid	; if yes, branch
+		subi.w	#16,d0		; is distance more than 160px?
+		bge.s	SH_AheadOfMid	; if yes, branch
+		clr.w	(v_scrshiftx).w
+		rts
+	
+
 ; ===========================================================================
 
 SH_AheadOfMid:
