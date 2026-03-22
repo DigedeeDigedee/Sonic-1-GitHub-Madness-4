@@ -171,8 +171,8 @@ clintonwalk:	dc.b	3
 	dc.b	1,2,3,4,5,6,7,-1
 	even
 
-SprPat_Clinton:	include		"clinton fucker/Clinton.asm"
+SprPat_Clinton:	include		"_incObj/clinton fucker/Clinton.asm"
 		even
 
-Nem_Clinton:	binclude	"clinton fucker/Clinton.nem"
+Nem_Clinton:	binclude	"_incObj/clinton fucker/Clinton.nem"
 		even

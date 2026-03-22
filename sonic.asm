@@ -7395,8 +7395,11 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 		include "sound/MSU/MSU.asm"
 	endif
 
-		include "clinton fucker/Clinton Fucker.asm"
+		include "_incObj/clinton fucker/Clinton Fucker.asm"
 		include	"_incObj/10 Player Bullet.asm"
+
+		include	"_incObj/Arif/Main.asm"
+
 ; ---------------------------------------------------------------------------
 ; NEEDLEMOUSE SHITTERY  Team Splash Screen files
 ; ---------------------------------------------------------------------------
