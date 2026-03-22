@@ -4,7 +4,7 @@
 ptr_SonicPlayer:	dc.l SonicPlayer	; $01
 ptr_Obj02:		dc.l NullObject
 ptr_Obj03:		dc.l NullObject
-ptr_Obj04:		dc.l NullObject
+ptr_Arif:		dc.l ArifBoss
 ptr_DaxKatterD:		dc.l Obj_DaxKatterD
 ptr_ClintonFucker:	dc.l ClintonFucker
 ptr_Obj07:		dc.l GM_CNNicoJumpOBJ
@@ -152,7 +152,7 @@ NullObject:
 id_SonicPlayer:		equ ((ptr_SonicPlayer-Obj_Index)/4)+1		; $01
 id_Obj02:		equ ((ptr_Obj02-Obj_Index)/4)+1
 id_Obj03:		equ ((ptr_Obj03-Obj_Index)/4)+1
-id_Obj04:		equ ((ptr_Obj04-Obj_Index)/4)+1
+id_Arif:		equ ((ptr_Arif-Obj_Index)/4)+1
 id_DaxKatterD:		equ ((ptr_DaxKatterD-Obj_Index)/4)+1
 id_ClintonFucker:	equ ((ptr_ClintonFucker-Obj_Index)/4)+1
 id_Obj07:		equ ((ptr_Obj07-Obj_Index)/4)+1
