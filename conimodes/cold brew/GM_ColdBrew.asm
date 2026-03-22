@@ -58,6 +58,7 @@ GM_CB_ClrObjRam:
 		jsr	(PalLoad1).l		; load palette
 		jsr	(PaletteFadeIn).l
 		move.b	#bgm_ColdBrew,d0
+		move.b	d0,(v_zonemusic).w
 		jsr	(PlaySound).l ; music
 
 GM_CB_MainLoop:
@@ -187,6 +188,7 @@ CBLevel_MainLoop:
 		move.b	#8,(v_vbla_routine).w
 		jsr		(WaitForVBla).l
 		addq.w	#1,(v_framecount).w ; add 1 to level timer
+		jsr	(MoveSonicInDemo).l
 		jsr	(ExecuteObjects).l
 		jsr	(DeformLayers).l
 		jsr	(BuildSprites).l
