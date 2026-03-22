@@ -417,7 +417,7 @@ ptr_Advert:		dc.l	GM_Advert		; For all the reject splash screens I guess
 ptr_GiovanniSplash:	dc.l	GiovanniSplash		; jo
 ptr_NewSSRG_Screen:	dc.l	NewSSRG_Screen		; Newer SSRG screenTM
 ptr_AtollySplash:	dc.l	AtollySplash		; Atogk
-
+ptr_EarthboundBtl:	dc.l	EarthboundBtl		; Atogk
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -7387,7 +7387,8 @@ Nem_Atolly:   binclude	"LiquidSplashes/ATOownscreen/art/Atolly.nem"
 
 Eni_Atolly:   binclude	"LiquidSplashes/ATOownscreen/eni/Atolly.eni"
         even	
-	
+
+        include	"EarthboundBtl/MAIN.ASM"
 	
 ; end of 'ROM'
 		even
