@@ -44,9 +44,9 @@ Rift_2ndIndex:	dc.w Rift_Normal-Rift_2ndIndex
 
 Rift_Normal:
 		move.b	#0,obAnim(a0)
- ;		move.w	#sfx_RiftNormal,d0    ; Add this DAX!
-;		jsr	(QueueSound1).l	; play rift normal sound	
 		addq.b	#2,ob2ndRout(a0) ; run "Rift_CheckDist" routine
+        move.w	#sfx_RiftNormal,d0    ; Add this DAX!
+ 		jmp	(QueueSound1).l	; play rift normal sound	
         rts		
 ; ===========================================================================
 		
@@ -74,8 +74,8 @@ Rift_Collect:	; Routine 4
 
  
 Rift_PlaySnd:
-;		move.w	#RiftSkyBreak,d0    ; and this too 
-;		jsr	(QueueSound1).l	; play riftsky sound
+		move.w	#RiftSkyBreak,d0    ; and this too 
+		jsr	(QueueSound1).l	; play riftsky sound
 		rts
 ; ===========================================================================
 
