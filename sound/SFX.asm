@@ -70,7 +70,8 @@ ptr_sndD6:	dc.l SoundD6
 ptr_sndD7:	dc.l SoundD7
 ptr_sndD8:	dc.l SoundD8
 ptr_sndD9:	dc.l SoundD9
-
+ptr_sndDA:	dc.l SoundDA
+ptr_sndDB:	dc.l SoundDB
 
 ; ---------------------------------------------------------------------------
 ; Sound effect data
@@ -191,4 +192,8 @@ SoundD8:	include "sfx/VehiRev.asm"
 		even
 SoundD9:	include "sfx/atgameybeepy.asm"
 		even
+SoundDA:	include "sfx/RiftNormal.asm"
+		even		
+SoundDB:	include "sfx/RiftBreakSky.asm"
+		even			
 	END
