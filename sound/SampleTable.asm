@@ -64,7 +64,6 @@ SampleTable:
 	dcSample	TYPE_PCM,	CL_Dicks,	11297			; $BF
 	dcSample	TYPE_PCM,	BabyAlarm,	0,	FLAGS_SFX	; $C2
 	dcSample	TYPE_PCM,	CL_YouCanSuck,	11297,	FLAGS_SFX	; $BD
-	dcSample	TYPE_PCM,	Lg,		16000,	FLAGS_SFX	; $CB
 	dcSample	TYPE_DPCM,	Boost,		16000,	FLAGS_SFX	; $B6
 	dcSample	TYPE_DPCM,	ClintonHi,	20600,	FLAGS_SFX	; $C6
 	dcSample	TYPE_PCM,	CL_DoYouSuck,	11297,	FLAGS_SFX	; $BE
@@ -175,7 +174,6 @@ SampleTable:
 	incdac	CL_Dicks, "sound/dac/CL_Dicks.wav"
 	incdac	BabyAlarm, "sound/dac/BabyAlarm.wav"
 	incdac	CL_YouCanSuck, "sound/dac/CL_YouCanSuck.wav"
-	incdac	Lg, "sound/dac/lg/Echo.pcm"
 	incdac	Boost,"sound/dac/GenesisDoes/Boost.dpcm"
 	incdac	ClintonHi, "sound/dac/Clinton Fucker/hi.dpcm"
 	incdac	CL_OnTheBall, "sound/dac/CL_OnTheBall.wav"

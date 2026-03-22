@@ -69,7 +69,6 @@ dGayNeil			ds.b 1
 dDicks				ds.b 1
 dBabyAlarm			ds.b 1
 dYouCanSuck			ds.b 1
-dLg				ds.b 1
 dBoostPower			ds.b 1
 dClintonHi			ds.b 1
 dDoYouSuck			ds.b 1

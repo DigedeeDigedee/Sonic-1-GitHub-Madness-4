@@ -67,7 +67,8 @@ loc_1670E:
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		clr.b	objoff_32(a0)
-		pcm	dLg
+		move.w	#sfx_LGEcho,d0
+		jsr	(QueueSound2).l	; play teleport sound
 
 locret_1675C:
 		rts

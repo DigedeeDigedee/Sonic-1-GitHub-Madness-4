@@ -72,7 +72,7 @@ ptr_sndD8:	dc.l SoundD8
 ptr_sndD9:	dc.l SoundD9
 ptr_sndDA:	dc.l SoundDA
 ptr_sndDB:	dc.l SoundDB
-
+ptr_sndDC:	dc.l SoundDC
 ; ---------------------------------------------------------------------------
 ; Sound effect data
 ; ---------------------------------------------------------------------------
@@ -195,5 +195,7 @@ SoundD9:	include "sfx/atgameybeepy.asm"
 SoundDA:	include "sfx/SFX - Rift.asm"
 		even
 SoundDB:	include "sfx/SFX - Rift Sky Break.asm"
+		even
+SoundDC:	include "sfx/LG Echo.asm"
 		even
 	END
