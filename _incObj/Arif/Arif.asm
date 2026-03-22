@@ -101,7 +101,7 @@ ArifBoss_Arif:
 		jsr	QueueSound2
 
 		jsr 	FindFreeObj
-		move.w 	#id_Arif, (a1)
+		move.b 	#id_Arif, (a1)
 		move.b  #4, obSubtype(a1)
 		move.w  obX(a0), obX(a1)
 		move.w  obY(a0), obY(a1)
