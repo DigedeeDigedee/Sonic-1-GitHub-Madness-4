@@ -244,7 +244,11 @@ Lz_Scroll_Data:
 
 
 Deform_MZ:
-	; block 1 - dungeon interior
+		move.w  (v_zone).w,d0
+		cmpi.w  #(id_ACZ<<8)+3,d0
+		beq.w   Deform_MZ4
+		
+Deform_MZNormal:	
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
@@ -333,7 +337,43 @@ Deform_MZ:
 		lsr.w	#3,d0
 		lea	(a2,d0.w),a2
 		bra.w	Bg_Scroll_X
+		rts
 ; End of function Deform_MZ
+
+
+Deform_MZ4:
+      ; plain background deformation
+		move.w	(v_scrshiftx).w,d4
+		ext.l	d4		
+		asl.l	#6,d4
+		move.w	(v_scrshifty).w,d5
+		ext.l	d5
+		asl.l	#5,d5
+		bsr.w	BGScroll_XY
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_vdp).w
+	; copy fg & bg x-position to hscroll table
+		lea	(v_hscrolltablebuffer).w,a1
+		move.w	#190,d1
+		move.w	(v_screenposx).w,d0
+		neg.w	d0
+		asr.w   #1,d0
+		swap	d0
+		
+MZ4BG:
+		move.w	(v_bgscreenposx).w,d0
+		neg.w	d0
+	
+MZ4BG2:		
+		move.l	d0,(a1)+
+		dbf	d1,MZ4BG2	
+		move.w	(v_screenposx).w,d0		
+		move.w  #$27,d1
+	    neg.w   d0    
+
+	.loop:		
+		move.l	d0,(a1)+
+		dbf	d1,.loop
+		rts
 
 ; ---------------------------------------------------------------------------
 ; Star Light Zone background layer deformation code
