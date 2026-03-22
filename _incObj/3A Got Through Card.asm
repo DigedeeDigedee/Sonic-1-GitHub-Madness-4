@@ -117,7 +117,7 @@ Got_ChkBonus:
 		tst.w	d0		; is there any bonus?
 		bne.s	Got_AddBonus	; if yes, branch
 		move.w	#sfx_Cash,d0
-		jsr	(QueueSound2).l	; play "ker-ching" sound
+		jsr	(QueueSound2).w	; play "ker-ching" sound
 		addq.b	#2,obRoutine(a0)
 		cmpi.w	#(id_PPZ<<8)+1,(v_zone).w
 		bne.s	Got_SetDelay
@@ -136,7 +136,7 @@ Got_AddBonus:
 		andi.b	#3,d0
 		bne.s	locret_C692
 		move.w	#sfx_FCSelect,d0
-		jmp	(QueueSound2).l	; play "blip" sound
+		jmp	(QueueSound2).w	; play "blip" sound
 ; ===========================================================================
 
 Got_NextLevel:	; Routine $A
@@ -217,23 +217,23 @@ loc_C766:	; Routine $10
 		;    x-start, x-main, y-main,
 		;    routine, frame number
 
-Got_Config:	dc.w 0,		$120,	$C0			; "SONIC HAS"
-		dc.b 				2,	0
+Got_Config:	dc.w 0, $120, $C0		; "SONIC HAS"
+		dc.b 2, 0
 
-		dc.w -$120,	$120,	$D0			; "PASSED"
-		dc.b 				2,	1
+		dc.w -$120, $120, $D0		; "PASSED"
+		dc.b 2, 1
 
-		dc.w $400,	$120,	$E0			; "ACT" 1/2/3
-		dc.b 				2,	6
+		dc.w $400, $120, $E0		; "ACT" 1/2/3
+		dc.b 2, 6
 
-		dc.w $520,	$120,	$F0			; score
-		dc.b 				2,	2
+		dc.w $540, $120, $100		; time bonus
+		dc.b 2, 3
 
-		dc.w $540,	$120,	$100			; time bonus
-		dc.b 				2,	3
+		dc.w $560, $120, $110		; ring bonus
+		dc.b 2, 4
 
-		dc.w $560,	$120,	$110			; ring bonus
-		dc.b 				2,	4
+		dc.w $520, $120, $130		; score
+		dc.b 2, 2
 
-		dc.w $200,	$120,	$A0			; oval
-		dc.b 				2,	5
+		dc.w $200, $120, $A0		; oval
+		dc.b 2, 5
