@@ -129,8 +129,8 @@ ptr_mus6F:		dc.l Music6F
 ptr_mus70:		dc.l Music70
 ptr_mus71:		dc.l Music71
 ptr_mus72:		dc.l Music72
-;ptr_mus73:		dc.l Music73
-;ptr_mus74:		dc.l Music74
+ptr_mus73:		dc.l Music73
+ptr_mus74:		dc.l Music74
 ;ptr_mus75:		dc.l Music75
 ;ptr_mus76:		dc.l Music76
 ;ptr_mus77:		dc.l Music77
@@ -495,4 +495,11 @@ Music71:
 Music72:
 		include	"music/TG2000Tracks/Folgers.asm"
 		even
+Music73:
+		include	"music/Robi/ShitSlate.asm"
+		even
+Music74:
+		include	"music/Robi/FunkyMusic.asm"
+		even
+
 	END
