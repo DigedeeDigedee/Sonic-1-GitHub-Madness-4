@@ -429,7 +429,7 @@ PLC_BREWAnimalsend:
 ; Pattern load cues - WIN animals
 ; ---------------------------------------------------------------------------
 PLC_WINAnimals:	dc.w ((PLC_WINAnimalsend-PLC_WINAnimals-2)/6)-1
-		plcm	Nem_Pig,    ArtTile_Animal_1 ; pig
+		plcm	Nem_Navi,    ArtTile_Animal_1 ; Navigator
 		plcm	Nem_Flicky, ArtTile_Animal_2 ; flicky
 PLC_WINAnimalsend:
 ; ---------------------------------------------------------------------------

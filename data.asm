@@ -400,6 +400,8 @@ Nem_Rin:	binclude	"artnem/Animal Rin.nem"
 		even
 Nem_AOrange:	binclude	"artnem/Animal AOrange.nem"
 		even
+Nem_Navi:	binclude	"artnem/Animal Netscape.nem"
+		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - primary patterns and block mappings
 ; ---------------------------------------------------------------------------
