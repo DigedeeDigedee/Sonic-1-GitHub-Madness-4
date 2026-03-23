@@ -43,7 +43,7 @@ Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 		zonewarning Deform_Index,2
 		dc.w Deform_GHZ-Deform_Index, Deform_CBZ-Deform_Index
 		dc.w Deform_WZ-Deform_Index, Deform_Joint-Deform_Index
-		dc.w Deform_LZ-Deform_Index,Deform_LZ-Deform_Index
+		dc.w Deform_LZ-Deform_Index,Deform_NGZ-Deform_Index
 		dc.w Deform_LZ-Deform_Index,Deform_LZ-Deform_Index
 ; ---------------------------------------------------------------------------
 ; Green Hill Zone background layer deformation code
@@ -860,7 +860,75 @@ Deform_CBZ:
 		move.l	d0,(a1)+
 		dbf	d1,.waterLoop
 		rts
-; End of function Deform_CBZ
+
+; ---------------------------------------------------------------------------
+; Nogales Zone background layer deformation code
+; ---------------------------------------------------------------------------
+
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+Deform_NGZ:
+		move.w	(v_scrshiftx).w,d4
+		ext.l	d4
+		asl.l	#5,d4
+		move.l	d4,d1
+		asl.l	#1,d4
+		add.l	d1,d4
+		moveq	#0,d5
+		bsr.w	BGScroll_XY
+		bsr.w	ScrollBlock4
+		lea	(v_hscrolltablebuffer).w,a1
+		move.w	(v_screenposy).w,d0
+		andi.w	#$7FF,d0
+		lsr.w	#5,d0
+		neg.w	d0
+		addi.w	#$24,d0
+		move.w	d0,(v_bg2screenposy).w
+		move.w	d0,d4
+		bsr.w	BGScroll_YAbsolute
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_vdp).w
+		move.w	#$6F,d1
+		sub.w	d4,d1
+		move.w	(v_screenposx).w,d0
+		neg.w	d0
+		swap	d0
+		move.w	(v_bgscreenposx).w,d0
+		neg.w	d0
+
+.loc_6346:
+		move.l	d0,(a1)+
+		dbf	d1,.loc_6346
+		move.w	#$27,d1
+		move.w	(v_bg2screenposx).w,d0
+		neg.w	d0
+
+.loc_6356:
+		move.l	d0,(a1)+
+		dbf	d1,.loc_6356
+		move.w	(v_bg2screenposx).w,d0
+		addi.w	#0,d0
+		move.w	(v_screenposx).w,d2
+		addi.w	#-$200,d2
+		sub.w	d0,d2
+		ext.l	d2
+		asl.l	#8,d2
+		divs.w	#$68,d2
+		ext.l	d2
+		asl.l	#8,d2
+		moveq	#0,d3
+		move.w	d0,d3
+		move.w	#$47,d1
+		add.w	d4,d1
+
+.loc_6384:
+		move.w	d3,d0
+		neg.w	d0
+		move.l	d0,(a1)+
+		swap	d3
+		add.l	d2,d3
+		swap	d3
+		dbf	d1,.loc_6384
+		rts
 
 ; ---------------------------------------------------------------------------
 ; this sucks redo it plz
@@ -1313,3 +1381,35 @@ BGScroll_Block3:
 		bset	d6,(v_bg3_scroll_flags).w
 	.return:
 		rts
+;-------------------------------------------------------------------------------	
+; literal copy and paste
+;-------------------------------------------------------------------------------
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+
+ScrollBlock4:
+		move.w	(v_bg2screenposx).w,d2
+		move.w	(v_bg2screenposy).w,d3
+		move.w	(v_scrshiftx).w,d0
+		ext.l	d0
+		asl.l	#7,d0
+		add.l	d0,(v_bg2screenposx).w
+		move.w	(v_bg2screenposx).w,d0
+		andi.w	#$10,d0
+		move.b	(v_bg2_xblock).w,d1
+		eor.b	d1,d0
+		bne.s	locret_6884
+		eori.b	#$10,(v_bg2_xblock).w
+		move.w	(v_bg2screenposx).w,d0
+		sub.w	d2,d0
+		bpl.s	loc_687E
+		bset	#2,(v_bg2_scroll_flags).w
+		bra.s	locret_6884
+; ===========================================================================
+
+loc_687E:
+		bset	#3,(v_bg2_scroll_flags).w
+
+locret_6884:
+		rts
+; End of function ScrollBlock4

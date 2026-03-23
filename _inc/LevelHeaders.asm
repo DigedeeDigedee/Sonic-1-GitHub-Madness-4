@@ -71,7 +71,7 @@ lhead:	macro plc1,lvlgfx,plc2,sixteen,twofivesix,music,pal,col1,objlay,lvllay,bg
 	lhead	plcid_Joint,Kos_DVZ,plcid_Joint2,Blk16_DVZ,Blk256_DVZ3,0,palid_DVZ,Col_DVZ,ObjPos_DVZ3,Level_DVZ3,Level_DVZbg
 	lhead	plcid_Joint,Kos_DVZ,plcid_Joint2,Blk16_DVZ,Blk256_DVZ3,$FF,palid_Black,Col_DVZ,ObjPos_DVZ4,Level_DVZ4,Level_DVZbg4
 
-	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_Final,palid_NGZ,Col_NGZ,ObjPos_NGZ1,Level_NGZ1,Level_NGZbg
-	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_Final,palid_NGZ,Col_NGZ,ObjPos_NGZ2,Level_NGZ2,Level_NGZbg
-	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_Final,palid_NGZ,Col_NGZ,ObjPos_NGZ3,Level_NGZ3,Level_NGZbg
-	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_Final,palid_NGZ,Col_NGZ,ObjPos_NGZ1,Level_NGZ1,Level_NGZbg
+	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_GreenHill,palid_NGZ,Col_NGZ,ObjPos_NGZ1,Level_NGZ1,Level_NGZbg
+	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_GreenHill,palid_NGZ,Col_NGZ,ObjPos_NGZ2,Level_NGZ2,Level_NGZbg
+	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_GreenHill,palid_NGZ,Col_NGZ,ObjPos_NGZ3,Level_NGZ3,Level_NGZbg
+	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_GreenHill,palid_NGZ,Col_NGZ,ObjPos_NGZ1,Level_NGZ1,Level_NGZbg

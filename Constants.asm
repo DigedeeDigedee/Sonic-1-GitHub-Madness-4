@@ -360,6 +360,9 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_SadMac
 	nextenum bgm_Folgers
 	nextenum bgm_CrazyMario
+
+	; nogales. i'm not renaming like 50 track labels man
+	nextenum bgm_GreenHill
 	; Keep this last
 	nextenum bgm__Last
 
