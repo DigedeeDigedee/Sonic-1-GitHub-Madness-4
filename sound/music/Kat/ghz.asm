@@ -438,17 +438,17 @@ Nogales_Jump05:
 
 ; DAC Data
 Nogales_DAC:
-	dc.b	nRst, $08, dKick, dSnare, dKick, dKick, dSnare, dSnare, dSnare
+	dc.b	nRst, $08, dKick, dProtoSnare, dKick, dKick, dProtoSnare, dProtoSnare, dProtoSnare
 
 Nogales_Loop00:
-	dc.b	dKick, $10, dSnare, $08, dKick, $10, $08, dSnare, $10
+	dc.b	dKick, $10, dProtoSnare, $08, dKick, $10, $08, dProtoSnare, $10
 	smpsLoop			$00, $07, Nogales_Loop00
-	dc.b	dKick, $10, dSnare, $08, dKick, $10, dSnare, $08, $08, $08
+	dc.b	dKick, $10, dProtoSnare, $08, dKick, $10, dProtoSnare, $08, $08, $08
 
 Nogales_Loop01:
-	dc.b	dKick, $10, dSnare, $08, dKick, $10, $08, dSnare, $10
+	dc.b	dKick, $10, dProtoSnare, $08, dKick, $10, $08, dProtoSnare, $10
 	smpsLoop			$00, $07, Nogales_Loop01
-	dc.b	dKick, $10, dSnare, $08, dKick, $10, dSnare, $08, $08, $08
+	dc.b	dKick, $10, dProtoSnare, $08, dKick, $10, dProtoSnare, $08, $08, $08
 	smpsLoop			$01, $02, Nogales_Loop01
 	smpsJump			Nogales_Loop01
 	
