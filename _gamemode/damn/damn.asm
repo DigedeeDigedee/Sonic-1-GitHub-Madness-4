@@ -27,25 +27,6 @@ r_damn_timer:		ds.w 1
 r_damn_end:
 	dephase
 	!org -
-
-damnvscrlmake macro vscl
-;	dc.w $8AFF,0
-	set _damnvsclmakeinc,0
-	set _damnvsclmakelin,0
-	rept damnscrheight+2
-		if _damnvsclmakelin<damnscrheight-2
-		dc.w $8A00,(vscl>_damnvsclmakeinc)*($FF-_damnvsclmakelin)
-		else
-		dc.w $8AFF,(vscl>_damnvsclmakeinc)*($FF-_damnvsclmakelin)
-		endif
-		set _damnvsclmakelin,_damnvsclmakelin+1
-		if _damnvsclmakelin<(damnscrheight/2)
-		set _damnvsclmakeinc,_damnvsclmakeinc+1
-		else
-		set _damnvsclmakeinc,_damnvsclmakeinc-1
-		endif
-	endr
-	endm
 ; ---------------------------------------------------------------------------
 GM_Damn:
 		move.w	#bgm_Fade,d0
