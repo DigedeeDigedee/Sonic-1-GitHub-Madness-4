@@ -169,7 +169,6 @@ splash_turd macro routine
 	splash_solid	Blessed,	$40, 0,	sfx_SSGoal,	200
 	splash_solid	SonicBroke,	$20, 0,	bgm_S1Continue,	480
 	splash_solid	Wait,		$60, 0,	bgm_PuyoDrown,	145
-	splash_solid	W,		$40, 0,	bgm_Win2K,	380
 ;	splash_solid	W,		$40, 0,	bgm_Win2K,	380
 
 	splash_liquid	GM_NTOSKRNL
