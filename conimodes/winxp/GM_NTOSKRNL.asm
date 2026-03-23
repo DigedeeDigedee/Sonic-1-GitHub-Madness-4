@@ -19,12 +19,16 @@ GM_NTOSKRNL:
 		move.w	#$9200,(a6)	; window vertical position
 		move.w	#$8B03,(a6)	; line scroll mode
 		move.w	#$8700,(a6)	; set background colour (line 0; colour 0)
+		move.w	#$8AFF,(v_hbla_hreg).w ; set palette change position (for initial drawing in)
+		move.w	(v_hbla_hreg).w,(a6)
+		move.w	#$8014,(a6)	; enable H-interrupts
 ;		ResetDMAQueue
 		move.w	(v_vdp_buffer1).w,d0
 		ori.b	#$40,d0
 		move.w	d0,(vdp_control_port).l
 		clr.l	(v_screenposx).w	; prevent yucky misalignment
 		clr.b	(v_foxyframe).w
+		move.w	#224,(v_waterpos1).w ; set water heights
 ;		clr.w	(v_pcyc_num).w ; fix palette cycling
 ;		move.w	#$C,(v_pcyc_time).w ; enable palette cycling
 ;		move.w	#$40,(v_bgscrposy_vdp).w
@@ -49,12 +53,43 @@ GM_WinXP_ClrObjRam:
 		moveq	#$1F,d2
 		jsr		(TilemapToVRAM).l
 
+		move.l	#$0A620A62,d0	; works but at what cost
+		lea		(v_palette).w,a1
+		bsr.w	NTOS_FILLPal
+
+		lea     (Pal_WinXP).l,a0
+		lea     (v_palette_water).w,a1
+		move.w	#$7,d7	; 16 colors ($20 bytes)
+	.loop:
+		move.l  (a0)+,(a1)+
+		dbf.w	d7,.loop
+
+	; TO DO - ADD HBLANK DRAWING IN - IMITATE DRAWING EFFECT SEEN USUALLY SEEN ON COMPUTERS THAT ARENT TOO BEEFY
+
+
+
+GM_WinXP_DrawinLoop:
+		move.b	#2,(v_vbla_routine).w
+		jsr		(WaitForVBla).l
+		subq.w	#1,(v_waterpos1).w
+;		cmpi.b	#20,(v_foxyframe).w
+;		beq.s	GM_WinXP_ChangeMode
+		move.w	(v_waterpos1).w,d0
+		move.b	d0,(v_hbla_line).w ; set water surface as on-screen
+;		tst.w	(v_demolength).w
+;		bne.s	GM_WinXP_MainLoop
+		tst.w	d0
+		bne.s	GM_WinXP_DrawinLoop	; if water is below top of screen, branch
+
+GM_WinXP_EndDraw:
 		lea     (Pal_WinXP).l,a0
 		lea     (v_palette).w,a1
 		move.w	#$7,d7	; 16 colors ($20 bytes)
 	.loop:
 		move.l  (a0)+,(a1)+
 		dbf.w	d7,.loop
+		lea	(vdp_control_port).l,a6
+		move.w	#$8004,(a6)	; disable H-interrupts
 
 		lea	($FF0000).l,a1
 		lea	(Eni_NTOSBars).l,a0 ; load map
