@@ -50,21 +50,21 @@ ArifBoss:
 
 ; ===========================================================================
 
-		include "_incObj\Arif\Arif.asm"
-		include "_incObj\Arif\Bullet.asm"
+		include "_incObj/Arif/Arif.asm"
+		include "_incObj/Arif/Bullet.asm"
 
 ; ===========================================================================
 
-Art_Arif:	incbin "_incObj\Arif\Data\Arif.bin"
+Art_Arif:	incbin "_incObj/Arif/Data/Arif.bin"
         	even
 
-Art_ArifBullet: incbin "_incObj\Arif\Data\ArifBullet.bin"
+Art_ArifBullet: incbin "_incObj/Arif/Data/ArifBullet.bin"
         	even
 
 ; ===========================================================================
 
-		include "_incObj\Arif\Data\Arif.asm"
-		include "_incObj\Arif\Data\ArifBullet.asm"
+		include "_incObj/Arif/Data/Arif.asm"
+		include "_incObj/Arif/Data/ArifBullet.asm"
 
 ; ===========================================================================
 

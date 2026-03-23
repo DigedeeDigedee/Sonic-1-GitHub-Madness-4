@@ -299,11 +299,11 @@ SHC_Anim:
 
 ; ---------------------------------------------------------------------------
 
-SHC_Art:	binclude "_gamemode\SHC + DeltaW\ART\SHC Splash Screen.nem"
+SHC_Art:	binclude "_gamemode/SHC + DeltaW/ART/SHC Splash Screen.nem"
 SHC_Art_end:	even
 
 SHC_Map_Comp:
-		binclude "_gamemode\SHC + DeltaW\TILEMAP\SHC Splash Screen.bin"
+		binclude "_gamemode/SHC + DeltaW/TILEMAP/SHC Splash Screen.bin"
 		even
 
 SHC_Pal:
@@ -313,19 +313,19 @@ SHC_Pal:
 		dc.w	$000, $000, $000, $000, $000, $000, $000, $000, $000, $000, $000, $000, $000, $000, $000, $000
 		even
 
-		include "_gamemode\SHC + DeltaW\OBJ\7C The W Bomb.asm"
+		include "_gamemode/SHC + DeltaW/OBJ/7C The W Bomb.asm"
 
-Nem_Explode_SHC:	binclude "_gamemode\SHC + DeltaW\ART\Explosion_SHC.nem"
+Nem_Explode_SHC:	binclude "_gamemode/SHC + DeltaW/ART/Explosion_SHC.nem"
 Nem_Explode_SHC_end:
 		even
 
-Art_WBomb:	binclude "_gamemode\SHC + DeltaW\ART\The W Bomb.nem"
+Art_WBomb:	binclude "_gamemode/SHC + DeltaW/ART/The W Bomb.nem"
 Art_WBomb_end:
 		even
 
-Map_WBomb:	include "_gamemode\SHC + DeltaW\MAP\The W Bomb.asm"
+Map_WBomb:	include "_gamemode/SHC + DeltaW/MAP/The W Bomb.asm"
 
-Pal_WBomb:	binclude "_gamemode\SHC + DeltaW\PAL\The W Bomb.bin"
+Pal_WBomb:	binclude "_gamemode/SHC + DeltaW/PAL/The W Bomb.bin"
 		even
 
-Map_ExplodeSHC:	include "_gamemode\SHC + DeltaW\MAP\Explosions - Bomb (SHC).asm"
+Map_ExplodeSHC:	include "_gamemode/SHC + DeltaW/MAP/Explosions - Bomb (SHC).asm"

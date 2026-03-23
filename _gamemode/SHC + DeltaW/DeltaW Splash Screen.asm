@@ -501,13 +501,13 @@ TextData_Quotes_End:	even
 
 ; ===========================================================================
 Pal_SplashScreen:
-	binclude "_gamemode\SHC + DeltaW\PAL\DeltaW Splash Screen.bin"
+	binclude "_gamemode/SHC + DeltaW/PAL/DeltaW Splash Screen.bin"
 	even
 
 Eni_SplashScreen:
-	binclude "_gamemode\SHC + DeltaW\TILEMAP\DeltaW Splash Screen.bin"
+	binclude "_gamemode/SHC + DeltaW/TILEMAP/DeltaW Splash Screen.bin"
 	even
 
 Nem_SplashScreen:
-	binclude "_gamemode\SHC + DeltaW\ART\DeltaW Splash Screen.nem"
+	binclude "_gamemode/SHC + DeltaW/ART/DeltaW Splash Screen.nem"
 	even
