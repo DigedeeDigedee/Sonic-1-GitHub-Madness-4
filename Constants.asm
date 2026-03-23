@@ -92,7 +92,6 @@ id_Damn:	equ ptr_GM_Damn-GameModeArray
 id_SplashSkip:	equ ptr_SplashScreenSkipper-GameModeArray
 id_Advert:	equ ptr_Advert-GameModeArray
 id_Battle:	equ ptr_EarthboundBtl-GameModeArray
-id_NTOSKRNL:	equ ptr_NTOSKRNL-GameModeArray
 ; Levels
 id_OWZ:		equ 0
 id_ARZ:		equ 1

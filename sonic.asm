@@ -411,7 +411,6 @@ ptr_SplashScreenSkipper:dc.l	GM_SplashScreenSkipper	; My Stupid Splash is here
 ptr_Advert:		dc.l	GM_Advert		; For all the reject splash screens I guess
 ptr_EarthboundBtl:	dc.l	EarthboundBtl		; Atogk
 ptr_SonicTheScreensaver:	dc.l	GM_SonicTheScreensaver	; GMZ - DVD Screensaver
-ptr_NTOSKRNL:		dc.l	GM_NTOSKRNL		; NTOSKRNL ; Coni - Remove this once it works as intended
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0

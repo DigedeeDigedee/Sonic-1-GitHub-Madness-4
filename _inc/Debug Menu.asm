@@ -579,7 +579,6 @@ GamemodeNameTable:
 		dc.w	.Advert-.t
 		dc.w	.Earthbou-.t
 		dc.w	.Screensaver-.t
-		dc.w	.NTOSKRNL-.t
 		rept ( (GameModeArray_End-GameModeArray)-(((*)-.t)*2) )/4
 		dc.w	.Placeholder-.t
 		endr
@@ -604,7 +603,6 @@ GamemodeNameTable:
 .Advert:	dc.b	"ADVERTISEMENTS  "
 .Earthbou:	dc.b	"EARTHBOUND BTL  "
 .Screensaver:	dc.b	"SCREENSAVER     "
-.NTOSKRNL:	dc.b	"NTOSKRNL        "
 .Placeholder:	dc.b	"PLACEHOLDER NAME"
 		even
 
