@@ -7,47 +7,47 @@ ArifBoss_Bullet:
 		move.w	.Routines(pc, d0.w), d1
 		jsr	.Routines(pc, d1.w)
 
-		jsr	SpeedToPos  
-		jmp     DisplaySprite
+		jsr	(SpeedToPos).l
+		jmp	(DisplaySprite).l
 
 ; ===========================================================================
 
-.TimeToLive:    equ $2A
+.TimeToLive:	equ $2A
 
-.MaxTime:       equ 120
+.MaxTime:	equ 120
 
 .Routines:
-		dc.w    .Setup-.Routines
-		dc.w    .Run-.Routines
+		dc.w	.Setup-.Routines
+		dc.w	.Run-.Routines
 
 ; ===========================================================================
 
-.Setup:        
+.Setup:
 		move.w	#$428, obGfx(a0)
 		move.l	#Map_Missile, obMap(a0)
 		move.b	#4, obRender(a0)
-		move.b  #$4, obWidth(a0)
-		move.b  #$4, obHeight(a0)
+		move.b	#$4, obWidth(a0)
+		move.b	#$4, obHeight(a0)
 		move.b	#$4, obActWid(a0)
-		add.b   #6, obPriority(a0)
-		move.b  #.MaxTime, .TimeToLive(a0)
+		add.b	#6, obPriority(a0)
+		move.b	#.MaxTime, .TimeToLive(a0)
 
-		add.b   #2, obRoutine(a0)
+		add.b	#2, obRoutine(a0)
 
-		bsr.w   .GetVelocity
+		bsr.w	.GetVelocity
 
 ; ===========================================================================
 
 .Run:
 		; switch vram loc every other frame
-		move.b  v_framebyte, d0
-		and.b   #1, d0
-		move.b  d0, obFrame(a0)
+		move.b	(v_framebyte).w, d0
+		and.b	#1, d0
+		move.b	d0, obFrame(a0)
 
 		; collide shit
 		move.b	#$87, obColType(a0)
 
-		sub.b   #1, .TimeToLive(a0)
+		sub.b	#1, .TimeToLive(a0)
 		beq.s	.Destroy
 
 		rts
@@ -55,7 +55,7 @@ ArifBoss_Bullet:
 ; ===========================================================================
 
 .GetVelocity:
-		lea	v_player, a3
+		lea	(v_player).w, a3
 		move.w	obX(a3), d1
 		sub.w	obX(a0), d1
 		move.w	obY(a3), d2
@@ -68,9 +68,9 @@ ArifBoss_Bullet:
 		asr.l	#8, d1
 		move.w	d1, obVelX(a0)
 		move.w	d0, obVelY(a0)
-        	rts
+		rts
 
 ; ===========================================================================
 
 .Destroy:
-        	jmp     DeleteObject
+		jmp	DeleteObject

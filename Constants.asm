@@ -367,6 +367,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_Ding
 	nextenum bgm_SadMac
 	nextenum bgm_Folgers
+	nextenum bgm_CrazyMario
 	; Keep this last
 	nextenum bgm__Last
 
@@ -640,6 +641,7 @@ ArtTile_LZ_Sonic_Drowning:	equ $440
 ArtTile_LZ_Rising_Platform:	equ ArtTile_LZ_Blocks+$69
 ArtTile_LZ_Orbinaut:		equ $467
 ArtTile_LZ_Cork:		equ ArtTile_LZ_Blocks+$11A
+ArtTile_Wario:			equ $4A0
 
 ; Star Light Zone
 ArtTile_SLZ_Seesaw:		equ $374

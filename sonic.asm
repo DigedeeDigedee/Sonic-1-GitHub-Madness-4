@@ -2810,7 +2810,7 @@ Level_SkipTtlCard:
 		;jsr	(ConvertCollisionArray).l
 		;bsr.w	ColIndexLoad
 		bsr.w	LZWaterFeatures
-		cmpi.w	#$A03,v_zone.w	; skip over dvz act 4
+		cmpi.w	#(id_DVZ<<8)+3,(v_zone).w	; skip over dvz act 4
 		bne.s	.cont
 		move.b	#id_Katsi,(v_player).w ; separate object for dvz act 4
 		bra.s	Level_ChkWater

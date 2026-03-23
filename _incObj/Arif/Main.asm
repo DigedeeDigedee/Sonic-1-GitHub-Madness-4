@@ -9,10 +9,10 @@ ArifBoss:
 
 ; ===========================================================================
 
-.HitCount:          equ $10
+.HitCount:		equ $10
 
-.SpawnPositionX:    equ $02D0
-.SpawnPositionY:    equ $0110
+.SpawnPositionX:	equ $02D0
+.SpawnPositionY:	equ $0110
 
 .Subtypes:
 		dc.w .Controller-.Subtypes
@@ -29,19 +29,19 @@ ArifBoss:
 ; ===========================================================================
 
 .Routines:
-		dc.w    .Setup-.Routines
-		dc.w    .Loop-.Routines
+		dc.w	.Setup-.Routines
+		dc.w	.Loop-.Routines
 
 ; ===========================================================================
 
 .Setup:
-		jsr 	FindFreeObj
-		move.b 	#id_Arif, (a1)
-		move.b  #2, obSubtype(a1)
-		move.w  obX(a0), obX(a1)
-		move.w  obY(a0), obY(a1)
+		jsr 	(FindFreeObj).l
+		move.b	#id_Arif, (a1)
+		move.b	#2, obSubtype(a1)
+		move.w	obX(a0), obX(a1)
+		move.w	obY(a0), obY(a1)
 	
-		add.b   #2, obRoutine(a0)
+		add.b	#2, obRoutine(a0)
 		rts
 
 .Loop:
@@ -56,10 +56,10 @@ ArifBoss:
 ; ===========================================================================
 
 Art_Arif:	incbin "_incObj/Arif/Data/Arif.bin"
-        	even
+		even
 
 Art_ArifBullet: incbin "_incObj/Arif/Data/ArifBullet.bin"
-        	even
+		even
 
 ; ===========================================================================
 
