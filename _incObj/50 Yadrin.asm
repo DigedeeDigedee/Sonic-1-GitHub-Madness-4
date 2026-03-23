@@ -50,7 +50,7 @@ yad_timedelay = objoff_30
 Yad_Main:	; Routine 0
 		move.l	#Map_Yad,obMap(a0)
 		move.w	#make_art_tile(ArtTile_Yadrin,0,0),obGfx(a0)
-		cmpi.b	#$1,(v_zone).w ; if level is LZ, branch
+		cmpi.b	#id_ACZ,(v_zone).w ; is level Marble Zone?
 		beq.s	.isLZ
         move.l	#Map_Wario,obMap(a0)		
 		move.w	#($8000/$20),obGfx(a0)
