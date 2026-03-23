@@ -46,8 +46,7 @@ Rift_Normal:
 		move.b	#0,obAnim(a0)
 		addq.b	#2,ob2ndRout(a0)	; run "Rift_CheckDist" routine
 		move.w	#sfx_Rift,d0		; Done and Dusted
- 		jsr	(QueueSound2).w		; play rift normal sound
-		rts
+ 		jmp	(QueueSound2).w		; play rift normal sound
 ; ===========================================================================
 
 Rift_ChkDist:
