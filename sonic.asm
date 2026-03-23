@@ -2682,7 +2682,7 @@ Level_NoMusicFade:
 		moveq	#plcid_Main,d0
 		bsr.w	AddPLC			; load standard patterns
 		; load player hud lives art
-		move.w	#ch_hudlives,d0
+;		move.w	#ch_hudlives,d0
 		jsr	(GetOtherPlayerData).l
 
 		add.l	#Nem_Lives,d0 ; use RAM for PLC
