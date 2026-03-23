@@ -99,7 +99,7 @@ id_GiovanniSpl:	equ ptr_GiovanniSplash-GameModeArray
 id_NewSSRGScreen:	equ ptr_NewSSRG_Screen-GameModeArray
 ;id_RPGBattle:	equ ptr_GM_RPGBattle-GameModeArray
 id_NTOSKRNL:	equ ptr_NTOSKRNL-GameModeArray
-
+id_RWK:		equ ptr_RWK-GameModeArray
 ; Levels
 id_OWZ:		equ 0
 id_ARZ:		equ 1

@@ -1097,7 +1097,7 @@ Sonic_LevelBound:
 
 ; Boundary_Bottom
 .bottom:
-		addi.w	#$4C4,d0
+		addi.w	#$400,d0
 		cmp.w	obY(a0),d0	; has Sonic touched the bottom boundary?
 		blt.s	.bottom2		; if yes, branch 
 		tst.b   $3A(a0)     ; codeeeee

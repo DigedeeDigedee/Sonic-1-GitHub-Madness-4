@@ -663,7 +663,7 @@ CanCanInv_PSG2_Jump:
 	smpsJump CanCanInv_PSG2_Jump
 
 CanCanInv_PSG2_04_0_8:
-	dc.b smpsNoAttack, $08
+	dc.b nRst, $08
 	smpsReturn
 
 CanCanInv_PSG2_05_0_64_0F:
@@ -1099,3 +1099,5 @@ CanCanInv_PSG3_0D_0_64:
 	smpsPSGAlterVol	$05
 	dc.b $02, $02
 	smpsReturn
+
+	smpsFooterEndSong	"TG2000Tracks/CanCanInv.asm"

@@ -155,6 +155,7 @@ splash_turd macro routine
 	splash_liquid	GM_EagleSoft
 	splash_liquid	GM_CNNicoJump
 	splash_liquid	GM_DaxKatter
+	splash_liquid	RobiWanKenobi_Splash
 	splash_liquid	Malachi_Splash
 	splash_liquid	GM_TGSplash
 	splash_liquid	TeamOverload_Splash
@@ -188,6 +189,7 @@ splash_turd macro routine
 	inc_solid_splash Wait
 	inc_solid_splash W
 
+
 ; Files for liquid
 	include "LiquidSplashes/Rerto/Rerto.asm"
 	include "LiquidSplashes/SSRG/SSRG.asm"
@@ -208,4 +210,13 @@ splash_turd macro routine
 	include "_gamemode/TSH Splash/TSHSplash.asm"
 ; Files for turd
 	include "CrazyRemilia/Remi/Remi.asm"
+	include "LiquidSplashes/RobiWK/Splash.asm"
 
+
+MapEni_BG:	binclude "LiquidSplashes/RobiWK/BG_Map.bin"
+	even
+ArtNem_BG:	binclude "LiquidSplashes/RobiWK/BG_Art.bin"
+	even
+
+Pal_RobiWK:	binclude "LiquidSplashes/RobiWK/Pal.bin"
+	even
