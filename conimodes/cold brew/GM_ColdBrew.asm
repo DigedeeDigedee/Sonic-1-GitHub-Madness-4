@@ -89,7 +89,9 @@ GM_CB_MainLoop:
 GM_CB_MainLoop2:
 		move.b	#2,(v_vbla_routine).w
 		jsr	(WaitForVBla).l
-		jsr	(ExecuteObjects).l
+;		jsr	(ExecuteObjects).l
+		lea	v_objspace.w,a0
+		jsr	BrewText
 		jsr	(BuildSprites).l
 		cmpi.b	#btnStart,(v_jpadhold1).w	; is Start being pressed?
 		beq.w	GM_CB_ChangeMode		; if yes, branch.
