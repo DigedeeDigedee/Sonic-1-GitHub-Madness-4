@@ -50,10 +50,10 @@ yad_timedelay = objoff_30
 Yad_Main:	; Routine 0
 		move.l	#Map_Yad,obMap(a0)
 		move.w	#make_art_tile(ArtTile_Yadrin,0,0),obGfx(a0)
-		cmpi.b	#id_PPZ,(v_zone).w ; if level is SBZ, branch
+		cmpi.b	#$1,(v_zone).w ; if level is LZ, branch
 		beq.s	.isLZ
         move.l	#Map_Wario,obMap(a0)		
-		move.w	#make_art_tile(ArtTile_Wario,0,0),obGfx(a0)
+		move.w	#($8000/$20),obGfx(a0)
 
 .isLZ:
 		move.b	#4,obRender(a0)
