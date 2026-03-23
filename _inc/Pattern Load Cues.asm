@@ -122,8 +122,7 @@ PLC_GHZ2end:
 PLC_LZ:		dc.w ((PLC_LZ2-PLC_LZ-2)/6)-1
 		plcm	Nem_Spikes,      ArtTile_Spikes             ; spikes
 ;		plcm	Nem_LZ,          ArtTile_Level              ; LZ main patterns
-		dc.l Nem_Wario  
-    	dc.w $9400           ; Wario
+		plcm	Nem_Wario,       ArtTile_Wario              ; Wario
 
 PLC_LZ2:	dc.w ((PLC_LZ2end-PLC_LZ2-2)/6)-1
 		plcm	Nem_HSpring,     ArtTile_Spring_Horizontal  ; horizontal spring
