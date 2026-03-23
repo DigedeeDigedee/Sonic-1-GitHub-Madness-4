@@ -84,7 +84,7 @@ GM_WinXP_MainLoop:
 		jsr		(TilemapToVRAM).l
 		add.b	#1,(v_foxyframe).w
 WinXP_ContScrollBar:
-				subq.w	#1,(v_screenposx).w
+		addq.w	#1,(v_screenposx).w
 WinXP_ScrollBar_Noreset:
 		lea	(v_hscrolltablebuffer).w,a1	; copy bg positions to hscroll
 		move.w	#183,d1
