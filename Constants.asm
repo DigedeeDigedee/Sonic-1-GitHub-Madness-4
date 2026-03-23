@@ -319,7 +319,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_SonUnderground
 	nextenum bgm_Son1UP
 	nextenum bgm_GEMSHill
-	nextenum bgm_LimitedYard
+	nextenum bgm_LimitedEgg
 	nextenum bgm_BomerDude
 
 	; Unused Full/Looping BGM
