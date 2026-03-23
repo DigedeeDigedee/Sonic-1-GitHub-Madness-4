@@ -51,6 +51,8 @@ ptr_PLC_ENDZAnimals:	dc.w PLC_ENDZAnimals-ArtLoadCues
 ptr_PLC_BREWAnimals:	dc.w PLC_BREWAnimals-ArtLoadCues
 ptr_PLC_WINAnimals:	dc.w PLC_WINAnimals-ArtLoadCues
 ptr_PLC_JointAnimals:	dc.w PLC_JointAnimals-ArtLoadCues
+ptr_PLC_DVZAnimals:	dc.w PLC_DVZAnimals-ArtLoadCues
+ptr_PLC_NGZAnimals:	dc.w PLC_NGZAnimals-ArtLoadCues
 ptr_PLC_SSResult:	dc.w PLC_SSResult-ArtLoadCues
 ptr_PLC_Ending:		dc.w PLC_Ending-ArtLoadCues
 ptr_PLC_TryAgain:	dc.w PLC_TryAgain-ArtLoadCues
@@ -447,6 +449,13 @@ PLC_DVZAnimals:	dc.w ((PLC_DVZAnimalsend-PLC_DVZAnimals-2)/6)-1
 		plcm	Nem_Chicken, ArtTile_Animal_2 ; cocky
 PLC_DVZAnimalsend:
 ; ---------------------------------------------------------------------------
+; Pattern load cues - DVZ animals
+; ---------------------------------------------------------------------------
+PLC_NGZAnimals:	dc.w ((PLC_DVZAnimalsend-PLC_DVZAnimals-2)/6)-1
+		plcm	Nem_Squirrel,    ArtTile_Animal_1 ; ricky
+		plcm	Nem_Chicken, ArtTile_Animal_2 ; cocky
+PLC_NGZAnimalsend:
+; ---------------------------------------------------------------------------
 ; Pattern load cues - special stage results screen
 ; ---------------------------------------------------------------------------
 PLC_SSResult:dc.w ((PLC_SpeStResultend-PLC_SSResult-2)/6)-1
@@ -544,6 +553,8 @@ plcid_SBZAnimals:	equ (ptr_PLC_SBZAnimals-ArtLoadCues)/2
 plcid_ENDZAnimals:	equ (ptr_PLC_ENDZAnimals-ArtLoadCues)/2	
 plcid_BREWAnimals:	equ (ptr_PLC_BREWAnimals-ArtLoadCues)/2	
 plcid_WINAnimals:	equ (ptr_PLC_WINAnimals-ArtLoadCues)/2	
+plcid_DVZAnimals:	equ (ptr_PLC_DVZAnimals-ArtLoadCues)/2	
+plcid_NGZAnimals:	equ (ptr_PLC_NGZAnimals-ArtLoadCues)/2	
 plcid_SSResult:		equ (ptr_PLC_SSResult-ArtLoadCues)/2	
 plcid_Ending:		equ (ptr_PLC_Ending-ArtLoadCues)/2	
 plcid_TryAgain:		equ (ptr_PLC_TryAgain-ArtLoadCues)/2	

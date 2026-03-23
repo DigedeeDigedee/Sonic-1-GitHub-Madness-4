@@ -35,7 +35,7 @@ SolidObject:
 
 .stand:
 		move.w	d4,d2
-		bsr.w	MvSonicOnPtfm
+		jsr	MvSonicOnPtfm.l
 		moveq	#0,d4
 		rts
 ; ===========================================================================
@@ -64,7 +64,7 @@ SolidObject71:
 
 .stand:
 		move.w	d4,d2
-		bsr.w	MvSonicOnPtfm
+		jsr	MvSonicOnPtfm.l
 		moveq	#0,d4
 		rts
 ; ===========================================================================
@@ -179,6 +179,12 @@ Solid_Right:
 		bpl.s	Solid_Centre	; if yes, branch
 
 Solid_Left:
+; --------------- NOTIFY KATSUSHIMI IF THIS BREAKS ANYTHING --------------- 
+
+		move.w  obInertia(a1),d6
+
+; --------------- NOTIFY KATSUSHIMI IF THIS BREAKS ANYTHING --------------- 
+
 		move.w	#0,obInertia(a1)
 		move.w	#0,obVelX(a1)	; stop Sonic moving
 
@@ -312,7 +318,7 @@ Solid_ResetFloor:
 		beq.s	.notinair	; if not, branch
 		move.l	a0,-(sp)
 		movea.l	a1,a0
-		bsr.w	Sonic_ResetOnFloor	; reset Sonic as if on floor
+		jsr	Sonic_ResetOnFloor.l	; reset Sonic as if on floor
 		movea.l	(sp)+,a0
 
 .notinair:
