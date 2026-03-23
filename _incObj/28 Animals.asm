@@ -21,6 +21,8 @@ Anml_Index:
 		dc.w loc_9184-Anml_Index	; RICKY
 		dc.w loc_9184-Anml_Index	; ORANGE
 		dc.w loc_9184-Anml_Index	; RIN
+		dc.w loc_9184-Anml_Index	; AAA
+		dc.w loc_9184-Anml_Index	; NAVIGATOR
 Anml_BadnikIndexEnd:dc.w loc_9240-Anml_Index ; Anml_FromPrison (from hivebrain's 2022 disassembly)
 		dc.w loc_9260-Anml_Index ; ENDING 1
 		dc.w loc_9260-Anml_Index ; ENDING 2
@@ -43,7 +45,7 @@ Anml_VarIndex:	dc.b 8,	7 ; Green Hill Zone
 		dc.b 0, 1 ; Scrap Brain Zone
 		dc.b 0,	5 ; Green Hill Zone
 		dc.b 0,	5 ; COLD BREW Zone
-		dc.b 4, 5 ; WINDOWS Zone
+		dc.b $A, 9 ; WINDOWS Zone
 		dc.b 7, 1 ; JOINT Zone
 ; Even are first, odd are second
 ; Map_Animal1 is a TALL FOREVER animal
@@ -79,6 +81,12 @@ Anml_Variables:
 		dc.l Map_Animal6
 	; ORINGE
 		dc.w -$180, -$300
+		dc.l Map_Animal5
+	; AAA
+		dc.w -$180, -$300
+		dc.l Map_Animal6
+	; NAVIGATOR
+		dc.w -$340, -$300
 		dc.l Map_Animal5
 
 Anml_EndSpeed:	dc.w -$440, -$400, -$440, -$400, -$440, -$400, -$300, -$400
