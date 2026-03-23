@@ -221,3 +221,5 @@ GooglePlayStock_Voices:
 	smpsVcDecayLevel    $0F, $01, $01, $02
 	smpsVcReleaseRate   $08, $00, $00, $00
 	smpsVcTotalLevel    $00, $13, $37, $19
+
+	smpsFooterEndSong	"Robi/FunkyMusic.asm"

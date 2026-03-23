@@ -1099,3 +1099,5 @@ CanCanInv_PSG3_0D_0_64:
 	smpsPSGAlterVol	$05
 	dc.b $02, $02
 	smpsReturn
+
+	smpsFooterEndSong	"TG2000Tracks/CanCanInv.asm"

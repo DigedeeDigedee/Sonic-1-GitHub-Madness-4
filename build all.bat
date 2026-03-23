@@ -52,7 +52,16 @@ call recmp.bat
 cd ..
 cd "TILEMAP"
 call recmp.bat
-cd ..\..\
+cd ..\..\..\
+
+cd "_incobj"
+cd "arif"
+cd "Data"
+call recmp.bat
+cd ..\..
+cd "clinton fucker"
+call recmp.bat
+cd ..\..
 
 cd "artkos"
 call recmp.bat
@@ -85,14 +94,14 @@ cd "Nemesis"
 call recmp.bat
 cd ..\..\
 
+cd "Buttcrack"
+call recmp.bat
+cd ..
+
 cd "char_assets"
 cd "hud"
 call recmp.bat
 cd ..\..\
-
-cd "clinton fucker"
-call recmp.bat
-cd ..
 
 cd "conimodes"
 cd "cold brew"
@@ -149,6 +158,10 @@ call recmp.bat
 cd ..\..\..\
 
 cd "dotgen"
+call recmp.bat
+cd ..
+
+cd "EarthboundBtl"
 call recmp.bat
 cd ..
 

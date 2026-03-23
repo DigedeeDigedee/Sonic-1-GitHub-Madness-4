@@ -108,3 +108,4 @@ Homero_Voices:
 	smpsVcReleaseRate   $0A, $00, $0F, $09
 	smpsVcTotalLevel    $00, $25, $27, $18
 
+	smpsFooterEndSong	"CNTracks/Homero.asm"
