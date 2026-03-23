@@ -23,13 +23,12 @@ Homero_FM5:
 ; FM1 Data
 Homero_FM1:
 	smpsSetvoice        $00
-	smpsPan             panCenter, $00
-	dc.b	nC4, $06, nRst, $03, nG4, $06, nRst, $03, nG4, $06, nRst, $06
-	dc.b	nG4, $06, nRst, $06, nG4, $06, nC4, $06, nRst, $03, nG4, $06
-	dc.b	nRst, $03, nG4, $06, nG4, $06, nF4, $06, nE4, $06, nD4, $06
-	dc.b	nC4, $06, nRst, $03, nA4, $06, nRst, $03, nA4, $06, nRst, $06
-	dc.b	nA4, $06, nRst, $06, nA4, $06, nC4, $06, nRst, $03, nA4, $06
-	dc.b	nRst, $03, nA4, $06, nG4, $06, nF4, $06, nE4, $06, nD4, $06
+	dc.b	nC4, $06, nRst, $03, nG4, $06, nRst, $03, nG4, $06, nRst
+	dc.b	nG4, nRst, nG4, nC4, nRst, $03, nG4, $06
+	dc.b	nRst, $03, nG4, $06, nG4, nF4, nE4, nD4
+	dc.b	nC4, nRst, $03, nA4, $06, nRst, $03, nA4, $06, nRst
+	dc.b	nA4, nRs, nA4, nC4, nRst, $03, nA4, $06
+	dc.b	nRst, $03, nA4, $06, nG4, nF4, nE4, nD4
 	smpsJump				Homero_FM1
 
 ; FM3 Data
@@ -39,13 +38,11 @@ Homero_FM3:
 ; FM2 Data
 Homero_FM2:
 	smpsSetvoice        $01
-	smpsPan             panCenter, $00
-	dc.b	nA2, $06, nA3, $06, nA2, $06, nA3, $06, nA2, $06, nA3, $06
-	dc.b	nA2, $06, nA3, $06, nA2, $06, nA3, $06, nA2, $06, nA3, $06
-	dc.b	nA2, $06, nA3, $06, nA2, $06, nA3, $06, nF2, $06, nF3, $06
-	dc.b	nF2, $06, nF3, $06, nF2, $06, nF3, $06, nF2, $06, nF3, $06
-	dc.b	nF2, $06, nF3, $06, nF2, $06, nF3, $06, nF2, $06, nF3, $06
-	dc.b	nF2, $06, nF3, $06
+	dc.b	nA2, $06, nA3
+		smpsLoop            $00, $08, Homero_FM2
+Homero_FM2L1:
+	dc.b	nF2, nF3
+		smpsLoop            $00, $08, Homero_FM2L1
 	smpsJump				Homero_FM2
 
 ; PSG1 Data
