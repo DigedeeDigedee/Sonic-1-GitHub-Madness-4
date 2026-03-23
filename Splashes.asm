@@ -170,7 +170,9 @@ splash_turd macro routine
 	splash_solid	SonicBroke,	$20, 0,	bgm_S1Continue,	480
 	splash_solid	Wait,		$60, 0,	bgm_PuyoDrown,	145
 	splash_solid	W,		$40, 0,	bgm_Win2K,	380
+;	splash_solid	W,		$40, 0,	bgm_Win2K,	380
 
+	splash_liquid	GM_NTOSKRNL
 	splash_liquid	GM_SegaEU
 	splash_turd	Remilia
 	splash_liquid	GM_DWSplash		; the later you have this, the funnier it is
