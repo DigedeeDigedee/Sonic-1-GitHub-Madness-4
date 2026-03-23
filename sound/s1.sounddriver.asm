@@ -2941,11 +2941,22 @@ cfStopTrack:
 ; ===========================================================================
 ; loc_72E06:
 cfSetPSGNoise:
-		move.b	#$E0,SMPS_Track.VoiceControl(a5)	; Turn channel into noise channel
-		move.b	(a4)+,SMPS_Track.PSGNoise(a5)		; Save noise tone
+		move.b	#$E0,d1					; Turn track into PSG noise
+		move.b	(a4)+,d0				; Get tone noise
+		move.b	d0,SMPS_Track.PSGNoise(a5)		; Save it
+		bne.s	.enableNoiseMode
+		; leave noise mode
+		subq.b	#1,d0					; d0 = $FF ('silence PSG noise' command)
+		move.b	#$C0,d1					; Turn track into PSG 3
+.enableNoiseMode:
+		move.b	d1,SMPS_Track.VoiceControl(a5)		; Turn channel into PSG 3 or PSG noise channel
 		btst	#2,SMPS_Track.PlaybackControl(a5)	; Is track being overridden?
 		bne.s	.locret					; Return if yes
-		move.b	-1(a4),(psg_input).l			; Set tone
+		cmpi.b	#$E0,d1					; Are we entering noise mode?
+		bne.s	.writepsg				; Branch if not
+		move.b	#$DF,(psg_input).l			; Silence PSG3 tone channel so it doesn't play at noise frequency
+.writepsg:
+		move.b	d0,(psg_input).l
 ; locret_72E1E:
 .locret:
 		rts
