@@ -404,22 +404,12 @@ ptr_GM_FoxyBoo:		dc.l	GM_FoxyBoo		; Foxy Scare ($24)
 ptr_GM_DebugMode:	dc.l	GM_DebugMenu		; Debug Menu ($28)
 ptr_GM_ThanatosCredits:	dc.l	GM_ThanatosCredits	; Credits - Thanatos ver. ($2C)
 ptr_GM_ButtcrackMan:	dc.l	GM_ButtcrackMan		; BUTTCRACK MAN ($30)
-ptr_GM_CNNicoJump:	dc.l	GM_CNNicoJump		; CN Logo ($34)
 ptr_GM_TryAgainEnd:	dc.l	TryAgainEnd		; Testable TRY AGAIN/END screen ($38)
 ptr_GM_Fetus:		dc.l	GM_Fetus		; Difficulty Select screen out of spite ($3C)
 ptr_GM_Damn:		dc.l	GM_Damn			; DAMN!!!!!!!!!!!!!!!!!!!!!!!
-ptr_GM_TGSplash:	dc.l	GM_TGSplash		; TG2000 Splash Screen ($44)
-ptr_GM_NMR:		dc.l	GM_NT			; Shitle Team ($48)
-ptr_GM_DaxKatter:	dc.l	GM_DaxKatter		; DaxKatter Brings You
 ptr_SplashScreenSkipper:dc.l	GM_SplashScreenSkipper	; My Stupid Splash is here
 ptr_Advert:		dc.l	GM_Advert		; For all the reject splash screens I guess
-;ptr_GM_RPGBattle:	dc.l	GM_RPGBattle		; RPG Battle (for Azure Rainforest) ($4C)
-ptr_GiovanniSplash:	dc.l	GiovanniSplash		; jo
-ptr_NewSSRG_Screen:	dc.l	NewSSRG_Screen		; Newer SSRG screenTM
-ptr_AtollySplash:	dc.l	AtollySplash		; Atogk
 ptr_EarthboundBtl:	dc.l	EarthboundBtl		; Atogk
-ptr_NTOSKRNL:	dc.l	GM_NTOSKRNL		; NTOSKRNL
-ptr_RWK:	dc.l	RobiWanKenobi_Splash
 ptr_SonicTheScreensaver:	dc.l	GM_SonicTheScreensaver	; GMZ - DVD Screensaver
 GameModeArray_End:
 ; ===========================================================================

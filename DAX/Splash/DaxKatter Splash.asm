@@ -5,6 +5,7 @@
 	include	"DAX/Splash/Dax_Macros.asm"
 
 v_splash_logo = v_objspace
+v_splash_logo_b = v_objspace+object_size
 
 ; =============== S U B R O U T I N E =======================================
 

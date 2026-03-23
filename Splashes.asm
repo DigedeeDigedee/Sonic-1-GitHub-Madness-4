@@ -155,13 +155,13 @@ splash_turd macro routine
 	splash_liquid	GM_EagleSoft
 	splash_liquid	GM_CNNicoJump
 	splash_liquid	GM_DaxKatter
-	splash_liquid	RobiWanKenobi_Splash
 	splash_liquid	Malachi_Splash
-	splash_liquid	GM_TGSplash
+	splash_liquid	RobiWanKenobi_Splash
 	splash_liquid	TeamOverload_Splash
+	splash_liquid	GM_TheSunsetJester
+	splash_liquid	GM_TGSplash
 	splash_liquid	AtollySplash
 	splash_liquid	GM_NT
-	splash_liquid	GM_TheSunsetJester
 	splash_liquid	Yume2kki
 
 	;!@ GenesisDoes

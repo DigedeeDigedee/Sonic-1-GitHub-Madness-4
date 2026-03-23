@@ -572,20 +572,13 @@ GamemodeNameTable:
 		dc.w	.DebugMenu-.t
 		dc.w	.Thanatos-.t
 		dc.w	.ButtcrackMan-.t
-		dc.w	.ConiNightLogo-.t
 		dc.w	.TryAgainTest-.t
 		dc.w	.Difficulty-.t
 		dc.w	.DamnScreen-.t
-		dc.w	.TG2000Logo-.t
-		dc.w	.NMR-.t
-		dc.w	.DaxKatter-.t
 		dc.w	.Skipper-.t
 		dc.w	.Advert-.t
-		dc.w	.Giovanni-.t
-		dc.w	.NewSSRG-.t
-		dc.w	.Atollygk-.t
 		dc.w	.Earthbou-.t
-		dc.w	.NTOSKRNL-.t
+		dc.w	.Screensaver-.t
 		rept ( (GameModeArray_End-GameModeArray)-(((*)-.t)*2) )/4
 		dc.w	.Placeholder-.t
 		endr
@@ -603,20 +596,13 @@ GamemodeNameTable:
 .DebugMenu:	dc.b	"DEBUG MENU      "
 .Thanatos:	dc.b	"THANATOS CREDITS"
 .ButtcrackMan:	dc.b	"BUTTCRACK MAN   "
-.ConiNightLogo:	dc.b	"CONINIGHT LOGO  "
 .TryAgainTest:	dc.b	"TRY AGAIN/END   "
 .Difficulty:	dc.b	"DIFFICULTY      "
 .DamnScreen:	dc.b	"DAMN!!!!!!!!!!!!"
-.TG2000Logo:	dc.b	"TG2000 LOGO     "
-.NMR:		dc.b	"NEEDLEMOUSE TEAM"
-.DaxKatter:	dc.b	"DAXKATTER LOGO  "
 .Skipper:	dc.b	"SPLASH SKIPPER  "
 .Advert:	dc.b	"ADVERTISEMENTS  "
-.Giovanni:	dc.b	"GIOVANNI.GEN    "
-.NewSSRG:	dc.b	"NEW SSRG SCREEN "
-.Atollygk:	dc.b	"ATOLLYGK SPLASH "
 .Earthbou:	dc.b	"EARTHBOUND BTL  "
-.NTOSKRNL:	dc.b	"NTOSKRNL        "
+.Screensaver:	dc.b	"SCREENSAVER     "
 .Placeholder:	dc.b	"PLACEHOLDER NAME"
 		even
 
