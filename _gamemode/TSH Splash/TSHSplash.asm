@@ -104,15 +104,15 @@ PalCycTSR:
 		rts
 ; ---------------------------------------------------------------------------
 Pal_TSH:
-	binclude "_gamemode/TSH Splash/Pal/TSH TITLE.bin"
+	binclude "_gamemode/TSH Splash/PAL/TSH TITLE.bin"
 	even
 ; ---------------------------------------------------------------------------
 Pal_Sunset:
-	binclude "_gamemode/TSH Splash/Pal/TSH Sunset.bin"
+	binclude "_gamemode/TSH Splash/PAL/TSH Sunset.bin"
 	even
 ; ---------------------------------------------------------------------------
 Cyc_Logo:
-	binclude "_gamemode/TSH Splash/Pal/Cycle - TSH.bin"
+	binclude "_gamemode/TSH Splash/PAL/Cycle - TSH.bin"
 	even
 ; ---------------------------------------------------------------------------
 	include "_gamemode/TSH Splash/OBJ/Obj_Sunset.asm"
