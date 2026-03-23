@@ -2140,7 +2140,7 @@ Sega_WaitPal:
 .Continue:
 		move.b	#$14,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		move.w	#3*60+20,(v_generictimer).w
+		move.w	#3*60,(v_generictimer).w
 
 Sega_WaitEnd:
 		move.b	#2,(v_vbla_routine).w
