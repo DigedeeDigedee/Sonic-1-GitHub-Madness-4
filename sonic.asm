@@ -420,6 +420,7 @@ ptr_AtollySplash:	dc.l	AtollySplash		; Atogk
 ptr_EarthboundBtl:	dc.l	EarthboundBtl		; Atogk
 ptr_NTOSKRNL:	dc.l	GM_NTOSKRNL		; NTOSKRNL
 ptr_RWK:	dc.l	RobiWanKenobi_Splash
+ptr_SonicTheScreensaver:	dc.l	GM_SonicTheScreensaver	; GMZ - DVD Screensaver
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -7415,6 +7416,11 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 
 		include	"_incObj/Arif/Main.asm"
 
+; ---------------------------------------------------------------------------
+; GMZ - garblemarden's slop will go here
+; ---------------------------------------------------------------------------
+
+		include	"GMZ/DVD Screensaver.asm"	; GMZ - GM_SonicTheScreensaver:
 ; ---------------------------------------------------------------------------
 ; NEEDLEMOUSE SHITTERY  Team Splash Screen files
 ; ---------------------------------------------------------------------------

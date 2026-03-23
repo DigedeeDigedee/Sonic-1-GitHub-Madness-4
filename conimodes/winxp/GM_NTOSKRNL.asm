@@ -72,12 +72,8 @@ GM_WinXP_DrawinLoop:
 		move.b	#2,(v_vbla_routine).w
 		jsr		(WaitForVBla).l
 		subq.w	#1,(v_waterpos1).w
-;		cmpi.b	#20,(v_foxyframe).w
-;		beq.s	GM_WinXP_ChangeMode
 		move.w	(v_waterpos1).w,d0
 		move.b	d0,(v_hbla_line).w ; set water surface as on-screen
-;		tst.w	(v_demolength).w
-;		bne.s	GM_WinXP_MainLoop
 		tst.w	d0
 		bne.s	GM_WinXP_DrawinLoop	; if water is below top of screen, branch
 
