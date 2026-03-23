@@ -86,20 +86,13 @@ id_FoxyBoo:	equ ptr_GM_FoxyBoo-GameModeArray; $24
 id_DebugMenu:	equ ptr_GM_DebugMode-GameModeArray; $28
 id_Thanatos:	equ ptr_GM_ThanatosCredits-GameModeArray; $2C
 id_ButtcrackMan:	equ ptr_GM_ButtcrackMan-GameModeArray
-id_CNNico:	equ ptr_GM_CNNicoJump-GameModeArray; $34
 id_TryAgainEnd:	equ ptr_GM_TryAgainEnd-GameModeArray; $38
 id_Fetus:	equ ptr_GM_Fetus-GameModeArray; $38
 id_Damn:	equ ptr_GM_Damn-GameModeArray
-id_TGSplash:	equ ptr_GM_TGSplash-GameModeArray; $44
-id_NMR:		equ ptr_GM_NMR-GameModeArray
-id_DaxKatter:	equ ptr_GM_DaxKatter-GameModeArray
 id_SplashSkip:	equ ptr_SplashScreenSkipper-GameModeArray
 id_Advert:	equ ptr_Advert-GameModeArray
-id_GiovanniSpl:	equ ptr_GiovanniSplash-GameModeArray
-id_NewSSRGScreen:	equ ptr_NewSSRG_Screen-GameModeArray
-;id_RPGBattle:	equ ptr_GM_RPGBattle-GameModeArray
+id_Battle:	equ ptr_EarthboundBtl-GameModeArray
 id_NTOSKRNL:	equ ptr_NTOSKRNL-GameModeArray
-id_RWK:		equ ptr_RWK-GameModeArray
 ; Levels
 id_OWZ:		equ 0
 id_ARZ:		equ 1
