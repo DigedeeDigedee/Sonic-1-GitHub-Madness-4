@@ -378,7 +378,7 @@ DebuggerMenu_Act4EnablerTable:
 		dc.b	$1		; BREW
 		dc.b	$0		; WIN
 		dc.b	$0		; JOINT
-		dc.b	$0		; DVZ
+		dc.b	$1		; DVZ
 		dc.b	$0		; ZONE
 		even
 		

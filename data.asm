@@ -794,7 +794,11 @@ Level_HSZbg:	binclude	"levels/HSZbg.bin"
 		even
 Level_DVZ3:	binclude	"levels/DVZ3.bin"
 		even
+Level_DVZ4:	binclude	"levels/DVZ4.bin"
+		even
 Level_DVZbg:	binclude	"levels/DVZbg.bin"
+		even
+Level_DVZbg4:	binclude	"levels/DVZbg.bin"
 		even
 Level_NGZ1:	binclude	"levels/ngz1.bin"
 		even
@@ -979,6 +983,8 @@ ObjPos_DVZ1:	binclude	"objpos/dvz1.bin"
 ObjPos_HSZ:	binclude	"objpos/hsz.bin"
 		even
 ObjPos_DVZ3:	binclude	"objpos/dvz3.bin"
+		even
+ObjPos_DVZ4:	binclude	"objpos/dvz4.bin"
 		even
 ObjPos_NGZ1:	binclude	"objpos/ngz1.bin"
 		even

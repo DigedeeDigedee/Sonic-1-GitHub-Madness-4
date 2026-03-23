@@ -2729,9 +2729,12 @@ Level_NoMusicFade:
 		move.b	#1,(f_water).w	; enable water
 
 Level_LoadPal:
+		cmpi.w	#$A03,v_zone.w	; skip over dvz act 4
+		beq.s	.cont
 		move.b	#dLetsGOO, d0
 		jsr	(MegaPCM_PlaySample).l
 		; hiii
+.cont:
 		move.w	#30,(v_air).w
 		enable_ints
 
@@ -2807,6 +2810,11 @@ Level_SkipTtlCard:
 		;jsr	(ConvertCollisionArray).l
 		;bsr.w	ColIndexLoad
 		bsr.w	LZWaterFeatures
+		cmpi.w	#$A03,v_zone.w	; skip over dvz act 4
+		bne.s	.cont
+		move.b	#id_Katsi,(v_player).w ; separate object for dvz act 4
+		bra.s	Level_ChkWater
+.cont:
 		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
 		tst.w	(f_demo).w
 		bmi.s	Level_ChkDebug
@@ -7432,7 +7440,7 @@ Nem_Rift:	binclude	"artnem/RiftToGo.nem"
 	
 Nem_Wario:	binclude	"artnem/Wario.nem"
             even	
-	
+	include	"_incObj/Katsi.asm"	
 ; end of 'ROM'
         include	"EarthboundBtl/MAIN.ASM"
         

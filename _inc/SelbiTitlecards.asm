@@ -65,9 +65,9 @@ TitleCard_Joint3:	equ  "Made you a fuckin"
 TitleCard_Joint4:	equ  "porn"
 
 TitleCard_DVZ1:	equ  "DOLEVILLE"
-TitleCard_DVZ2:	equ  "THE BIRTHPLACE"
+TitleCard_DVZ2:	equ  "HARDWARE STORE"
 TitleCard_DVZ3:	equ  "THE SELF"
-TitleCard_DVZ4:	equ  "THE JIGGLYJOSH"
+TitleCard_DVZ4:	equ  "              "	; leave blank
 
 TitleCard_NGZ1:	equ  "NOGALES"
 TitleCard_NGZ2:	equ  "NOGALES"
@@ -226,7 +226,7 @@ TTL_ConData:
 		dc.l TTLCard_DVZ1_ConData, TTLCard_DVZ1_Array	; DVZ1
 		dc.l TTLCard_DVZ2_ConData, TTLCard_DVZ2_Array	; DVZ2
 		dc.l TTLCard_DVZ3_ConData, TTLCard_DVZ3_Array	; DVZ3
-		dc.l 0, 0	; DVZ4		
+		dc.l TTLCard_DVZ4_ConData, TTLCard_DVZ4_Array	; DVZ3	
 
 		dc.l TTLCard_NGZ1_ConData, TTLCard_NGZ1_Array	; DVZ1
 		dc.l TTLCard_NGZ2_ConData, TTLCard_NGZ2_Array	; DVZ2
@@ -466,7 +466,7 @@ TTLCard_Joint4:	titlecard TitleCard_Joint4,1,0 ; one act fakeout
 TTLCard_DVZ1:	titlecard TitleCard_DVZ1,0,0
 TTLCard_DVZ2:	titlecard TitleCard_DVZ2,0,0
 TTLCard_DVZ3:	titlecard TitleCard_DVZ3,0,0
-TTLCard_DVZ4:	titlecard TitleCard_DVZ4,0,0
+TTLCard_DVZ4:	titlecard TitleCard_DVZ4,1,0
 TTLCard_NGZ1:	titlecard TitleCard_NGZ1,0,0
 TTLCard_NGZ2:	titlecard TitleCard_NGZ2,0,0
 TTLCard_NGZ3:	titlecard TitleCard_NGZ3,0,0
