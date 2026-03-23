@@ -34,36 +34,6 @@ chrid_tonic	equ 0
 chrid_maniac	equ 1
 chrid_last	equ 1
 
-; ----------------------------------------------------------------------------
-; Get player's data for things other than the object data.
-; Input: d0.w -> what variable to get
-
-; HipSnake: move this code to somewhere you fit I added this here cause I
-; didn't know where to put it.
-; ----------------------------------------------------------------------------
-
-GetOtherPlayerData:
-	moveq	#0,d1
-	move.b	(v_characterid).w,d1
-	chk	#chrid_last,d1
-
-	add.w	d1,d1
-	add.w	d1,d1 ; d0 + 4 * charid
-	add.w	d0,d1
-
-	moveq	#0,d0
-	move.w	OtherPlayerData(pc,d1.w),d0
-	rts
-
-	; HUD Life Icon Art, Damage SFX
-ch_hudlives	equ 0
-ch_hurtpcm	equ 2
-OtherPlayerData:
-	dc.w	Nem_TonicLives-Nem_Lives
-	dc.w	dFuck
-	dc.w	Nem_ManiacLives-Nem_Lives
-	dc.w	dGayNeil
-
 ; ---------------------------------------------------------------------------
 
 SonicPlayer:
@@ -90,7 +60,19 @@ SonicPlayer:
 ; decided to name the player object "Sonic" because there are definitely
 ; not any other playable characters in these games!
 ; note: this is Sonic 1, the game with no other characters other than Sonic :P
-; note: I hate you go fuck yourself
+;
+; ^ response note: I hate you go fuck yourself
+;
+; ^^ secondary response note: Actually, because I think you're particularly annoying,
+; I'll elaborate more:
+;
+; Sonic fans 100% have played Sonic 2 and Sonic 3K. Especially those in the hacking community
+; They also knew that the games were built off of one another when this started.
+; They knew in advance there would be more characters, so it would have made more sense
+; at the time to name things by "Player". Not to mention this is just good practice to begin with.
+; However, they did not. Because they are Sonic fans. And most Sonic fans lack common sense.
+; 
+; i hope you shit the bed for being annoying buddy.im notb eing fuckignt serious man i just think its hilarious to beef with random people in code comments 
 ;
 ; Sorry in advance. 
 ; ----------------------------------------------------------------------------
@@ -133,13 +115,47 @@ PlayerMapList:
 	dc.l	Map_Maniac,Dgfx_Maniac,Art_Maniac,Pal_Maniac
 
 ; ----------------------------------------------------------------------------
+; Get... other player data!
+; OUTPUTS:
+;	d0.w - Lives counter art
+;	d1.w - Death noise
+;	d2.w - Height
+;	d3.w - Width
+; ----------------------------------------------------------------------------
+
+GetOtherPlayerData:
+	moveq	#0,d0
+	move.b	(v_characterid).w,d0
+	chk	#chrid_last,d0
+	lsl.w	#3,d0
+	lea	OtherPlayerData(pc,d0.w),a2
+	move.w	(a2)+,d0
+	move.w	(a2)+,d1
+	move.w	(a2)+,d2
+	move.w	(a2)+,d3
+	rts
+
+	; HUD Life Icon Art, Damage SFX
+ch_hudlives	equ 0
+ch_hurtpcm	equ 2
+OtherPlayerData:
+	dc.w	Nem_TonicLives-Nem_Lives
+	dc.w	dFuck
+	dc.w	19				; height
+	dc.w	9				; width
+	dc.w	Nem_ManiacLives-Nem_Lives
+	dc.w	dGayNeil
+	dc.w	15
+	dc.w	7
+; ----------------------------------------------------------------------------
 ; TeethTonic character init routine
 ; ----------------------------------------------------------------------------
 
 Tonic_Init:
 		addq.b	#2,obRoutine(a0)
-		move.b	#$13,obHeight(a0)
-		move.b	#9,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		bsr.w	GetPlayerData
 		move.l	d0,obMap(a0)
 		move.l	d1,dgfxaddr(a0)
@@ -159,8 +175,9 @@ Tonic_Init:
 
 Maniac_Init:
 		addq.b	#2,obRoutine(a0)
-		move.b	#$13,obHeight(a0)
-		move.b	#9,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		bsr.w	GetPlayerData
 		move.l	d0,obMap(a0)
 		move.l	d1,dgfxaddr(a0)
@@ -881,8 +898,9 @@ loc_131AA:
 		tst.w	obInertia(a0)	; is Sonic moving?
 		bne.s	loc_131CC	; if yes, branch
 		bclr	#2,obStatus(a0)
-		move.b	#$13,obHeight(a0)
-		move.b	#9,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		move.b	#id_Wait,obAnim(a0) ; use "standing" animation
 		subq.w	#5,obY(a0)
 
@@ -1185,8 +1203,11 @@ Sonic_ChkRoll:
 ; Obj01_DoRoll
 .roll:
 		bset	#2,obStatus(a0)
-		move.b	#$E,obHeight(a0)
-		move.b	#7,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		sub.b	#5,d2
+		sub.b	#2,d3
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation
 		addq.w	#5,obY(a0)
 		move.w	#sfx_Roll,d0
@@ -1263,12 +1284,16 @@ Sonic_Jump:
 		clr.b	sticktoconvex(a0)
 		move.b	#dQuakeJump,d0
 		jsr	(MegaPCM_PlaySample).l
-		move.b	#$13,obHeight(a0)	; set Sonic's hitbox to standing size. This is a leftover from the victory animation in prototypes.
-		move.b	#9,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		btst	#2,obStatus(a0)	; is Sonic already in a ball state?
 		bne.s	.rolljump	; if so, branch.
-		move.b	#$E,obHeight(a0)	; set Sonic's hitbox to ball size.
-		move.b	#7,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		sub.b	#5,d2
+		sub.b	#2,d3
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "jumping" animation
 		bset	#2,obStatus(a0)
 		addq.w	#5,obY(a0)
@@ -1683,8 +1708,9 @@ Sonic_ResetOnFloor:
 		btst	#2,obStatus(a0)	; check if Sonic is in a ball state.
 		beq.s	.notball	; if not, skip.
 		bclr	#2,obStatus(a0)	; clear ball flag.
-		move.b	#$13,obHeight(a0)	; set Sonic's hitbox to standing.
-		move.b	#9,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		move.b	#id_Walk,obAnim(a0) ; use running/walking animation
 		subq.w	#5,obY(a0)	; raise Sonic up 5 pixels so he's not inside the ground.
 
