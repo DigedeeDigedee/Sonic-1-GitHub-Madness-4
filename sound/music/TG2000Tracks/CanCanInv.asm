@@ -663,7 +663,7 @@ CanCanInv_PSG2_Jump:
 	smpsJump CanCanInv_PSG2_Jump
 
 CanCanInv_PSG2_04_0_8:
-	dc.b smpsNoAttack, $08
+	dc.b nRst, $08
 	smpsReturn
 
 CanCanInv_PSG2_05_0_64_0F:
