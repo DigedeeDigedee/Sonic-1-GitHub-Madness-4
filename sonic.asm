@@ -7416,6 +7416,11 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 		include	"_incObj/Arif/Main.asm"
 
 ; ---------------------------------------------------------------------------
+; GMZ - garblemarden's slop will go here
+; ---------------------------------------------------------------------------
+
+		include	"GMZ/DVD Screensaver.asm"	; GMZ - GM_SonicTheScreensaver:
+; ---------------------------------------------------------------------------
 ; NEEDLEMOUSE SHITTERY  Team Splash Screen files
 ; ---------------------------------------------------------------------------
 
