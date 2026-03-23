@@ -2140,7 +2140,7 @@ Sega_WaitPal:
 .Continue:
 		move.b	#$14,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		move.w	#3*60,(v_generictimer).w
+		move.w	#3*60+20,(v_generictimer).w
 
 Sega_WaitEnd:
 		move.b	#2,(v_vbla_routine).w
@@ -2155,35 +2155,38 @@ Sega_GotoTitle:
 
 		btst	#bitA,(v_jpadhold1).w
 		bne.s	.skip
-		jmp	RunSplashes
+		jmp	(RunSplashes).l
+
 .skip
-;		pcm 	dEggNo	; This doesn't even work due to the Sega sample having priority and the next screen ceasing sample playback
-		rts				; skip splash screens with heavy
-		
+		move.b	#bgm_Stop,d0
+		bsr.w	QueueSound2
+		stopPCM
+
+	rept 2		; Needs two vblank interrupts to properly stop dSega
+		move.b	#2,(v_vbla_routine).w	; set routine 2 in V-Int
+		bsr.w	WaitForVBla		; wait for V-Blank to finish
+	endr
+
+		pcm	dEggNo,1		; skip splash screens with heavy (the 1 turns the jsr in playsample into a jmp)
+
 		include	"ATOGKsplashesWIP/MAIN.asm"	; Code (simply ran by inclusion)
-	
+
 		include	"LiquidSplashes/ATOownscreen/MAIN.asm"	; Code 
 
-	
-	
+		include "NEEDLE.asm" ;le shitty code
+
 ; ===========================================================================
-        include "NEEDLE.asm" ;le shitty code
-
-
-; ---------------------------------------------------------------------------
-
 ; ---------------------------------------------------------------------------
 ; Title screen
 ; ---------------------------------------------------------------------------
 
 GM_Title:
 		;move.b	#bgm_Fade,d0
-		;bsr.w	QueueSound2 ; stop music		
+		;bsr.w	QueueSound2 ; stop music
 		;GD: Bugfix to make Freddy sample play entirely from GH4 Title
-		move.b	#bgm_Stop,d0
+		move.b	#bgm_Fade,d0
 		bsr.w	QueueSound2
-		stopPCM
-		
+
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
 		lea	(vdp_control_port).l,a6
@@ -2220,8 +2223,11 @@ GM_Title:
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		bsr.w	PaletteFadeIn
-
-
+		move.b	#bgm_Stop,d0
+		bsr.w	QueueSound2
+		stopPCM
+		move.b	#2,(v_vbla_routine).w	; set routine 4 in V-Int
+		bsr.w	WaitForVBla		; wait for V-Blank to finish
 
 		move.b	#0,(v_lastlamp).w ; clear lamppost counter
 		move.w	#0,(v_debuguse).w ; disable debug item placement mode
