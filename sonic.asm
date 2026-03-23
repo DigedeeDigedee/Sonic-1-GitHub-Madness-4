@@ -7425,6 +7425,13 @@ FortnitePortal:
 		  include	"_incObj/ObjRiftToGo.asm"
 Nem_Rift:	binclude	"artnem/RiftToGo.nem"
             even			
+
+; ---------------------------------------------------------------------------
+; WARIO - that shit  2
+; ---------------------------------------------------------------------------
+	
+Nem_Wario:	binclude	"artnem/Wario.nem"
+            even	
 	
 ; end of 'ROM'
         include	"EarthboundBtl/MAIN.ASM"
