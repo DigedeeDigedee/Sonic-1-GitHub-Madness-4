@@ -24,17 +24,20 @@ GM_SonicTheScreensaver:
 		jsr	ClearScreen
 		clearRAM	v_objspace	; GMZ - Clear the object RAM
 
-		locVRAM	$20
 		; GMZ - Code to check the console's region starts here
-		tst.b	v_megadrive	; GMZ - Is the console Japanese?
-		bpl.s	Screensa_LoadMDLogo	; GMZ - If yes, branch
-		lea	ArtNem_ScreensaGENLogo,a0
-		jsr	NemDec	; GMZ - Load the logo's art
+		moveq	#0,d0
+		move.b	v_megadrive,d0
+		lsr.b	#4,d0
+		locVRAM	$20
+		movea.l	ScreensaMDLogoGfx_Tbl(pc,d0.w),a0
+		jsr	NemDec
 		bra.s	Screensa_LoadMDLogoPal
 
-Screensa_LoadMDLogo:
-		lea	ArtNem_ScreensaMDLogo,a0
-		jsr	NemDec	; GMZ - Load the logo's art
+ScreensaMDLogoGfx_Tbl:
+		dc.l	ArtNem_ScreensaMDLogo
+		dc.l	ArtNem_ScreensaGENLogo
+		dc.l	ArtNem_ScreensaGENLogo
+		dc.l	ArtNem_ScreensaGENLogo
 		; GMZ - Code to check the console's region ends here
 
 Screensa_LoadMDLogoPal:
