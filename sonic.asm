@@ -2399,8 +2399,23 @@ Tit_CountC:
 
 ; loc_3230:
 Tit_ChkStartOrDemo:
+		; GMZ - Our code starts here
+		moveq	#0,d0
+		move.w	titleGoToScreensaver,d0
+		beq.s	Tit_ChkStartOrDemo_Cont
+		tst.w	(v_generictimer).w	; GMZ - Has the title screen timer expired?
+		bne.s	Tit_NoDemo	; GMZ - If not, branch
+		eori.w	#1,titleGoToScreensaver
+		move.b	#ptr_SonicTheScreensaver-GameModeArray,v_gamemode
+		rts
+
+Tit_ChkStartOrDemo_Cont:
+		; GMZ - Our code ends here
+
 		tst.w	(v_generictimer).w	; has title screen timer expired?
 		beq.w	GotoDemo		; if yes, launch Demo mode
+
+Tit_NoDemo:	; GMZ
 		andi.b	#btnStart,(v_jpadpress1).w ; check if Start is pressed
 		beq.w	Tit_MainLoop		; if not, continue looping title screen	
 		; hiii
@@ -2515,6 +2530,7 @@ loc_33B6:
 		bsr.w	QueueSound2 ; fade out music
 		bsr.w	DemoSetup
 		move.w	#1,(f_demo).w	; turn demo mode on
+		eori.w	#1,titleGoToScreensaver	; GMZ - Turn on the screensaver mode for the next title screen
 		move.b	#id_Demo,(v_gamemode).w ; set screen mode to 08 (demo)
 		cmpi.w	#$700,d0	; is level number 0700 (the cold brew zone)?
 		beq.s	Demo_Brew	; if yes, branch
@@ -2839,6 +2855,12 @@ Level_LoadObj:
 		move.w	d0,(v_rings).w	; clear rings
 		move.l	d0,(v_time).w	; clear time
 		move.b	d0,(v_lifecount).w ; clear lives counter
+
+		; GMZ - Our code starts here
+		tst.w	f_demo
+		bne.s	Level_SkipClr
+		move.w	d0,titleGoToScreensaver
+		; GMZ - Our code ends here
 
 Level_SkipClr:
 		move.b	d0,(f_timeover).w
