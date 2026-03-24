@@ -1036,3 +1036,18 @@ Nem_Giovanni:	incbin	"dotgen/Giovanni Logo Graphics.nem"
 
 Unc_RoaringKnight:
 		incbin	"dotgen/knight/graphics/The Roaring Knight.unc"
+
+; ---------------------------------------------------------------------------
+; Clinton Fucker Fail screen data
+; ---------------------------------------------------------------------------
+Pal_ClintonFail:
+		incbin	"palette/Clinton Fail.bin"
+		even
+MapScr_ClintonFail:
+		incbin	"artunc/Clinton Fail Map.bin"
+		even
+Art_ClintonFail:
+		incbin	"artunc/Clinton Fail Art.bin"
+		even
+Art_ClintonFailE:
+CLINTONFAILARTSZ = Art_ClintonFailE-Art_ClintonFail

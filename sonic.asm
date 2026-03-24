@@ -409,8 +409,9 @@ ptr_GM_Fetus:		dc.l	GM_Fetus		; Difficulty Select screen out of spite ($3C)
 ptr_GM_Damn:		dc.l	GM_Damn			; DAMN!!!!!!!!!!!!!!!!!!!!!!!
 ptr_SplashScreenSkipper:dc.l	GM_SplashScreenSkipper	; My Stupid Splash is here
 ptr_Advert:		dc.l	GM_Advert		; For all the reject splash screens I guess
-ptr_EarthboundBtl:	dc.l	EarthboundBtl		; Atogk
+ptr_EarthboundBtl:	dc.l	EarthboundBtl		; earthbound battle stuff
 ptr_SonicTheScreensaver:	dc.l	GM_SonicTheScreensaver	; GMZ - DVD Screensaver
+ptr_ClintonScreens:	dc.l	GM_ClintonScreens
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -543,11 +544,12 @@ VBla_00:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; VBlank 02 - Sega Screen
+; VBlank 02 - Sega Screen (and im using this for clintonfucker)
 ; ---------------------------------------------------------------------------
 
 ; loc_C32:
 VBla_02:
+		jsr	ProcessDMAQueue(pc)	; this is going to break something
 		bsr.w	VBla_StandardTransfers
 		; fall-through
 

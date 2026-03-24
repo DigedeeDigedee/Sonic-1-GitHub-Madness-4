@@ -1,3 +1,101 @@
+; --------------------------------------------------------------
+; Clinton Fucker Fail/Win Gamemode
+; --------------------------------------------------------------
+
+GM_ClintonScreens:
+        moveq   #0,d0
+        move.b  submode.w,d0
+        jmp     .Index(pc,d0.w)
+
+; ---------------------------------------------------------------------------
+.Index:      
+        bra.w   Clinton_FailInit
+        bra.w   Clinton_WinInit
+        bra.w   Clinton_ShowScr
+
+; ---------------------------------------------------------------------------
+
+Clinton_FailInit:
+	moveq	#1,d4
+
+Clinton_WinInit:
+	add.b	#4,submode.w
+	move.l	#60*2,v_generictimer.w
+	fillVRAM	0, 0, $40 ; clear first two tiles
+	fillVRAM	0, vram_fg, vram_fg+plane_size_64x32 ; clear foreground namespace
+	fillVRAM	0, vram_bg, vram_bg+plane_size_64x32 ; clear background namespace
+	clr.l	(v_scrposy_vdp).w
+	clr.l	(v_scrposx_vdp).w
+	lea	(v_palette+32).w,a0
+	moveq	#0,d0
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+	move.l	d0,(a0)+
+
+	clearRAM vscroll_buffer,vscroll_buffer_end
+	clearRAM v_spritetablebuffer,v_spritetablebuffer_end
+	clearRAM v_hscrolltablebuffer,v_hscrolltablebuffer_end_padded
+	tst.b	d4
+	beq.s	.Fail
+	nop
+
+.Fail:
+	move.w	#60*3,v_generictimer.w
+	move.l  #Art_ClintonFail,d1
+	move.w  #0,d2
+	move.w  #(CLINTONFAILARTSZ/2),d3
+	jsr	QueueDMATransfer.l
+	copyTilemap	MapScr_ClintonFail,vram_bg,40,28
+
+	lea	(v_palette+32).w,a0
+	lea	Pal_ClintonFail,a1
+	move.l	(a1)+,(a0)+
+	move.l	(a1)+,(a0)+
+	move.l	(a1)+,(a0)+
+	move.l	(a1)+,(a0)+
+	move.l	(a1)+,(a0)+
+	move.l	(a1)+,(a0)+
+	move.l	(a1)+,(a0)+
+	move.l	(a1)+,(a0)+
+
+Clinton_ShowScr:
+	jsr	PauseGame
+	move.b	#2,(v_vbla_routine).w
+	jsr	WaitForVBla
+	tst.w	v_generictimer.w
+	beq.s	.leave
+	jsr	(ExecuteObjects).l
+	jsr	(BuildSprites).l
+	jsr	(ObjPosLoad).l
+	jsr	RunPLC.l
+	jsr	OscillateNumDo.l
+	jsr	SynchroAnimate.l
+	bra.s	Clinton_ShowScr
+.leave:
+	move.b	#0,submode.w
+	move.b	#id_Level,v_gamemode.w
+	jmp	GM_Level
 
 clifuck.Timer	=	$30
 clifuck.Accel	=	$32
@@ -21,10 +119,18 @@ clifuck.Speed   =	$36
 ;STAT.UNK6	= 6
 ;STAT.KILLED	= 7
 
+; --------------------------------------------------------------
+; Clinton Fucker Art List
+; --------------------------------------------------------------
+
 CliFuckArtList:
 	dc.l	Nem_Clinton
 	dc.w	$8000
 	dc.l	-1		; Was it that hard?
+
+; --------------------------------------------------------------
+; Clinton Fucker Object
+; --------------------------------------------------------------
 
 ClintonFucker:
 	moveq	#0,d0
@@ -119,6 +225,8 @@ CliFucker_Main:
 	move.b	obStatus(a0),d0
 	andi.b	#%101000,d0
 	beq.s	.NoKill
+	move.b	#id_ClintonScr,v_gamemode.w
+	move.b	#0,submode.w
 	move.l	a0,-(sp)
 	lea	v_player,a0
 	jsr	KillSonic
