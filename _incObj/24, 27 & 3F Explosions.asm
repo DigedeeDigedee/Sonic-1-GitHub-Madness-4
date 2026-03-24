@@ -59,7 +59,7 @@ ExplItem_Init:
 		move.w	obX(a0),expl.BaseX(a0)
 		move.w	obY(a0),expl.BaseY(a0)
 		move.w	#$800,expl.Factor(a0)
-		bsr.w	RandomNumber
+		jsr	RandomNumber.l
 		move.w	d0,obAngle(a0)		; use angle as sin cntr
 ddd		;move.w	obX(a0),obX(a1)
 		;move.w	obY(a0),obY(a1)
@@ -109,7 +109,7 @@ ExplItem_GetVelocity:
 		move.w	expl.BaseY(a0),d3
 		addi.w	#8,obAngle(a0)
 		move.w	obAngle(a0),d0
-		bsr.w	CalcSine
+		jsr	CalcSine.l
 		asr.w	d4,d0
 		asr.w	d4,d1
 		add.w	d1, d2
