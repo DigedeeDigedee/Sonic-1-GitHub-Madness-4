@@ -46,8 +46,8 @@ SampleTable:
 
 	dcSample	TYPE_DPCM,	CTC1_Tick,	16000			; $A1
 
-	dcSample	TYPE_DPCM,	CF_DrumLoopA,	16000			; $9F
-	dcSample	TYPE_DPCM,	CF_DrumLoopB,	16000			; $A0
+	dcSample	TYPE_DPCM,	CF_DrumLoopA,	15900			; $9F
+	dcSample	TYPE_DPCM,	CF_DrumLoopB,	15900			; $A0
 
 	dcSample	TYPE_DPCM,	Amen_Crash,	11025			; $9E
 
