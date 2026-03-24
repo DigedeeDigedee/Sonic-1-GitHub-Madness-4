@@ -8,7 +8,8 @@ ArifBoss_Arif:
 		jsr	.Routines(pc, d1.w)
 
 		jsr	(SpeedToPos).l
-		jmp	(DisplaySprite).l
+		jsr	(DisplaySprite).l
+		bra.w	.HandleHits
 
 ; ===========================================================================
 
@@ -16,17 +17,27 @@ ArifBoss_Arif:
 .ShootAngle:		equ $3A
 .RoutineTimer:		equ $3C
 .FlashTimer:		equ $3E
-.FloatTimer:		equ $41
+.AttacksLeft:		equ $3F ; byte counter for attacks left until next attack
 
 ; Constants
-.ShootTime:		equ $F	; time for him to shoot
+.Attacks1:		equ $4	; attacks for atk mode 1
+.Attacks2		equ $2	; attacks for atk mode 2
+.ShootTime1:		equ $F	; time for him to shoot (atk mode 1)
+.ShootTime2:		equ $18	; time for him to shoot (atk mode 2)
+
+.GroundPos:		equ $3C0 ; for intro 'n' shit
 
 .Routines:
 		dc.w	.Setup-.Routines
 		dc.w	.Intro1-.Routines
 		dc.w	.Intro2-.Routines
-		dc.w	.ShootPlayer-.Routines
-		dc.w	.Idle-.Routines
+
+		dc.w	.Shoot1-.Routines
+		dc.w	.Shoot1Idle-.Routines
+
+		dc.w	.Fall-.Routines
+
+		dc.w	.Shoot2-.Routines
 
 ; ===========================================================================
 
@@ -44,19 +55,23 @@ ArifBoss_Arif:
 		move.b	#$F, obColType(a0)
 		move.b	#12, obColProp(a0) 		; set number of hits
 
+		move.w 	#0, (v_rings)			; lol fuck you no rings for this fight
+		move.b	#$80, (f_ringcount)		; update ring counter
+
 		add.b	#2, obRoutine(a0)
 
 		rts
 
 ; ===========================================================================
-
+; Intro
+; ===========================================================================
 .Intro1:
 		jsr	(ObjectFall).l
 
 		tst.w	obVelY(a0)
 		bmi.s	.Intro1_Return
 
-		cmpi.w	#$155, obY(a0)				; fart ypos check
+		cmpi.w	#$3C0, obY(a0)				; fart ypos check
 		blt.s	.Intro1_Return
 
 		jsr	ObjFloorDist
@@ -81,19 +96,21 @@ ArifBoss_Arif:
 		bmi.s	.Intro2_Return
 
 		move.w	#0, obVelY(a0)				; in the air now...
-		move.w	#.ShootTime, .RoutineTimer(a0)
+		move.b	#.Attacks1, .AttacksLeft(a0)
+		move.w	#.ShootTime1, .RoutineTimer(a0)
 		add.b	#2, obRoutine(a0) 			; change routine
 
 .Intro2_Return:
 		rts
 
 ; ===========================================================================
-
-.ShootPlayer:
+; Shoot Mode 1 - Target player
+; ===========================================================================
+.Shoot1:
 		bsr.w 	.Chase
 
 		tst.w	.RoutineTimer(a0)			; is timer zero?
-		beq.s	.ShootPlayer_Exit			; if yes, branch
+		beq.s	.Shoot1_Exit				; if yes, branch
 
 		sub.w	#$1, .RoutineTimer(a0) 
 
@@ -105,34 +122,95 @@ ArifBoss_Arif:
 		move.b	#4, obSubtype(a1)
 		move.w	obX(a0), obX(a1)
 		move.w	obY(a0), obY(a1)
+		bsr.s 	.Shoot1_Velocity
 
-		bra.s	.HandleHits
+		rts
 
-.ShootPlayer_Exit:
+.Shoot1_Exit:
 		move.w	#30, .RoutineTimer(a0)
 		add.b	#2, obRoutine(a0)
 		rts
 
-; ===========================================================================
-
-.Idle:
-		bsr.w	.Chase
-
-		tst.w	.RoutineTimer(a0)			; is timer zero?
-		beq.s	.Idle_Exit				; if yes, branch
-
-		sub.w	#$1, .RoutineTimer(a0) 
-		bra.s	.HandleHits
-
-.Idle_Exit:
-		move.w	#.ShootTime, .RoutineTimer(a0)
-		move.b	#6, obRoutine(a0)
+.Shoot1_Velocity:
+		lea	(v_player).w, a3
+		move.w	obX(a3), d1
+		sub.w	obX(a0), d1
+		move.w	obY(a3), d2
+		sub.w	obY(a0), d2
+		jsr	CalcAngle
+		jsr	CalcSine
+		muls.w	#$800, d0
+		muls.w	#$800, d1
+		asr.l	#8, d0
+		asr.l	#8, d1
+		move.w	d1, obVelX(a1)
+		move.w	d0, obVelY(a1)
 		rts
 
 ; ===========================================================================
-; Helper routines
-; ===========================================================================
 
+.Shoot1Idle:
+		bsr.w	.Chase
+
+		tst.w	.RoutineTimer(a0)			; is timer zero?
+		beq.s	.Shoot1Idle_Continue			; if yes, branch
+
+		tst.b	.AttacksLeft(a0)			; any attacks left?
+		beq.s	.Shoot1Idle_Done			; if not, branch
+
+		sub.w	#$1, .RoutineTimer(a0) 
+		rts
+
+.Shoot1Idle_Continue:
+		sub.b	#1, .AttacksLeft(a0)
+		move.w	#.ShootTime1, .RoutineTimer(a0)
+		sub.b	#2, obRoutine(a0)
+		rts
+
+.Shoot1Idle_Done:
+		move.b	#.Attacks2, .AttacksLeft(a0)
+		add.b	#2, obRoutine(a0)
+		rts
+
+; ===========================================================================
+; Fall back down
+; ===========================================================================
+.Fall:
+		jsr	(ObjectFall).l
+
+		tst.w	obVelY(a0)
+		bmi.s	.Fall_Exit
+
+		cmpi.w	#$3C0, obY(a0)				; fart ypos check
+		blt.s	.Fall_Exit
+
+		jsr	ObjFloorDist
+		add.w	d1, obY(a0)				; ensure object position is grounded by adding floor distance
+
+		move.w	#$25,(v_screenshaketime).w
+		move.w	#sfx_Thud, d0
+		jsr	(QueueSound2).w
+
+		move.w 	#0, obVelX(a0)
+		move.w 	#0, obVelY(a0)
+
+		add.b	#2, obRoutine(a0)			; next atk
+
+.Fall_Exit:
+		rts
+
+; ===========================================================================
+; Shoot Mode 2 - Touhou project
+; ===========================================================================
+.Shoot2:
+		rts
+
+.Shoot2_Velocity:
+		rts
+
+; ---------------------------------------------------------------------------
+; Helper routines
+; ---------------------------------------------------------------------------
 .HandleHits:
 		tst.b	obColType(a0)
 		bne.s	.HandleHits_Return
@@ -166,18 +244,6 @@ ArifBoss_Arif:
 
 ; ===========================================================================
 
-.Float:
-		move.b	.FloatTimer(a0), d0
-		addq.b	#2, .FloatTimer(a0)
-		jsr	(CalcSine).w
-
-		asr.w	#3, d0
-		neg.w	d0
-		move.w	d0, obVelY(a0)
-		rts
-
-; ===========================================================================
-
 .Chase:
 		lea	(v_player).w, a1
 		move.w	#$250, d0
@@ -186,3 +252,5 @@ ArifBoss_Arif:
 
 		move.w	0, obVelY(a0)
 		rts
+
+; why is CAT drawing PINESS. why they HATE me.
