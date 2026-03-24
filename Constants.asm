@@ -234,7 +234,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_LosTontos			; Alberta Canada	(Act 1)
 	nextenum bgm_Area5			; 			(Act 2)
 	nextenum bgm_Easton			; 			(Act 3)
-	nextenum bgm_Minecraft			; Minecraft	(Act 1)
+	nextenum bgm_Minecraft			; Minecraft	(Act 1 - Part 1)
 	nextenum bgm_Doom			; 		(Act 2)
 	nextenum bgm_BadEmerald			; 		(Act 3) + Cold Brew (Act 3)
 	nextenum bgm_TreasureCaves		; Spring Field	(Act 1)
@@ -363,6 +363,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 
 	; nogales. i'm not renaming like 50 track labels man
 	nextenum bgm_GreenHill
+	nextenum bgm_SMWCave			; Minecraft	(Act 1 - Part 2)
 	; Keep this last
 	nextenum bgm__Last
 
