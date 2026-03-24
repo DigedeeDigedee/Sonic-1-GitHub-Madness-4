@@ -35,7 +35,6 @@ RoadRollerRight:
 		bcs.s	.return
 		sub.w	obX(a0),d0
 		bcs.s	.return
-
 		move.b	#1,RoadRoller_here(a0)
 		move.w	#$F00,obVelX(a0) ; move object to the right
 		move.b	#$A2,obColType(a0)
@@ -56,7 +55,7 @@ RoadRollerGoLeft:
 		move.b	#1,RoadRoller_here(a0)
 		move.w	#-$F00,obVelX(a0) ; move object to the left
 		move.b	#$A2,obColType(a0)
-
+		bset	#0,obRender(a0)
 ;		move.b	#2,obFrame(a0)
 		move.w	#sfx_VehiRev,d0
 		jmp	(PlaySound_Special).w		; play RoadRoller sound
