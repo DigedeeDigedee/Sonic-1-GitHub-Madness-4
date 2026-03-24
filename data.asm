@@ -296,7 +296,9 @@ Nem_Girder:	binclude	"artnem/SBZ Crushing Girder.nem"
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - enemies
 ; ---------------------------------------------------------------------------
-Nem_BallHog:	binclude	"artnem/Enemy Ball Hog.nem"
+Nem_BallHogH:	binclude	"artnem/Enemy Ball HogH.nem"
+		even
+Nem_BallHogV:	binclude	"artnem/Enemy Ball HogV.nem"
 		even
 Nem_Crabmeat:	binclude	"artnem/Enemy Crabmeat.nem"
 		even
@@ -352,6 +354,8 @@ Nem_Ring:	binclude	"artnem/Rings.nem"
 Nem_Monitors:	binclude	"artnem/Monitors.nem"
 		even
 Nem_Explode:	binclude	"artnem/Explosion.nem"
+		even
+Nem_ProtoExplosion: binclude	"artnem/Proto Explosion.nem"
 		even
 ;Nem_Points:	binclude	"artnem/Points.nem"	; points from destroyed enemy or object
 ;		even

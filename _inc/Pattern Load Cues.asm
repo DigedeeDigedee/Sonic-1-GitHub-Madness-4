@@ -206,7 +206,6 @@ PLC_SBZ:	dc.w ((PLC_SBZ2-PLC_SBZ-2)/6)-1
 		plcm	Nem_Stomper,   ArtTile_SBZ_Moving_Block_Short  ; moving platform and stomper
 		plcm	Nem_SbzDoor1,  ArtTile_SBZ_Door                ; door
 		plcm	Nem_Girder,    ArtTile_SBZ_Girder              ; girder
-		plcm	Nem_BallHog,   ArtTile_Ball_Hog                ; ball hog enemy
 		plcm	Nem_SbzWheel1, ArtTile_SBZ_Disc                ; spot on large wheel
 		plcm	Nem_SbzWheel2, ArtTile_SBZ_Junction            ; wheel that grabs Sonic
 		plcm	Nem_SyzSpike1, ArtTile_SBZ_Swing               ; large spikeball
@@ -214,11 +213,10 @@ PLC_SBZ:	dc.w ((PLC_SBZ2-PLC_SBZ-2)/6)-1
 		plcm	Nem_FlamePipe, ArtTile_SBZ_Flamethrower        ; flaming pipe
 		plcm	Nem_SbzFloor,  ArtTile_SBZ_Collapsing_Floor    ; collapsing floor
 		plcm	Nem_SbzBlock,  ArtTile_SBZ_Vanishing_Block     ; vanishing block
-
-PLC_SBZ2:	dc.w ((PLC_SBZ2end-PLC_SBZ2-2)/6)-1
 		plcm	Nem_Cater,      ArtTile_SBZ_Caterkiller        ; caterkiller enemy
 		plcm	Nem_Bomb,       ArtTile_Bomb                   ; bomb enemy
 		plcm	Nem_Orbinaut,   ArtTile_SBZ_Orbinaut           ; orbinaut enemy
+PLC_SBZ2:	dc.w ((PLC_SBZ2end-PLC_SBZ2-2)/6)-1
 		plcm	Nem_SlideFloor, ArtTile_SBZ_Moving_Block_Long  ; floor that slides away
 		plcm	Nem_SbzDoor2,   ArtTile_SBZ_Horizontal_Door    ; horizontal door
 		plcm	Nem_Electric,   ArtTile_SBZ_Electric_Orb       ; electric orb
@@ -229,6 +227,9 @@ PLC_SBZ2:	dc.w ((PLC_SBZ2end-PLC_SBZ2-2)/6)-1
 		plcm	Nem_Spikes,     ArtTile_Spikes                 ; spikes
 		plcm	Nem_HSpring,    ArtTile_Spring_Horizontal      ; horizontal spring
 		plcm	Nem_VSpring,    ArtTile_Spring_Vertical        ; vertical spring
+		plcm	Nem_BallHogH,   ArtTile_Ball_HogH                ; ball hog enemy
+		plcm	Nem_BallHogV,   ArtTile_Ball_HogV                ; ball hog enemy
+		plcm	Nem_ProtoExplosion, ArtTile_Proto_Explosion 	; explosion
 PLC_SBZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - COLD BREW

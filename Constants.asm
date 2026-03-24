@@ -679,7 +679,9 @@ ArtTile_FZ_Eggman_No_Vehicle:	equ $470
 
 ; General Level Art
 ArtTile_Level:			equ $000
-ArtTile_Ball_Hog:		equ $302
+ArtTile_Ball_HogH:		equ $302
+ArtTile_Ball_HogV:		equ ArtTile_Ball_HogH+$2F
+ArtTile_Proto_Explosion:	equ $385
 ArtTile_Bomb:			equ $400
 ArtTile_Crabmeat:		equ $400
 ArtTile_Missile_Disolve:	equ $41C ; Unused

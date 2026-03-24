@@ -4,7 +4,7 @@
 
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
-
+ObjectMoveAndFall:
 ObjectFall:
 		movem.w	obVelX(a0),d2-d3
 		asl.l	#8, d2

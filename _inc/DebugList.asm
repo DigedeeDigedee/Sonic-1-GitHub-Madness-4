@@ -184,7 +184,7 @@ dbug:	macro map,object,subtype,frame,vram
 		dbug	Map_Elec,	id_Electro,	4,	0,	make_art_tile(ArtTile_SBZ_Electric_Orb,0,0)
 		dbug	Map_Gird,	id_Girder,	0,	0,	make_art_tile(ArtTile_SBZ_Girder,2,0)
 		dbug	Map_Invis,	id_Invisibarrier, $11,	0,	make_art_tile(ArtTile_Monitor,0,1)
-		dbug	Map_Hog,	id_BallHog,	4,	0,	make_art_tile(ArtTile_Ball_Hog,1,0)
+		dbug	Map_BallHogH,	id_BallHog,	4,	0,	make_art_tile(ArtTile_Ball_HogH,1,0)
 		dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
 .SBZend:
 

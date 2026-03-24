@@ -1869,12 +1869,12 @@
                         }
                     ],
                     "art": {
-                        "path": "artnem/Enemy Ball Hog.nem",
+                        "path": "artnem/Enemy Ball HogH.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "_maps/Ball Hog.asm",
+                        "path": "_maps/Ball HogH.asm",
                         "label": ""
                     },
                     "dplcs": {

@@ -4761,8 +4761,11 @@ loc_8B48:
 		include	"_incObj/1E Ball Hog.asm"
 		include	"_incObj/20 Cannonball.asm"
 		include	"_incObj/24, 27 & 3F Explosions.asm"
-		include	"_anim/Ball Hog.asm"
-Map_Hog:	include	"_maps/Ball Hog.asm"
+
+Map_BallHogH:	include	"_maps/Ball HogH.asm"
+Map_BallHogV:	include	"_maps/Ball HogV.asm"
+Map_ProtoExplosion: include	"_maps/Proto Explosion.asm"
+		even
 ;Map_MisDissolve:include	"_maps/Buzz Bomber Missile Dissolve.asm"
 		include	"_maps/Explosions.asm"
 
