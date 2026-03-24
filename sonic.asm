@@ -4486,7 +4486,7 @@ Map_Swing_SLZ:	include	"_maps/Swinging Platforms (SLZ).asm"
 		include	"_incObj/17 Spiked Pole Helix.asm"
 Map_Hel:	include	"_maps/Spiked Pole Helix.asm"
 		include	"_incObj/18 Platforms.asm"
-;Map_Plat_Unused:include	"_maps/Platforms (unused).asm"	; REMOVE UNUSED DATA - CONI
+Map_Plat_Unused:include	"_maps/Platforms (unused).asm"		; nogales uses these
 Map_Plat_GHZ:	include	"_maps/Platforms (GHZ).asm"
 Map_Plat_SYZ:	include	"_maps/Platforms (SYZ).asm"
 Map_Plat_SLZ:	include	"_maps/Platforms (SLZ).asm"
@@ -4600,13 +4600,14 @@ Ledge_SlopeData:
 		even
 
 Map_Ledge:	include	"_maps/Collapsing Ledge.asm"
+Map_LedgeNogal:	include	"_maps/Collapsing Ledge (Unused).asm"
 Map_CFlo:	include	"_maps/Collapsing Floors.asm"
 
 		include	"_incObj/1C Scenery.asm"
 Map_Scen:	include	"_maps/Scenery.asm"
 
-;		include	"_incObj/1D Unused Switch.asm"	; REMOVE UNUSED DATA - CONI
-;Map_Swi:	include	"_maps/Unused Switch.asm"	; REMOVE UNUSED DATA - CONI
+		include	"_incObj/1D Unused Switch.asm"
+Map_Swi:	include	"_maps/Unused Switch.asm"
 
 		include	"_incObj/2A SBZ Small Door.asm"
 		include	"_anim/SBZ Small Door.asm"

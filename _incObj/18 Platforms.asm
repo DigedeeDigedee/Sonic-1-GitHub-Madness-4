@@ -22,7 +22,6 @@ Plat_Main:	; Routine 0
 		move.b	#$20,obActWid(a0)
 		cmpi.b	#id_SFZ,(v_zone).w ; check if level is SYZ
 		bne.s	.notSYZ
-
 		move.l	#Map_Plat_SYZ,obMap(a0) ; SYZ specific code
 		move.b	#$20,obActWid(a0)
 
@@ -35,6 +34,14 @@ Plat_Main:	; Routine 0
 		move.b	#3,obSubtype(a0)
 
 .notSLZ:
+
+		cmpi.b	#id_Nogales,(v_zone).w ; check if level is Nogales
+		bne.s	.notNogales
+		move.l	#Map_Plat_Unused,obMap(a0) ; Nogales Mappings
+		move.b	#28,obActWid(a0)
+		move.w	#make_art_tile(ArtTile_Level,2,0),obGfx(a0)
+		move.b	#3,obSubtype(a0)
+.notNogales
 		move.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.w	obY(a0),objoff_2C(a0)
