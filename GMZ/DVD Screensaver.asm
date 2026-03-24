@@ -25,9 +25,19 @@ GM_SonicTheScreensaver:
 		clearRAM	v_objspace	; GMZ - Clear the object RAM
 
 		locVRAM	$20
+		; GMZ - Code to check the console's region starts here
+		tst.b	v_megadrive	; GMZ - Is the console Japanese?
+		bpl.s	Screensa_LoadMDLogo	; GMZ - If yes, branch
+		lea	ArtNem_ScreensaGENLogo,a0
+		jsr	NemDec	; GMZ - Load the logo's art
+		bra.s	Screensa_LoadMDLogoPal
+
+Screensa_LoadMDLogo:
 		lea	ArtNem_ScreensaMDLogo,a0
 		jsr	NemDec	; GMZ - Load the logo's art
+		; GMZ - Code to check the console's region ends here
 
+Screensa_LoadMDLogoPal:
 		lea	Pal_ScreensaMDLogo,a0
 		lea	v_palette,a1
 		move.l	(a0)+,(a1)+
@@ -38,8 +48,21 @@ GM_SonicTheScreensaver:
 		bne	Screensa_MainLoop	; GMZ - If we fail to allocate, then give up
 		move.b	#1,obID(a1)	; GMZ - Set object as active
 		move.l	#$012000F0,obX(a1)	; GMZ - Set starting position
+
+		; GMZ - Code to check the console's region starts here
+		tst.b	v_megadrive	; GMZ - Is the console Japanese?
+		bpl.s	Screensa_LoadMDLogoObj	; GMZ - If yes, branch
+		move.w	#$2078,obHeight(a1)	; GMZ - Set width and height measurements
+		move.l	#Map_ScreensaGENLogo,obMap(a1)	; GMZ - Set mappings
+		bra.s	Screensa_LdMDLgoVramAddr
+
+Screensa_LoadMDLogoObj:
 		move.w	#$354E,obHeight(a1)	; GMZ - Set width and height measurements
 		move.l	#Map_ScreensaMDLogo,obMap(a1)	; GMZ - Set mappings
+
+Screensa_LdMDLgoVramAddr:
+		; GMZ - Code to check the console's region ends here
+
 		move.w	#1,obGfx(a1)	; GMZ - Set VRAM address
 		move.l	a1,screensa_sonic	; GMZ - Point to the MD logo's object memory
 		move.b	#32,v_pcyc_time	; GMZ - Set the background palette cycle delay
@@ -141,8 +164,21 @@ ScreensaSonic_VColU:
 		move.b	obHeight(a0),d1
 		lsr.b	#1,d1
 		sub.w	d1,d0	; GMZ - Get the boundary of Sonic's sprite
+
+		; GMZ - Code to check the console's region starts here
+		tst.b	v_megadrive	; GMZ - Is the console Japanese?
+		bpl.s	ScreensaSonic_ChkJPBoundU	; GMZ - If yes, branch
+		sub.w	#128-3,d0	; GMZ - Did the sprite hit the screen's top boundary?
+		bne.s	ScreensaSonic_HCollision	; GMZ - If not, branch
+		bra.s	ScreensaSonic_VColU_ChgDir
+
+ScreensaSonic_ChkJPBoundU:
+		; GMZ - Code to check the console's region ends here
+
 		sub.w	#128,d0	; GMZ - Did the sprite hit the screen's top boundary?
 		bne.s	ScreensaSonic_HCollision	; GMZ - If not, branch
+
+ScreensaSonic_VColU_ChgDir:	; GMZ - Part of code to check console's region 
 		or.b	#%0100,obStatus(a0)	; GMZ - If yes, change the direction
 		bra.s	ScreensaSonic_HCollision
 
@@ -170,8 +206,21 @@ ScreensaSonic_HColR:
 		move.b	obWidth(a0),d1
 		lsr.b	#1,d1
 		add.w	d1,d0	; GMZ - Get the boundary of Sonic's sprite
+
+		; GMZ - Code to check the console's region starts here
+		tst.b	v_megadrive	; GMZ - Is the console Japanese?
+		bpl.s	ScreensaSonic_ChkJPBoundR	; GMZ - If yes, branch
+		sub.w	#320+128,d0	; GMZ - Did the sprite hit the screen's right boundary?
+		bne.s	ScreensaSonic_Exit	; GMZ - If not, branch
+		bra.s	ScreensaSonic_HColR_ChgDir
+
+ScreensaSonic_ChkJPBoundR:
+		; GMZ - Code to check the console's region ends here
+
 		sub.w	#(320+128)+2,d0	; GMZ - Did the sprite hit the screen's right boundary?
 		bne.s	ScreensaSonic_Exit	; GMZ - If not, branch
+
+ScreensaSonic_HColR_ChgDir:	; GMZ - Part of code to check console's region
 		or.b	#%1000,obStatus(a0)	; GMZ - If yes, change the direction
 		rts
 
@@ -320,4 +369,12 @@ Map_ScreensaMDLogo:
 
 Pal_ScreensaMDLogo:
 		binclude	"Screensaver MD Logo (Palette).bin"
+		even
+
+ArtNem_ScreensaGENLogo:
+		binclude	"Screensaver GEN Logo (Art, Nemesis).bin"
+		even
+
+Map_ScreensaGENLogo:
+		include	"Screensaver GEN Logo (Mappings).asm"
 		even
