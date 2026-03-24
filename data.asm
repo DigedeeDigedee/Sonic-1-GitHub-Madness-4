@@ -1021,3 +1021,6 @@ Nem_Giovanni:	incbin	"dotgen/Giovanni Logo Graphics.nem"
 
 Unc_RoaringKnight:
 		incbin	"dotgen/knight/graphics/The Roaring Knight.unc"
+		
+Nem_KnightWeapons:
+		incbin	"dotgen/knight/graphics/Knight Weapons.nem"
