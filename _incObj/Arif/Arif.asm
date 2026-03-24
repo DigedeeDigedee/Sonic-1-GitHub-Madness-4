@@ -14,6 +14,7 @@ ArifBoss_Arif:
 ; ===========================================================================
 
 ; Variables
+.DelayTimer:		equ $30	; bullet delay timer for atk mode 2
 .ShootAngle:		equ $3A
 .RoutineTimer:		equ $3C
 .FlashTimer:		equ $3E
@@ -21,9 +22,11 @@ ArifBoss_Arif:
 
 ; Constants
 .Attacks1:		equ $4	; attacks for atk mode 1
-.Attacks2		equ $2	; attacks for atk mode 2
+.Attacks2		equ $5	; attacks for atk mode 2
 .ShootTime1:		equ $F	; time for him to shoot (atk mode 1)
-.ShootTime2:		equ $18	; time for him to shoot (atk mode 2)
+.ShootTime2:		equ $2	; time for him to shoot (*2, atk mode 2)
+
+.FallWaitTime:		equ 60*4
 
 .GroundPos:		equ $3C0 ; for intro 'n' shit
 
@@ -36,8 +39,10 @@ ArifBoss_Arif:
 		dc.w	.Shoot1Idle-.Routines
 
 		dc.w	.Fall-.Routines
-
+		dc.w	.FallIdle-.Routines
+		
 		dc.w	.Shoot2-.Routines
+		dc.w	.Shoot2Idle-.Routines
 
 ; ===========================================================================
 
@@ -168,7 +173,6 @@ ArifBoss_Arif:
 		rts
 
 .Shoot1Idle_Done:
-		move.b	#.Attacks2, .AttacksLeft(a0)
 		add.b	#2, obRoutine(a0)
 		rts
 
@@ -194,19 +198,90 @@ ArifBoss_Arif:
 		move.w 	#0, obVelX(a0)
 		move.w 	#0, obVelY(a0)
 
-		add.b	#2, obRoutine(a0)			; next atk
+		move.b 	#.FallWaitTime, .RoutineTimer(a0)
+		add.b	#2, obRoutine(a0)			; next
 
 .Fall_Exit:
+		rts
+
+; ===========================================================================
+
+.FallIdle:
+		sub.w	#$1, .RoutineTimer(a0)
+
+		tst.w	.RoutineTimer(a0)			; is timer zero?
+		beq.s	.FallIdle_Exit				; if not, branch
+
+		move.b	#.Attacks2, .AttacksLeft(a0)
+		add.b	#2, obRoutine(a0)			; next atk
+
+.FallIdle_Exit:
 		rts
 
 ; ===========================================================================
 ; Shoot Mode 2 - Touhou project
 ; ===========================================================================
 .Shoot2:
+		tst.w	.RoutineTimer(a0)			; is timer zero?
+		beq.s	.Shoot2_Exit				; if yes, branch
+
+		btst	#0, (v_framecount)
+		beq.s	.Shoot2_Exit
+
+		add.w 	#$800, .ShootAngle(a0)
+
+		jsr	(FindFreeObj).l
+		move.b	#id_Arif, (a1)
+		move.b	#4, obSubtype(a1)
+		move.w	obX(a0), obX(a1)
+		move.w	obY(a0), obY(a1)
+
+		move.w 	.ShootAngle(a0), d0
+		bsr.s 	.Shoot2_Velocity
+
 		rts
 
+
 .Shoot2_Velocity:
+		move.b .ShootAngle(a0), d0
+		jsr	CalcSine
+		move.w	#$600, d2				; set speed
+		muls.w	d2, d1					; multiply cosine by $600
+		asr.l	#8, d1					; divide by $100
+		move.w	d1, obVelX(a1)				; set x velocity
+		muls.w	d2, d0					; multiply sine by $600
+		asr.l	#8, d0					; divide by $100
+		move.w	d0, obVelY(a1)				; set y velocity
 		rts
+
+.Shoot2_Exit:
+		move.w	#30, .RoutineTimer(a0)
+		add.b	#2, obRoutine(a0)
+		rts
+		
+; ===========================================================================
+
+.Shoot2Idle:
+		tst.w	.RoutineTimer(a0)			; is timer zero?
+		beq.s	.Shoot2Idle_Continue			; if yes, branch
+
+		tst.b	.AttacksLeft(a0)			; any attacks left?
+		beq.s	.Shoot2Idle_Done			; if not, branch
+
+		sub.w	#$1, .RoutineTimer(a0) 
+		rts
+
+.Shoot2Idle_Continue:
+		sub.b	#1, .AttacksLeft(a0)
+		move.w	#.ShootTime2, .RoutineTimer(a0)
+		sub.b	#2, obRoutine(a0)
+		rts
+
+.Shoot2Idle_Done:
+		move.b	#2, obRoutine(a0)
+		rts
+
+
 
 ; ---------------------------------------------------------------------------
 ; Helper routines
