@@ -27,7 +27,7 @@ Homero_FM1:
 	dc.b	nG4, nRst, nG4, nC4, nRst, $03, nG4, $06
 	dc.b	nRst, $03, nG4, $06, nG4, nF4, nE4, nD4
 	dc.b	nC4, nRst, $03, nA4, $06, nRst, $03, nA4, $06, nRst
-	dc.b	nA4, nRs, nA4, nC4, nRst, $03, nA4, $06
+	dc.b	nA4, nRst, nA4, nC4, nRst, $03, nA4, $06
 	dc.b	nRst, $03, nA4, $06, nG4, nF4, nE4, nD4
 	smpsJump				Homero_FM1
 
