@@ -127,7 +127,7 @@ v_snddriver_ram:	SMPS_RAM		; sound driver state
 			ds.b	$40		; unused
 
 v_gamemode:		ds.b	1		; game mode (00=Sega; 04=Title; 08=Demo; 0C=Level; 10=SS; 14=Cont; 18=End; 1C=Credit; +8C=PreLevel)
-			ds.b	1		; unused
+submode:		ds.b	1		; game mode sub mode cntr (for mode within a gamemode)
 v_jpadhold2:		ds.b	1		; joypad input - held, duplicate
 v_jpadpress2:		ds.b	1		; joypad input - pressed, duplicate
 v_jpadhold1:		ds.b	1		; joypad input - held
@@ -385,11 +385,12 @@ v_timemin = v_time+1				; time - minutes
 v_timesec = v_time+2				; time - seconds
 v_timecent = v_time+3				; time - centiseconds
 v_score:		ds.l	1		; score
-			ds.b	2		; unused
+f_ammocount		ds.b	1		; ammo counter update flag
+			ds.b	1		; poop
 v_shield:		ds.b	1		; shield status (00 = no; 01 = yes)
 v_invinc:		ds.b	1		; invinciblity status (00 = no; 01 = yes)
 v_shoes:		ds.b	1		; speed shoes status (00 = no; 01 = yes)
-v_unused1:		ds.b	1		; an unused fourth player status (Goggles?)
+v_unused1:		ds.b	1		; an unused fourth player status (Goggles?) OF COURSE IT'S THE FUCKING GOGGLES GENIUS 
 
 v_lastlamp:		ds.b	2		; number of the last lamppost you hit
 v_lamp_xpos:		ds.w	1		; x-axis for Sonic to respawn at lamppost
@@ -458,7 +459,9 @@ v_adverttimer:		ds.l	1
 v_levseldelay:		ds.w	1		; level select - time until change when up/down is held
 v_levselitem:		ds.w	1		; level select - item selected
 v_levselsound:		ds.w	1		; level select - sound selected
-			ds.b	$3A		; unused
+			; ds.b	$3A		; unused (GMZ - Commented)
+titleGoToScreensaver:	ds.w	1	; GMZ - Gonna steal some RAM for... a thing
+			ds.b	$38	; GMZ - what else can we do with this?
 v_scorelife:		ds.l	1		; points required for an extra life (JP1 only)
 v_characterid:		ds.b	1
 v_zonemusic:		ds.b	1

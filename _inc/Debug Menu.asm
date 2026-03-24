@@ -35,29 +35,28 @@ GM_DebugMenu:
 		clr.b	(f_nobgscroll).w
 		clr.w	(v_levselitem).w
 		clearRAM v_palette_fading
-		
+
 		ResetDMAQueue
 
 		writeVRAM	Art_MenuFont,$D080
 
 		; added
+		locVRAM	ArtTile_Title_Japanese_Text*tile_size
+		lea	(Nem_JapNames).l,a0 ; load Japanese credits
+		bsr.w	NemDec
+		lea	(v_ram_start).l,a1
+		lea	(Eni_JapNames).l,a0 ; load mappings for Japanese credits
+		move.w	#make_art_tile(ArtTile_Title_Japanese_Text,0,FALSE),d0
+		bsr.w	EniDec
 
-     		locVRAM		ArtTile_Title_Japanese_Text*tile_size
-       		lea		(Nem_JapNames).l,a0 ; load Japanese credits
-       		bsr.w		NemDec
-      		lea		(v_ram_start).l,a1
-     		lea		(Eni_JapNames).l,a0 ; load mappings for Japanese credits
-     		move.w		#make_art_tile(ArtTile_Title_Japanese_Text,0,FALSE),d0
-     		bsr.w		EniDec
+		copyTilemap	v_ram_start,vram_bg,40,28
 
-     		copyTilemap    v_ram_start,vram_bg,40,28
-		
 		enable_display
 		lea	(v_hscrolltablebuffer).w,a1
 		moveq	#0,d0
 		move.w	#$DF,d1
 
-	DebugMenu_ClrScroll1:
+DebugMenu_ClrScroll1:
 		move.l	d0,(a1)+
 		dbf	d1,DebugMenu_ClrScroll1	; clear scroll data (in RAM)
 
@@ -79,21 +78,23 @@ GM_DebugMenu:
 		clr.b	dbugmenuFlag2
 
 		bsr.w	DebuggerMenu_Redraw
-	;	moveq	#plcid_Main,d0
-	;	bsr.w	NewPLC
+;		moveq	#plcid_Main,d0
+;		bsr.w	NewPLC
 		lea	(Pal_MenuText).l,a1
 		lea	(v_palette_fading+$20).l,a2
 		moveq	#16-1,d0
+
 .LoadLoopText
 		move.l	(a1)+,(a2)+
 		dbf	d0,.LoadLoopText
 		lea	(Pal_Sega2+(16*2)).l,a1
 		lea	(v_palette_fading).l,a2
 		moveq	#5-1,d0	; fucking lol
+
 .LoadLoopBg
 		move.l	(a1)+,(a2)+
 		dbf	d0,.LoadLoopBg
-		
+
 		move.b	#bgm_NewBarkTown,d0
 		bsr.w	QueueSound1
 		bsr.w	PaletteFadeIn
@@ -109,68 +110,68 @@ DebuggerMenu_Loop:
 		beq.s	DebuggerMenu_Loop
 		rts
 _dbugmenuSineSlide:
-        lea     v_hscrolltablebuffer,a1
-	eor.b	#1,dbugmenuFlag2
-	bne.s	.lol	
-	add.w	#4,a1
+		lea	v_hscrolltablebuffer,a1
+		eor.b	#1,dbugmenuFlag2
+		bne.s	.lol	
+		add.w	#4,a1
 .lol
-        add.l   #$6000,dbugmenuScrCnt.w
-        moveq   #240/4,d7
-        moveq   #0,d2
+		add.l	#$6000,dbugmenuScrCnt.w
+		moveq	#240/4,d7
+		moveq	#0,d2
 
-	btst.b	#0,dbugmenuFlag
-	bne.s	.Decrement
+		btst.b	#0,dbugmenuFlag
+		bne.s	.Decrement
 
-        add.l	#$9000,dbugmenuFactor
-        move.w  dbugmenuFactor,d2
-        cmpi.w	#$FF,dbugmenuFactor
-        blt.s	.Ok
-       	add.b	#1,dbugmenuFlag
-       	bra.s	.Ok
+		add.l	#$9000,dbugmenuFactor
+		move.w	dbugmenuFactor,d2
+		cmpi.w	#$FF,dbugmenuFactor
+		blt.s	.Ok
+		add.b	#1,dbugmenuFlag
+		bra.s	.Ok
 
 .Decrement
-        sub.l	#$9000,dbugmenuFactor
-        move.w  dbugmenuFactor,d2
-        cmpi.w	#-$FF,dbugmenuFactor
-        bgt.s	.Ok
-       	add.b	#1,dbugmenuFlag
+		sub.l	#$9000,dbugmenuFactor
+		move.w	dbugmenuFactor,d2
+		cmpi.w	#-$FF,dbugmenuFactor
+		bgt.s	.Ok
+		add.b	#1,dbugmenuFlag
 .Ok
 	move.w	#0,dbugmenuSinCntr.w
 
 .ScrLoop:
-	add.w   #1,dbugmenuSinCntr.w
-       	move.w  dbugmenuSinCntr.w,d0
-        jsr     CalcSine
-        mulu.w  d2,d0
-        move.w	d2,d3
-        asr.w	#3,d3
-        add.w	d2,d3
-        asr.w   #7,d0
-        move.w  #0,(a1)+
-        move.w  d0,(a1)+
-	add.w   #1,dbugmenuSinCntr.w
-       	move.w  dbugmenuSinCntr.w,d0
-        jsr     CalcSine
-        mulu.w  d3,d0
-        asr.w   #7,d0
-        move.w  #0,(a1)+
-        move.w  d0,(a1)+
-	add.w   #1,dbugmenuSinCntr.w
-       	move.w  dbugmenuSinCntr.w,d0
-        jsr     CalcSine
-        mulu.w  d2,d0
-        asr.w   #7,d0
-        move.w  #0,(a1)+
-        move.w  d0,(a1)+
-	add.w   #1,dbugmenuSinCntr.w
-       	move.w  dbugmenuSinCntr.w,d0
-        jsr     CalcSine
-        mulu.w  d3,d0
-        asr.w   #7,d0
-        move.w  #0,(a1)+
-        move.w  d0,(a1)+
-        dbf     d7,.ScrLoop
-        rts
+		add.w	#1,dbugmenuSinCntr.w
+		move.w	dbugmenuSinCntr.w,d0
+		bsr.w	CalcSine
+		mulu.w	d2,d0
+		move.w	d2,d3
+		asr.w	#3,d3
+		add.w	d2,d3
+		asr.w	#7,d0
+		move.w	#0,(a1)+
+		move.w	d0,(a1)+
+		add.w	#1,dbugmenuSinCntr.w
+		move.w	dbugmenuSinCntr.w,d0
+		bsr.w	CalcSine
+		mulu.w	d3,d0
+		asr.w	#7,d0
+		move.w	#0,(a1)+
+		move.w	d0,(a1)+
+		add.w	#1,dbugmenuSinCntr.w
+		move.w	dbugmenuSinCntr.w,d0
+		bsr.w	CalcSine
+		mulu.w	d2,d0
+		asr.w	#7,d0
+		move.w	#0,(a1)+
+		move.w	d0,(a1)+
+		add.w	#1,dbugmenuSinCntr.w
+		move.w	dbugmenuSinCntr.w,d0
+		bsr.w	CalcSine
+		mulu.w	d3,d0
+		asr.w	#7,d0
+		move.w	#0,(a1)+
+		move.w	d0,(a1)+
+		dbf	d7,.ScrLoop
+		rts
 
 ; ===========================================================================
 
@@ -256,6 +257,8 @@ DebuggerMenu_Controls:
 
 .setsel:
 		move.w	d0,(v_levselitem).w
+		move.b	#sfx_beepy,d0;atgames
+		bsr.w	PlaySound_Special
 		bra.w	DebuggerMenu_Redraw
 
 .noinput:
@@ -375,7 +378,7 @@ DebuggerMenu_Act4EnablerTable:
 		dc.b	$1		; BREW
 		dc.b	$0		; WIN
 		dc.b	$0		; JOINT
-		dc.b	$0		; DVZ
+		dc.b	$1		; DVZ
 		dc.b	$0		; ZONE
 		even
 		
@@ -541,11 +544,11 @@ ZoneNameTable:
 		dc.w	.DVZ-.t
 		dc.w	.Nogales -.t
 
-.GHZ:		dc.b	"PENILE HILLS    "
+.GHZ:		dc.b	"ORANGE WORLD    "
 .LZ:		dc.b	"AZURE RAINFOREST"
 .MZ:		dc.b	"ALBERTA CANADA  "
-.SLZ:		dc.b	"MICROSLOP HQ    "
-.SYZ:		dc.b	"SPRING YARD     "
+.SLZ:		dc.b	"MEIN KRAFT      "
+.SYZ:		dc.b	"SPRING FIELD    "
 .SBZ:		dc.b	"PRONGLE PLANT   "
 .End:		dc.b	"ENDING          "
 .MSZ:		dc.b	"COLD BREW       "
@@ -569,17 +572,13 @@ GamemodeNameTable:
 		dc.w	.DebugMenu-.t
 		dc.w	.Thanatos-.t
 		dc.w	.ButtcrackMan-.t
-		dc.w	.ConiNightLogo-.t
 		dc.w	.TryAgainTest-.t
 		dc.w	.Difficulty-.t
 		dc.w	.DamnScreen-.t
-		dc.w	.TG2000Logo-.t
-		dc.w	.NMR-.t
-		dc.w	.DaxKatter-.t
 		dc.w	.Skipper-.t
 		dc.w	.Advert-.t
-		dc.w	.Giovanni-.t
-		dc.w	.NewSSRG-.t		
+		dc.w	.Earthbou-.t
+		dc.w	.Screensaver-.t
 		rept ( (GameModeArray_End-GameModeArray)-(((*)-.t)*2) )/4
 		dc.w	.Placeholder-.t
 		endr
@@ -597,17 +596,13 @@ GamemodeNameTable:
 .DebugMenu:	dc.b	"DEBUG MENU      "
 .Thanatos:	dc.b	"THANATOS CREDITS"
 .ButtcrackMan:	dc.b	"BUTTCRACK MAN   "
-.ConiNightLogo:	dc.b	"CONINIGHT LOGO  "
 .TryAgainTest:	dc.b	"TRY AGAIN/END   "
 .Difficulty:	dc.b	"DIFFICULTY      "
 .DamnScreen:	dc.b	"DAMN!!!!!!!!!!!!"
-.TG2000Logo:	dc.b	"TG2000 LOGO     "
-.NMR:		dc.b	"NEEDLEMOUSE TEAM"
-.DaxKatter:	dc.b	"DAXKATTER LOGO  "
 .Skipper:	dc.b	"SPLASH SKIPPER  "
 .Advert:	dc.b	"ADVERTISEMENTS  "
-.Giovanni:	dc.b	"GIOVANNI.GEN    "
-.NewSSRG:	dc.b	"NEW SSRG SCREEN "
+.Earthbou:	dc.b	"EARTHBOUND BTL  "
+.Screensaver:	dc.b	"SCREENSAVER     "
 .Placeholder:	dc.b	"PLACEHOLDER NAME"
 		even
 

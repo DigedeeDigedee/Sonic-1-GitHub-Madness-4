@@ -55,3 +55,5 @@ GoGoTonicTongueDash_Voices:
 	smpsVcDecayLevel    $00, $00, $00, $03
 	smpsVcReleaseRate   $07, $07, $07, $05
 	smpsVcTotalLevel    $00, $00, $00, $14
+	
+	smpsFooterEndSong	"TonicTongue.asm"

@@ -7,14 +7,14 @@
 
 FootCollision:
 		btst	#3,obStatus(a0)
-		beq.s	loc_14602
+		beq.s	FootCollision_UserLift
 		moveq	#0,d0
 		move.b	d0,(v_anglebuffer).w
 		move.b	d0,(v_anglebuffer2).w
 		rts
 ; ===========================================================================
 
-loc_14602:
+FootCollision_UserLift:
 		moveq	#3,d0
 		move.b	d0,(v_anglebuffer).w
 		move.b	d0,(v_anglebuffer2).w

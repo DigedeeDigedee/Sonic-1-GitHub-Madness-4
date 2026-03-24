@@ -26,7 +26,7 @@ AniArt_Index:	dc.w AniArt_GHZ-AniArt_Index, AniArt_none-AniArt_Index		; GHZ, LZ
 		zonewarning AniArt_Index,2
 		dc.w AniArt_Ending-AniArt_Index, AniArt_CBZ-AniArt_Index	; ENDZ, CBZ
 		dc.w AniArt_none-AniArt_Index, AniArt_none-AniArt_Index		; WINZ, JOINTZ
-		dc.w AniArt_none-AniArt_Index, AniArt_none-AniArt_Index		; DOLEZ, NOGALEZ
+		dc.w AniArt_none-AniArt_Index, AniArt_GHZ-AniArt_Index		; DOLEZ, NOGALEZ
 		dc.w AniArt_none-AniArt_Index, AniArt_none-AniArt_Index
 		dc.w AniArt_none-AniArt_Index, AniArt_none-AniArt_Index
 		dc.w AniArt_none-AniArt_Index, AniArt_none-AniArt_Index

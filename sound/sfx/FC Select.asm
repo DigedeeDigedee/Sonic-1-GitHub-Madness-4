@@ -15,3 +15,4 @@ FC_Sel_PSG1:
 
 ; Song seems to not use any FM voices
 FC_Sel_Voices:
+	smpsFooterEndSong	"FC Select.asm"

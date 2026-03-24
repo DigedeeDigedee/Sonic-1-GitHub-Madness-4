@@ -8,6 +8,7 @@ SonLVL INI Files/SonLVL.log
 *.log
 *.bak
 *.p
+*.h
 
 # Built ROMs.
 *.gen

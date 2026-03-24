@@ -19,8 +19,10 @@ Anml_Index:
 		dc.w loc_9184-Anml_Index	; PICKY
 		dc.w loc_91C0-Anml_Index	; POCKY
 		dc.w loc_9184-Anml_Index	; RICKY
-		dc.w loc_91C0-Anml_Index	; RIN
-		dc.w loc_91C0-Anml_Index	; RIN
+		dc.w loc_9184-Anml_Index	; ORANGE
+		dc.w loc_9184-Anml_Index	; RIN
+		dc.w loc_9184-Anml_Index	; AAA
+		dc.w loc_9184-Anml_Index	; NAVIGATOR
 Anml_BadnikIndexEnd:dc.w loc_9240-Anml_Index ; Anml_FromPrison (from hivebrain's 2022 disassembly)
 		dc.w loc_9260-Anml_Index ; ENDING 1
 		dc.w loc_9260-Anml_Index ; ENDING 2
@@ -35,7 +37,7 @@ Anml_BadnikIndexEnd:dc.w loc_9240-Anml_Index ; Anml_FromPrison (from hivebrain's
 		dc.w loc_92D6-Anml_Index ; ENDING 11
 Anml_CapsuleRoutID:		equ Anml_BadnikIndexEnd-Anml_Index
 
-Anml_VarIndex:	dc.b 8,	5 ; Green Hill Zone
+Anml_VarIndex:	dc.b 8,	7 ; Green Hill Zone
 		dc.b 2, 3 ; Labyrinth Zone
 		dc.b 6, 3 ; Marble Zone
 		dc.b 4, 5 ; Star Light Zone
@@ -43,7 +45,7 @@ Anml_VarIndex:	dc.b 8,	5 ; Green Hill Zone
 		dc.b 0, 1 ; Scrap Brain Zone
 		dc.b 0,	5 ; Green Hill Zone
 		dc.b 0,	5 ; COLD BREW Zone
-		dc.b 4, 5 ; WINDOWS Zone
+		dc.b $A, 9 ; WINDOWS Zone
 		dc.b 7, 1 ; JOINT Zone
 ; Even are first, odd are second
 ; Map_Animal1 is a TALL FOREVER animal
@@ -74,11 +76,17 @@ Anml_Variables:
 		dc.w -$280, -$380
 		dc.l Map_Animal4
 	; CUSTOM ANIMALS ARE ADDED AFTERWARDS
+	; ANNOYING ORANGE
+		dc.w -$180, -$300
+		dc.l Map_Animal6
 	; ORINGE
 		dc.w -$180, -$300
 		dc.l Map_Animal5
-	; ORINGE
+	; AAA
 		dc.w -$180, -$300
+		dc.l Map_Animal6
+	; NAVIGATOR
+		dc.w -$340, -$300
 		dc.l Map_Animal5
 
 Anml_EndSpeed:	dc.w -$440, -$400, -$440, -$400, -$440, -$400, -$300, -$400
@@ -129,7 +137,7 @@ Anml_Ending:	; Routine 0
 
 Anml_FromEnemy:
 		addq.b	#2,obRoutine(a0)
-		jsr	RandomNumber
+		jsr	(RandomNumber).w
 		andi.w	#1,d0
 		moveq	#0,d1
 		move.b	(v_zone).w,d1
@@ -160,16 +168,16 @@ loc_90C0:
 		move.w	#-$400,obVelY(a0)
 		tst.b	(v_bossstatus).w
 		bne.s	loc_911C
-		jsr	FindFreeObj
-		bne.s	Anml_Display
-		_move.b	#id_Points,obID(a1) ; load points object
-		move.w	obX(a0),obX(a1)
-		move.w	obY(a0),obY(a1)
-		move.w	objoff_3E(a0),d0
-		lsr.w	#1,d0
-		move.b	d0,obFrame(a1)
+;		bsr.w	FindFreeObj
+;		bne.s	Anml_Display
+;		_move.b	#id_Points,obID(a1) ; load points object
+;		move.w	obX(a0),obX(a1)
+;		move.w	obY(a0),obY(a1)
+;		move.w	objoff_3E(a0),d0
+;		lsr.w	#1,d0
+;		move.b	d0,obFrame(a1)
 
-Anml_Display:
+;Anml_Display:
 		bra.w	DisplaySprite
 ; ===========================================================================
 
@@ -182,7 +190,7 @@ loc_911C:	; THIS is the routine for capsules, thank you hivebrain (his 2022 disa
 loc_912A:
 		tst.b	obRender(a0)
 		bpl.w	DeleteObject
-		jsr	ObjectFall
+		bsr.w	ObjectFall
 		tst.w	obVelY(a0)
 		bmi.s	loc_9180
 		jsr	(ObjFloorDist).l
@@ -208,7 +216,7 @@ loc_9180:
 ; ===========================================================================
 
 loc_9184:
-		jsr	ObjectFall
+		bsr.w	ObjectFall
 		move.b	#1,obFrame(a0)
 		tst.w	obVelY(a0)
 		bmi.s	loc_91AE
@@ -228,7 +236,7 @@ loc_91AE:
 ; ===========================================================================
 
 loc_91C0:
-		jsr	SpeedToPos
+		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)
 		tst.w	obVelY(a0)
 		bmi.s	loc_91FC
@@ -285,7 +293,7 @@ loc_925C:
 ; ===========================================================================
 
 loc_9260:
-		jsr	sub_9404
+		bsr.w	sub_9404
 		bcc.s	loc_927C
 		move.w	objoff_32(a0),obVelX(a0)
 		move.w	objoff_34(a0),obVelY(a0)
@@ -298,7 +306,7 @@ loc_927C:
 ; ===========================================================================
 
 loc_9280:
-		jsr	sub_9404
+		bsr.w	sub_9404
 		bpl.s	loc_92B6
 		clr.w	obVelX(a0)
 		clr.w	objoff_32(a0)

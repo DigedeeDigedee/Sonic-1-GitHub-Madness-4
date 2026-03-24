@@ -1,59 +1,72 @@
-Map_c2a4: mappingsTable
-	mappingsTableEntry.w	Map_c2a4_0
-	mappingsTableEntry.w	Map_c2a4_1
-	mappingsTableEntry.w	Map_c2a4_2
-	mappingsTableEntry.w	Map_c2a4_3
-
-Map_c2a4_0:	spriteHeader
- spritePiece 0, -$80, 4, 2, 0, 0, 0, 0, 1
- spritePiece $20, -$80, 4, 2, $18, 0, 0, 0, 1
- spritePiece $40, -$80, 4, 2, $20, 0, 0, 0, 1
- spritePiece 0, -$70, 4, 2, $10, 0, 0, 0, 1
- spritePiece $28, -$70, 4, 2, $28, 0, 0, 0, 1
- spritePiece 0, -$60, 4, 2, 8, 0, 0, 0, 1
- spritePiece $20, -$60, 1, 2, 0, 0, 0, 0, 1
- spritePiece $30, -$60, 3, 2, $30, 0, 0, 0, 1
- spritePiece 0, $40, 2, 2, $10A, 0, 0, 0, 1
- spritePiece $10, $40, 4, 2, $10E, 0, 0, 0, 1
-Map_c2a4_0_End
-
-Map_c2a4_1:	spriteHeader
- spritePiece 0, -$80, 4, 2, 0, 0, 0, 0, 1
- spritePiece $20, -$80, 4, 2, $18, 0, 0, 0, 1
- spritePiece $40, -$80, 4, 2, $20, 0, 0, 0, 1
- spritePiece 0, -$70, 4, 2, $10, 0, 0, 0, 1
- spritePiece $28, -$70, 4, 2, $28, 0, 0, 0, 1
- spritePiece 0, -$60, 4, 2, 8, 0, 0, 1, 1
- spritePiece $20, -$60, 1, 2, 0, 0, 0, 1, 1
- spritePiece $30, -$60, 3, 2, $30, 0, 0, 0, 1
- spritePiece 0, $40, 2, 2, $10A, 0, 0, 0, 1
- spritePiece $10, $40, 4, 2, $10E, 0, 0, 0, 1
-Map_c2a4_1_End
-
-Map_c2a4_2:	spriteHeader
- spritePiece 0, -$80, 4, 2, 0, 0, 0, 0, 1
- spritePiece $20, -$80, 4, 2, $18, 0, 0, 0, 1
- spritePiece $40, -$80, 4, 2, $20, 0, 0, 0, 1
- spritePiece 0, -$70, 4, 2, $10, 0, 0, 1, 1
- spritePiece $28, -$70, 4, 2, $28, 0, 0, 0, 1
- spritePiece 0, -$60, 4, 2, 8, 0, 0, 0, 1
- spritePiece $20, -$60, 1, 2, 0, 0, 0, 0, 1
- spritePiece $30, -$60, 3, 2, $30, 0, 0, 0, 1
- spritePiece 0, $40, 2, 2, $10A, 0, 0, 0, 1
- spritePiece $10, $40, 4, 2, $10E, 0, 0, 0, 1
-Map_c2a4_2_End
-
-Map_c2a4_3:	spriteHeader
- spritePiece 0, -$80, 4, 2, 0, 0, 0, 0, 1
- spritePiece $20, -$80, 4, 2, $18, 0, 0, 0, 1
- spritePiece $40, -$80, 4, 2, $20, 0, 0, 0, 1
- spritePiece 0, -$70, 4, 2, $10, 0, 0, 1, 1
- spritePiece $28, -$70, 4, 2, $28, 0, 0, 0, 1
- spritePiece 0, -$60, 4, 2, 8, 0, 0, 1, 1
- spritePiece $20, -$60, 1, 2, 0, 0, 0, 1, 1
- spritePiece $30, -$60, 3, 2, $30, 0, 0, 0, 1
- spritePiece 0, $40, 2, 2, $10A, 0, 0, 0, 1
- spritePiece $10, $40, 4, 2, $10E, 0, 0, 0, 1
-Map_c2a4_3_End
-
+Map_c152:
+Map_c152_0: 	dc.w Map_c152_A-Map_c152
+Map_c152_2: 	dc.w Map_c152_4C-Map_c152
+Map_c152_4: 	dc.w Map_c152_8E-Map_c152
+Map_c152_6: 	dc.w Map_c152_D0-Map_c152
+Map_c152_8: 	dc.w Map_c152_112-Map_c152
+Map_c152_A: 	dc.b $D
+	dc.b $80, $C, $80, $0, $0
+	dc.b $80, $0, $80, $4, $20
+	dc.b $80, $C, $80, $11, $2C
+	dc.b $80, $8, $80, $15, $4C
+	dc.b $8D, $C, $80, $5, $0
+	dc.b $8D, $C, $80, $18, $2C
+	dc.b $9A, $C, $80, $9, $0
+	dc.b $9A, $0, $80, $0, $20
+	dc.b $9A, $8, $80, $1C, $34
+	dc.b $A7, $C, $80, $D, $0
+	dc.b $A7, $8, $80, $1F, $34
+	dc.b $40, $5, $81, $14, $0
+	dc.b $40, $D, $81, $18, $10
+Map_c152_4C: 	dc.b $D
+	dc.b $80, $C, $80, $0, $0
+	dc.b $80, $0, $80, $4, $20
+	dc.b $80, $C, $80, $11, $2C
+	dc.b $80, $8, $80, $15, $4C
+	dc.b $8D, $C, $80, $5, $0
+	dc.b $8D, $C, $80, $18, $2C
+	dc.b $9A, $C, $A0, $9, $0
+	dc.b $9A, $0, $A0, $0, $20
+	dc.b $9A, $8, $80, $1C, $34
+	dc.b $A7, $C, $80, $D, $0
+	dc.b $A7, $8, $80, $1F, $34
+	dc.b $40, $5, $81, $14, $0
+	dc.b $40, $D, $81, $18, $10
+Map_c152_8E: 	dc.b $D
+	dc.b $80, $C, $80, $0, $0
+	dc.b $80, $0, $80, $4, $20
+	dc.b $80, $C, $80, $11, $2C
+	dc.b $80, $8, $80, $15, $4C
+	dc.b $8D, $C, $A0, $5, $0
+	dc.b $8D, $C, $80, $18, $2C
+	dc.b $9A, $C, $80, $9, $0
+	dc.b $9A, $0, $80, $0, $20
+	dc.b $9A, $8, $80, $1C, $34
+	dc.b $A7, $C, $80, $D, $0
+	dc.b $A7, $8, $80, $1F, $34
+	dc.b $40, $5, $81, $14, $0
+	dc.b $40, $D, $81, $18, $10
+Map_c152_D0: 	dc.b $D
+	dc.b $80, $C, $80, $0, $0
+	dc.b $80, $0, $80, $4, $20
+	dc.b $80, $C, $80, $11, $2C
+	dc.b $80, $8, $80, $15, $4C
+	dc.b $8D, $C, $A0, $5, $0
+	dc.b $8D, $C, $80, $18, $2C
+	dc.b $9A, $C, $A0, $9, $0
+	dc.b $9A, $0, $A0, $0, $20
+	dc.b $9A, $8, $80, $1C, $34
+	dc.b $A7, $C, $80, $D, $0
+	dc.b $A7, $8, $80, $1F, $34
+	dc.b $40, $5, $81, $14, $0
+	dc.b $40, $D, $81, $18, $10
+Map_c152_112: 	dc.b $8
+	dc.b $80, $C, $80, $11, $0
+	dc.b $80, $C, $80, $15, $24
+	dc.b $8D, $C, $80, $19, $0
+	dc.b $8D, $C, $80, $1D, $24
+	dc.b $9A, $4, $80, $21, $10
+	dc.b $9A, $8, $80, $23, $24
+	dc.b $40, $5, $81, $14, $0
+	dc.b $40, $D, $81, $18, $10
 	even

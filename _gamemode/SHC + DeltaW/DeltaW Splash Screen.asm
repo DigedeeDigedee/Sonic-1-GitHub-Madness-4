@@ -196,7 +196,7 @@ QuoteSoundTable:
 		dc.b	bgm_DeltaWSplash	; 112
 		dc.b	bgm_DeltaWSplash	; 113
 		dc.b	bgm_LimitedClear	; 114
-		dc.b	bgm_DeltaWSplash	; 115
+		dc.b	bgm_CleanSlate		; 115
 		dc.b	bgm_DeltaWSplash	; 116
 		dc.b	bgm_DeltaWSplash	; 117
 		dc.b	bgm_DeltaWSplash	; 118
@@ -501,13 +501,13 @@ TextData_Quotes_End:	even
 
 ; ===========================================================================
 Pal_SplashScreen:
-	binclude "_gamemode\SHC + DeltaW\PAL\DeltaW Splash Screen.bin"
+	binclude "_gamemode/SHC + DeltaW/PAL/DeltaW Splash Screen.bin"
 	even
 
 Eni_SplashScreen:
-	binclude "_gamemode\SHC + DeltaW\TILEMAP\DeltaW Splash Screen.bin"
+	binclude "_gamemode/SHC + DeltaW/TILEMAP/DeltaW Splash Screen.bin"
 	even
 
 Nem_SplashScreen:
-	binclude "_gamemode\SHC + DeltaW\ART\DeltaW Splash Screen.nem"
+	binclude "_gamemode/SHC + DeltaW/ART/DeltaW Splash Screen.nem"
 	even

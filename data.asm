@@ -259,7 +259,7 @@ Nem_LzSwitch:	binclude	"artnem/Switch.nem"
 		even
 Nem_SyzSpike1:	binclude	"artnem/SYZ Large Spikeball.nem"
 		even
-Nem_RoadRoller:	binclude	"coniobjs/roadroller.bin"
+Nem_RoadRoller:	binclude	"coniobjs/RoadRoller.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - SBZ stuff
@@ -296,7 +296,9 @@ Nem_Girder:	binclude	"artnem/SBZ Crushing Girder.nem"
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - enemies
 ; ---------------------------------------------------------------------------
-Nem_BallHog:	binclude	"artnem/Enemy Ball Hog.nem"
+Nem_BallHogH:	binclude	"artnem/Enemy Ball HogH.nem"
+		even
+Nem_BallHogV:	binclude	"artnem/Enemy Ball HogV.nem"
 		even
 Nem_Crabmeat:	binclude	"artnem/Enemy Crabmeat.nem"
 		even
@@ -304,8 +306,8 @@ Nem_Buzz:	binclude	"artnem/Enemy Buzz Bomber.nem"
 		even
 ;Nem_UnkExplode:	binclude	"artnem/Unused - Explosion.nem"
 ;		even
-Nem_Burrobot:	binclude	"artnem/Enemy Burrobot.nem"
-		even
+;Nem_Burrobot:	binclude	"artnem/Enemy Burrobot.nem"
+;		even
 Nem_Chopper:	binclude	"artnem/Enemy Chopper.nem"
 		even
 Nem_Jaws:	binclude	"artnem/Enemy Jaws.nem"
@@ -353,8 +355,10 @@ Nem_Monitors:	binclude	"artnem/Monitors.nem"
 		even
 Nem_Explode:	binclude	"artnem/Explosion.nem"
 		even
-Nem_Points:	binclude	"artnem/Points.nem"	; points from destroyed enemy or object
+Nem_ProtoExplosion: binclude	"artnem/Proto Explosion.nem"
 		even
+;Nem_Points:	binclude	"artnem/Points.nem"	; points from destroyed enemy or object
+;		even
 Nem_GameOver:	binclude	"artnem/Game Over.nem"	; game over / time over
 		even
 Nem_HSpring:	binclude	"artnem/Spring Horizontal.nem"
@@ -374,8 +378,8 @@ Nem_WINNERCard:	binclude	"artnem/WIN Cards.nem"
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - continue screen
 ; ---------------------------------------------------------------------------
-Nem_ContSonic:	binclude	"artnem/Continue Screen Sonic.nem"
-		even
+;Nem_ContSonic:	binclude	"artnem/Continue Screen Sonic.nem"
+;		even
 Nem_MiniSonic:	binclude	"artnem/Continue Screen Stuff.nem"
 		even
 
@@ -397,6 +401,10 @@ Nem_Flicky:	binclude	"artnem/Animal Flicky.nem"
 Nem_Squirrel:	binclude	"artnem/Animal Squirrel.nem"
 		even
 Nem_Rin:	binclude	"artnem/Animal Rin.nem"
+		even
+Nem_AOrange:	binclude	"artnem/Animal AOrange.nem"
+		even
+Nem_Navi:	binclude	"artnem/Animal Netscape.nem"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - primary patterns and block mappings
@@ -469,6 +477,8 @@ Kos_DVZ:	binclude	"artkos/8x8 - DVZ.kos"	; DVZ	primary padded. pamperspoop
 		even
 Blk256_DVZ:	binclude	"map256/DVZ.kos"
 		even
+Blk256_DVZ3:	binclude	"map256/DVZ3.kos"
+		even
 Blk16_NGZ:	binclude	"map16/NGZ.eni"
 		even
 Kos_NGZ:	binclude	"artkos/8x8 - NGZ.kos"	; nogales	#r&)*_@@@@@@@@u!#@*)eudq@(ewuiwdq*)dy&*#r&du(!@ido*u&#ft^*rd&(y*)u(rf
@@ -517,11 +527,11 @@ Eni_TheIdiotBros:	binclude	"tilemaps/Idiots.eni"
 ; ---------------------------------------------------------------------------
 ; Cold Brew
 ; ---------------------------------------------------------------------------
-Nem_LenBro:	binclude	"coniobjs/lenart.bin"
+Nem_LenBro:	binclude	"coniobjs/LenArt.bin"
 		even
-Nem_IZ:	binclude	"coniobjs/izart.bin"
+Nem_IZ:	binclude	"coniobjs/IZArt.bin"
 		even
-Nem_Spongy:	binclude	"coniobjs/spongyart.bin"
+Nem_Spongy:	binclude	"coniobjs/SpongyArt.bin"
 		even
 ;Nem_ScareObj:	binclude	"coniobjs/scareobj.bin"
 ;		even
@@ -788,13 +798,17 @@ Level_HSZ:	binclude	"levels/HSZ.bin"
 		even
 Level_HSZbg:	binclude	"levels/HSZbg.bin"
 		even
-Level_DVZ3:	binclude	"levels/DVZ1.bin"
+Level_DVZ3:	binclude	"levels/DVZ3.bin"
 		even
-Level_DVZbg:	;binclude	"levels/dvz.bin"
-		dc.l 0
+Level_DVZ4:	binclude	"levels/DVZ4.bin"
+		even
+Level_DVZbg:	binclude	"levels/DVZbg.bin"
+		even
+Level_DVZbg4:	binclude	"levels/DVZbg.bin"
+		even
 Level_NGZ1:	binclude	"levels/ngz1.bin"
 		even
-Level_NGZ2:	binclude	"levels/hsz.bin"
+Level_NGZ2:	binclude	"levels/ngz2.bin"
 		even
 Level_NGZ3:	binclude	"levels/ngz3.bin"
 		even
@@ -972,18 +986,19 @@ ObjPos_Joint3:	binclude	"objpos/Joint3.bin"
 		even
 ObjPos_DVZ1:	binclude	"objpos/dvz1.bin"
 		even
-ObjPos_DVZ2:	binclude	"objpos/dvz2.bin"
+ObjPos_HSZ:	binclude	"objpos/hsz.bin"
 		even
 ObjPos_DVZ3:	binclude	"objpos/dvz3.bin"
 		even
+ObjPos_DVZ4:	binclude	"objpos/dvz4.bin"
+		even
 ObjPos_NGZ1:	binclude	"objpos/ngz1.bin"
 		even
-ObjPos_NGZ2:	binclude	"objpos/hsz.bin"
+ObjPos_NGZ2:	binclude	"objpos/ngz3.bin"
 		even
 ObjPos_NGZ3:	binclude	"objpos/ngz3.bin"
 		even
-ObjPos_HSZ:	binclude	"objpos/hsz.bin"
-		even
+
 ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 
 ; ===========================================================================
@@ -1024,3 +1039,27 @@ Unc_RoaringKnight:
 		
 Nem_KnightWeapons:
 		incbin	"dotgen/knight/graphics/Knight Weapons.nem"
+
+; ---------------------------------------------------------------------------
+; Clinton Fucker Fail screen data
+; ---------------------------------------------------------------------------
+Pal_ClintonFail:
+		incbin	"palette/Clinton Fail.bin"
+		even
+MapScr_ClintonWin:
+		incbin	"artunc/Clinton Win Map.bin"
+		even
+Art_ClintonWin:
+		incbin	"artunc/Clinton Win Art.bin"
+		even
+Art_ClintonWinE:
+CLINTONWINARTSZ = Art_ClintonWinE-Art_ClintonWin
+
+MapScr_ClintonFail:
+		incbin	"artunc/Clinton Fail Map.bin"
+		even
+Art_ClintonFail:
+		incbin	"artunc/Clinton Fail Art.bin"
+		even
+Art_ClintonFailE:
+CLINTONFAILARTSZ = Art_ClintonFailE-Art_ClintonFail

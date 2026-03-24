@@ -13,7 +13,20 @@ GM_Advert:
 		move.b	#bgm_Stop,d0
 		jsr	QueueSound2
 		jsr	ClearPLC
-		jsr	PaletteWhiteOut
+	;	jsr	PaletteWhiteOut
+		lea	(v_palette).w,a0
+		move.l	#$0EEE0EEE,d0
+		move.w	#4-1,d1
+.white:
+		move.l	d0,(a0)+
+		move.l	d0,(a0)+
+		move.l	d0,(a0)+
+		move.l	d0,(a0)+
+		move.l	d0,(a0)+
+		move.l	d0,(a0)+
+		move.l	d0,(a0)+
+		move.l	d0,(a0)+
+		dbf	d1,.white
 		disable_ints
 		disable_display
 		lea	(vdp_control_port).l,a6
@@ -193,8 +206,8 @@ GM_Advert:
 		advertdata 5,10,Ad_VH.art,Ad_VH.fg,Ad_VH.pal,bgm_Dungeon3,0
 		advertdata 3,8,Ad_SuperChallenges.art,Ad_SuperChallenges.fg,Ad_SuperChallenges.pal,bgm_Son1UP,0		
 		advertdata 5,10,Ad_IWBTH.art,Ad_IWBTH.fg,Ad_IWBTH.pal,bgm_GEMSHill,0
-		advertdata 30,5,Ad_Limited.art,Ad_Limited.fg,Ad_Limited.pal,bgm_LimitedYard,0				; I plan to change the song to Final Limit
-		advertdata 30,5,Ad_Atgame.art,Ad_Atgame.fg,Ad_Atgame.pal,bgm_BomerDude,0 ;pls dont touch this very beautiful ad
+		advertdata 30,5,Ad_Limited.art,Ad_Limited.fg,Ad_Limited.pal,bgm_LimitedEgg,0		; It is now Final Limit
+		advertdata 30,5,Ad_Atgame.art,Ad_Atgame.fg,Ad_Atgame.pal,bgm_BomerDude,0		;pls dont touch this very beautiful ad
 		advertdata 10,10,Ad_FartBaby.art,Ad_FartBaby.fg,Ad_FartBaby.pal,bgm_LG,0
 .tablee:
 .eyecatch1:	advertdata 5,10,Ad_Eyecatch.art,Ad_Eyecatch.fg1,Ad_Eyecatch.pal,0,dRightBack

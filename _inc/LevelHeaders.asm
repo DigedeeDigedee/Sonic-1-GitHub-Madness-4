@@ -37,7 +37,7 @@ lhead:	macro plc1,lvlgfx,plc2,sixteen,twofivesix,music,pal,col1,objlay,lvllay,bg
 	lhead	plcid_SLZ,Kos_SLZ,plcid_SLZ2,Blk16_SLZ,Blk256_SLZ,bgm_Minecraft,palid_SLZ,Col_SLZ,ObjPos_Null,Level_SLZ1,Level_SLZbg
 
 	lhead	plcid_SYZ,Kos_SYZ,plcid_SYZ2,Blk16_SYZ,Blk256_SYZ,bgm_TreasureCaves,palid_SYZ,Col_SYZ,ObjPos_SYZ1,Level_SYZ1,Level_SYZbg
-	lhead	plcid_SYZ,Kos_SYZ,plcid_SYZ2,Blk16_SYZ,Blk256_SYZ,bgm_CanCan,palid_SYZ,Col_SYZ,ObjPos_SYZ2,Level_SYZ2,Level_SYZbg
+	lhead	plcid_SYZ,Kos_SYZ,plcid_SYZ2,Blk16_SYZ,Blk256_SYZ,bgm_Danstar,palid_SYZ,Col_SYZ,ObjPos_SYZ2,Level_SYZ2,Level_SYZbg
 	lhead	plcid_SYZ,Kos_SYZ,plcid_SYZ2,Blk16_SYZ,Blk256_SYZ,bgm_GCV2005,palid_SYZ,Col_SYZ,ObjPos_SYZ3,Level_SYZ3,Level_SYZbg
 	lhead	plcid_SYZ,Kos_SYZ,plcid_SYZ2,Blk16_SYZ,Blk256_SYZ,bgm_TreasureCaves,palid_SYZ,Col_SYZ,ObjPos_Null,Level_SYZ1,Level_SYZbg
 
@@ -67,11 +67,11 @@ lhead:	macro plc1,lvlgfx,plc2,sixteen,twofivesix,music,pal,col1,objlay,lvllay,bg
 	lhead	plcid_Joint,Kos_Joint,plcid_Joint2,Blk16_Joint,Blk256_Joint,bgm_Final,palid_Joint,Col_Joint,ObjPos_Joint1,Level_Joint1,Level_Jointbg
 
 	lhead	plcid_Joint,Kos_DVZ,plcid_Joint2,Blk16_DVZ,Blk256_DVZ,bgm_DoleDetective,palid_DVZ,Col_DVZ,ObjPos_DVZ1,Level_DVZ1,Level_DVZbg
-	lhead	plcid_Joint,Kos_HSZ,plcid_Joint2,Blk16_HSZ,Blk256_HSZ,bgm_HardwareStore,palid_DVZ,Col_HSZ,ObjPos_HSZ,Level_HSZ,Level_HSZbg
-	lhead	plcid_Joint,Kos_DVZ,plcid_Joint2,Blk16_DVZ,Blk256_DVZ,bgm_Final,palid_DVZ,Col_DVZ,ObjPos_DVZ3,Level_DVZ3,Level_DVZbg
-	lhead	plcid_Joint,Kos_DVZ,plcid_Joint2,Blk16_DVZ,Blk256_DVZ,bgm_Final,palid_DVZ,Col_DVZ,ObjPos_DVZ1,Level_DVZ1,Level_DVZbg
+	lhead	plcid_Joint,Kos_HSZ,plcid_Joint2,Blk16_HSZ,Blk256_HSZ,bgm_HardwareStore,palid_HARDWARE,Col_HSZ,ObjPos_HSZ,Level_HSZ,Level_HSZbg
+	lhead	plcid_Joint,Kos_DVZ,plcid_Joint2,Blk16_DVZ,Blk256_DVZ3,0,palid_DVZ,Col_DVZ,ObjPos_DVZ3,Level_DVZ3,Level_DVZbg
+	lhead	plcid_Joint,Kos_DVZ,plcid_Joint2,Blk16_DVZ,Blk256_DVZ3,$FF,palid_Black,Col_DVZ,ObjPos_DVZ4,Level_DVZ4,Level_DVZbg4
 
-	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_Final,palid_NGZ,Col_NGZ,ObjPos_NGZ1,Level_NGZ1,Level_NGZbg
-	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_Final,palid_NGZ,Col_NGZ,ObjPos_NGZ2,Level_NGZ2,Level_NGZbg
-	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_Final,palid_NGZ,Col_NGZ,ObjPos_NGZ3,Level_NGZ3,Level_NGZbg
-	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_Final,palid_NGZ,Col_NGZ,ObjPos_NGZ1,Level_NGZ1,Level_NGZbg
+	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_GreenHill,palid_NGZ,Col_NGZ,ObjPos_NGZ1,Level_NGZ1,Level_NGZbg
+	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_GreenHill,palid_NGZ,Col_NGZ,ObjPos_NGZ2,Level_NGZ2,Level_NGZbg
+	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_GreenHill,palid_NGZ,Col_NGZ,ObjPos_NGZ3,Level_NGZ3,Level_NGZbg
+	lhead	plcid_NGZ,Kos_NGZ,plcid_NGZ2,Blk16_NGZ,Blk256_NGZ,bgm_GreenHill,palid_NGZ,Col_NGZ,ObjPos_NGZ1,Level_NGZ1,Level_NGZbg

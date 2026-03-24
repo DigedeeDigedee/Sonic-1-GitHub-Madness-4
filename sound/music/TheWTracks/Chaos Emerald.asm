@@ -114,3 +114,4 @@ Snd_Emerald_Voices:
 	smpsVcReleaseRate   $07, $00, $07, $00
 	smpsVcTotalLevel    $80, $16, $80, $1A
 
+	smpsFooterEndSong	"TheWTracks/Chaos Emerald.asm"

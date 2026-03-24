@@ -3,6 +3,10 @@
 ; ---------------------------------------------------------------------------
 
 InternetExplorer:
+                cmpi.b  #id_Nogales,v_zone.w
+                bne.s	.normal
+                jmp	ObjSplats.l		; OPooougughh it's checking every frame!
+.normal:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	IE_Index(pc,d0.w),d1

@@ -2,20 +2,6 @@
 ; ---------------------------------------------------------------------------
 ; Object 22 - Buzz Bomber enemy (GHZ, MZ, SYZ)
 ; ---------------------------------------------------------------------------
-BuzzConfTable:	; time to move, time to move further, time to shoot, amount to shoot, movement speed
-			dc.w	$0002,	$0004,	$000E,	$0003,	$0400		; GHZ
-			dc.w	$007F,	$003B,	$0010,	$0001,	$0400		; LZ - DOES NOT APPEAR, SHOULD BE IN VRAM
-			dc.w	$0002,	$0004,	$000E,	$0003,	$0400		; MZ
-			dc.w	$007F,	$003B,	$0010,	$0001,	$0400		; SLZ - DOES NOT APPEAR, SHOULD BE IN VRAM
-			dc.w	$0002,	$0004,	$000E,	$0003,	$0400		; SYZ
-			dc.w	$007F,	$003B,	$0010,	$0001,	$0400		; SBZ - DOES NOT APPEAR, SHOULD BE IN VRAM
-			dc.w	$007F,	$003B,	$0010,	$0001,	$0400		; ENDZ - DOES NOT APPEAR, SHOULD BE IN VRAM
-			dc.w	$007F,	$003B,	$0010,	$0001,	$0400		; BREWZ
-			dc.w	$007F,	$003B,	$0010,	$0001,	$0400		; WINZ - DOES NOT APPEAR, SHOULD BE IN VRAM
-			dc.w	$007F,	$003B,	$0010,	$0001,	$0400		; JOINTZ - DOES NOT APPEAR, SHOULD BE IN VRAM
-			dc.w	$007F,	$003B,	$0010,	$0001,	$0400		; DVZ - DOES NOT APPEAR, SHOULD BE IN VRAM
-			dc.w	$007F,	$003B,	$0010,	$0001,	$0400		; NO-GAY-LES - DOES NOT APPEAR, SHOULD BE IN VRAM
-
 
 BuzzBomber:
 		moveq	#0,d0
@@ -31,7 +17,7 @@ buzz_ConfSpeed = objoff_30
 buzz_timedelay = objoff_32
 buzz_buzzstatus = objoff_34
 buzz_ConfMoveTime = objoff_36
-buzz_ConfMoveTime2 = objoff_38
+ConfMissileDelay = objoff_38
 buzz_ConfShotTime = objoff_3A
 buzz_ConfShot = objoff_3C
 buzz_shots = objoff_3E
@@ -52,16 +38,35 @@ Buzz_Main:	; Routine 0
 		move.w	#make_art_tile(ArtTile_CBZBuzz_Bomber,0,0),obGfx(a0)
 		move.b	#$E,obActWid(a0)
 .NotCBZ:
-;		move.w	#0,d0
-;		move.b	(v_zone),d0
-;		lsl.w	#7,d0
-		lea 	BuzzConfTable(pc),a1
-		move.w	(a1),(a2)
-		move.w	(a2)+,buzz_ConfMoveTime(a0)
-		move.w	(a2)+,buzz_ConfMoveTime2(a0)
-		move.w	(a2)+,buzz_ConfShotTime(a0)
-		move.w	(a2)+,buzz_ConfShot(a0)
-		move.w	(a2)+,buzz_ConfSpeed(a0)
+		moveq	#0,d0
+		move.b	(v_zone),d0
+		lsl.w	#4,d0
+		lea	BuzzConfTable(pc,d0.w),a1
+
+		move.l	(a1)+,buzz_ConfMoveTime(a0) ; changed to move.l to also move the ConfMissileDelay
+		;move.w	(a1)+,ConfMissileDelay(a0)
+		move.l	(a1)+,buzz_ConfShotTime(a0) ; changed to move.l to also move the ConfShot
+		;move.w	(a1)+,buzz_ConfShot(a0)
+		move.w	(a1)+,buzz_ConfSpeed(a0)
+		bra.w	Buzz_Action
+
+BuzzConfTable:
+; time to move, missile delay, time to shoot, amount to shoot, movement speed
+
+								;this, this and this are just for padding but can also be used in the future i guess.
+
+			dc.w	$0002,	$0004,	$000E,	$0003,	$0400,  $0000, $0000,  $0000		; GHZ
+			dc.w	$007F,	$003B,	$0010,	$0001,	$0400,  $0000, $0000,  $0000		; LZ - DOES NOT APPEAR, SHOULD BE IN VRAM
+			dc.w	$0002,	$0004,	$000E,	$0003,	$0400,  $0000, $0000,  $0000		; MZ
+			dc.w	$007F,	$003B,	$0010,	$0001,	$0400,  $0000, $0000,  $0000		; SLZ - DOES NOT APPEAR, SHOULD BE IN VRAM
+			dc.w	$0002,	$0004,	$000E,	$0003,	$0400,  $0000, $0000,  $0000		; SYZ
+			dc.w	$007F,	$003B,	$0010,	$0001,	$0400,  $0000, $0000,  $0000		; SBZ - DOES NOT APPEAR, SHOULD BE IN VRAM
+			dc.w	$007F,	$003B,	$0010,	$0001,	$0400,  $0000, $0000,  $0000		; ENDZ - DOES NOT APPEAR, SHOULD BE IN VRAM
+			dc.w	$007F,	$0000,	$0006,	$0006,	$0700,  $0000, $0000,  $0000		; BREWZ
+			dc.w	$007F,	$003B,	$0010,	$0001,	$0400,  $0000, $0000,  $0000		; WINZ - DOES NOT APPEAR, SHOULD BE IN VRAM
+			dc.w	$007F,	$003B,	$0010,	$0001,	$0400,  $0000, $0000,  $0000		; JOINTZ - DOES NOT APPEAR, SHOULD BE IN VRAM
+			dc.w	$007F,	$003B,	$0010,	$0001,	$0400,  $0000, $0000,  $0000		; DVZ - DOES NOT APPEAR, SHOULD BE IN VRAM
+			dc.w	$007F,	$003B,	$0010,	$0001,	$0400,  $0000, $0000,  $0000		; NO-GAY-LES - DOES NOT APPEAR, SHOULD BE IN VRAM
 
 Buzz_Action:	; Routine 2
 		moveq	#0,d0
@@ -118,12 +123,11 @@ Buzz_Action:	; Routine 2
 .noflip2:
 		add.w	d0,obX(a1)
 		move.b	obStatus(a0),obStatus(a1)
-		move.w	buzz_ConfMoveTime2(a0),buzz_timedelay(a1)	
+		move.w	ConfMissileDelay(a0),buzz_timedelay(a1)	
 		move.l	a0,buzz_parent(a1)
 		addq.w 	#1,buzz_shots(a0)
 
 		move.w	buzz_ConfShot(a0),d0
-;		move.w	buzz_shots(a0),d1
 		cmp.w	buzz_shots(a0),d0
 		bhi.s	.keepfiring
 

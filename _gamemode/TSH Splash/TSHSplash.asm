@@ -1,4 +1,4 @@
-GM_TheSunsetHacker:
+GM_TheSunsetJester:
 		move.b	#bgm_Fade,d0
 		jsr	PlaySound_Special
 		jsr	(ClearPLC).l
@@ -21,6 +21,7 @@ GM_TheSunsetHacker:
 		moveq	#0,d0
 		move.b	d0,(f_wtr_state).w
 		move.b	d0,(f_water).w
+		move.b	d0,(v_pcyc_time).w
 
 		clearRAM	v_ram_start, (v_ram_start+$2000)			; clear foreground buffers
 		clearRAM	v_objspace, v_snddriver_ram				; clear the object RAM
@@ -40,11 +41,21 @@ GM_TheSunsetHacker:
 
 		copyTilemap	v_ram_start,vram_fg+$61C,12,4
 
-		moveq	#1,d0
-		jsr	(PalLoad).l
-		moveq	#3,d0			; Move the logo palette to d0
-		jsr	(PalLoad_Fade).l	; I forgot what this does
-		move.b	#$10,(v_objspace+$40).w ; load Sunset object
+		moveq	#16/2-1,d0
+		lea	(Pal_TSH).l,a1
+		lea	(v_palette_line_1).w,a2
+.loadpal:
+		move.l	(a1)+,(a2)+
+		dbf	d0,.loadpal
+
+		moveq	#16/2-1,d0
+		lea	(Pal_Sunset).l,a1
+		lea	(v_palette_line_2).w,a2
+.loadpal2:
+		move.l	(a1)+,(a2)+
+		dbf	d0,.loadpal2
+
+		move.b	#id_Sunset,(v_objspace+$40).w ; load Sunset object
 		move.b  #0,(v_objspace+$64).w	; set the routine 
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
@@ -52,8 +63,8 @@ GM_TheSunsetHacker:
 		move.w	#40,(v_pcyc_num).w	; set cycle number to 80
 		move.w	#0,(v_pal_buffer+$12).w	; palette buffer stuff
 		move.w	#0,(v_pal_buffer+$10).w	; palette buffer stuff
-		move.w	#$BC,(v_generictimer).w	; Demo length or in this case, the timer.
-		enable_screen
+		enable_display
+		move.w	#5*60,(v_generictimer).w	; Demo length or in this case, the timer.
 		move.w	#bgm_TSHLogo,d0 ; Fade any music
 		jsr	(PlaySound_Special).l ; Play the sound
 
@@ -64,7 +75,9 @@ GM_TheSunsetHacker:
 		jsr	(BuildSprites).l
 		jsr	PalCycTSR
 		andi.b	#btnStart,(v_jpadpress1).w	; check if Start is pressed
-		beq.s	.loop
+		bne.s	.end
+		tst.w	(v_generictimer).w
+		bne.s	.loop
 
 .end:
 		move.b	#id_Title,(v_gamemode).w
@@ -90,8 +103,16 @@ PalCycTSR:
 .return:
 		rts
 ; ---------------------------------------------------------------------------
+Pal_TSH:
+	binclude "_gamemode/TSH Splash/PAL/TSH TITLE.bin"
+	even
+; ---------------------------------------------------------------------------
+Pal_Sunset:
+	binclude "_gamemode/TSH Splash/PAL/TSH Sunset.bin"
+	even
+; ---------------------------------------------------------------------------
 Cyc_Logo:
-	binclude "_gamemode/TSH Splash/Pal/Cycle - TSH.bin"
+	binclude "_gamemode/TSH Splash/PAL/Cycle - TSH.bin"
 	even
 ; ---------------------------------------------------------------------------
 	include "_gamemode/TSH Splash/OBJ/Obj_Sunset.asm"

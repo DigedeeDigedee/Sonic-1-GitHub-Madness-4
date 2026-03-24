@@ -18,9 +18,7 @@ GM_ColdBrew:
 		jsr		(PlaySound_Special).l  ; fade out music
 		jsr		(ClearPLC).l
 		jsr		(PaletteFadeOut).l
-		move.w	(v_vdp_buffer1).w,d0
-		ori.b	#$BF,d0
-		move.w	d0,(vdp_control_port).l
+		disable_display
 		lea	(vdp_control_port).l,a6
 		move.w	#$8004,(a6)	; use 8-colour mode
 		move.w	#$8200+(vram_fg>>10),(a6) ; set foreground nametable address
@@ -31,10 +29,10 @@ GM_ColdBrew:
 		move.w	#$8C00,(a6)	; set to H32 mode
 		move.w	#$8700,(a6)	; set background colour (line 0; colour 0)
 		jsr		(ClearScreen).l
-;		ResetDMAQueue
-		move.w	(v_vdp_buffer1).w,d0
-		ori.b	#$40,d0
-		move.w	d0,(vdp_control_port).l
+
+		fillVRAM	0, $0000, $10000
+
+		enable_display
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
 		move.w	#$7FF,d1
@@ -44,27 +42,28 @@ GM_CB_ClrObjRam:
 
 		locVRAM	0
 		lea	(Nem_ColdBrew).l,a0 ;	; load art
-		jsr		(NemDec).l
-		lea	($FF0000).l,a1
+		jsr	(NemDec).w
+		lea	(v_ram_start).l,a1
 		lea	(Eni_ColdBrew).l,a0 ; load map
 		move.w	#0,d0
 		jsr		(EniDec).l
 
-		lea	($FF0000).l,a1
+		lea	(v_ram_start).l,a1
 		locVRAM	$E000,d0
 		moveq	#$3F,d1
 		moveq	#$1D,d2
-		jsr		(TilemapToVRAM).l
+		jsr	(TilemapToVRAM).l
 		move.w	#3*60,(v_generictimer).w 
 		moveq	#palid_ColdBrew,d0
-		jsr		(PalLoad1).l		; load palette
-		jsr		(PaletteFadeIn).l
+		jsr	(PalLoad1).l		; load palette
+		jsr	(PaletteFadeIn).l
 		move.b	#bgm_ColdBrew,d0
-		jsr		(PlaySound).l ; music
+		move.b	d0,(v_zonemusic).w
+		jsr	(PlaySound).l ; music
 
 GM_CB_MainLoop:
 		move.b	#2,(v_vbla_routine).w
-		jsr		(WaitForVBla).l
+		jsr	(WaitForVBla).l
 		cmpi.w	#60,(v_generictimer).w ; is it time to change frames?
 		bne.s	.dontdistort	; if not, branch
 		lea	(v_hscrolltablebuffer).w,a1	; copy bg positions to hscroll
@@ -85,12 +84,14 @@ GM_CB_MainLoop:
 		move.b	#$1D,(v_objspace).W
 
 		moveq	#palid_ColdBrewG,d0
-		jsr		(PalLoad2).l		; load palette
+		jsr	(PalLoad2).l		; load palette
 
 GM_CB_MainLoop2:
 		move.b	#2,(v_vbla_routine).w
-		jsr		(WaitForVBla).l
-		jsr	(ExecuteObjects).l
+		jsr	(WaitForVBla).l
+;		jsr	(ExecuteObjects).l
+		lea	v_objspace.w,a0
+		jsr	BrewText
 		jsr	(BuildSprites).l
 		cmpi.b	#btnStart,(v_jpadhold1).w	; is Start being pressed?
 		beq.w	GM_CB_ChangeMode		; if yes, branch.
@@ -102,11 +103,13 @@ GM_CB_MainLoop2:
 		clearRAM v_misc_variables
 		clearRAM v_levelvariables
 		clearRAM v_timingandscreenvariables
+		disable_display
 		disable_ints
 		fillVRAM $2F,0,$10000		; fill vram with dummy tiles
-		jsr		(ClearScreen).l
+		jsr	(ClearScreen).l
+		enable_display
 		moveq	#plcid_Main,d0
-		jsr		(AddPLC).l			; load standard patterns
+		jsr	(AddPLC).l			; load standard patterns
 ;		moveq	#0,d0
 ;		move.b	(v_zone).w,d0
 ;		lsl.w	#7,d0
@@ -130,13 +133,13 @@ GM_CB_MainLoop2:
 		move.w	#$8720,(a6)		; set background colour (line 3; colour 0)
 		move.w	#30,(v_air).w
 		enable_ints
-		move.w	#id_CBZ,(v_zone).w ; set level number to COLD BREW BABYYY
-		jsr		(LevelSizeLoad).l
-		jsr		(DeformLayers).l
+		move.b	#id_CBZ,(v_zone).w ; set level number to COLD BREW BABYYY
+		jsr	(LevelSizeLoad).l
+		jsr	(DeformLayers).l
 		bset	#2,(v_fg_scroll_flags).w
-		jsr		(LoadZoneTiles).l	; load art
-		jsr		(LevelDataLoad).l ; load block mappings and palettes
-		jsr		(LoadTilesFromStart).l
+		jsr	(LoadZoneTiles).l	; load art
+		jsr	(LevelDataLoad).l ; load block mappings and palettes
+		jsr	(LoadTilesFromStart).l
 
 		move.b	#id_SonicPlayer,(v_player).w ; load "that guy who is he seriously"
 
@@ -170,7 +173,7 @@ CBLevel_Delay:
 
 CBLevel_DelayLoop:
 		move.b	#8,(v_vbla_routine).w
-		jsr		(WaitForVBla).l
+		jsr	(WaitForVBla).l
 		dbf	d1,CBLevel_DelayLoop
 		moveq	#plcid_Explode,d0
 		jsr	(AddPLC).l	; load explosion gfx
@@ -178,7 +181,7 @@ CBLevel_DelayLoop:
 		move.b	(v_zone).w,d0
 		addi.w	#plcid_GHZAnimals,d0
 		jsr	(AddPLC).l	; load animal gfx (level no. + $15)
-		jsr		(PaletteWhiteIn).l
+		jsr	(PaletteWhiteIn).l
 ; ---------------------------------------------------------------------------
 ; Main level loop (when all title card and loading sequences are finished)
 ; ---------------------------------------------------------------------------
@@ -187,6 +190,7 @@ CBLevel_MainLoop:
 		move.b	#8,(v_vbla_routine).w
 		jsr		(WaitForVBla).l
 		addq.w	#1,(v_framecount).w ; add 1 to level timer
+		jsr	(MoveSonicInDemo).l
 		jsr	(ExecuteObjects).l
 		jsr	(DeformLayers).l
 		jsr	(BuildSprites).l

@@ -56,6 +56,9 @@ dClintLoopB:			ds.b 1
 ; Amen Break Sample Set
 dAmenCrash:			ds.b 1
 
+; HOMERO
+dHomero:				ds.b 1
+
 ; In-Game SFX Samples
 dLetsGOO			ds.b 1
 dBoik				ds.b 1
@@ -69,7 +72,6 @@ dGayNeil			ds.b 1
 dDicks				ds.b 1
 dBabyAlarm			ds.b 1
 dYouCanSuck			ds.b 1
-dLg				ds.b 1
 dBoostPower			ds.b 1
 dClintonHi			ds.b 1
 dDoYouSuck			ds.b 1

@@ -86,32 +86,28 @@ id_FoxyBoo:	equ ptr_GM_FoxyBoo-GameModeArray; $24
 id_DebugMenu:	equ ptr_GM_DebugMode-GameModeArray; $28
 id_Thanatos:	equ ptr_GM_ThanatosCredits-GameModeArray; $2C
 id_ButtcrackMan:	equ ptr_GM_ButtcrackMan-GameModeArray
-id_CNNico:	equ ptr_GM_CNNicoJump-GameModeArray; $34
 id_TryAgainEnd:	equ ptr_GM_TryAgainEnd-GameModeArray; $38
 id_Fetus:	equ ptr_GM_Fetus-GameModeArray; $38
 id_Damn:	equ ptr_GM_Damn-GameModeArray
-id_TGSplash:	equ ptr_GM_TGSplash-GameModeArray; $44
-id_NMR:		equ ptr_GM_NMR-GameModeArray
-id_DaxKatter:	equ ptr_GM_DaxKatter-GameModeArray
 id_SplashSkip:	equ ptr_SplashScreenSkipper-GameModeArray
 id_Advert:	equ ptr_Advert-GameModeArray
-id_GiovanniSpl:	equ ptr_GiovanniSplash-GameModeArray
-id_NewSSRGScreen:	equ ptr_NewSSRG_Screen-GameModeArray
-;id_RPGBattle:	equ ptr_GM_RPGBattle-GameModeArray
+id_Battle:	equ ptr_EarthboundBtl-GameModeArray
+id_ClintonScr:	equ ptr_ClintonScreens-GameModeArray
 
 ; Levels
-id_GHZ:		equ 0
-id_LZ:		equ 1
-id_MZ:		equ 2
-id_SLZ:		equ 3
-id_SYZ:		equ 4
-id_SBZ:		equ 5
+id_OWZ:		equ 0
+id_ARZ:		equ 1
+id_ACZ:		equ 2
+id_MCZ:		equ 3
+id_SFZ:		equ 4
+id_PPZ:		equ 5
 id_EndZ:	equ 6
 id_SS:		equ 6
 id_CBZ:		equ 7
 id_WIN:		equ 8
 id_Joint:	equ 9
 id_DVZ:		equ 10
+id_Nogales:	equ 11
 
 ; Colours
 cBlack:		equ $000		; colour black
@@ -240,11 +236,11 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_LosTontos			; Alberta Canada	(Act 1)
 	nextenum bgm_Area5			; 			(Act 2)
 	nextenum bgm_Easton			; 			(Act 3)
-	nextenum bgm_Minecraft			; Minecraft	(Act 1)
+	nextenum bgm_Minecraft			; Minecraft	(Act 1 - Part 1)
 	nextenum bgm_Doom			; 		(Act 2)
 	nextenum bgm_BadEmerald			; 		(Act 3) + Cold Brew (Act 3)
 	nextenum bgm_TreasureCaves		; Spring Field	(Act 1)
-	nextenum bgm_CanCan			; 		(Act 2)
+	nextenum bgm_Danstar			; 		(Act 2)
 	nextenum bgm_GCV2005			; 		(Act 3)
 	nextenum bgm_fightMID			; Prongle Plant	(Act 1)
 	nextenum bgm_Cheetah			; 		(Act 2)
@@ -306,6 +302,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_ChaosEmerald
 	nextenum bgm_LimitedClear
 	nextenum bgm_Moonwalker
+	nextenum bgm_CleanSlate
 
 	; Advertisement BGM
 	nextenum bgm_PuyoReject
@@ -316,7 +313,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_SonUnderground
 	nextenum bgm_Son1UP
 	nextenum bgm_GEMSHill
-	nextenum bgm_LimitedYard
+	nextenum bgm_LimitedEgg
 	nextenum bgm_BomerDude
 
 	; Unused Full/Looping BGM
@@ -354,14 +351,21 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum bgm_ChairRoom
 	nextenum bgm_SneakySnitch
 	nextenum bgm_Skinner
-	nextenum bgm_Danstar
+	nextenum bgm_CanCan
 	nextenum bgm_Hidden
 	nextenum bgm_BossaNova
+	nextenum bgm_dam_dariram
+	nextenum Bgm_GooglePlayStock
 
 	; Unused Jingle BGM
 	nextenum bgm_Ding
 	nextenum bgm_SadMac
 	nextenum bgm_Folgers
+	nextenum bgm_CrazyMario
+
+	; nogales. i'm not renaming like 50 track labels man
+	nextenum bgm_GreenHill
+	nextenum bgm_SMWCave			; Minecraft	(Act 1 - Part 2)
 	; Keep this last
 	nextenum bgm__Last
 
@@ -424,6 +428,10 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum sfx_Fall
 	nextenum sfx_ExplodeDone
 	nextenum sfx_VehiRev
+	nextenum sfx_beepy
+	nextenum sfx_Rift
+	nextenum sfx_RiftSky
+	nextenum sfx_LGEcho
 	; Keep this last
 	nextenum	sfx__Last
 
@@ -539,7 +547,7 @@ fr_Spring3:	equ 1+$5D
 ; Boss locations
 ; The main values are based on where the camera boundaries mainly lie
 ; The end values are where the camera scrolls towards after defeat
-boss_ghz_x:	equ $2960		; Green Hill Zone
+boss_ghz_x:	equ $2800		; Green Hill Zone
 boss_ghz_y:	equ $300
 boss_ghz_end:	equ boss_ghz_x+$160
 
@@ -631,6 +639,7 @@ ArtTile_LZ_Sonic_Drowning:	equ $440
 ArtTile_LZ_Rising_Platform:	equ ArtTile_LZ_Blocks+$69
 ArtTile_LZ_Orbinaut:		equ $467
 ArtTile_LZ_Cork:		equ ArtTile_LZ_Blocks+$11A
+ArtTile_Wario:			equ $4A0
 
 ; Star Light Zone
 ArtTile_SLZ_Seesaw:		equ $374
@@ -672,7 +681,9 @@ ArtTile_FZ_Eggman_No_Vehicle:	equ $470
 
 ; General Level Art
 ArtTile_Level:			equ $000
-ArtTile_Ball_Hog:		equ $302
+ArtTile_Ball_HogH:		equ $302
+ArtTile_Ball_HogV:		equ ArtTile_Ball_HogH+$2F
+ArtTile_Proto_Explosion:	equ $385
 ArtTile_Bomb:			equ $400
 ArtTile_Crabmeat:		equ $400
 ArtTile_Missile_Disolve:	equ $41C ; Unused
@@ -698,7 +709,8 @@ ArtTile_Animal_1:		equ $580
 ArtTile_Animal_2:		equ $592
 ArtTile_Explosion:		equ $5A0
 ArtTile_Monitor:		equ $680
-ArtTile_HUD:			equ $6CA
+ArtTile_HUD:			equ $6C0
+ArtTile_SpecialAttack:	equ $6EA
 ArtTile_Sonic:			equ $780
 ArtTile_Points:			equ $797
 ArtTile_Lamppost:		equ $7A0
@@ -730,7 +742,7 @@ ArtTile_Prison_Capsule:		equ $49D
 ArtTile_Hidden_Points:		equ $4B6
 ArtTile_Warp:			equ $541
 ArtTile_Mini_Sonic:		equ $551
-ArtTile_Bonuses:		equ $570
+ArtTile_Bonuses:		equ $6E2
 ArtTile_Signpost:		equ $680
 
 ; Sega Screen

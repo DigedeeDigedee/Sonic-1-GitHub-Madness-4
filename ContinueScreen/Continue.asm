@@ -39,7 +39,7 @@ GM_Continue:
 
 ; Continue screen routine
 .ContinueScreenLoop:
-	move.b	#$12, (v_vbla_routine)
+	move.b	#$2, (v_vbla_routine)
 	jsr	WaitForVBla
 
 	; Check start input
@@ -86,7 +86,7 @@ GM_Continue:
 	jsr	QueueSound2
 
 .GameOverLoop:
-	move.b	#$12, (v_vbla_routine)
+	move.b	#$2, (v_vbla_routine)
 	jsr	WaitForVBla
 
 	tst.w	(v_generictimer).w

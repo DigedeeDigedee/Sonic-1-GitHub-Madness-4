@@ -2,9 +2,9 @@
 ; Object pointers
 ; ---------------------------------------------------------------------------
 ptr_SonicPlayer:	dc.l SonicPlayer	; $01
-ptr_Obj02:		dc.l NullObject
+ptr_Katsi:		dc.l Katsi
 ptr_Obj03:		dc.l NullObject
-ptr_Obj04:		dc.l NullObject
+ptr_Arif:		dc.l ArifBoss
 ptr_DaxKatterD:		dc.l Obj_DaxKatterD
 ptr_ClintonFucker:	dc.l ClintonFucker
 ptr_Obj07:		dc.l GM_CNNicoJumpOBJ
@@ -16,9 +16,9 @@ ptr_FlapDoor:		dc.l FlapDoor
 ptr_Signpost:		dc.l Signpost
 ptr_TitleSonic:		dc.l TitleSonic
 ptr_PSBTM:		dc.l PSBTM
-ptr_PlayerBullet:	dc.l PlayerBullet		; $10
+ptr_PlayerBullet:	dc.l PlayerBullet	; $10
 ptr_Bridge:		dc.l Bridge
-ptr_SpinningLight:	dc.l SpinningLight
+ptr_Rift:		dc.l FortnitePortal   ; no light  
 ptr_LavaMaker:		dc.l LavaMaker
 ptr_LavaBall:		dc.l LavaBall
 ptr_SwingingPlatform:	dc.l SwingingPlatform
@@ -29,7 +29,7 @@ ptr_Obj19:		dc.l Obj19
 ptr_CollapseLedge:	dc.l CollapseLedge
 ptr_WaterSurface:	dc.l WaterSurface
 ptr_Scenery:		dc.l Scenery
-ptr_MagicSwitch:	dc.l BrewText
+ptr_MagicSwitch:	dc.l MagicSwitch
 ptr_BallHog:		dc.l BallHog
 ptr_Crabmeat:		dc.l Crabmeat
 ptr_Cannonball:		dc.l Cannonball		; $20
@@ -41,7 +41,7 @@ ptr_Rings:		dc.l Rings
 ptr_Monitor:		dc.l Monitor
 ptr_ExplosionItem:	dc.l ExplosionItem
 ptr_Animals:		dc.l Animals		; $28
-ptr_Points:		dc.l Points
+ptr_Points:		dc.l NullObject
 ptr_AutoDoor:		dc.l AutoDoor
 ptr_Chopper:		dc.l Chopper
 ptr_Jaws:		dc.l Jaws
@@ -75,7 +75,6 @@ ptr_Bumper:		dc.l Bumper
 ptr_BossBall:		dc.l BossBall		; $48
 ptr_WaterSound:		dc.l WaterSound
 ptr_WBomb:		dc.l Obj_WBomb
-;ptr_WBomb:		dc.l NullObject		; Until I can get the SHC Screen working
 ptr_GiantRing:		dc.l GiantRing
 ptr_GeyserMaker:	dc.l GeyserMaker
 ptr_LavaGeyser:		dc.l LavaGeyser
@@ -129,8 +128,8 @@ ptr_RingFlash:		dc.l RingFlash
 ptr_HiddenBonus:	dc.l HiddenBonus
 ptr_SSResult:		dc.l SSResult
 ptr_SSRChaos:		dc.l SSRChaos
-ptr_ContScrCur:	dc.l ContScrCur	; $80
-ptr_ContSonic:		dc.l ContSonic
+ptr_ContScrCur:		dc.l ContScrCur		; $80
+ptr_ContSonic:		dc.l NullObject
 ptr_ScrapEggman:	dc.l ScrapEggman
 ptr_FalseFloor:		dc.l FalseFloor
 ptr_EggmanCylinder:	dc.l EggmanCylinder
@@ -144,14 +143,17 @@ ptr_EndEggman:		dc.l EndEggman
 ptr_TryChaos:		dc.l TryChaos
 ptr_ExplosionSHC:	dc.l ExplosionSHC
 ptr_Roaring_Knight:	dc.l Obj_Roaring_Knight
+ptr_Sunset:		dc.l ObjSunset
+ptr_RobiWK:		dc.l OBJ_RobiWK_Logo
+;ptr_Sunset:		dc.l NullObject
 
 NullObject:
 		jmp	(DeleteObject).l	; It would be safer to have this instruction here, but instead it just falls through to ObjectFall
 
 id_SonicPlayer:		equ ((ptr_SonicPlayer-Obj_Index)/4)+1		; $01
-id_Obj02:		equ ((ptr_Obj02-Obj_Index)/4)+1
+id_Katsi:		equ ((ptr_Katsi-Obj_Index)/4)+1
 id_Obj03:		equ ((ptr_Obj03-Obj_Index)/4)+1
-id_Obj04:		equ ((ptr_Obj04-Obj_Index)/4)+1
+id_Arif:		equ ((ptr_Arif-Obj_Index)/4)+1
 id_DaxKatterD:		equ ((ptr_DaxKatterD-Obj_Index)/4)+1
 id_ClintonFucker:	equ ((ptr_ClintonFucker-Obj_Index)/4)+1
 id_Obj07:		equ ((ptr_Obj07-Obj_Index)/4)+1
@@ -165,7 +167,7 @@ id_TitleSonic:		equ ((ptr_TitleSonic-Obj_Index)/4)+1
 id_PSBTM:		equ ((ptr_PSBTM-Obj_Index)/4)+1
 id_PlayerBullet:		equ ((ptr_PlayerBullet-Obj_Index)/4)+1			; $10
 id_Bridge:		equ ((ptr_Bridge-Obj_Index)/4)+1
-id_SpinningLight:	equ ((ptr_SpinningLight-Obj_Index)/4)+1
+id_Rift:		equ ((ptr_Rift-Obj_Index)/4)+1   ; Atolly
 id_LavaMaker:		equ ((ptr_LavaMaker-Obj_Index)/4)+1
 id_LavaBall:		equ ((ptr_LavaBall-Obj_Index)/4)+1
 id_SwingingPlatform:	equ ((ptr_SwingingPlatform-Obj_Index)/4)+1
@@ -290,3 +292,5 @@ id_EndEggman:		equ ((ptr_EndEggman-Obj_Index)/4)+1
 id_TryChaos:		equ ((ptr_TryChaos-Obj_Index)/4)+1
 id_ExplosionSHC:	equ ((ptr_ExplosionSHC-Obj_Index)/4)+1
 id_Roaring_Knight:	equ ((ptr_Roaring_Knight-Obj_Index)/4)+1
+id_Sunset:		equ ((ptr_Sunset-Obj_Index)/4)+1
+id_RobiWK_Logo:		equ ((ptr_RobiWK-Obj_Index)/4)+1

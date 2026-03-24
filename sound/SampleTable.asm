@@ -46,10 +46,12 @@ SampleTable:
 
 	dcSample	TYPE_DPCM,	CTC1_Tick,	16000			; $A1
 
-	dcSample	TYPE_DPCM,	CF_DrumLoopA,	16000			; $9F
-	dcSample	TYPE_DPCM,	CF_DrumLoopB,	16000			; $A0
+	dcSample	TYPE_DPCM,	CF_DrumLoopA,	15900			; $9F
+	dcSample	TYPE_DPCM,	CF_DrumLoopB,	15900			; $A0
 
 	dcSample	TYPE_DPCM,	Amen_Crash,	11025			; $9E
+
+	dcSample	TYPE_PCM,	Homero,	16000			; $9E
 
 	; In-Game SFX SAMPLES
 	dcSample	TYPE_PCM,	letsgoeee,	8000,	FLAGS_SFX	; This is the most important one!!! :fire: :fire: :fire:
@@ -64,7 +66,6 @@ SampleTable:
 	dcSample	TYPE_PCM,	CL_Dicks,	11297			; $BF
 	dcSample	TYPE_PCM,	BabyAlarm,	0,	FLAGS_SFX	; $C2
 	dcSample	TYPE_PCM,	CL_YouCanSuck,	11297,	FLAGS_SFX	; $BD
-	dcSample	TYPE_PCM,	Lg,		16000,	FLAGS_SFX	; $CB
 	dcSample	TYPE_DPCM,	Boost,		16000,	FLAGS_SFX	; $B6
 	dcSample	TYPE_DPCM,	ClintonHi,	20600,	FLAGS_SFX	; $C6
 	dcSample	TYPE_PCM,	CL_DoYouSuck,	11297,	FLAGS_SFX	; $BE
@@ -161,6 +162,10 @@ SampleTable:
 	incdac	Amen_Crash, "sound/dac/amenbreak/crash.dpcm"
 
 ; ---------------------------------------------------------------
+; Homero
+	incdac	Homero, "sound/dac/homero.wav"
+
+; ---------------------------------------------------------------
 ; SFX Samples
 	incdac	letsgoeee, "sound/dac/TheSunsetHacker/letsgoeee.pcm"		; :fire: :fire: :fire: :fire: :fire:
 	incdac	Boik, "sound/dac/boik.wav"
@@ -175,7 +180,6 @@ SampleTable:
 	incdac	CL_Dicks, "sound/dac/CL_Dicks.wav"
 	incdac	BabyAlarm, "sound/dac/BabyAlarm.wav"
 	incdac	CL_YouCanSuck, "sound/dac/CL_YouCanSuck.wav"
-	incdac	Lg, "sound/dac/lg/Echo.pcm"
 	incdac	Boost,"sound/dac/GenesisDoes/Boost.dpcm"
 	incdac	ClintonHi, "sound/dac/Clinton Fucker/hi.dpcm"
 	incdac	CL_OnTheBall, "sound/dac/CL_OnTheBall.wav"

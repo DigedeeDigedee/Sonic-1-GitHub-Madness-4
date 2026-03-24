@@ -20,6 +20,10 @@ Ledge_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Ledge,obMap(a0)
 		move.w	#make_art_tile(ArtTile_Level,2,0),obGfx(a0)
+		cmpi.b	#id_Nogales,v_zone.w
+		bne.s	.notNogales
+		move.l	#Map_LedgeNogal,obMap(a0)
+.notNogales:
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#7,ledge_timedelay(a0) ; set time delay for collapse

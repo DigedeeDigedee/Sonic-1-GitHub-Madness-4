@@ -43,7 +43,7 @@ Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 		zonewarning Deform_Index,2
 		dc.w Deform_GHZ-Deform_Index, Deform_CBZ-Deform_Index
 		dc.w Deform_WZ-Deform_Index, Deform_Joint-Deform_Index
-		dc.w Deform_LZ-Deform_Index,Deform_LZ-Deform_Index
+		dc.w Deform_LZ-Deform_Index,Deform_NGZ-Deform_Index
 		dc.w Deform_LZ-Deform_Index,Deform_LZ-Deform_Index
 ; ---------------------------------------------------------------------------
 ; Green Hill Zone background layer deformation code
@@ -244,7 +244,11 @@ Lz_Scroll_Data:
 
 
 Deform_MZ:
-	; block 1 - dungeon interior
+		move.w  (v_zone).w,d0
+		cmpi.w  #(id_ACZ<<8)+3,d0
+		beq.w   Deform_MZ4
+		
+Deform_MZNormal:	
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
@@ -333,7 +337,43 @@ Deform_MZ:
 		lsr.w	#3,d0
 		lea	(a2,d0.w),a2
 		bra.w	Bg_Scroll_X
+		rts
 ; End of function Deform_MZ
+
+
+Deform_MZ4:
+      ; plain background deformation
+		move.w	(v_scrshiftx).w,d4
+		ext.l	d4		
+		asl.l	#6,d4
+		move.w	(v_scrshifty).w,d5
+		ext.l	d5
+		asl.l	#5,d5
+		bsr.w	BGScroll_XY
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_vdp).w
+	; copy fg & bg x-position to hscroll table
+		lea	(v_hscrolltablebuffer).w,a1
+		move.w	#190,d1
+		move.w	(v_screenposx).w,d0
+		neg.w	d0
+		asr.w   #1,d0
+		swap	d0
+		
+MZ4BG:
+		move.w	(v_bgscreenposx).w,d0
+		neg.w	d0
+	
+MZ4BG2:		
+		move.l	d0,(a1)+
+		dbf	d1,MZ4BG2	
+		move.w	(v_screenposx).w,d0		
+		move.w  #$27,d1
+	    neg.w   d0    
+
+	.loop:		
+		move.l	d0,(a1)+
+		dbf	d1,.loop
+		rts
 
 ; ---------------------------------------------------------------------------
 ; Star Light Zone background layer deformation code
@@ -512,9 +552,9 @@ Deform_SBZ:
 		add.w	d2,a1
 
 		move.w	v_bgscroll_buffer+2,d0
-        	jsr     CalcSine
-        	tst.w	d0
-        	move.w	d0,d1
+		bsr.w	CalcSine
+		tst.w	d0
+		move.w	d0,d1
 		move.w	v_screenposy,d0
 		swap	d0
 		tst.w	d1
@@ -820,7 +860,75 @@ Deform_CBZ:
 		move.l	d0,(a1)+
 		dbf	d1,.waterLoop
 		rts
-; End of function Deform_CBZ
+
+; ---------------------------------------------------------------------------
+; Nogales Zone background layer deformation code
+; ---------------------------------------------------------------------------
+
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+Deform_NGZ:
+		move.w	(v_scrshiftx).w,d4
+		ext.l	d4
+		asl.l	#5,d4
+		move.l	d4,d1
+		asl.l	#1,d4
+		add.l	d1,d4
+		moveq	#0,d5
+		bsr.w	BGScroll_XY
+		bsr.w	ScrollBlock4
+		lea	(v_hscrolltablebuffer).w,a1
+		move.w	(v_screenposy).w,d0
+		andi.w	#$7FF,d0
+		lsr.w	#5,d0
+		neg.w	d0
+		addi.w	#$24,d0
+		move.w	d0,(v_bg2screenposy).w
+		move.w	d0,d4
+		bsr.w	BGScroll_YAbsolute
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_vdp).w
+		move.w	#$6F,d1
+		sub.w	d4,d1
+		move.w	(v_screenposx).w,d0
+		neg.w	d0
+		swap	d0
+		move.w	(v_bgscreenposx).w,d0
+		neg.w	d0
+
+.loc_6346:
+		move.l	d0,(a1)+
+		dbf	d1,.loc_6346
+		move.w	#$27,d1
+		move.w	(v_bg2screenposx).w,d0
+		neg.w	d0
+
+.loc_6356:
+		move.l	d0,(a1)+
+		dbf	d1,.loc_6356
+		move.w	(v_bg2screenposx).w,d0
+		addi.w	#0,d0
+		move.w	(v_screenposx).w,d2
+		addi.w	#-$200,d2
+		sub.w	d0,d2
+		ext.l	d2
+		asl.l	#8,d2
+		divs.w	#$68,d2
+		ext.l	d2
+		asl.l	#8,d2
+		moveq	#0,d3
+		move.w	d0,d3
+		move.w	#$47,d1
+		add.w	d4,d1
+
+.loc_6384:
+		move.w	d3,d0
+		neg.w	d0
+		move.l	d0,(a1)+
+		swap	d3
+		add.l	d2,d3
+		swap	d3
+		dbf	d1,.loc_6384
+		rts
 
 ; ---------------------------------------------------------------------------
 ; this sucks redo it plz
@@ -882,26 +990,24 @@ ScrollHoriz:
 MoveScreenHoriz:
 		move.w	(v_player+obX).w,d0
 		sub.w	(v_screenposx).w,d0 ; Sonic's distance from left edge of screen
-	if FixBugs
-		; Fix horizontal wrap bug
-		; https://info.sonicretro.org/SCHG_How-to:Fix_the_camera_follow_bug
-		
-		; It's too stupid to put links in this lol - ato
-		
-		; https://www.youtube.com/watch?v=xvFZjo5PgG0
-		
+		cmpi.b	#id_ColdBrew,(v_gamemode).w
+		beq.s	.UseColdBrewCam
 		subi.w	#(320/2)-16,d0	; is distance less than 144px?
 		blt.s	SH_BehindMid	; if yes, branch
 		subi.w	#16,d0		; is distance more than 160px?
 		bge.s	SH_AheadOfMid	; if yes, branch
-	else
-		subi.w	#(320/2)-16,d0	; is distance less than 144px?
-		bcs.s	SH_BehindMid	; if yes, branch
-		subi.w	#16,d0		; is distance more than 160px?
-		bcc.s	SH_AheadOfMid	; if yes, branch
-	endif
 		clr.w	(v_scrshiftx).w
 		rts
+
+.UseColdBrewCam:
+		subi.w	#(256/2)-16,d0	; is distance less than 144px?
+		blt.s	SH_BehindMid	; if yes, branch
+		subi.w	#16,d0		; is distance more than 160px?
+		bge.s	SH_AheadOfMid	; if yes, branch
+		clr.w	(v_scrshiftx).w
+		rts
+	
+
 ; ===========================================================================
 
 SH_AheadOfMid:
@@ -1275,3 +1381,35 @@ BGScroll_Block3:
 		bset	d6,(v_bg3_scroll_flags).w
 	.return:
 		rts
+;-------------------------------------------------------------------------------	
+; literal copy and paste
+;-------------------------------------------------------------------------------
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+
+ScrollBlock4:
+		move.w	(v_bg2screenposx).w,d2
+		move.w	(v_bg2screenposy).w,d3
+		move.w	(v_scrshiftx).w,d0
+		ext.l	d0
+		asl.l	#7,d0
+		add.l	d0,(v_bg2screenposx).w
+		move.w	(v_bg2screenposx).w,d0
+		andi.w	#$10,d0
+		move.b	(v_bg2_xblock).w,d1
+		eor.b	d1,d0
+		bne.s	locret_6884
+		eori.b	#$10,(v_bg2_xblock).w
+		move.w	(v_bg2screenposx).w,d0
+		sub.w	d2,d0
+		bpl.s	loc_687E
+		bset	#2,(v_bg2_scroll_flags).w
+		bra.s	locret_6884
+; ===========================================================================
+
+loc_687E:
+		bset	#3,(v_bg2_scroll_flags).w
+
+locret_6884:
+		rts
+; End of function ScrollBlock4

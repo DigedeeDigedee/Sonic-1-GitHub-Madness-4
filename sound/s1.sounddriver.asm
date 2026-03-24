@@ -41,18 +41,16 @@ PSG_Index:
 		dc.l PSG7, PSG8, PSG9
 
 		dc.l PSG_1UP01, PSG_1UP02, PSG_1UP03
-
 		dc.l PSG_DUN3_01, PSG_DUN3_02, PSG_DUN3_03
-
 		dc.l PSG_CF_01, PSG_CF_02, PSG_GO_01
-
 		dc.l PSG_GCV1, PSG_GCV2
-
 		dc.l PSG_DD_01, PSG_DD_02
-
 		dc.l PSG_SHC_01, PSG_SHC_02, PSG_SHC_03, PSG_SHC_04
-
-		dc.l PSG_S3_01, PSG_S3_0C, PSG_SA_0F, PSG_SMB1
+		dc.l PSG_S3_01, PSG_S3_03, PSG_S3_0C, PSG_SA_0F
+		dc.l PSG_SMB1, PSG_Dole01, PSG_Dole02, PSG_Dole03
+		dc.l PSG_Dole04, PSG_DSK01, PSG_DSK02
+		dc.l PSG_Chicken_01, PSG_Chicken_02, PSG_Chicken_03
+		dc.l PSG_Danstar_01, PSG_Danstar_02, PSG_Danstar_03, PSG_Danstar_04
 
 PSG1:		dc.b 0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,$80
 	even
@@ -122,11 +120,11 @@ PSG_GO_01:	dc.b 0,2,2,2,2,2,3,3,3,3,4,4,5,5,6,6,7
 	even
 
 PSG_GCV1:
-		dc.b	0,0,4,4,5,5,6,6,7,7,8,8,$80
+		dc.b 0,0,4,4,5,5,6,6,7,7,8,8,$80
 	even
 
 PSG_GCV2:
-		dc.b	0,0,7,$F,$80
+		dc.b 0,0,7,$F,$80
 	even
 
 PSG_DD_01:	dc.b 0,2,7,$D,$F,$80
@@ -135,53 +133,116 @@ PSG_DD_01:	dc.b 0,2,7,$D,$F,$80
 PSG_DD_02:	dc.b 1,0,0,0,0,1,2,$80
 	even
 
-PSG_SHC_01:
-	dc.b	0,1,3,7,$10,$80
+PSG_SHC_01:	dc.b	0,1,3,7,$10,$80
 	even
 
-PSG_SHC_02:
-	dc.b	0,0,0,0,1,1,1,1,2,2,3,3,4,5,5,6
-	dc.b	7,8,8,9,$A,$A,$B,$C,$D,$E,$F,$80
+PSG_SHC_02:	dc.b	0,0,0,0,1,1,1,1,2,2,3,3,4,5,5,6
+		dc.b	7,8,8,9,$A,$A,$B,$C,$D,$E,$F,$80
 	even
 
-PSG_SHC_03:
-	dc.b	0,0,0,0,1,2,2,2,2,3,3,3,4,4,5,5
-	dc.b	5,6,6,7,7,7,8,8,8,8,9,9,$A,$A,$A,$B
-	dc.b	$B,$C,$C,$D,$D,$E,$E,$F,$80
+PSG_SHC_03:	dc.b	0,0,0,0,1,2,2,2,2,3,3,3,4,4,5,5
+		dc.b	5,6,6,7,7,7,8,8,8,8,9,9,$A,$A,$A,$B
+		dc.b	$B,$C,$C,$D,$D,$E,$E,$F,$80
 	even
 
-PSG_SHC_04:
-	dc.b	0,1,1,2,3,4,5,6,7,8,$80
+PSG_SHC_04:	dc.b	0,1,1,2,3,4,5,6,7,8,$80
 	even
 
-PSG_S3_01:
-	dc.b	2,$F,$80
+PSG_S3_01:	dc.b	2,$F,$80
 	even
 
-PSG_S3_0C:
-	dc.b	0,0,1,1,3,3,4,5,$F,$80
+PSG_S3_03:	dc.b	2,1,0,0,1,2,2,2,2,2,2,2,2,2,2,2
+		dc.b	2,3,3,3,4,4,4,5,$80
+	even
 
-PSG_SA_0F:
-	dc.b	$A,9,9,9,9,9,9,9,8,8,8,8,8,8,8,7
-	dc.b	7,7,7,7,7,7,7,6,6,6,6,6,6,6,5,5
-	dc.b	5,5,5,5,5,4,4,4,4,4,4,4,4,3,3,3
-	dc.b	3,3,3,3,2,2,2,2,2,2,2,1,1,1,1,1
-	dc.b	1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-	dc.b	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-	dc.b	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-	dc.b	0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1
-	dc.b	1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,4
-	dc.b	4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6
-	dc.b	6,6,6,7,7,7,7,7,7,7,8,8,8,8,8,8
-	dc.b	8,9,9,9,9,9,9,9,$A,$A,$A,$A,$A,$A,$B,$B
-	dc.b	$B,$B,$B,$B,$B,$C,$C,$C,$C,$C,$C,$C,$D,$D,$D,$D
-	dc.b	$D,$D,$D,$E,$E,$E,$E,$E,$E,$E,$F,$80
+PSG_S3_0C:	dc.b	0,0,1,1,3,3,4,5,$F,$80
+	even
+
+PSG_SA_0F:	dc.b	$A,9,9,9,9,9,9,9,8,8,8,8,8,8,8,7
+		dc.b	7,7,7,7,7,7,7,6,6,6,6,6,6,6,5,5
+		dc.b	5,5,5,5,5,4,4,4,4,4,4,4,4,3,3,3
+		dc.b	3,3,3,3,2,2,2,2,2,2,2,1,1,1,1,1
+		dc.b	1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		dc.b	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		dc.b	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		dc.b	0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1
+		dc.b	1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,4
+		dc.b	4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6
+		dc.b	6,6,6,7,7,7,7,7,7,7,8,8,8,8,8,8
+		dc.b	8,9,9,9,9,9,9,9,$A,$A,$A,$A,$A,$A,$B,$B
+		dc.b	$B,$B,$B,$B,$B,$C,$C,$C,$C,$C,$C,$C,$D,$D,$D,$D
+		dc.b	$D,$D,$D,$E,$E,$E,$E,$E,$E,$E,$F,$80
 	even
 
 PSG_SMB1:
 	dc.b	$C,6,1,1,1,1,1,1,1,2,2,2,2,2,2,2
 	dc.b	2,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4
 	dc.b	4,5,5,5,5,5,5,5,7,9,$B,$D,$F,$80
+	even
+
+PSG_Dole01:	
+	dc.b	1,2,4,6,7,8,9,$B,$C,$D,$F,$80
+	even
+
+PSG_Dole02:
+	dc.b	0,1,2,3,$80
+	even
+
+
+PSG_Dole03:
+	dc.b	5,4,3,3,2,2,2,1,1,1,1,1,1,2,2,3,3,4,4
+	dc.b	5,5,6,6,6,6,7,$80
+	even
+
+PSG_Dole04:
+	dc.b	0,1,6,$80
+	even
+
+PSG_DSK01:
+	dc.b	1,2,5,7,9,$F,$80
+	even
+
+PSG_DSK02:
+	dc.b	0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5
+	dc.b	5,6,6,6,7,7,8,9,$A,$B,$C,$C,$C,$D,$D,$D
+	dc.b	$D,$D,$E,$E,$E,$E,$E,$E,$E,$F,$80
+	even
+	
+PSG_Chicken_01:
+	dc.b	0,1,2,3,4,5,6,6,7,7,8,8,9,9,$A,$A,$B,$B
+	dc.b	$C,$C,$D,$D,$D,$E,$E,$E,$F,$80
+	even
+	
+PSG_Chicken_02:
+	dc.b	5,4,4,3,2,2,1,1,0,0,0,0,0,0,1,1,2,2,2,3
+	dc.b	3,3,4,4,5,5,5,5,6,6,7,$80
+	even
+	
+PSG_Chicken_03:
+	dc.b	0,1,2,3,3,4,5,5,6,7,8,8,9,9,$A,$A,$A,$B
+	dc.b	$B,$C,$C,$C,$C,$D,$D,$D,$E,$E,$E,$F,$80
+	even
+
+	PSG_Danstar_01:
+	dc.b	0,0,1,2,3,3,4,5,5,6,7,7,8,8,9,$A,$B,$C,$D
+	dc.b	$E,$E,$F,$80
+	even
+
+	PSG_Danstar_02:
+	dc.b	0,0,1,2,2,2,3,3,4,4,5,5,5,5,6,6,7,7,8,8,9,9
+	dc.b	$A,$A,$B,$B,$B,$C,$C,$D,$E,$80
+	even
+
+	PSG_Danstar_03:
+	dc.b	1,1,1,1,1,1,3,3,3,4,4,5,$80
+	even
+
+	PSG_Danstar_04:
+	dc.b	2,2,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	dc.b	1,1,1,1,1,1,1,1,1,2,$80
+	even
+
+
 ; ---------------------------------------------------------------------------
 ; New tempos for songs during speed shoes
 ; ---------------------------------------------------------------------------
@@ -773,20 +834,13 @@ PlaySoundID:
 		cmpi.b	#sfx__First,d7		; Is this after music but before sfx? (redundant check)
 		blo.w	.locret			; Return if yes
 		cmpi.b	#sfx__Last,d7		; Is this sfx ($A0-$CF)?
-		bls.w	Sound_PlaySFX		; Branch if yes
+		blo.w	Sound_PlaySFX		; Branch if yes
 		cmpi.b	#spec__First,d7		; Is this after sfx but before special sfx? (redundant check)
 		blo.w	.locret			; Return if yes
-	if FixBugs
 		cmpi.b	#spec__Last,d7		; Is this special sfx ($D0-$D0)?
-		bls.w	Sound_PlaySpecial	; Branch if yes
+		blo.w	Sound_PlaySpecial	; Branch if yes
 		cmpi.b	#flg__First,d7		; Is this after special sfx but before $E0?
 		blo.w	.locret			; Return if yes
-	else
-		; DANGER! Special SFXes end at $D0, yet this checks until $DF; attempting to
-		; play sounds $D1-$DF will cause a crash!
-		cmpi.b	#spec__Last+$10,d7	; Is this special sfx ($D0-$DF)?
-		blo.w	Sound_PlaySpecial	; Branch if yes
-	endif
 		cmpi.b	#flg__Last,d7		; Is this $E0-$E4?
 		bls.s	Sound_E0toE4		; Branch if yes
 ; locret_71F8C:
@@ -2887,11 +2941,22 @@ cfStopTrack:
 ; ===========================================================================
 ; loc_72E06:
 cfSetPSGNoise:
-		move.b	#$E0,SMPS_Track.VoiceControl(a5)	; Turn channel into noise channel
-		move.b	(a4)+,SMPS_Track.PSGNoise(a5)		; Save noise tone
+		move.b	#$E0,d1					; Turn track into PSG noise
+		move.b	(a4)+,d0				; Get tone noise
+		move.b	d0,SMPS_Track.PSGNoise(a5)		; Save it
+		bne.s	.enableNoiseMode
+		; leave noise mode
+		subq.b	#1,d0					; d0 = $FF ('silence PSG noise' command)
+		move.b	#$C0,d1					; Turn track into PSG 3
+.enableNoiseMode:
+		move.b	d1,SMPS_Track.VoiceControl(a5)		; Turn channel into PSG 3 or PSG noise channel
 		btst	#2,SMPS_Track.PlaybackControl(a5)	; Is track being overridden?
 		bne.s	.locret					; Return if yes
-		move.b	-1(a4),(psg_input).l			; Set tone
+		cmpi.b	#$E0,d1					; Are we entering noise mode?
+		bne.s	.writepsg				; Branch if not
+		move.b	#$DF,(psg_input).l			; Silence PSG3 tone channel so it doesn't play at noise frequency
+.writepsg:
+		move.b	d0,(psg_input).l
 ; locret_72E1E:
 .locret:
 		rts

@@ -2,31 +2,59 @@
 ; Subroutine to update the HUD
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-
 HUD_Update:
 		tst.w	(f_debugmode).w	; is debug mode on?
 		bne.w	HudDebug	; if yes, branch
+
+	; --------------------------------------
+	; check score update
+	; --------------------------------------
+
 		tst.b	(f_scorecount).w ; does the score need updating?
 		beq.s	.chkrings	; if not, branch
-
 		clr.b	(f_scorecount).w
-		locVRAM	(ArtTile_HUD+$1A)*tile_size,d0	; set VRAM address
+		locVRAM	(ArtTile_HUD+17)*tile_size,d0	; set VRAM address
 		move.l	(v_score).w,d1	; load score
 		bsr.w	Hud_Score
 
+	; --------------------------------------
+	; check rings update
+	; --------------------------------------
+
 .chkrings:
 		tst.b	(f_ringcount).w	; does the ring counter need updating?
-		beq.s	.chktime	; if not, branch
+		beq.s	.chkammo	; if not, branch
 		bpl.s	.notzero
+		locVRAM	(ArtTile_HUD+28)*tile_size
 		bsr.w	Hud_LoadZero	; reset rings to 0 if Sonic is hit
 
 .notzero:
 		clr.b	(f_ringcount).w
-		locVRAM	(ArtTile_HUD+$30)*tile_size,d0	; set VRAM address
+		locVRAM	(ArtTile_HUD+28)*tile_size,d0	; set VRAM address
 		moveq	#0,d1
 		move.w	(v_rings).w,d1	; load number of rings
 		bsr.w	Hud_Rings
+
+	; --------------------------------------
+	; check ammo update
+	; --------------------------------------
+
+.chkammo
+		tst.b	f_ammocount.w
+		beq.s	.chktime	; if not, branch
+		bpl.s	.notzero2
+		locVRAM	(ArtTile_HUD+31)*tile_size
+		bsr.w	Hud_LoadZero	; reset rings to 0 if Sonic is hit
+.notzero2:
+		clr.b	(f_ammocount).w
+		locVRAM	(ArtTile_HUD+31)*tile_size,d0	; set VRAM address
+		moveq	#0,d1
+		move.b	(v_player+playammo).w,d1	; load number of rings
+		bsr.w	Hud_Ammo	
+
+	; --------------------------------------
+	; check time update
+	; --------------------------------------
 
 .chktime:
 		tst.b	(f_timecount).w	; does the time need updating?
@@ -51,14 +79,18 @@ HUD_Update:
 		move.b	#9,(a1)		; keep as 9
 
 .updatetime:
-		locVRAM	(ArtTile_HUD+$28)*tile_size,d0
+		locVRAM	(ArtTile_HUD+24)*tile_size,d0
 		moveq	#0,d1
 		move.b	(v_timemin).w,d1 ; load minutes
 		bsr.w	Hud_Mins
-		locVRAM	(ArtTile_HUD+$2C)*tile_size,d0
+		locVRAM	(ArtTile_HUD+26)*tile_size,d0
 		moveq	#0,d1
 		move.b	(v_timesec).w,d1 ; load seconds
 		bsr.w	Hud_Secs
+
+	; --------------------------------------
+	; check lives update
+	; --------------------------------------
 
 .chklives:
 		tst.b	(f_lifecount).w ; does the lives counter need updating?
@@ -100,13 +132,13 @@ HudDebug:
 
 .notzero:
 		clr.b	(f_ringcount).w
-		locVRAM	(ArtTile_HUD+$30)*tile_size,d0	; set VRAM address
+		locVRAM	(ArtTile_HUD+35)*tile_size,d0	; set VRAM address
 		moveq	#0,d1
 		move.w	(v_rings).w,d1	; load number of rings
 		bsr.w	Hud_Rings
 
 .objcounter:
-		locVRAM	(ArtTile_HUD+$2C)*tile_size,d0	; set VRAM address
+		locVRAM	(ArtTile_HUD+33)*tile_size,d0	; set VRAM address
 		moveq	#0,d1
 		move.b	(v_spritecount).w,d1 ; load "number of objects" counter
 		bsr.w	Hud_Secs
@@ -139,7 +171,6 @@ HudDebug:
 
 
 Hud_LoadZero:
-		locVRAM	(ArtTile_HUD+$30)*tile_size
 		lea	Hud_TilesZero(pc),a2
 		move.w	#2,d2
 		bra.s	loc_1C83E
@@ -155,15 +186,15 @@ Hud_LoadZero:
 Hud_Base:
 		lea	(vdp_data_port).l,a6
 		bsr.w	Hud_Lives
-		locVRAM	(ArtTile_HUD+$18)*tile_size
+		locVRAM	(ArtTile_HUD+17)*tile_size
 		lea	Hud_TilesBase(pc),a2
-		move.w	#$E,d2
+		move.w	#17-1,d2
 
 loc_1C83E:
-		lea	Art_Hud(pc),a1
+		lea	Art_Text,a1
 
 loc_1C842:
-		move.w	#$F,d1
+		move.w	#8-1,d1
 		move.b	(a2)+,d0
 		bmi.s	loc_1C85E
 		ext.w	d0
@@ -188,8 +219,11 @@ loc_1C85E:
 ; End of function Hud_Base
 
 ; ===========================================================================
-Hud_TilesBase:	dc.b $16, $FF, $FF, $FF, $FF, $FF, $FF,	0, 0, $14, 0, 0
-Hud_TilesZero:	dc.b $FF, $FF, 0, 0
+Hud_TilesBase:	dc.b $FF, $FF, $FF, $FF, $FF, $FF, 0 
+Hud_TilesTIME:	dc.b 0, $C, 0, 0
+Hud_TilesZero:	dc.b $FF, $FF, 0
+Hud_TilesAMMO:	dc.b $1B, $2F, $E
+		even
 ; ---------------------------------------------------------------------------
 ; Subroutine to load debug mode numbers patterns
 ; ---------------------------------------------------------------------------
@@ -198,14 +232,14 @@ Hud_TilesZero:	dc.b $FF, $FF, 0, 0
 
 
 HudDb_XY:
-		locVRAM	(ArtTile_HUD+$18)*tile_size		; set VRAM address
-		move.w	(v_screenposx).w,d1 ; load camera x-position
-		swap	d1
+		locVRAM	(ArtTile_HUD+17)*tile_size		; set VRAM address
 		move.w	(v_player+obX).w,d1 ; load Sonic's x-position
 		bsr.s	HudDb_XY2
-		move.w	(v_screenposy).w,d1 ; load camera y-position
-		swap	d1
 		move.w	(v_player+obY).w,d1 ; load Sonic's y-position
+		bsr.s	HudDb_XY2
+		move.w	(v_screenposx).w,d1 ; load camera y-position
+		bsr.s	HudDb_XY2
+		move.w	(v_screenposy).w,d1 ; load camera y-position
 ; End of function HudDb_XY
 
 
@@ -213,7 +247,7 @@ HudDb_XY:
 
 
 HudDb_XY2:
-		moveq	#7,d6
+		moveq	#3,d6
 		lea	(Art_Text).l,a1
 
 HudDb_XYLoop:
@@ -224,7 +258,7 @@ HudDb_XYLoop:
 		blo.s	loc_1C8B2
 		;!@ GD: Bugfix for new S2 font to proper show hex chars
 		;addq.w	#7,d2
-		addq.w	#7-3,d2
+		addq.w	#4,d2
 
 loc_1C8B2:
 		lsl.w	#5,d2
@@ -237,9 +271,8 @@ loc_1C8B2:
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
-		swap	d1
+;		swap	d1
 		dbf	d6,HudDb_XYLoop	; repeat 7 more times
-
 		rts
 ; End of function HudDb_XY2
 
@@ -269,7 +302,7 @@ Hud_Score:
 
 Hud_LoadArt:
 		moveq	#0,d4
-		lea	Art_Hud(pc),a1
+		lea	(Art_Text).l,a1
 
 Hud_ScoreLoop:
 		moveq	#0,d2
@@ -291,7 +324,7 @@ loc_1C8F4:
 loc_1C8FE:
 		tst.w	d4
 		beq.s	loc_1C92C
-		lsl.w	#6,d2
+		lsl.w	#5,d2
 		move.l	d0,4(a6)
 		lea	(a1,d2.w),a3
 		move.l	(a3)+,(a6)
@@ -302,52 +335,49 @@ loc_1C8FE:
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
 
 loc_1C92C:
-		addi.l	#$400000,d0
+		addi.l	#$200000,d0
 		dbf	d6,Hud_ScoreLoop
 
 		rts
 
-; End of function Hud_Score
-
 ; ---------------------------------------------------------------------------
-; Subroutine to load countdown numbers on the continue screen
+; Subroutine to print ammo numbers
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
-
-ContScrCounter:
-		locVRAM	ArtTile_Continue_Number*tile_size
-		lea	(vdp_data_port).l,a6
-		lea	(Hud_10).l,a2
-		moveq	#2-1,d6
+Hud_Ammo:
+		lea	(Hud_100).l,a2
+		moveq	#2,d6
 		moveq	#0,d4
-		lea	Art_Hud(pc),a1 ; load numbers patterns
+		lea	(Art_Text).l,a1
 
-ContScr_Loop:
+.Hud_AmmoLoop:
 		moveq	#0,d2
 		move.l	(a2)+,d3
 
-loc_1C95A:
+.loc_1C8EC:
 		sub.l	d3,d1
-		blo.s	loc_1C962
+		bcs.s	.loc_1C8F4
 		addq.w	#1,d2
-		bra.s	loc_1C95A
+		bra.s	.loc_1C8EC
 ; ===========================================================================
 
-loc_1C962:
+.loc_1C8F4:
 		add.l	d3,d1
-		lsl.w	#6,d2
+		tst.w	d2
+		beq.s	.loc_1C8FE
+		move.w	#1,d4
+
+.loc_1C8FE:
+		tst.w	d6
+		beq.s	.skip
+		tst.w	d4
+		beq.s	.loc_1C92C
+.skip:
+		lsl.w	#5,d2
+		move.l	d0,4(a6)
 		lea	(a1,d2.w),a3
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
@@ -357,17 +387,64 @@ loc_1C962:
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		dbf	d6,ContScr_Loop	; repeat 1 more time
-
+		addi.l	#$200000,d0
+		dbf	d6,.Hud_AmmoLoop
 		rts
+.loc_1C92C:
+		move.l	d0,4(a6)
+		move.l	#0,(a6)
+		move.l	#0,(a6)
+		move.l	#0,(a6)
+		move.l	#0,(a6)
+		move.l	#0,(a6)
+		move.l	#0,(a6)
+		move.l	#0,(a6)
+		move.l	#0,(a6)
+		addi.l	#$200000,d0
+		dbf	d6,.Hud_AmmoLoop
+		rts
+
+; ---------------------------------------------------------------------------
+; Subroutine to load countdown numbers on the continue screen
+; ---------------------------------------------------------------------------
+;
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+;
+;
+;ContScrCounter:
+;		locVRAM	ArtTile_Continue_Number*tile_size
+;		lea	(vdp_data_port).l,a6
+;		lea	(Hud_10).l,a2
+;		moveq	#2-1,d6
+;		moveq	#0,d4
+;		lea	Art_Text,a1 ; load numbers patterns
+;
+;ContScr_Loop:
+;		moveq	#0,d2
+;		move.l	(a2)+,d3
+;
+;loc_1C95A:
+;		sub.l	d3,d1
+;		blo.s	loc_1C962
+;		addq.w	#1,d2
+;		bra.s	loc_1C95A
+; ===========================================================================
+;
+;loc_1C962:
+;		add.l	d3,d1
+;		lsl.w	#5,d2
+;		lea	(a1,d2.w),a3
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		dbf	d6,ContScr_Loop	; repeat 1 more time
+;
+;		rts
 ; End of function ContScrCounter
 
 ; ---------------------------------------------------------------------------
@@ -403,7 +480,7 @@ Hud_Secs:
 
 loc_1C9BA:
 		moveq	#0,d4
-		lea	Art_Hud(pc),a1
+		lea	Art_Text,a1
 
 Hud_TimeLoop:
 		moveq	#0,d2
@@ -423,7 +500,7 @@ loc_1C9CC:
 		move.w	#1,d4
 
 loc_1C9D6:
-		lsl.w	#6,d2
+		lsl.w	#5,d2
 		move.l	d0,4(a6)
 		lea	(a1,d2.w),a3
 		move.l	(a3)+,(a6)
@@ -434,15 +511,7 @@ loc_1C9D6:
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		addi.l	#$400000,d0
+		addi.l	#$200000,d0
 		dbf	d6,Hud_TimeLoop
 
 		rts
@@ -459,7 +528,7 @@ Hud_TimeRingBonus:
 		lea	(Hud_1000).l,a2
 		moveq	#3,d6
 		moveq	#0,d4
-		lea	Art_Hud(pc),a1
+		lea	Art_Text,a1
 
 Hud_BonusLoop:
 		moveq	#0,d2
@@ -481,7 +550,7 @@ loc_1CA26:
 loc_1CA30:
 		tst.w	d4
 		beq.s	Hud_ClrBonus
-		lsl.w	#6,d2
+		lsl.w	#5,d2
 		lea	(a1,d2.w),a3
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
@@ -491,14 +560,14 @@ loc_1CA30:
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
-		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
+;		move.l	(a3)+,(a6)
 
 loc_1CA5A:
 		dbf	d6,Hud_BonusLoop ; repeat 3 more times
@@ -507,7 +576,7 @@ loc_1CA5A:
 ; ===========================================================================
 
 Hud_ClrBonus:
-		moveq	#$F,d5
+		moveq	#7,d5
 
 Hud_ClrBonusLoop:
 		move.l	#0,(a6)

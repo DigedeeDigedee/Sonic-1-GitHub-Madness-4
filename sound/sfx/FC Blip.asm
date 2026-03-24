@@ -15,3 +15,4 @@ FC_Blip_PSG1:
 
 ; Song seems to not use any FM voices
 FC_Blip_Voices:
+	smpsFooterEndSong	"FC Blip.asm"

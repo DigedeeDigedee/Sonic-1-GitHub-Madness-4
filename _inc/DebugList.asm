@@ -14,6 +14,8 @@ DebugList:
 		dc.w .BREW-DebugList
 		dc.w .WIN-DebugList
 		dc.w .Joint-DebugList
+		dc.w .DVZ-DebugList
+		dc.w .GHZ-DebugList
 
 dbug:	macro map,object,subtype,frame,vram
 		dc.l map+(object<<24)
@@ -52,7 +54,7 @@ dbug:	macro map,object,subtype,frame,vram
 		dbug	Map_Monitor,	id_Monitor,	0,	0,	make_art_tile(ArtTile_Monitor,0,0)
 		dbug	Map_Spring,	id_Springs,	0,	0,	make_art_tile(ArtTile_Spring_Horizontal,0,0)
 		dbug	Map_Jaws,	id_Jaws,	8,	0,	make_art_tile(ArtTile_Jaws,1,0)
-		dbug	Map_Burro,	id_Burrobot,	0,	2,	make_art_tile(ArtTile_Burrobot,0,1)
+;		dbug	Map_Burro,	id_Burrobot,	0,	2,	make_art_tile(ArtTile_Burrobot,0,1)	; i want meiko to gently pet me
 		dbug	Map_Harp,	id_Harpoon,	0,	0,	make_art_tile(ArtTile_LZ_Harpoon,0,0)
 		dbug	Map_Harp,	id_Harpoon,	2,	3,	make_art_tile(ArtTile_LZ_Harpoon,0,0)
 		dbug	Map_Push,	id_PushBlock,	0,	0,	make_art_tile(ArtTile_LZ_Push_Block,2,0)
@@ -62,11 +64,11 @@ dbug:	macro map,object,subtype,frame,vram
 		dbug	Map_LBlock,	id_LabyrinthBlock, 1,	0,	make_art_tile(ArtTile_LZ_Blocks,2,0)
 		dbug	Map_LBlock,	id_LabyrinthBlock, $13,	1,	make_art_tile(ArtTile_LZ_Blocks,2,0)
 		dbug	Map_LBlock,	id_LabyrinthBlock, 5,	0,	make_art_tile(ArtTile_LZ_Blocks,2,0)
-	if FixBugs
+;	if WIIGAME
 		dbug	Map_Gar,	id_Gargoyle,	0,	0,	make_art_tile(ArtTile_LZ_Gargoyle,2,0)
-	else
-		dbug	Map_Gar,	id_Gargoyle,	0,	0,	make_art_tile(ArtTile_LZ_Sonic_Drowning-2,2,0) ; Incorrect VRAM address.
-	endif
+;	WHATABOUTOTHERGAME
+;		dbug	Map_AHAHAHAHAHA,	id_ohtergame,	0,	0,	make_art_tile(ArtTile_LZ_ALLOFTHEDAYBRO_Drowning-2,2,0) ; AHAHAHAHHAHAHAHASHHADSDHASDHI.
+;	Andrew Dobson
 		dbug	Map_LBlock,	id_LabyrinthBlock, $27,	2,	make_art_tile(ArtTile_LZ_Blocks,2,0)
 		dbug	Map_LBlock,	id_LabyrinthBlock, $30,	3,	make_art_tile(ArtTile_LZ_Blocks,2,0)
 		dbug	Map_LConv,	id_LabyrinthConvey, $7F, 0,	make_art_tile(ArtTile_LZ_Conveyor_Belt,0,0)
@@ -140,7 +142,6 @@ dbug:	macro map,object,subtype,frame,vram
 		dbug	Map_Spike,	id_Spikes,	0,	0,	make_art_tile(ArtTile_Spikes,0,0)
 		dbug	Map_Spring,	id_Springs,	0,	0,	make_art_tile(ArtTile_Spring_Horizontal,0,0)
 		dbug	Map_Roll,	id_Roller,	0,	0,	make_art_tile(ArtTile_Roller,0,0)
-		dbug	Map_Light,	id_SpinningLight, 0,	0,	make_art_tile(ArtTile_Level,0,0)
 		dbug	Map_Bump,	id_Bumper,	0,	0,	make_art_tile(ArtTile_SYZ_Bumper,0,0)
 		dbug	Map_Crab,	id_Crabmeat,	0,	0,	make_art_tile(ArtTile_Crabmeat,0,0)
 		dbug	Map_Buzz,	id_BuzzBomber,	0,	0,	make_art_tile(ArtTile_Buzz_Bomber,0,0)
@@ -183,7 +184,7 @@ dbug:	macro map,object,subtype,frame,vram
 		dbug	Map_Elec,	id_Electro,	4,	0,	make_art_tile(ArtTile_SBZ_Electric_Orb,0,0)
 		dbug	Map_Gird,	id_Girder,	0,	0,	make_art_tile(ArtTile_SBZ_Girder,2,0)
 		dbug	Map_Invis,	id_Invisibarrier, $11,	0,	make_art_tile(ArtTile_Monitor,0,1)
-		dbug	Map_Hog,	id_BallHog,	4,	0,	make_art_tile(ArtTile_Ball_Hog,1,0)
+		dbug	Map_BallHogH,	id_BallHog,	4,	0,	make_art_tile(ArtTile_Ball_HogH,1,0)
 		dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
 .SBZend:
 
@@ -212,23 +213,27 @@ dbug:	macro map,object,subtype,frame,vram
 ;			mappings	object		subtype	frame	VRAM setting
 		dbug 	Map_Ring,	id_Rings,	0,	0,	make_art_tile(ArtTile_Ring,1,0)
 		dbug	Map_Monitor,	id_Monitor,	0,	0,	make_art_tile(ArtTile_Monitor,0,0)
+		dbug	Map_IZ,	id_Crabmeat,	0,	0,	make_art_tile(ArtTile_CBZ_IZ,1,0)
+		dbug	Map_IZ,	id_Crabmeat,	1,	0,	make_art_tile(ArtTile_CBZ_IZ,1,0)
 		dbug	Map_IZ,	id_Crabmeat,	0,	0,	make_art_tile(ArtTile_CBZ_IZ,0,0)
 		dbug	Map_IZ,	id_Crabmeat,	1,	0,	make_art_tile(ArtTile_CBZ_IZ,0,0)
-		dbug	Map_Buzz,	id_BuzzBomber,	0,	0,	make_art_tile(ArtTile_CBZBuzz_Bomber,0,0)
+		dbug	Map_BuzzCBZ,	id_BuzzBomber,	0,	0,	make_art_tile(ArtTile_CBZBuzz_Bomber,0,0)
 		dbug	Map_ChopCBZ,	id_Chopper,	0,	0,	make_art_tile(ArtTile_CBZChopper,0,0)
 		dbug	Map_Spike,	id_Spikes,	0,	0,	make_art_tile(ArtTile_Spikes,0,0)
 		dbug	Map_Plat_GHZ,	id_BasicPlatform, 0,	0,	make_art_tile(ArtTile_Level,2,0)
 ;		dbug	Map_PRock,	id_PurpleRock,	0,	0,	make_art_tile(ArtTile_GHZ_Purple_Rock,3,0)
-		dbug	Map_Moto,	id_MotoBug,	0,	0,	make_art_tile(ArtTile_CBZMoto_Bug,0,0)
-		dbug	Map_Len,	id_MotoBug,	0,	0,	make_art_tile(ArtTile_CBZLen,0,0)
+		dbug	Map_MotoCBZ,	id_MotoBug,	0,	0,	make_art_tile(ArtTile_CBZMoto_Bug,0,0)
+		dbug	Map_Len,	id_Burrobot,	0,	0,	make_art_tile(ArtTile_CBZLen,0,0)
+		dbug	Map_Len,	id_Burrobot,	1,	0,	make_art_tile(ArtTile_CBZLen,1,0)
+		dbug	Map_Len,	id_Burrobot,	2,	0,	make_art_tile(ArtTile_CBZLen,3,0)
 		dbug	Map_Spring,	id_Springs,	0,	0,	make_art_tile(ArtTile_Spring_Horizontal,0,0)
 		dbug	Map_Newt,	id_Newtron,	0,	0,	make_art_tile(ArtTile_CBZNewtron,1,0)
 		dbug	Map_Spongy,	id_Newtron,	0,	0,	make_art_tile(ArtTile_CBZSpongy,0,0)
 ;		dbug	Map_Edge,	id_EdgeWalls,	0,	0,	make_art_tile(ArtTile_GHZ_Edge_Wall,2,0)
 ;		dbug	Map_GBall,	id_Obj19,	0,	0,	make_art_tile(ArtTile_GHZ_Giant_Ball,2,0)
 		dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
-		dbug	Map_GRing,	id_GiantRing,	0,	0,	make_art_tile(ArtTile_Giant_Ring,1,0)
-		dbug	Map_Bonus,	id_HiddenBonus,	1,	1,	make_art_tile(ArtTile_Hidden_Points,0,1)
+;		dbug	Map_GRing,	id_GiantRing,	0,	0,	make_art_tile(ArtTile_Giant_Ring,1,0)
+;		dbug	Map_Bonus,	id_HiddenBonus,	1,	1,	make_art_tile(ArtTile_Hidden_Points,0,1)
 ;		dbug	Map_Animal5,id_Animals,	0,	2,	make_art_tile(ArtTile_Animal_1,0,0)
 .BREWend:
 
@@ -266,4 +271,13 @@ dbug:	macro map,object,subtype,frame,vram
 
 		even
 
+.DVZ:
+		dc.w (.DVZend-.DVZ-2)/8
+;			mappings	object		subtype	frame	VRAM setting
+		dbug 	Map_Ring,	id_Rings,	0,	0,	make_art_tile(ArtTile_Ring,1,0)
+		dbug	Map_Monitor,	id_Monitor,	0,	0,	make_art_tile(ArtTile_Monitor,0,0)
+		dbug	Map_Spike,	id_Spikes,	0,	0,	make_art_tile(ArtTile_Spikes,0,0)
+		dbug	Map_Spring,	id_Springs,	0,	0,	make_art_tile(ArtTile_Spring_Horizontal,0,0)
+		dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
+.DVZend:
 		even

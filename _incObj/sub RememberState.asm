@@ -1,7 +1,7 @@
 ; ---------------------------------------------------------------------------
 ; Subroutine to remember whether an object is destroyed/collected
 ; ---------------------------------------------------------------------------
-
+MarkObjGone:
 RememberState:
 		out_of_range.w	.offscreen
 		bra.w	DisplaySprite

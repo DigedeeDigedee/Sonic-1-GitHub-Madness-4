@@ -364,7 +364,7 @@ GameInit:
 		move.w	#opcode_jmpabslong,(v_vintcode.jmp).w
 		move.l	#VBlank,(v_vintcode.addr).w
 		move.w	#opcode_rte,(v_hintcode.jmp).w
-		jsr	(InitDMAQueue).l
+		bsr.w	InitDMAQueue
 		bsr.w	VDPSetupGame
 		bsr.w	JoypadInit
 		bsr.w	Init_MegaPCM
@@ -404,20 +404,14 @@ ptr_GM_FoxyBoo:		dc.l	GM_FoxyBoo		; Foxy Scare ($24)
 ptr_GM_DebugMode:	dc.l	GM_DebugMenu		; Debug Menu ($28)
 ptr_GM_ThanatosCredits:	dc.l	GM_ThanatosCredits	; Credits - Thanatos ver. ($2C)
 ptr_GM_ButtcrackMan:	dc.l	GM_ButtcrackMan		; BUTTCRACK MAN ($30)
-ptr_GM_CNNicoJump:	dc.l	GM_CNNicoJump		; CN Logo ($34)
 ptr_GM_TryAgainEnd:	dc.l	TryAgainEnd		; Testable TRY AGAIN/END screen ($38)
 ptr_GM_Fetus:		dc.l	GM_Fetus		; Difficulty Select screen out of spite ($3C)
 ptr_GM_Damn:		dc.l	GM_Damn			; DAMN!!!!!!!!!!!!!!!!!!!!!!!
-ptr_GM_TGSplash:	dc.l	GM_TGSplash		; TG2000 Splash Screen ($44)
-ptr_GM_NMR:		dc.l	GM_NT			; Shitle Team ($48)
-ptr_GM_DaxKatter:	dc.l	GM_DaxKatter		; DaxKatter Brings You
 ptr_SplashScreenSkipper:dc.l	GM_SplashScreenSkipper	; My Stupid Splash is here
 ptr_Advert:		dc.l	GM_Advert		; For all the reject splash screens I guess
-;ptr_GM_RPGBattle:	dc.l	GM_RPGBattle		; RPG Battle (for Azure Rainforest) ($4C)
-ptr_GiovanniSplash:	dc.l	GiovanniSplash		; jo
-ptr_NewSSRG_Screen:	dc.l	NewSSRG_Screen		; Newer SSRG screenTM
-ptr_AtollySplash:	dc.l	AtollySplash		; Atogk
-
+ptr_EarthboundBtl:	dc.l	EarthboundBtl		; earthbound battle stuff
+ptr_SonicTheScreensaver:	dc.l	GM_SonicTheScreensaver	; GMZ - DVD Screensaver
+ptr_ClintonScreens:	dc.l	GM_ClintonScreens
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -524,6 +518,7 @@ VBla_Index:	dc.w VBla_00-VBla_Index	; (lag frame)
 		dc.w VBla_14-VBla_Index	; Sega Screen PCM
 		dc.w VBla_16-VBla_Index	; Continue Screen
 		dc.w VBla_18-VBla_Index	; Ending Sequence
+		dc.w VBla_1A-VBla_Index	; kys
 ; ===========================================================================
 
 ; ===========================================================================
@@ -576,7 +571,7 @@ VBla_14:
 
 VBla_04:
 		bsr.w	VBla_StandardTransfers
-		jsr 	LoadTilesAsYouMove_BGOnly
+		bsr.w	LoadTilesAsYouMove_BGOnly
 
 		tst.b 	(v_flashtimer).w
 		beq.s 	.noflash
@@ -613,6 +608,7 @@ VBla_04:
 
 ; loc_C5E:
 VBla_06:
+		jsr	ProcessDMAQueue(pc)
 		bsr.w	VBla_StandardTransfers
 		rts
 
@@ -794,6 +790,18 @@ VBla_StandardTransfers:
 		writeCRAM	v_palette_water,0	; write full water palette buffer to CRAM
 		rts
 ; End of function VBla_StandardTransfers
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; FUCKING  EXIT THE LEVEL PROPERLY FROM CLINTON FUCKER I GUESS
+; ---------------------------------------------------------------------------
+VBla_1A:
+		jsr	ProcessDMAQueue(pc)
+		bsr.w	VBla_StandardTransfers
+		tst.w	(v_generictimer).w
+		beq.w	.end
+		subq.w	#1,(v_generictimer).w
+.end:
+		bra.w	ProcessDPLC_9Tiles
 
 ;!@ GenesisDoes: Dummy int/func for Copera Soundblaster FM
 ; ===========================================================================
@@ -866,7 +874,7 @@ HBlank:
 Init_MegaPCM:
 		jsr	(MegaPCM_LoadDriver).l
 		lea	(SampleTable).l,a0
-		jsr	MegaPCM_LoadSampleTable
+		jsr	(MegaPCM_LoadSampleTable).l
 		tst.w	d0
 		beq.s	.SampleTableOk
 		nop		; hack to prevent isssue - coni
@@ -2042,6 +2050,7 @@ Pal_FelixDecision:	bincludeEndMarker	"ContinueScreen/Graphics/Tile/Decision/Pale
 Pal_FelixGameOver:	bincludeEndMarker	"ContinueScreen/Graphics/Tile/GameOver/Palette.bin"
 Pal_Joint:		bincludeEndMarker	"palette/Joint Zone.bin"
 Pal_DVZ:		bincludeEndMarker	"palette/DoleVille Zone.bin"
+Pal_HARDWARE:		bincludeEndMarker	"palette/Hardware Store.bin"
 Pal_NGZ:		bincludeEndMarker	"palette/Nogales Zone.bin"
 Pal_SplashPal:	bincludeEndMarker	"eurosega/pal.bin"
 Pal_ColdBrew:	bincludeEndMarker	"conimodes/cold brew/palette.bin"
@@ -2152,35 +2161,38 @@ Sega_GotoTitle:
 
 		btst	#bitA,(v_jpadhold1).w
 		bne.s	.skip
-		jmp	RunSplashes
+		jmp	(RunSplashes).l
+
 .skip
-;		pcm 	dEggNo	; This doesn't even work due to the Sega sample having priority and the next screen ceasing sample playback
-		rts				; skip splash screens with heavy
-		
+		move.b	#bgm_Stop,d0
+		bsr.w	QueueSound2
+		stopPCM
+
+	rept 2		; Needs two vblank interrupts to properly stop dSega
+		move.b	#2,(v_vbla_routine).w	; set routine 2 in V-Int
+		bsr.w	WaitForVBla		; wait for V-Blank to finish
+	endr
+
+		pcm	dEggNo,1		; skip splash screens with heavy (the 1 turns the jsr in playsample into a jmp)
+
 		include	"ATOGKsplashesWIP/MAIN.asm"	; Code (simply ran by inclusion)
-	
+
 		include	"LiquidSplashes/ATOownscreen/MAIN.asm"	; Code 
 
-	
-	
+		include "NEEDLE.asm" ;le shitty code
+
 ; ===========================================================================
-        include "NEEDLE.asm" ;le shitty code
-
-
-; ---------------------------------------------------------------------------
-
 ; ---------------------------------------------------------------------------
 ; Title screen
 ; ---------------------------------------------------------------------------
 
 GM_Title:
 		;move.b	#bgm_Fade,d0
-		;bsr.w	QueueSound2 ; stop music		
+		;bsr.w	QueueSound2 ; stop music
 		;GD: Bugfix to make Freddy sample play entirely from GH4 Title
-		move.b	#bgm_Stop,d0
+		move.b	#bgm_Fade,d0
 		bsr.w	QueueSound2
-		stopPCM
-		
+
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
 		lea	(vdp_control_port).l,a6
@@ -2217,15 +2229,20 @@ GM_Title:
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		bsr.w	PaletteFadeIn
-
-
+		move.b	#bgm_Stop,d0
+		bsr.w	QueueSound2
+		stopPCM
+		move.b	#2,(v_vbla_routine).w	; set routine 4 in V-Int
+		bsr.w	WaitForVBla		; wait for V-Blank to finish
 
 		move.b	#0,(v_lastlamp).w ; clear lamppost counter
 		move.w	#0,(v_debuguse).w ; disable debug item placement mode
 		move.w	#0,(f_demo).w	; disable debug mode
-		move.w	#(id_GHZ<<8),(v_zone).w	; set level to GHZ (00)
+		move.w	#(id_OWZ<<8),(v_zone).w	; set level to GHZ (00)
 		move.w	#0,(v_pcyc_time).w ; disable palette cycling
+
 		include	"ATOGKTitle/MAIN.asm"	; Code (simply ran by inclusion)
+
 FinalTitle:
 		bsr.w	PaletteWhiteOut
 		bsr.w	ClearPLC	
@@ -2302,10 +2319,10 @@ FinalTitle:
 		;clr.b	(v_pressstart+obRoutine).w ; The 'Mega Games 10' version of Sonic 1 added this line, to fix the 'PRESS START BUTTON' object not appearing
 
 ;		tst.b	(v_megadrive).w	; is console Japanese?
-;		bpl.s	.isjap		; if yes, branch
+;		bpl.s	.isjpn		; if yes, branch
 ;		move.b	#id_PSBTM,(v_titletm).w ; load "TM" object
 ;		move.b	#3,(v_titletm+obFrame).w
-;.isjap:
+;.isjpn:
 		; i feel like a rectangle cuz my rectangle is hard - rectangle from breakout (PS1)
 		move.b	#id_PSBTM,(v_ttlsonichide).w ; load object which hides part of Sonic
 		move.b	#2,(v_ttlsonichide+obFrame).w
@@ -2326,7 +2343,7 @@ Tit_MainLoop:
 		bsr.w	WaitForVBla		; wait for V-Blank to finish
 		jsr	(ExecuteObjects).l	; execute title screen objects
 ;		bsr.w	DeformLayers		; run background deformation
-		jsr	(BuildSprites).l	; display sprites
+		jsr	(BuildSprites).l		; display sprites
 		bsr.w	PalCycle_Title		; run title screen palette cycle
 		bsr.w	RunPLC			; run any potential PLC
 ; NOTE BY CONI - i commented a majority of the code, you'll need to add new routines for deform and such
@@ -2396,8 +2413,23 @@ Tit_CountC:
 
 ; loc_3230:
 Tit_ChkStartOrDemo:
+		; GMZ - Our code starts here
+		moveq	#0,d0
+		move.w	titleGoToScreensaver,d0
+		beq.s	Tit_ChkStartOrDemo_Cont
+		tst.w	(v_generictimer).w	; GMZ - Has the title screen timer expired?
+		bne.s	Tit_NoDemo	; GMZ - If not, branch
+		eori.w	#1,titleGoToScreensaver
+		move.b	#ptr_SonicTheScreensaver-GameModeArray,v_gamemode
+		rts
+
+Tit_ChkStartOrDemo_Cont:
+		; GMZ - Our code ends here
+
 		tst.w	(v_generictimer).w	; has title screen timer expired?
 		beq.w	GotoDemo		; if yes, launch Demo mode
+
+Tit_NoDemo:	; GMZ
 		andi.b	#btnStart,(v_jpadpress1).w ; check if Start is pressed
 		beq.w	Tit_MainLoop		; if not, continue looping title screen	
 		; hiii
@@ -2512,6 +2544,7 @@ loc_33B6:
 		bsr.w	QueueSound2 ; fade out music
 		bsr.w	DemoSetup
 		move.w	#1,(f_demo).w	; turn demo mode on
+		eori.w	#1,titleGoToScreensaver	; GMZ - Turn on the screensaver mode for the next title screen
 		move.b	#id_Demo,(v_gamemode).w ; set screen mode to 08 (demo)
 		cmpi.w	#$700,d0	; is level number 0700 (the cold brew zone)?
 		beq.s	Demo_Brew	; if yes, branch
@@ -2643,7 +2676,7 @@ GM_Level:
 		bmi.s	Level_NoMusicFade
 		move.b	#bgm_Fade,d0
 		bsr.w	QueueSound2 ; fade out music
-		jsr     MegaPCM_StopPlayback
+		jsr	(MegaPCM_StopPlayback).l
 
 Level_NoMusicFade:
 		bsr.w	ClearPLC
@@ -2653,9 +2686,9 @@ Level_NoMusicFade:
 		clearRAM v_levelvariables
 		clearRAM v_timingandscreenvariables
 ;		move.b	#0,(v_waterflag).w
-;		cmp.b	#id_GHZ,(v_zone).w
+;		cmp.b	#id_OWZ,(v_zone).w
 ;		beq.s	.yawata
-;		cmp.b	#id_LZ,(v_zone).w
+;		cmp.b	#id_ARZ,(v_zone).w
 ;		bne.s	.nowata
 .yawata:
 		move.b	#$80,(v_waterflag).w
@@ -2669,7 +2702,7 @@ Level_NoMusicFade:
 		moveq	#plcid_Main,d0
 		bsr.w	AddPLC			; load standard patterns
 		; load player hud lives art
-		move.w	#ch_hudlives,d0
+;		move.w	#ch_hudlives,d0
 		jsr	(GetOtherPlayerData).l
 
 		add.l	#Nem_Lives,d0 ; use RAM for PLC
@@ -2724,15 +2757,18 @@ Level_NoMusicFade:
 		move.b	#1,(f_water).w	; enable water
 
 Level_LoadPal:
+		cmpi.w	#$A03,v_zone.w	; skip over dvz act 4
+		beq.s	.cont
 		move.b	#dLetsGOO, d0
-		jsr	MegaPCM_PlaySample
+		jsr	(MegaPCM_PlaySample).l
 		; hiii
+.cont:
 		move.w	#30,(v_air).w
 		enable_ints
 
 		; load player palette
 
-		jsr	GetPlayerData
+		jsr	(GetPlayerData).l
 		move.l	d3,a0
 		lea	v_palette,a1
 
@@ -2802,6 +2838,11 @@ Level_SkipTtlCard:
 		;jsr	(ConvertCollisionArray).l
 		;bsr.w	ColIndexLoad
 		bsr.w	LZWaterFeatures
+		cmpi.w	#(id_DVZ<<8)+3,(v_zone).w	; skip over dvz act 4
+		bne.s	.cont
+		move.b	#id_Katsi,(v_player).w ; separate object for dvz act 4
+		bra.s	Level_ChkWater
+.cont:
 		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
 		tst.w	(f_demo).w
 		bmi.s	Level_ChkDebug
@@ -2828,6 +2869,12 @@ Level_LoadObj:
 		move.w	d0,(v_rings).w	; clear rings
 		move.l	d0,(v_time).w	; clear time
 		move.b	d0,(v_lifecount).w ; clear lives counter
+
+		; GMZ - Our code starts here
+		tst.w	f_demo
+		bne.s	Level_SkipClr
+		move.w	d0,titleGoToScreensaver
+		; GMZ - Our code ends here
 
 Level_SkipClr:
 		move.b	d0,(f_timeover).w
@@ -2899,11 +2946,11 @@ Level_DelayLoop:
 
 Level_ClrCardArt:
 		moveq	#plcid_Explode,d0
-		jsr	(AddPLC).l	; load explosion gfx
+		bsr.w	AddPLC			; load explosion gfx
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		addi.w	#plcid_GHZAnimals,d0
-		jsr	(AddPLC).l	; load animal gfx (level no. + $15)
+		bsr.w	AddPLC			; load animal gfx (level no. + $15)
 
 Level_StartGame:
 		bclr	#7,(v_gamemode).w ; subtract $80 from mode to end pre-level stuff
@@ -3225,7 +3272,7 @@ SS_ChkEnd:
 		tst.w	(f_demo).w	; is demo mode on?
 		bne.w	SS_ToLevel
 		move.b	#id_Level,(v_gamemode).w ; set screen mode to $0C (level)
-		cmpi.w	#(id_SBZ<<8)+3,(v_zone).w ; is level number higher than FZ?
+		cmpi.w	#(id_PPZ<<8)+3,(v_zone).w ; is level number higher than FZ?
 		blo.s	SS_Finish	; if not, branch
 		clr.w	(v_zone).w	; set to GHZ1
 
@@ -3275,7 +3322,7 @@ loc_47D4:
 		mulu.w	#10,d0		; multiply rings by 10
 		move.w	d0,(v_ringbonus).w ; set rings bonus
 		move.w	#bgm_Pac2,d0
-		jsr	(QueueSound2).l	 ; play end-of-level music
+		bsr.w	QueueSound2	 ; play end-of-level music
 
 		clearRAM v_objspace
 
@@ -3654,10 +3701,10 @@ byte_4CCC:	dc.b 8,	2, 4, $FF, 2, 3, 8, $FF, 4, 2, 2, 3, 8,	$FD, 4,	2, 2, 3, 2, $
 
 ; ===========================================================================
 
-		include	"_incObj/80 Continue Screen Elements.asm"
-		include	"_incObj/81 Continue Screen Sonic.asm"
-		include	"_anim/Continue Screen Sonic.asm"
-Map_ContScr:	include	"_maps/Continue Screen.asm"
+		include	"_incObj/80 Continue Screen Elements.asm"		; KEEP!!!!!!
+;		include	"_incObj/81 Continue Screen Sonic.asm"
+;		include	"_anim/Continue Screen Sonic.asm"
+;Map_ContScr:	include	"_maps/Continue Screen.asm"
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -4128,7 +4175,7 @@ LoadZoneTiles:
 		lsl.w	#5,d2
 		move.l	#$FFFFFF,d1
 		move.w	d2,d1
-		jsr		(QueueDMATransfer).l
+		bsr.w	QueueDMATransfer
 		move.w	d7,-(sp)
 		move.b	#$C,(v_vbla_routine).w
 		bsr.w	WaitForVBla
@@ -4175,14 +4222,14 @@ LevelDataLoad:
 		bsr.w	LevelLayoutLoad
 		andi.w	#$FF,d5
 		move.w	d5,d0
-		cmpi.w	#(id_LZ<<8)+3,(v_zone).w	; is level SBZ3 (LZ4) ?
+		cmpi.w	#(id_ARZ<<8)+3,(v_zone).w	; is level SBZ3 (LZ4) ?
 		bne.s	.notSBZ3			; if not, branch
 		moveq	#palid_SBZ3,d0			; use SB3 palette
 
 .notSBZ3:
-		cmpi.w	#(id_SBZ<<8)+1,(v_zone).w	; is level SBZ2?
+		cmpi.w	#(id_PPZ<<8)+1,(v_zone).w	; is level SBZ2?
 		beq.s	.isSBZorFZ			; if yes, branch
-		cmpi.w	#(id_SBZ<<8)+2,(v_zone).w	; is level FZ?
+		cmpi.w	#(id_PPZ<<8)+2,(v_zone).w	; is level FZ?
 		bne.s	.normalpal			; if not, branch
 
 .isSBZorFZ:
@@ -4475,7 +4522,7 @@ Map_Swing_SLZ:	include	"_maps/Swinging Platforms (SLZ).asm"
 		include	"_incObj/17 Spiked Pole Helix.asm"
 Map_Hel:	include	"_maps/Spiked Pole Helix.asm"
 		include	"_incObj/18 Platforms.asm"
-;Map_Plat_Unused:include	"_maps/Platforms (unused).asm"	; REMOVE UNUSED DATA - CONI
+Map_Plat_Unused:include	"_maps/Platforms (unused).asm"		; nogales uses these
 Map_Plat_GHZ:	include	"_maps/Platforms (GHZ).asm"
 Map_Plat_SYZ:	include	"_maps/Platforms (SYZ).asm"
 Map_Plat_SLZ:	include	"_maps/Platforms (SLZ).asm"
@@ -4589,13 +4636,14 @@ Ledge_SlopeData:
 		even
 
 Map_Ledge:	include	"_maps/Collapsing Ledge.asm"
+Map_LedgeNogal:	include	"_maps/Collapsing Ledge (Unused).asm"
 Map_CFlo:	include	"_maps/Collapsing Floors.asm"
 
 		include	"_incObj/1C Scenery.asm"
 Map_Scen:	include	"_maps/Scenery.asm"
 
-;		include	"_incObj/1D Unused Switch.asm"	; REMOVE UNUSED DATA - CONI
-;Map_Swi:	include	"_maps/Unused Switch.asm"	; REMOVE UNUSED DATA - CONI
+		include	"_incObj/1D Unused Switch.asm"
+Map_Swi:	include	"_maps/Unused Switch.asm"
 
 		include	"_incObj/2A SBZ Small Door.asm"
 		include	"_anim/SBZ Small Door.asm"
@@ -4727,19 +4775,23 @@ loc_8B48:
 		include	"_incObj/1E Ball Hog.asm"
 		include	"_incObj/20 Cannonball.asm"
 		include	"_incObj/24, 27 & 3F Explosions.asm"
-		include	"_anim/Ball Hog.asm"
-Map_Hog:	include	"_maps/Ball Hog.asm"
+
+Map_BallHogH:	include	"_maps/Ball HogH.asm"
+Map_BallHogV:	include	"_maps/Ball HogV.asm"
+Map_ProtoExplosion: include	"_maps/Proto Explosion.asm"
+		even
 ;Map_MisDissolve:include	"_maps/Buzz Bomber Missile Dissolve.asm"
 		include	"_maps/Explosions.asm"
 
 		include	"_incObj/28 Animals.asm"
-		include	"_incObj/29 Points.asm"
+;		include	"_incObj/29 Points.asm"
 Map_Animal1:	include	"_maps/Animals 1.asm"
 Map_Animal2:	include	"_maps/Animals 2.asm"
 Map_Animal3:	include	"_maps/Animals 3.asm"
 Map_Animal4:	include	"_maps/Animals 4.asm"
 Map_Animal5:	include	"_maps/Animals 5.asm"
-Map_Poi:	include	"_maps/Points.asm"
+Map_Animal6:	include	"_maps/Animals 6.asm"
+;Map_Poi:	include	"_maps/Points.asm"
 
 		include	"_incObj/1F Crabmeat.asm"
 		include	"_anim/Crabmeat.asm"
@@ -4794,7 +4846,7 @@ Map_ChopCBZ:	include	"_maps/ChopperCBZ.asm"
 Map_Jaws:	include	"_maps/Jaws.asm"
 		include	"_incObj/2D Burrobot.asm"
 		include	"_anim/Burrobot.asm"
-Map_Burro:	include	"_maps/Burrobot.asm"
+;Map_Burro:	include	"_maps/Burrobot.asm"
 
 		include	"_incObj/Internet Explorer.asm"
 		include	"_anim/Internet Explorer.asm"
@@ -4825,159 +4877,144 @@ Map_Push:	include	"_maps/Pushable Blocks.asm"
 		include	"_incObj/7F SS Result Chaos Emeralds.asm"
 
 ; ---------------------------------------------------------------------------
-; Sprite mappings - zone title cards
+; Sprite mappings - zone title cards			- none of this is used so it's all commented, uhm.. pilk. - coni
 ; ---------------------------------------------------------------------------
-Map_Card:	mappingsTable
-	mappingsTableEntry.w	M_Card_GHZ	; Green Hill Zone
-	mappingsTableEntry.w	M_Card_LZ	; Labyrinth Zone
-	mappingsTableEntry.w	M_Card_MZ	; Marble Zone
-	mappingsTableEntry.w	M_Card_SLZ	; Star Light Zone
-	mappingsTableEntry.w	M_Card_SYZ	; Spring Yard Zone
-	mappingsTableEntry.w	M_Card_SBZ	; Scrap Brain Zone
-	mappingsTableEntry.w	M_Card_Zone	; "ZONE" text
-	mappingsTableEntry.w	M_Card_Act1	; Act number 1
-	mappingsTableEntry.w	M_Card_Act2	; Act number 2
-	mappingsTableEntry.w	M_Card_Act3	; Act number 3
-	mappingsTableEntry.w	M_Card_Oval	; Blue oval
-	mappingsTableEntry.w	M_Card_FZ	; Final Zone
+;Map_Card:	mappingsTable
+;	mappingsTableEntry.w	M_Card_GHZ	; Green Hill Zone
+;	mappingsTableEntry.w	M_Card_LZ	; Labyrinth Zone
+;	mappingsTableEntry.w	M_Card_MZ	; Marble Zone
+;	mappingsTableEntry.w	M_Card_SLZ	; Star Light Zone
+;	mappingsTableEntry.w	M_Card_SYZ	; Spring Yard Zone
+;	mappingsTableEntry.w	M_Card_SBZ	; Scrap Brain Zone
+;	mappingsTableEntry.w	M_Card_Zone	; "ZONE" text
+;	mappingsTableEntry.w	M_Card_Act1	; Act number 1
+;	mappingsTableEntry.w	M_Card_Act2	; Act number 2
+;	mappingsTableEntry.w	M_Card_Act3	; Act number 3
+;	mappingsTableEntry.w	M_Card_Oval	; Blue oval
+;	mappingsTableEntry.w	M_Card_FZ	; Final Zone
+;
+;M_Card_GHZ:	spriteHeader	; GREEN HILL
+;	spritePiece	-$4C, -8, 2, 2, $18, 0, 0, 0, 0	; G
+;	spritePiece	-$3C, -8, 2, 2, $3A, 0, 0, 0, 0	; R
+;	spritePiece	-$2C, -8, 2, 2, $10, 0, 0, 0, 0	; E
+;	spritePiece	-$1C, -8, 2, 2, $10, 0, 0, 0, 0	; E
+;	spritePiece	-$C, -8, 2, 2, $2E, 0, 0, 0, 0	; N
+;
+;	spritePiece	$14, -8, 2, 2, $1C, 0, 0, 0, 0	; H
+;	spritePiece	$24, -8, 1, 2, $20, 0, 0, 0, 0	; I
+;	spritePiece	$2C, -8, 2, 2, $26, 0, 0, 0, 0	; L
+;	spritePiece	$3C, -8, 2, 2, $26, 0, 0, 0, 0	; L
+;M_Card_GHZ_End
+;	even
+;
+;M_Card_LZ:	spriteHeader	; LABYRINTH
+;	spritePiece	-$78, -8, 2, 2, 0, 0, 0, 0, 0	; A
+;	spritePiece	-$68, -8, 2, 2, $4E, 0, 0, 0, 0	; Z
+;	spritePiece	-$58, -8, 2, 2, $46, 0, 0, 0, 0	; U
+;	spritePiece	-$48, -8, 2, 2, $3A, 0, 0, 0, 0	; R
+;	spritePiece	-$38, -8, 2, 2, $10, 0, 0, 0, 0	; E
+;
+;	spritePiece	-$20, -8, 2, 2, $3A, 0, 0, 0, 0	; R
+;	spritePiece	-$10, -8, 2, 2, 0, 0, 0, 0, 0	; A
+;	spritePiece	0, -8, 1, 2, $20, 0, 0, 0, 0	; I
+;	spritePiece	8, -8, 2, 2, $2E, 0, 0, 0, 0	; N
+;	spritePiece	$18, -8, 2, 2, $14, 0, 0, 0, 0	; F
+;	spritePiece	$28, -8, 2, 2, $32, 0, 0, 0, 0	; O
+;	spritePiece	$38, -8, 2, 2, $3A, 0, 0, 0, 0	; R
+;	spritePiece	$48, -8, 2, 2, $10, 0, 0, 0, 0	; E
+;	spritePiece	$58, -8, 2, 2, $3E, 0, 0, 0, 0	; S
+;	spritePiece	$68, -8, 2, 2, $42, 0, 0, 0, 0	; T
+;M_Card_LZ_End
+;	even
 
-M_Card_GHZ:	spriteHeader	; GREEN HILL
-	spritePiece	-$4C, -8, 2, 2, $18, 0, 0, 0, 0	; G
-	spritePiece	-$3C, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-	spritePiece	-$2C, -8, 2, 2, $10, 0, 0, 0, 0	; E
-	spritePiece	-$1C, -8, 2, 2, $10, 0, 0, 0, 0	; E
-	spritePiece	-$C, -8, 2, 2, $2E, 0, 0, 0, 0	; N
+;M_Card_MZ:	spriteHeader	; MARBLE
+;	spritePiece	-$31, -8, 2, 2, $2A, 0, 0, 0, 0	; M
+;	spritePiece	-$20, -8, 2, 2, 0, 0, 0, 0, 0	; A
+;	spritePiece	-$10, -8, 2, 2, $3A, 0, 0, 0, 0	; R
+;	spritePiece	 0, -8, 2, 2, 4, 0, 0, 0, 0	; B
+;	spritePiece	 $10, -8, 2, 2, $26, 0, 0, 0, 0	; L
+;	spritePiece	 $20, -8, 2, 2, $10, 0, 0, 0, 0	; E
+;M_Card_MZ_End
+;	even
 
-	spritePiece	$14, -8, 2, 2, $1C, 0, 0, 0, 0	; H
-	spritePiece	$24, -8, 1, 2, $20, 0, 0, 0, 0	; I
-	spritePiece	$2C, -8, 2, 2, $26, 0, 0, 0, 0	; L
-	spritePiece	$3C, -8, 2, 2, $26, 0, 0, 0, 0	; L
-M_Card_GHZ_End
-	even
+;M_Card_SLZ:	; STAR LIGHT
+;		dc.b 9	; MICROSLOP
+;		dc.b $F8, $05, $00, $2A, $BB	; M
+;		dc.b $F8, $01, $00, $20, $CC	; I
+;		dc.b $F8, $05, $00, $08, $D4	; C
+;		dc.b $F8, $05, $00, $3A, $E4	; R
+;		dc.b $F8, $05, $00, $32, $F4	; O
+;		dc.b $F8, $05, $00, $3E, $04	; S
+;		dc.b $F8, $05, $00, $26, $14	; L
+;		dc.b $F8, $05, $00, $32, $24	; O
+;		dc.b $F8, $05, $00, $36, $34	; P
+;		even
+;M_Card_SLZ_End
+;	even
 
-M_Card_LZ:	spriteHeader	; LABYRINTH
-	spritePiece	-$78, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	-$68, -8, 2, 2, $4E, 0, 0, 0, 0	; Z
-	spritePiece	-$58, -8, 2, 2, $46, 0, 0, 0, 0	; U
-	spritePiece	-$48, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-	spritePiece	-$38, -8, 2, 2, $10, 0, 0, 0, 0	; E
-
-	spritePiece	-$20, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-	spritePiece	-$10, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	0, -8, 1, 2, $20, 0, 0, 0, 0	; I
-	spritePiece	8, -8, 2, 2, $2E, 0, 0, 0, 0	; N
-	spritePiece	$18, -8, 2, 2, $14, 0, 0, 0, 0	; F
-	spritePiece	$28, -8, 2, 2, $32, 0, 0, 0, 0	; O
-	spritePiece	$38, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-	spritePiece	$48, -8, 2, 2, $10, 0, 0, 0, 0	; E
-	spritePiece	$58, -8, 2, 2, $3E, 0, 0, 0, 0	; S
-	spritePiece	$68, -8, 2, 2, $42, 0, 0, 0, 0	; T
-M_Card_LZ_End
-	even
-
-M_Card_MZ:	spriteHeader	; MARBLE
-	spritePiece	-$31, -8, 2, 2, $2A, 0, 0, 0, 0	; M
-	spritePiece	-$20, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	-$10, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-	spritePiece	 0, -8, 2, 2, 4, 0, 0, 0, 0	; B
-	spritePiece	 $10, -8, 2, 2, $26, 0, 0, 0, 0	; L
-	spritePiece	 $20, -8, 2, 2, $10, 0, 0, 0, 0	; E
-M_Card_MZ_End
-	even
-
-M_Card_SLZ:	; STAR LIGHT
-		dc.b 9	; MICROSLOP
-		dc.b $F8, $05, $00, $2A, $BB	; M
-		dc.b $F8, $01, $00, $20, $CC	; I
-		dc.b $F8, $05, $00, $08, $D4	; C
-		dc.b $F8, $05, $00, $3A, $E4	; R
-		dc.b $F8, $05, $00, $32, $F4	; O
-		dc.b $F8, $05, $00, $3E, $04	; S
-		dc.b $F8, $05, $00, $26, $14	; L
-		dc.b $F8, $05, $00, $32, $24	; O
-		dc.b $F8, $05, $00, $36, $34	; P
-		even
-M_Card_SLZ_End
-	even
-
-M_Card_SYZ:	spriteHeader	; SPRING YARD
-	spritePiece	-$54, -8, 2, 2, $3E, 0, 0, 0, 0	; S
-	spritePiece	-$44, -8, 2, 2, $36, 0, 0, 0, 0	; P
-	spritePiece	-$34, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-	spritePiece	-$24, -8, 1, 2, $20, 0, 0, 0, 0	; I
-	spritePiece	-$1C, -8, 2, 2, $2E, 0, 0, 0, 0	; N
-	spritePiece	-$C, -8, 2, 2, $18, 0, 0, 0, 0	; G
-
-	spritePiece	$14, -8, 2, 2, $4A, 0, 0, 0, 0	; Y
-	spritePiece	$24, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	$34, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-	spritePiece	$44, -8, 2, 2, $C, 0, 0, 0, 0	; D
-M_Card_SYZ_End
-	even
-
-M_Card_SBZ:	spriteHeader	; SCRAP BRAIN
-	spritePiece	-$54, -8, 2, 2, $3E, 0, 0, 0, 0	; S
-	spritePiece	-$44, -8, 2, 2, 8, 0, 0, 0, 0	; C
-	spritePiece	-$34, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-	spritePiece	-$24, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	-$14, -8, 2, 2, $36, 0, 0, 0, 0	; P
-
-	spritePiece	$C, -8, 2, 2, 4, 0, 0, 0, 0	; B
-	spritePiece	$1C, -8, 2, 2, $3A, 0, 0, 0, 0	; R
-	spritePiece	$2C, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	$3C, -8, 1, 2, $20, 0, 0, 0, 0	; I
-	spritePiece	$44, -8, 2, 2, $2E, 0, 0, 0, 0	; N
-M_Card_SBZ_End
-	even
-
-M_Card_Zone:	spriteHeader	; ZONE
-	spritePiece	-$20, -8, 2, 2, $4E, 0, 0, 0, 0	; Z
-	spritePiece	-$10, -8, 2, 2, $32, 0, 0, 0, 0	; O
-	spritePiece	0, -8, 2, 2, $2E, 0, 0, 0, 0	; N
-	spritePiece	$10, -8, 2, 2, $10, 0, 0, 0, 0	; E
-M_Card_Zone_End
-	even
-
-M_Card_Act1:	spriteHeader	; Act number 1
-	spritePiece	-$14, 4, 4, 1, $53, 0, 0, 0, 0	; "ACT"
-	spritePiece	$C, -$C, 1, 3, $57, 0, 0, 0, 0	; 1
-M_Card_Act1_End
-
-M_Card_Act2:	spriteHeader	; Act number 2
-	spritePiece	-$14, 4, 4, 1, $53, 0, 0, 0, 0	; "ACT"
-	spritePiece	8, -$C, 2, 3, $5A, 0, 0, 0, 0	; 2
-M_Card_Act2_End
-
-M_Card_Act3:	spriteHeader	; Act number 3
-	spritePiece	-$14, 4, 4, 1, $53, 0, 0, 0, 0	; "ACT"
-	spritePiece	8, -$C, 2, 3, $60, 0, 0, 0, 0	; 3
-M_Card_Act3_End
-
-M_Card_Oval:	spriteHeader	; Blue oval
-	spritePiece	-$C, -$1C, 4, 1, $70, 0, 0, 0, 0
-	spritePiece	$14, -$1C, 1, 3, $74, 0, 0, 0, 0
-	spritePiece	-$14, -$14, 2, 1, $77, 0, 0, 0, 0
-	spritePiece	-$1C, -$C, 2, 2, $79, 0, 0, 0, 0
-	spritePiece	-$14, $14, 4, 1, $70, 1, 1, 0, 0
-	spritePiece	-$1C, 4, 1, 3, $74, 1, 1, 0, 0
-	spritePiece	4, $C, 2, 1, $77, 1, 1, 0, 0
-	spritePiece	$C, -4, 2, 2, $79, 1, 01, 0, 0
-	spritePiece	-4, -$14, 3, 1, $7D, 0, 0, 0, 0
-	spritePiece	-$C, -$C, 4, 1, $7C, 0, 0, 0, 0
-	spritePiece	-$C, -4, 3, 1, $7C, 0, 0, 0, 0
-	spritePiece	-$14, 4, 4, 1, $7C, 0, 0, 0, 0
-	spritePiece	-$14, $C, 3, 1, $7C, 0, 0, 0, 0
-M_Card_Oval_End
-	even
-
-M_Card_FZ:	spriteHeader	; FINAL
-	spritePiece	-$24, -8, 2, 2, $14, 0, 0, 0, 0	; F
-	spritePiece	-$14, -8, 1, 2, $20, 0, 0, 0, 0	; I
-	spritePiece	-$C, -8, 2, 2, $2E, 0, 0, 0, 0	; N
-	spritePiece	4, -8, 2, 2, 0, 0, 0, 0, 0	; A
-	spritePiece	$14, -8, 2, 2, $26, 0, 0, 0, 0	; L
-M_Card_FZ_End
-	even
+;M_Card_SYZ:	spriteHeader	; SPRING YARD
+;	spritePiece	-$54, -8, 2, 2, $3E, 0, 0, 0, 0	; S
+;	spritePiece	-$44, -8, 2, 2, $36, 0, 0, 0, 0	; P
+;	spritePiece	-$34, -8, 2, 2, $3A, 0, 0, 0, 0	; R
+;	spritePiece	-$24, -8, 1, 2, $20, 0, 0, 0, 0	; I
+;	spritePiece	-$1C, -8, 2, 2, $2E, 0, 0, 0, 0	; N
+;	spritePiece	-$C, -8, 2, 2, $18, 0, 0, 0, 0	; G
+;
+;	spritePiece	$14, -8, 2, 2, $4A, 0, 0, 0, 0	; Y
+;	spritePiece	$24, -8, 2, 2, 0, 0, 0, 0, 0	; A
+;	spritePiece	$34, -8, 2, 2, $3A, 0, 0, 0, 0	; R
+;	spritePiece	$44, -8, 2, 2, $C, 0, 0, 0, 0	; D
+;M_Card_SYZ_End
+;	even
+;
+;M_Card_SBZ:	spriteHeader	; SCRAP BRAIN
+;	spritePiece	-$54, -8, 2, 2, $3E, 0, 0, 0, 0	; S
+;	spritePiece	-$44, -8, 2, 2, 8, 0, 0, 0, 0	; C
+;	spritePiece	-$34, -8, 2, 2, $3A, 0, 0, 0, 0	; R
+;	spritePiece	-$24, -8, 2, 2, 0, 0, 0, 0, 0	; A
+;	spritePiece	-$14, -8, 2, 2, $36, 0, 0, 0, 0	; P
+;
+;	spritePiece	$C, -8, 2, 2, 4, 0, 0, 0, 0	; B
+;	spritePiece	$1C, -8, 2, 2, $3A, 0, 0, 0, 0	; R
+;	spritePiece	$2C, -8, 2, 2, 0, 0, 0, 0, 0	; A
+;	spritePiece	$3C, -8, 1, 2, $20, 0, 0, 0, 0	; I
+;	spritePiece	$44, -8, 2, 2, $2E, 0, 0, 0, 0	; N
+;M_Card_SBZ_End
+;	even
+;
+;M_Card_Zone:	spriteHeader	; ZONE
+;	spritePiece	-$20, -8, 2, 2, $4E, 0, 0, 0, 0	; Z
+;	spritePiece	-$10, -8, 2, 2, $32, 0, 0, 0, 0	; O
+;	spritePiece	0, -8, 2, 2, $2E, 0, 0, 0, 0	; N
+;	spritePiece	$10, -8, 2, 2, $10, 0, 0, 0, 0	; E
+;M_Card_Zone_End
+;	even
+;
+;M_Card_Act1:	spriteHeader	; Act number 1
+;	spritePiece	-$14, 4, 4, 1, $53, 0, 0, 0, 0	; "ACT"
+;	spritePiece	$C, -$C, 1, 3, $57, 0, 0, 0, 0	; 1
+;M_Card_Act1_End
+;
+;M_Card_Act2:	spriteHeader	; Act number 2
+;	spritePiece	-$14, 4, 4, 1, $53, 0, 0, 0, 0	; "ACT"
+;	spritePiece	8, -$C, 2, 3, $5A, 0, 0, 0, 0	; 2
+;M_Card_Act2_End
+;
+;M_Card_Act3:	spriteHeader	; Act number 3
+;	spritePiece	-$14, 4, 4, 1, $53, 0, 0, 0, 0	; "ACT"
+;	spritePiece	8, -$C, 2, 3, $60, 0, 0, 0, 0	; 3
+;M_Card_Act3_End
+;
+; oval moved to special stage
+;
+;M_Card_FZ:	spriteHeader	; FINAL
+;	spritePiece	-$24, -8, 2, 2, $14, 0, 0, 0, 0	; F
+;	spritePiece	-$14, -8, 1, 2, $20, 0, 0, 0, 0	; I
+;	spritePiece	-$C, -8, 2, 2, $2E, 0, 0, 0, 0	; N
+;	spritePiece	4, -8, 2, 2, 0, 0, 0, 0, 0	; A
+;	spritePiece	$14, -8, 2, 2, $26, 0, 0, 0, 0	; L
+;M_Card_FZ_End
+;	even
 
 ; ===========================================================================
 
@@ -4986,86 +5023,105 @@ Map_Over:	include	"_maps/Game Over.asm"
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "SONIC HAS PASSED" title card
 ; ---------------------------------------------------------------------------
-Map_Got:	dc.w M_Got_SonicHas-Map_Got
-		dc.w M_Got_Passed-Map_Got
-		dc.w M_Got_Score-Map_Got
-		dc.w M_Got_TBonus-Map_Got
-		dc.w M_Got_RBonus-Map_Got
-		dc.w M_Got_Oval-Map_Got
-		dc.w M_Got_Act1-Map_Got
-		dc.w M_Got_Act2-Map_Got
-		dc.w M_Got_Act3-Map_Got
-M_Got_SonicHas:	dc.b 4			; YOU'RE
-		dc.b $F8, $D, $0, $0, $D4
-		dc.b $F8, $5, $0, $8, $F4
-		dc.b $F8, $0, $0, $C, $4
-		dc.b $F8, $D, $0, $D, $C
-M_Got_Passed:	dc.b 6			; WINNER
-		dc.b $F8, $9, $0, $15, $D0
-		dc.b $F8, $5, $0, $1B, $E8
-		dc.b $F8, $5, $0, $1F, $F8
-		dc.b $F8, $5, $0, $23, $8
-		dc.b $F8, $5, $0, $27, $18
-		dc.b $F8, $1, $0, $2B, $28
-M_Got_Score:	dc.b 6			; SCORE
-		dc.b $F8, $D, 1, $4A, $B0
-		dc.b $F8, 1, 1,	$62, $D0
-		dc.b $F8, 9, 1,	$64, $18
-		dc.b $F8, $D, 1, $6A, $30
-		dc.b $F7, 4, 0,	$6E, $CD
-		dc.b $FF, 4, $18, $6E, $CD
-M_Got_TBonus:	dc.b 7			; TIME BONUS
-		dc.b $F8, $D, 1, $5A, $B0
-		dc.b $F8, $D, 0, $66, $D9
-		dc.b $F8, 1, 1,	$4A, $F9
-		dc.b $F7, 4, 0,	$6E, $F6
-		dc.b $FF, 4, $18, $6E, $F6
-		dc.b $F8, $D, $FF, $F0,	$28
-		dc.b $F8, 1, 1,	$70, $48
-M_Got_RBonus:	dc.b 7			; RING BONUS
-		dc.b $F8, $D, 1, $52, $B0
-		dc.b $F8, $D, 0, $66, $D9
-		dc.b $F8, 1, 1,	$4A, $F9
-		dc.b $F7, 4, 0,	$6E, $F6
-		dc.b $FF, 4, $18, $6E, $F6
-		dc.b $F8, $D, $FF, $F8,	$28
-		dc.b $F8, 1, 1,	$70, $48
-M_Got_Oval:	dc.b 5			; TROPHY
-		dc.b $E0, $F, $20, $2D, $E8
-		dc.b $E0, $7, $20, $3D, $8
-		dc.b $0, $C, $20, $46, $F4
-		dc.b $8, $E, $0, $4A, $F0
-		dc.b $8, $2, $0, $56, $10
-M_Got_Act1:	dc.b 6			; IN ACT.1
-		dc.b $F8, $9, $0, $59, $CC
-		dc.b $0, $0, $0, $65, $1C
-		dc.b $F8, $5, $0, $5F, $EC
-		dc.b $F8, $5, $0, $70, $FC
-		dc.b $F8, $5, $0, $74, $C
-		dc.b $F8, $1, $0, $63, $24
-M_Got_Act2:	dc.b 6			; IN ACT.2
-		dc.b $F8, $9, $0, $59, $CC
-		dc.b $0, $0, $0, $65, $1C
-		dc.b $F8, $5, $0, $5F, $EC
-		dc.b $F8, $5, $0, $70, $FC
-		dc.b $F8, $5, $0, $74, $C
-		dc.b $F8, $5, $0, $78, $24
-M_Got_Act3:	dc.b 6			; IN ACT.3
-		dc.b $F8, $9, $0, $59, $CC
-		dc.b $0, $0, $0, $65, $1C
-		dc.b $F8, $5, $0, $5F, $EC
-		dc.b $F8, $5, $0, $70, $FC
-		dc.b $F8, $5, $0, $74, $C
-		dc.b $F8, $5, $0, $7C, $24
-		even
+Map_Got: mappingsTable
+	mappingsTableEntry.w	M_Got_SonicHas
+	mappingsTableEntry.w	M_Got_Passed
+	mappingsTableEntry.w	M_Got_Score
+	mappingsTableEntry.w	M_Got_TBonus
+	mappingsTableEntry.w	M_Got_RBonus
+	mappingsTableEntry.w	M_Got_Oval
+	mappingsTableEntry.w	M_Got_Act1
+	mappingsTableEntry.w	M_Got_Act2
+	mappingsTableEntry.w	M_Got_Act3
+
+M_Got_SonicHas:	spriteHeader
+ spritePiece -$2C, -8, 4, 2, 0, 0, 0, 0, 0
+ spritePiece -$C, -8, 2, 2, 8, 0, 0, 0, 0
+ spritePiece 4, -8, 1, 1, $C, 0, 0, 0, 0
+ spritePiece $C, -8, 4, 2, $D, 0, 0, 0, 0
+M_Got_SonicHas_End
+
+M_Got_Passed:	spriteHeader
+ spritePiece -$30, -8, 3, 2, $15, 0, 0, 0, 0
+ spritePiece -$18, -8, 2, 2, $1B, 0, 0, 0, 0
+ spritePiece -8, -8, 2, 2, $1F, 0, 0, 0, 0
+ spritePiece 8, -8, 2, 2, $23, 0, 0, 0, 0
+ spritePiece $18, -8, 2, 2, $27, 0, 0, 0, 0
+ spritePiece $28, -8, 1, 2, $2B, 0, 0, 0, 0
+M_Got_Passed_End
+
+M_Got_Score:	spriteHeader
+ spritePiece -$50, -8, 4, 1, $140, 0, 0, 0, 0
+ spritePiece -$30, -8, 1, 1, $144, 0, 0, 0, 0
+ spritePiece $18, -8, 3, 1, $151, 0, 0, 0, 0
+ spritePiece $30, -8, 4, 1, $154, 0, 0, 0, 0
+ spritePiece -$33, -9, 2, 1, $6E, 0, 0, 0, 0
+ spritePiece -$33, -1, 2, 1, $6E, 1, 1, 0, 0
+M_Got_Score_End
+
+M_Got_TBonus:	spriteHeader
+ spritePiece -$50, -8, 4, 1, $145, 0, 0, 0, 0
+ spritePiece -$27, -8, 4, 1, $66, 0, 0, 0, 0
+ spritePiece -7, -8, 1, 1, $140, 0, 0, 0, 0
+ spritePiece -$A, -9, 2, 1, $6E, 0, 0, 0, 0
+ spritePiece -$A, -1, 2, 1, $6E, 1, 1, 0, 0
+ spritePiece $28, -8, 4, 1, $162, 0, 0, 0, 0
+ spritePiece $48, -8, 1, 1, $157, 0, 0, 0, 0
+M_Got_TBonus_End
+
+M_Got_RBonus:	spriteHeader
+ spritePiece -$50, -8, 4, 1, $149, 0, 0, 0, 0
+ spritePiece -$27, -8, 4, 1, $66, 0, 0, 0, 0
+ spritePiece -7, -8, 1, 1, $140, 0, 0, 0, 0
+ spritePiece -$A, -9, 2, 1, $6E, 0, 0, 0, 0
+ spritePiece -$A, -1, 2, 1, $6E, 1, 1, 0, 0
+ spritePiece $28, -8, 4, 1, $166, 0, 0, 0, 0
+ spritePiece $48, -8, 1, 1, $157, 0, 0, 0, 0
+M_Got_RBonus_End
+
+M_Got_Oval:	spriteHeader
+ spritePiece -$18, -$20, 4, 4, $2D, 0, 0, 1, 0
+ spritePiece 8, -$20, 2, 4, $3D, 0, 0, 1, 0
+ spritePiece -$C, 0, 4, 1, $46, 0, 0, 1, 0
+ spritePiece -$10, 8, 4, 3, $4A, 0, 0, 0, 0
+ spritePiece $10, 8, 1, 3, $56, 0, 0, 0, 0
+M_Got_Oval_End
+
+M_Got_Act1:	spriteHeader
+ spritePiece -$34, -8, 3, 2, $59, 0, 0, 0, 0
+ spritePiece $1C, 0, 1, 1, $65, 0, 0, 0, 0
+ spritePiece -$14, -8, 2, 2, $5F, 0, 0, 0, 0
+ spritePiece -4, -8, 2, 2, $70, 0, 0, 0, 0
+ spritePiece $C, -8, 2, 2, $74, 0, 0, 0, 0
+ spritePiece $24, -8, 1, 2, $63, 0, 0, 0, 0
+M_Got_Act1_End
+
+M_Got_Act2:	spriteHeader
+ spritePiece -$34, -8, 3, 2, $59, 0, 0, 0, 0
+ spritePiece $1C, 0, 1, 1, $65, 0, 0, 0, 0
+ spritePiece -$14, -8, 2, 2, $5F, 0, 0, 0, 0
+ spritePiece -4, -8, 2, 2, $70, 0, 0, 0, 0
+ spritePiece $C, -8, 2, 2, $74, 0, 0, 0, 0
+ spritePiece $24, -8, 2, 2, $78, 0, 0, 0, 0
+M_Got_Act2_End
+
+M_Got_Act3:	spriteHeader
+ spritePiece -$34, -8, 3, 2, $59, 0, 0, 0, 0
+ spritePiece $1C, 0, 1, 1, $65, 0, 0, 0, 0
+ spritePiece -$14, -8, 2, 2, $5F, 0, 0, 0, 0
+ spritePiece -4, -8, 2, 2, $70, 0, 0, 0, 0
+ spritePiece $C, -8, 2, 2, $74, 0, 0, 0, 0
+ spritePiece $24, -8, 2, 2, $7C, 0, 0, 0, 0
+M_Got_Act3_End
+	even
 
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - special stage results screen
 ; ---------------------------------------------------------------------------
 Map_SSR:	mappingsTable
 	mappingsTableEntry.w	M_SSR_Chaos	; "CHAOS EMERLADS" text
-	mappingsTableEntry.w	M_SSR_Score	; Score tally
-	mappingsTableEntry.w	M_SSR_Ring	; Ring Bonus tally
+	mappingsTableEntry.w	M_Got_Score	; Score tally
+	mappingsTableEntry.w	M_Got_RBonus	; Ring Bonus tally
 	mappingsTableEntry.w	M_Card_Oval	; Blue oval (cross-referended from the regular title card mappings)
 	mappingsTableEntry.w	M_SSR_ContSon1	; Continue tally with mini Sonic (foot down)
 	mappingsTableEntry.w	M_SSR_ContSon2	; Continue tally with mini Sonic (foot up)
@@ -5085,24 +5141,40 @@ M_SSR_Chaos:	dc.b 9	;  PENTHANES
 		dc.b $F8, 5, 0, $3E, $38	; S
 M_SSR_Chaos_End
 
-M_SSR_Score:	spriteHeader	; Score tally
-	spritePiece	-$50, -8, 4, 2, $14A, 0, 0, 0, 0; "SCOR"
-	spritePiece	-$30, -8, 1, 2, $162, 0, 0, 0, 0; "E"
-	spritePiece	$18, -8, 3, 2, $164, 0, 0, 0, 0	; Tally (first four digits)
-	spritePiece	$30, -8, 4, 2, $16A, 0, 0, 0, 0	; Tally (second four digits)
-	spritePiece	-$33, -9, 2, 1, $6E, 0, 0, 0, 0	; Small oval (upper half)
-	spritePiece	-$33, -1, 2, 1, $6E, 1, 1, 0, 0	; Small oval (lower half)
-M_SSR_Score_End
+;M_SSR_Score:	spriteHeader	; Score tally
+;	spritePiece	-$50, -8, 4, 1, $14A, 0, 0, 0, 0; "SCOR"
+;	spritePiece	-$30, -8, 1, 1, $160, 0, 0, 0, 0; "E"
+;	spritePiece	$18, -8, 3, 2, $164, 0, 0, 0, 0	; Tally (first four digits)
+;	spritePiece	$30, -8, 4, 2, $16A, 0, 0, 0, 0	; Tally (second four digits)
+;	spritePiece	-$33, -9, 2, 1, $6E, 0, 0, 0, 0	; Small oval (upper half)
+;	spritePiece	-$33, -1, 2, 1, $6E, 1, 1, 0, 0	; Small oval (lower half)
+;M_SSR_Score_End
+;
+;M_SSR_Ring:	spriteHeader	; Ring Bonus tally
+; spritePiece -$50, -8, 4, 1, $149, 0, 0, 0, 0
+; spritePiece -$27, -8, 4, 1, $66, 0, 0, 0, 0
+; spritePiece -7, -8, 1, 1, $140, 0, 0, 0, 0
+; spritePiece -$A, -9, 2, 1, $6E, 0, 0, 0, 0
+; spritePiece -$A, -1, 2, 1, $6E, 1, 1, 0, 0
+; spritePiece $28, -8, 4, 1, $166, 0, 0, 0, 0
+; spritePiece $48, -8, 1, 1, $157, 0, 0, 0, 0
+;M_SSR_Ring_End
 
-M_SSR_Ring:	spriteHeader	; Ring Bonus tally
-	spritePiece	-$50, -8, 4, 2, $152, 0, 0, 0, 0; "RING"
-	spritePiece	-$27, -8, 4, 2, $66, 0, 0, 0, 0	; "BONU"
-	spritePiece	-7, -8, 1, 2, $14A, 0, 0, 0, 0	; "S"
-	spritePiece	-$A, -9, 2, 1, $6E, 0, 0, 0, 0	; Small oval (upper half)
-	spritePiece	-$A, -1, 2, 1, $6E, 1, 1, 0, 0	; Small oval (lower half)
-	spritePiece	$28, -8, 4, 2, -8, 0, 0, 0, 0	; Tally (first four digits)
-	spritePiece	$48, -8, 1, 2, $170, 0, 0, 0, 0	; Tally (second four digits)
-M_SSR_Ring_End
+M_Card_Oval:	spriteHeader	; Blue oval
+	spritePiece	-$C, -$1C, 4, 1, $70, 0, 0, 0, 0
+	spritePiece	$14, -$1C, 1, 3, $74, 0, 0, 0, 0
+	spritePiece	-$14, -$14, 2, 1, $77, 0, 0, 0, 0
+	spritePiece	-$1C, -$C, 2, 2, $79, 0, 0, 0, 0
+	spritePiece	-$14, $14, 4, 1, $70, 1, 1, 0, 0
+	spritePiece	-$1C, 4, 1, 3, $74, 1, 1, 0, 0
+	spritePiece	4, $C, 2, 1, $77, 1, 1, 0, 0
+	spritePiece	$C, -4, 2, 2, $79, 1, 01, 0, 0
+	spritePiece	-4, -$14, 3, 1, $7D, 0, 0, 0, 0
+	spritePiece	-$C, -$C, 4, 1, $7C, 0, 0, 0, 0
+	spritePiece	-$C, -4, 3, 1, $7C, 0, 0, 0, 0
+	spritePiece	-$14, 4, 4, 1, $7C, 0, 0, 0, 0
+	spritePiece	-$14, $C, 3, 1, $7C, 0, 0, 0, 0
+M_Card_Oval_End
 
 M_SSR_ContSon1:	spriteHeader	; Continue tally with mini Sonic (foot down)
 	spritePiece	-$50, -8, 4, 2, -$2F, 0, 0, 0, 0; "CONT"
@@ -5901,8 +5973,10 @@ Map_LWall:	include	"_maps/Wall of Lava.asm"
 		include	"_incObj/40 Moto Bug.asm" ; includes "_incObj/sub RememberState.asm"
 		include	"_anim/Moto Bug.asm"
 Map_Moto:	include	"_maps/Moto Bug.asm"
+Map_Splats:	 include "_maps/Splats.asm"
+
 Map_MotoCBZ:	include	"_maps/Moto BugCBZ.asm"
-		include	"_incObj/4F.asm"
+		include	"_incObj/4F Splats.asm"
 
 		include	"_incObj/50 Yadrin.asm"
 		include	"_anim/Yadrin.asm"
@@ -6005,12 +6079,14 @@ ResumeMusic:
 .notinvinc:
 		tst.b	(f_lockscreen).w ; is Sonic at a boss?
 		beq.s	playselectedlele ; if not, branch
-		move.w	#bgm_Boss,d0
-		cmpi.w	#(id_SLZ<<8)+2,(v_zone).w ; ist das level mein?
-        bne.s   playselectedlele
-        move.w  #$1F,d0 ; MEGALOVANIA BABY
+		move.b	#bgm_Boss,d0
+		cmpi.w	#(id_MCZ<<8)+2,(v_zone).w ; ist das level mein?
+		bne.s	playselectedlele
+		move.b	#bgm_Megalovania,d0 ; MEGALOVANIA BABY (FUCKING CONSTANTS FFS)
+
 playselectedlele:
-		jsr	(QueueSound1).l
+		jsr	(QueueSound1).w
+
 over12yo:
 		move.w	#30,(v_air).w	; reset air to 30 seconds
 		clr.b	(v_sonicbubbles+objoff_32).w
@@ -7317,8 +7393,8 @@ AddPoints:
 
 		include	"_inc/HUD Update.asm"	; includes ContScrCounter
 
-Art_Hud:	binclude	"artunc/HUD Numbers.bin" ; 8x16 pixel numbers on HUD
-		even
+;Art_Hud:	binclude	"artunc/HUD Numbers.bin" ; 8x16 pixel numbers on HUD
+;		even
 Art_LivesNums:	binclude	"artunc/Lives Counter Numbers.bin" ; 8x8 pixel numbers on lives counter
 		even
 
@@ -7365,8 +7441,16 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 		include "sound/MSU/MSU.asm"
 	endif
 
-		include "clinton fucker/Clinton Fucker.asm"
+		include "_incObj/clinton fucker/Clinton Fucker.asm"
 		include	"_incObj/10 Player Bullet.asm"
+
+		include	"_incObj/Arif/Main.asm"
+
+; ---------------------------------------------------------------------------
+; GMZ - garblemarden's slop will go here
+; ---------------------------------------------------------------------------
+
+		include	"GMZ/DVD Screensaver.asm"	; GMZ - GM_SonicTheScreensaver:
 ; ---------------------------------------------------------------------------
 ; NEEDLEMOUSE SHITTERY  Team Splash Screen files
 ; ---------------------------------------------------------------------------
@@ -7379,15 +7463,33 @@ MAP_NT:   incbin	"NMRTT/NM_MAP.bin"
 ; Atolly splash
 
 
-Nem_Atolly:   binclude	"LiquidSplashes/ATOownscreen/art/Atolly.nem"
+Nem_Atolly:   binclude	"LiquidSplashes/ATOownscreen/Art/Atolly.nem"
         even
 
-Eni_Atolly:   binclude	"LiquidSplashes/ATOownscreen/eni/Atolly.eni"
+Eni_Atolly:   binclude	"LiquidSplashes/ATOownscreen/Eni/Atolly.eni"
         even	
+; ---------------------------------------------------------------------------
+; FORTNITE RIFT - that shit 
+; ---------------------------------------------------------------------------
 	
+FortnitePortal:		  
+		  include	"_incObj/ObjRiftToGo.asm"
+Nem_Rift:	binclude	"artnem/RiftToGo.nem"
+            even			
+
+; ---------------------------------------------------------------------------
+; WARIO - that shit  2
+; ---------------------------------------------------------------------------
 	
+Nem_Wario:	binclude	"artnem/Wario.nem"
+            even	
+	include	"_incObj/Katsi.asm"	
 ; end of 'ROM'
+        include	"EarthboundBtl/MAIN.ASM"
+        
 		even
+
+
 ; ==============================================================
 ; --------------------------------------------------------------
 ; Debugging modules

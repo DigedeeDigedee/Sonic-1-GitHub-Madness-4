@@ -49,28 +49,22 @@ Jeopardy_FM2:
 
 Jeopardy_FM3:
 ;	smpsStop
-	smpsPan             panLeft, $00
+	smpsPan             panRight, $00
 	smpsSetvoice        $02
-	dc.b	nRst, $06, nA3, $09, nA3, nA3, $18
-	dc.b	nRst, $06, nF4, $09, nF4, nE4, $18
-	dc.b	nRst, $06, nA3, $09, nC4, nA3, $18
+	dc.b	nRst, $06, nC4, $09, nC4, nC4, $18
 	dc.b	nRst, $06, nF4, $09, nF4, nG4, $18
-	dc.b	nRst, $06, nC4, $09, nC4, nA3, $18
-	dc.b	nRst, $06, nF4, $09, nD4, nG4, $18
+	smpsLoop            $00, $03, Jeopardy_FM3
 	dc.b	nD4, $0C, nRst, nRst, nRst, nE4, nE4, nF4, $18
 	smpsAlterPitch      $03
 	smpsJump            Jeopardy_FM3
 
 Jeopardy_FM4:
 ;	smpsStop
-	smpsPan             panRight, $00
+	smpsPan             panLeft, $00
 	smpsSetvoice        $02
-	dc.b	nRst, $06, nC4, $09, nC4, nC4, $18
-	dc.b	nRst, $06, nD4, $09, nD4, nG4, $18
-	dc.b	nRst, $06, nC4, $09, nA3, nC4, $18
+	dc.b	nRst, $06, nA3, $09, nA3, nA3, $18
 	dc.b	nRst, $06, nD4, $09, nD4, nE4, $18
-	dc.b	nRst, $06, nA3, $09, nA3, nC4, $18
-	dc.b	nRst, $06, nD4, $09, nF4, nE4, $18
+	smpsLoop            $00, $03, Jeopardy_FM4
 	dc.b	nBb3, $0C, nRst, nRst, nRst, nC4, nC4, nC4, $18
 	smpsAlterPitch      $03
 	smpsJump            Jeopardy_FM4

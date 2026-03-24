@@ -20,12 +20,12 @@ orb_parent = objoff_3C		; address of parent object
 Orb_Main:	; Routine 0
 		move.l	#Map_Orb,obMap(a0)
 		move.w	#make_art_tile(ArtTile_SBZ_Orbinaut,0,0),obGfx(a0)	; SBZ specific code
-		cmpi.b	#id_SBZ,(v_zone).w ; check if level is SBZ
+		cmpi.b	#id_PPZ,(v_zone).w ; check if level is SBZ
 		beq.s	.isscrap
 		move.w	#make_art_tile(ArtTile_SLZ_Orbinaut,1,0),obGfx(a0) ; SLZ specific code
 
 .isscrap:
-		cmpi.b	#id_LZ,(v_zone).w ; check if level is LZ
+		cmpi.b	#id_ARZ,(v_zone).w ; check if level is LZ
 		bne.s	.notlabyrinth
 		move.w	#make_art_tile(ArtTile_LZ_Orbinaut,0,0),obGfx(a0)	; LZ specific code
 
@@ -168,7 +168,7 @@ Orb_MoveOrb:	; Routine 6
 
 .circle:
 		move.b	obAngle(a0),d0
-		jsr	(CalcSine).l
+		jsr	(CalcSine).w
 		asr.w	#4,d1
 		add.w	obX(a1),d1
 		move.w	d1,obX(a0)

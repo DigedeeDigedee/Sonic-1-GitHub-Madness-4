@@ -1,7 +1,7 @@
 {
     "Flex": 2,
     "name": "Sonic 1",
-    "node": "81e2ebfb-b25f-46f8-8425-cb76f0ea9b69",
+    "node": "dc8b239f-fad3-43d6-9adc-5436f91725eb",
     "objects": [
         {
             "format": "Sonic 1.js",
@@ -152,7 +152,7 @@
                 }
             ],
             "isDirectory": true,
-            "expanded": true,
+            "expanded": false,
             "uuid": "96c09600-0c75-4891-bd2c-afcdc2b13515"
         },
         {
@@ -466,6 +466,46 @@
         {
             "name": "GHZ",
             "children": [
+                {
+                    "format": "Sonic 1.js",
+                    "name": "Arif",
+                    "palettes": [],
+                    "art": {
+                        "path": "_incObj\\Arif\\Data\\Arif.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_incObj\\Arif\\Data\\Arif.asm",
+                        "label": "Map_Arif"
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "dc8b239f-fad3-43d6-9adc-5436f91725eb"
+                },
+                {
+                    "format": "Sonic 1.js",
+                    "name": "ArifBullet",
+                    "palettes": [],
+                    "art": {
+                        "path": "_incObj\\Arif\\Data\\ArifBullet.bin",
+                        "compression": "Uncompressed",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_incObj\\Arif\\Data\\ArifBullet.asm",
+                        "label": "Map_ArifBullet"
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "8b239ffa-d313-465a-9c54-36f91725eb22"
+                },
                 {
                     "uuid": "00cd250e-813f-440e-b06c-e8c1cfd2387d",
                     "format": "Sonic 1.js",
@@ -894,7 +934,7 @@
                 }
             ],
             "isDirectory": true,
-            "expanded": false,
+            "expanded": true,
             "uuid": "d70d6d9c-d886-4fb1-8792-9999eaa239c3"
         },
         {
@@ -1829,12 +1869,12 @@
                         }
                     ],
                     "art": {
-                        "path": "artnem/Enemy Ball Hog.nem",
+                        "path": "artnem/Enemy Ball HogH.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "_maps/Ball Hog.asm",
+                        "path": "_maps/Ball HogH.asm",
                         "label": ""
                     },
                     "dplcs": {

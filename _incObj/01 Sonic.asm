@@ -7,7 +7,11 @@
 ; Object variables used by Sonic
 ; ---------------------------------------------------------------------------
 
-dgfxaddr:	equ $28 ; dgfx/"dplc" script address 
+playammo:	equ $28 	; THIS IS REALLY FUNNYT BECAUSE ITS A BYTE
+				; WE'RE REALLY BYTEBASHING THIS ONE MAN.
+
+dgfxaddr:	equ $28 ; dgfx/"dplc" script address (LONGWORD, DONT USE TOP BYTE)
+
 artaddr:	equ $2C ; art data address 
 flashtime:	equ $30	; time between flashes after getting hit (2 bytes)
 invtime:	equ $32	; time left for invincibility (2 bytes)
@@ -15,7 +19,7 @@ shoetime:	equ $34	; time left for speed shoes (2 bytes)
 angleright:	equ $36	; angle of floor on Sonic's right side
 angleleft:	equ $37	; angle of floor on Sonic's left side
 sticktoconvex:	equ $38	; flag set while running on an SBZ gear
-attacking:	equ $39	; timset set while attacking
+attacking:	equ $39	; timeset set while attacking
 restartime:	equ $3A	; time left before level restarts after dying (2 bytes)
 jumping:	equ $3C	; flag set while Sonic is jumping
 standonobject:	equ $3D	; object index Sonic stands on
@@ -29,36 +33,6 @@ locktime:	equ $3E	; temporary D-Pad control lock timer (2 bytes)
 chrid_tonic	equ 0
 chrid_maniac	equ 1
 chrid_last	equ 1
-
-; ----------------------------------------------------------------------------
-; Get player's data for things other than the object data.
-; Input: d0.w -> what variable to get
-
-; HipSnake: move this code to somewhere you fit I added this here cause I
-; didn't know where to put it.
-; ----------------------------------------------------------------------------
-
-GetOtherPlayerData:
-	moveq	#0,d1
-	move.b	(v_characterid).w,d1
-	chk	#chrid_last,d1
-
-	add.w	d1,d1
-	add.w	d1,d1 ; d0 + 4 * charid
-	add.w	d0,d1
-
-	moveq	#0,d0
-	move.w	OtherPlayerData(pc,d1.w),d0
-	rts
-
-	; HUD Life Icon Art, Damage SFX
-ch_hudlives	equ 0
-ch_hurtpcm	equ 2
-OtherPlayerData:
-	dc.w	Nem_TonicLives-Nem_Lives
-	dc.w	dFuck
-	dc.w	Nem_ManiacLives-Nem_Lives
-	dc.w	dGayNeil
 
 ; ---------------------------------------------------------------------------
 
@@ -86,6 +60,19 @@ SonicPlayer:
 ; decided to name the player object "Sonic" because there are definitely
 ; not any other playable characters in these games!
 ; note: this is Sonic 1, the game with no other characters other than Sonic :P
+;
+; ^ response note: I hate you go fuck yourself
+;
+; ^^ secondary response note: Actually, because I think you're particularly annoying,
+; I'll elaborate more:
+;
+; Sonic fans 100% have played Sonic 2 and Sonic 3K. Especially those in the hacking community
+; They also knew that the games were built off of one another when this started.
+; They knew in advance there would be more characters, so it would have made more sense
+; at the time to name things by "Player". Not to mention this is just good practice to begin with.
+; However, they did not. Because they are Sonic fans. And most Sonic fans lack common sense.
+; 
+; i hope you shit the bed for being annoying buddy.im notb eing fuckignt serious man i just think its hilarious to beef with random people in code comments 
 ;
 ; Sorry in advance. 
 ; ----------------------------------------------------------------------------
@@ -128,13 +115,47 @@ PlayerMapList:
 	dc.l	Map_Maniac,Dgfx_Maniac,Art_Maniac,Pal_Maniac
 
 ; ----------------------------------------------------------------------------
+; Get... other player data!
+; OUTPUTS:
+;	d0.w - Lives counter art
+;	d1.w - Death noise
+;	d2.w - Height
+;	d3.w - Width
+; ----------------------------------------------------------------------------
+
+GetOtherPlayerData:
+	moveq	#0,d0
+	move.b	(v_characterid).w,d0
+	chk	#chrid_last,d0
+	lsl.w	#3,d0
+	lea	OtherPlayerData(pc,d0.w),a2
+	move.w	(a2)+,d0
+	move.w	(a2)+,d1
+	move.w	(a2)+,d2
+	move.w	(a2)+,d3
+	rts
+
+	; HUD Life Icon Art, Damage SFX
+ch_hudlives	equ 0
+ch_hurtpcm	equ 2
+OtherPlayerData:
+	dc.w	Nem_TonicLives-Nem_Lives
+	dc.w	dFuck
+	dc.w	19				; height
+	dc.w	9				; width
+	dc.w	Nem_ManiacLives-Nem_Lives
+	dc.w	dGayNeil
+	dc.w	15
+	dc.w	7
+; ----------------------------------------------------------------------------
 ; TeethTonic character init routine
 ; ----------------------------------------------------------------------------
 
 Tonic_Init:
 		addq.b	#2,obRoutine(a0)
-		move.b	#$13,obHeight(a0)
-		move.b	#9,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		bsr.w	GetPlayerData
 		move.l	d0,obMap(a0)
 		move.l	d1,dgfxaddr(a0)
@@ -154,8 +175,9 @@ Tonic_Init:
 
 Maniac_Init:
 		addq.b	#2,obRoutine(a0)
-		move.b	#$13,obHeight(a0)
-		move.b	#9,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		bsr.w	GetPlayerData
 		move.l	d0,obMap(a0)
 		move.l	d1,dgfxaddr(a0)
@@ -164,6 +186,8 @@ Maniac_Init:
 		move.b	#2,obPriority(a0)
 		move.b	#$18,obActWid(a0)
 		move.b	#4,obRender(a0)
+		move.b	#10,playammo(a0)	; ammo start
+		or.b	#1,f_ammocount.w
 		move.w	#$900,(v_sonspeedmax).w ; Sonic's top speed
 		move.w	#$F,(v_sonspeedacc).w ; Sonic's acceleration
 		move.w	#$80,(v_sonspeeddec).w ; Sonic's deceleration
@@ -242,7 +266,7 @@ Sonic_Display:
 		bcc.s	.chkinvincible
 
 .display:
-		jsr	(DisplaySprite).l
+		bsr.w	DisplaySprite
 
 .chkinvincible:
 		tst.b	(v_invinc).w	; does Sonic have invincibility?
@@ -259,13 +283,13 @@ Sonic_Display:
 		blo.s	.removeinvincible
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
-		cmpi.w	#(id_LZ<<8)+3,(v_zone).w ; check if level is SBZ3
+		cmpi.w	#(id_ARZ<<8)+3,(v_zone).w ; check if level is SBZ3
 		bne.s	.music
 		moveq	#5,d0		; play SBZ music
 
 .music:
 		move.b	(v_zonemusic).w,d0
-		jsr	(QueueSound1).l	; play normal music
+		jsr	(QueueSound1).w	; play normal music
 
 .removeinvincible:
 		move.b	#0,(v_invinc).w ; cancel invincibility
@@ -282,7 +306,7 @@ Sonic_Display:
 		move.w	#$80,(v_sonspeeddec).w ; Sonic's deceleration
 		move.b	#0,(v_shoes).w	; cancel speed shoes
 		move.b	(v_zone).w,d0
-		cmpi.w	#(id_LZ<<8)+3,(v_zone).w ; check if level is SBZ3
+		cmpi.w	#(id_ARZ<<8)+3,(v_zone).w ; check if level is SBZ3
 		bne.s	.music2
 		moveq	#5,d0		; play SBZ music
 
@@ -372,7 +396,7 @@ Sonic_MdNormal:
 		bsr.w	Sonic_Move
 		bsr.w	Sonic_Roll
 		bsr.w	Sonic_LevelBound
-		jsr	(SpeedToPos).l
+		bsr.w	SpeedToPos
 		bsr.w	FootCollision
 		bsr.w	Sonic_SlopeRepel
 		rts
@@ -383,7 +407,7 @@ Sonic_MdJump:
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_JumpDirection
 		bsr.w	Sonic_LevelBound
-		jsr	(ObjectFall).l
+		bsr.w	ObjectFall
 		btst	#6,obStatus(a0)
 		beq.s	.notunderwater
 		subi.w	#$28,obVelY(a0)
@@ -401,7 +425,7 @@ Sonic_MdRoll:
 		bsr.w	Sonic_RollRepel
 		bsr.w	Sonic_RollSpeed
 		bsr.w	Sonic_LevelBound
-		jsr	(SpeedToPos).l
+		bsr.w	SpeedToPos
 		bsr.w	FootCollision
 		bsr.w	Sonic_SlopeRepel
 		rts
@@ -412,7 +436,7 @@ Sonic_MdJump2:
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_JumpDirection
 		bsr.w	Sonic_LevelBound
-		jsr	(ObjectFall).l
+		bsr.w	ObjectFall
 		btst	#6,obStatus(a0)
 		beq.s	.notunderwater
 		subi.w	#$28,obVelY(a0)
@@ -487,6 +511,14 @@ TonicAttack:
 ; ----------------------------------------------------------------------------
 
 ManiacAttack:
+		tst.b	playammo(a0)
+		bne.s	.go
+		or.b	#1,f_ammocount.w
+		move.w	#sfx_B8, d0
+		jmp	PlaySound_Special	
+.go:
+		sub.b	#1,playammo(a0)	; ammo start
+		or.b	#1,f_ammocount.w
 		moveq   #3, d2
 		moveq   #0, d1
 		moveq   #0, d0
@@ -575,7 +607,7 @@ Sonic_Move:
 ; ----------------------------------------------------------------------------
 
 Sonic_Balance:
-		jsr	(ObjFloorDist).l
+		bsr.w	ObjFloorDist
 		cmpi.w	#$C,d1
 		blt.s	Sonic_LookUp
 		cmpi.b	#3,angleright(a0)
@@ -654,7 +686,7 @@ loc_12FEA:
 
 loc_12FEE:
 		move.b	obAngle(a0),d0
-		jsr	(CalcSine).l
+		jsr	(CalcSine).w
 		muls.w	obInertia(a0),d1
 		asr.l	#8,d1
 		move.w	d1,obVelX(a0)
@@ -759,7 +791,7 @@ loc_130BA:
 		move.b	#id_Stop,obAnim(a0) ; use "stopping" animation
 		bclr	#0,obStatus(a0)
 		move.w	#sfx_Skid,d0
-		jsr	(QueueSound2).l	; play stopping sound
+		jsr	(QueueSound2).w	; play stopping sound
 
 locret_130E8:
 		rts
@@ -808,7 +840,7 @@ loc_13120:
 		move.b	#id_Stop,obAnim(a0) ; use "stopping" animation
 		bset	#0,obStatus(a0)
 		move.w	#sfx_Skid,d0
-		jsr	(QueueSound2).l	; play stopping sound
+		jsr	(QueueSound2).w	; play stopping sound
 
 locret_1314E:
 		rts
@@ -866,14 +898,15 @@ loc_131AA:
 		tst.w	obInertia(a0)	; is Sonic moving?
 		bne.s	loc_131CC	; if yes, branch
 		bclr	#2,obStatus(a0)
-		move.b	#$13,obHeight(a0)
-		move.b	#9,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		move.b	#id_Wait,obAnim(a0) ; use "standing" animation
 		subq.w	#5,obY(a0)
 
 loc_131CC:
 		move.b	obAngle(a0),d0
-		jsr	(CalcSine).l
+		jsr	(CalcSine).w
 		muls.w	obInertia(a0),d0
 		asr.l	#8,d0
 		move.w	d0,obVelY(a0)
@@ -1082,7 +1115,7 @@ Sonic_LevelBound:
 
 ; Boundary_Bottom
 .bottom:
-		addi.w	#$4C4,d0
+		addi.w	#$400,d0
 		cmp.w	obY(a0),d0	; has Sonic touched the bottom boundary?
 		blt.s	.bottom2		; if yes, branch 
 		tst.b   $3A(a0)     ; codeeeee
@@ -1095,13 +1128,13 @@ Sonic_LevelBound:
 ; ----------------------------------------------------------------------------
 		
 .bottom2:		
-		cmpi.w	#(id_SBZ<<8)+1,(v_zone).w ; is level SBZ2 ?
+		cmpi.w	#(id_PPZ<<8)+1,(v_zone).w ; is level SBZ2 ?
 		bne.s	.JUMP_KillSonic	; if not, kill Sonic
 		cmpi.w	#$2000,(v_player+obX).w
 		blo.s	.JUMP_KillSonic
 		clr.b	(v_lastlamp).w	; clear lamppost counter
 		move.w	#1,(f_restart).w ; restart the level
-		move.w	#(id_LZ<<8)+3,(v_zone).w ; set level to SBZ3 (LZ4)
+		move.w	#(id_ARZ<<8)+3,(v_zone).w ; set level to SBZ3 (LZ4)
 		rts
 .JUMP_KillSonic:	
 		jmp (KillSonic).l
@@ -1121,16 +1154,16 @@ Sonic_LevelBound:
 		move.w	#0,obX+2(a0)
 		move.w	#0,obInertia(a0)
 		move.w	#-$200,obVelY(a0)
-		move.b	#dBoik,d0	; Boik
-		jsr		(MegaPCM_PlaySample).l
+		move.b	#dBoik,d0		; Boik
+		jsr	(MegaPCM_PlaySample).l
 		bra.w	.chkbottom
 ; End of function Sonic_LevelBound
 
 reproduceSFX:
-        move.b	#dScream,d0	; Scream
-		jsr		(MegaPCM_PlaySample).l
+		move.b	#dScream,d0	; Scream
+		jsr	(MegaPCM_PlaySample).l
 		move.w	#sfx_Lamppost,d0
-		jmp	(QueueSound2).l	; play lamppost sound
+		jmp	(QueueSound2).w	; play lamppost sound
 
 ; ---------------------------------------------------------------------------
 ; Subroutine allowing Sonic to roll when he's moving
@@ -1170,12 +1203,15 @@ Sonic_ChkRoll:
 ; Obj01_DoRoll
 .roll:
 		bset	#2,obStatus(a0)
-		move.b	#$E,obHeight(a0)
-		move.b	#7,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		sub.b	#5,d2
+		sub.b	#2,d3
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation
 		addq.w	#5,obY(a0)
 		move.w	#sfx_Roll,d0
-		jsr	(QueueSound2).l	; play rolling sound
+		jsr	(QueueSound2).w	; play rolling sound
 		tst.w	obInertia(a0)
 		bne.s	.ismoving
 		move.w	#$200,obInertia(a0) ; set inertia if 0
@@ -1194,10 +1230,10 @@ ExtraJumpUsed:		equ  $3b
 
 Sonic_ExtraJump:
 		tst.b   ExtraJumpUsed(a0)   
-        bne.s   ExtraJumpReturn
+		bne.s   ExtraJumpReturn
 		move.b  (v_jpadpress2).w,d0    ; Is ABC pressed? 
-        andi.b  #$70,d0             ; the button input itself
-        beq.w   ExtraJumpReturn      ; If not, branch
+		andi.b  #btnB|btnC,d0             ; the button input itself
+		beq.w   ExtraJumpReturn      ; If not, branch
 		move.b  #1,ExtraJumpUsed(a0)
 	    move.w  #-$3E0,obVelY(a0)    
         move.w  #-$300,obVelX(a0)
@@ -1234,7 +1270,7 @@ Sonic_Jump:
 		moveq	#0,d0
 		move.b	obAngle(a0),d0
 		subi.b	#$40,d0
-		jsr	(CalcSine).l	; find the direction Sonic should jump.
+		jsr	(CalcSine).w	; find the direction Sonic should jump.
 		muls.w	d2,d1	; apply jump force to the cosine angle.
 		asr.l	#8,d1
 		add.w	d1,obVelX(a0)	; apply to X speed.
@@ -1247,13 +1283,17 @@ Sonic_Jump:
 		move.b	#1,jumping(a0)	; set jump flag.
 		clr.b	sticktoconvex(a0)
 		move.b	#dQuakeJump,d0
-		jsr	MegaPCM_PlaySample
-		move.b	#$13,obHeight(a0)	; set Sonic's hitbox to standing size. This is a leftover from the victory animation in prototypes.
-		move.b	#9,obWidth(a0)
+		jsr	(MegaPCM_PlaySample).l
+		bsr.w	GetOtherPlayerData
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		btst	#2,obStatus(a0)	; is Sonic already in a ball state?
 		bne.s	.rolljump	; if so, branch.
-		move.b	#$E,obHeight(a0)	; set Sonic's hitbox to ball size.
-		move.b	#7,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		sub.b	#5,d2
+		sub.b	#2,d3
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "jumping" animation
 		bset	#2,obStatus(a0)
 		addq.w	#5,obY(a0)
@@ -1314,7 +1354,7 @@ Sonic_SlopeResist:
 		cmpi.b	#$C0,d0
 		bhs.s	locret_13508
 		move.b	obAngle(a0),d0
-		jsr	(CalcSine).l
+		jsr	(CalcSine).w
 		muls.w	#$20,d0
 		asr.l	#8,d0
 		tst.w	obInertia(a0)
@@ -1348,7 +1388,7 @@ Sonic_RollRepel:
 		cmpi.b	#-$40,d0
 		bhs.s	locret_13544
 		move.b	obAngle(a0),d0
-		jsr	(CalcSine).l
+		jsr	(CalcSine).w
 		muls.w	#$50,d0
 		asr.l	#8,d0
 		tst.w	obInertia(a0)
@@ -1451,7 +1491,7 @@ Sonic_JumpAngle:
 Sonic_Floor:
 		move.w	obVelX(a0),d1
 		move.w	obVelY(a0),d2
-		jsr	(CalcAngle).l
+		jsr	(CalcAngle).w
 ;		move.b	d0,(v_unused3).w
 		subi.b	#$20,d0
 ;		move.b	d0,(v_unused4).w
@@ -1668,8 +1708,9 @@ Sonic_ResetOnFloor:
 		btst	#2,obStatus(a0)	; check if Sonic is in a ball state.
 		beq.s	.notball	; if not, skip.
 		bclr	#2,obStatus(a0)	; clear ball flag.
-		move.b	#$13,obHeight(a0)	; set Sonic's hitbox to standing.
-		move.b	#9,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	d2,obHeight(a0)
+		move.b	d3,obWidth(a0)
 		move.b	#id_Walk,obAnim(a0) ; use running/walking animation
 		subq.w	#5,obY(a0)	; raise Sonic up 5 pixels so he's not inside the ground.
 
@@ -1685,7 +1726,7 @@ Sonic_ResetOnFloor:
 
 ; Obj01_Hurt:
 Sonic_Hurt:	; Routine 4
-		jsr	(SpeedToPos).l
+		bsr.w	SpeedToPos
 		addi.w	#$20,obVelY(a0)
 		btst	#6,obStatus(a0)
 		beq.s	.notunderwater
@@ -1697,7 +1738,7 @@ Sonic_Hurt:	; Routine 4
 		bsr.w	Sonic_RecordPosition
 		bsr.w	Player_Animate
 		bsr.w	Sonic_LoadGfx
-		jmp	(DisplaySprite).l
+		bra.w	DisplaySprite
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to stop Sonic falling after he's been hurt
@@ -1744,11 +1785,11 @@ locret_13860:
 ; Obj01_Death:
 Sonic_Death:	; Routine 6
 		bsr.w	GameOver
-		jsr	(ObjectFall).l
+		bsr.w	ObjectFall
 		bsr.w	Sonic_RecordPosition
 		bsr.w	Player_Animate
 		bsr.w	Sonic_LoadGfx
-		jmp	(DisplaySprite).l
+		bra.w	DisplaySprite
 
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 

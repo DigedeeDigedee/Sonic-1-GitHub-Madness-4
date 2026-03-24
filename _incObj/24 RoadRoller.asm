@@ -9,10 +9,8 @@ RoadRoller:
 		jmp	RoadRoller_Index(pc,d1.w)
 ; ===========================================================================
 RoadRoller_Index:	dc.w RoadRoller_Main-RoadRoller_Index
-		dc.w RoadRoller_Action-RoadRoller_Index
+			dc.w RoadRoller_Action-RoadRoller_Index
 
-RoadRoller_origX = $3A		; original x-axis position
-RoadRoller_origY = $38		; original y-axis position
 RoadRoller_here = $3D		; flag set when the ground RoadRoller appears
 ; ===========================================================================
 
@@ -23,78 +21,49 @@ RoadRoller_Main:	; Routine 0
 		move.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#$28,obActWid(a0)
-		move.w	obX(a0),RoadRoller_origX(a0)
-		move.w	obY(a0),RoadRoller_origY(a0)
 
 RoadRoller_Action:	; Routine 2
-		moveq	#0,d0
-		move.b	obSubtype(a0),d0
-		andi.w	#7,d0
-		add.w	d0,d0
-		move.w	.index(pc,d0.w),d1
-		jsr	.index(pc,d1.w)
-		out_of_range.s	.delete,RoadRoller_origX(a0)
-		jmp	(DisplaySprite).l
+		btst	#0,obStatus(a0)
+		bne.w	RoadRollerGoLeft
 
-.delete:
-		jmp	(DeleteObject).l
-; ===========================================================================
-.index:	dc.w .type03-.index, .type04-.index ; ground RoadRoller
-; ===========================================================================
-
-.type03:
+RoadRollerRight:
 		tst.b	RoadRoller_here(a0)	; has the RoadRoller appeared already?
-		bne.s	.here03		; if yes, branch
+		bne.s	RoadRollerGoLeft.update	; if yes, branch
+
 		move.w	(v_screenposx).w,d0
 		subi.w	#$40,d0
-		bcs.s	.noRoadRoller03x
+		bcs.s	.return
 		sub.w	obX(a0),d0
-		bcs.s	.noRoadRoller03x
+		bcs.s	.return
 		move.b	#1,RoadRoller_here(a0)
 		move.w	#$F00,obVelX(a0) ; move object to the right
 		move.b	#$A2,obColType(a0)
-;		move.b	#2,obFrame(a0)
 		move.w	#sfx_VehiRev,d0
-		jsr	(PlaySound_Special).l		; play RoadRoller sound
+		jmp	(PlaySound_Special).w		; play RoadRoller sound
 
-.noRoadRoller03x:
-		addq.l	#4,sp
-
-.noRoadRoller03y:
+.return:
 		rts	
 ; ===========================================================================
 
-.here03:
-		jsr	(SpeedToPos).l
-		move.w	obX(a0),RoadRoller_origX(a0)
-
-		rts	
-; ===========================================================================
-
-.type04:
+RoadRollerGoLeft:
 		tst.b	RoadRoller_here(a0)
-		bne.s	.here04
+		bne.s	.update
 		move.w	(v_screenposx).w,d0
 		addi.w	#$180,d0
 		sub.w	obX(a0),d0
-		bcc.s	.noRoadRoller04x
+		bcc.s	RoadRollerRight.return
 		move.b	#1,RoadRoller_here(a0)
 		move.w	#-$F00,obVelX(a0) ; move object to the left
 		move.b	#$A2,obColType(a0)
-		bset	#0,obStatus(a0)
+		bset	#0,obRender(a0)
 ;		move.b	#2,obFrame(a0)
 		move.w	#sfx_VehiRev,d0
-		jsr	(PlaySound_Special).l		; play RoadRoller sound
-
-.noRoadRoller04x:
-		addq.l	#4,sp
-
-.noRoadRoller04y:
-		rts	
+		jmp	(PlaySound_Special).w		; play RoadRoller sound
 ; ===========================================================================
 
-.here04:
-		jsr	(SpeedToPos).l
-		move.w	obX(a0),RoadRoller_origX(a0)
+.update:
+		bsr.w	SpeedToPos
 
-		rts	
+RoadRollerDisp:
+		out_of_range.w	DeleteObject
+		bra.w	DisplaySprite

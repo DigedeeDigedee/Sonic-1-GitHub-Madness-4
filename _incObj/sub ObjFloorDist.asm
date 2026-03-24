@@ -15,16 +15,20 @@
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 
+ObjCheckFloorDist:
 ObjFloorDist:
+ObjHitFloor:
+ChkFloorEdge:
 		move.w	obX(a0),d3
-
-
+ObjHitFloor2:
+ChkFloorEdge_Part2:
 ObjFloorDist2:
 		move.w	obY(a0),d2
 		moveq	#0,d0
 		move.b	obHeight(a0),d0
 		ext.w	d0
 		add.w	d0,d2
+ChkFloorEdge_Part3:
 		lea	(v_anglebuffer).w,a4
 		move.b	#0,(a4)
 		movea.w	#$10,a3		; height of a 16x16 tile
