@@ -34,7 +34,7 @@ ArifBoss_Bullet:
 
 		add.b	#2, obRoutine(a0)
 
-		bsr.w	.GetVelocity
+		rts
 
 ; ===========================================================================
 
@@ -50,24 +50,6 @@ ArifBoss_Bullet:
 		sub.b	#1, .TimeToLive(a0)
 		beq.s	.Destroy
 
-		rts
-
-; ===========================================================================
-
-.GetVelocity:
-		lea	(v_player).w, a3
-		move.w	obX(a3), d1
-		sub.w	obX(a0), d1
-		move.w	obY(a3), d2
-		sub.w	obY(a0), d2
-		jsr	CalcAngle
-		jsr	CalcSine
-		muls.w	#$800, d0
-		muls.w	#$800, d1
-		asr.l	#8, d0
-		asr.l	#8, d1
-		move.w	d1, obVelX(a0)
-		move.w	d0, obVelY(a0)
 		rts
 
 ; ===========================================================================

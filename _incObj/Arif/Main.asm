@@ -71,6 +71,8 @@ Art_ArifBullet: incbin "_incObj/Arif/Data/ArifBullet.bin"
 PLC_Arif:
 	dc.l	Art_Arif
 	dc.w	$8000
+	; dc.l	Art_ArifBullet
+	; dc.w	$8500
 	dc.l	-1
 
 ; ===========================================================================

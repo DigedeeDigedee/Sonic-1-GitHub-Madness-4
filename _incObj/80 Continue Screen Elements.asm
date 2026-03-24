@@ -48,12 +48,10 @@ ContScrCur:
 		
 	        move.w  #$400, obGfx(a0)
 	        move.l  #.Cursor_SpriteMap, obMap(a0)
-		jmp	(DisplaySprite).l
+		jmp	DisplaySprite
 
 ; ===========================================================================
 
-.Delete:
-		jmp	(DeleteObject).l
 
 ; fuck you. lookup tabl
 .Offsets:
