@@ -161,7 +161,7 @@ loc_6EB0:
 		jsr	(QueueSound1).w		; play boss music
 
 		move.w	#$280B, (v_limitleft2).w	; limit left bound
-		move.w	#$2A90, (v_limitright2).w ; limit right bound
+		move.w	#$2900, (v_limitright2).w ; limit right bound
 		move.b	#1, (f_lockscreen).w 	; lock screen
 
 		addq.b	#2,(v_dle_routine).w
@@ -176,7 +176,6 @@ locret_6EE8:
 ; ===========================================================================
 
 DLE_GHZ3end:
-		move.w	(v_screenposx).w,(v_limitleft2).w
 		rts
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
