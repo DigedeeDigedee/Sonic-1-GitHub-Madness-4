@@ -59,10 +59,7 @@ ArifBoss_Arif:
 
 		move.b	#$F, obColType(a0)
 		move.b	#12, obColProp(a0) 		; set number of hits
-
-		move.w 	#0, (v_rings)			; lol fuck you no rings for this fight
-		move.b	#$80, (f_ringcount)		; update ring counter
-
+		
 		add.b	#2, obRoutine(a0)
 
 		rts
