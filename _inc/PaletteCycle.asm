@@ -30,7 +30,7 @@ PalCycle_Index:	dc.w PalCycle_GHZ-PalCycle_Index
 		dc.w PalCycle_MZ-PalCycle_Index
 		dc.w PalCycle_MZ-PalCycle_Index
 		dc.w PalCycle_MZ-PalCycle_Index
-		dc.w PalCycle_MZ-PalCycle_Index
+		dc.w PalCyc_Nogales-PalCycle_Index
 		dc.w PalCycle_MZ-PalCycle_Index
 		dc.w PalCycle_MZ-PalCycle_Index
 		dc.w PalCycle_MZ-PalCycle_Index
@@ -45,11 +45,7 @@ PalCycle_Index:	dc.w PalCycle_GHZ-PalCycle_Index
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 PalCycle_GHZ:
-		rts
-; End of function PalCycle_GHZ
-
-
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+	rts
 
 
 PalCycle_LZ:
@@ -196,3 +192,26 @@ loc_1B52:
 locret_1B64:
 		rts
 ; End of function PalCycle_SBZ
+
+PalCyc_Nogales:
+		lea	.Cycle(pc),a0
+		subq.w	#1,(v_pcyc_time).w 	; decrement timer
+		bpl.s	.Wait			; if time remains, branch
+
+		move.w	#5,(v_pcyc_time).w 	; reset timer to 5 frames
+		move.w	(v_pcyc_num).w,d0 	; get cycle number
+		addq.w	#1,(v_pcyc_num).w 	; increment cycle number
+		andi.w	#3,d0			; if cycle > 3, reset to 0
+		lsl.w	#3,d0
+		lea	(v_pal_dry+$50).w,a1
+		move.l	(a0,d0.w),(a1)+
+		move.l	4(a0,d0.w),(a1)		; copy palette data to RAM
+
+.Wait:
+		rts	
+; ---------------------------------------------------------------------------
+; someones gonna get soooo mad
+; ---------------------------------------------------------------------------
+.Cycle:
+	dc.w $0C42,$0E86,$0ECA,$0EEC,$0EEC,$0C42,$0E86,$0ECA
+	dc.w $0ECA,$0EEC,$0C42,$0E86,$0E86,$0ECA,$0EEC,$0C42
