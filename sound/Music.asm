@@ -166,7 +166,8 @@ Music07:
 		include	"music/TG2000Tracks/Easton.asm" 
 		even
 Music08:
-		include "music/Dawid/Mus - Minecraft.asm"
+		;include "music/Dawid/Mus - Minecraft.asm"
+		include "music/Hame/Sweden MC.asm"
 		even
 Music09:
 		include	"music/TG2000Tracks/DoomGate.asm"
