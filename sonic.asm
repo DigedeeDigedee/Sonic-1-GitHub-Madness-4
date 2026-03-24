@@ -3665,7 +3665,7 @@ byte_4CCC:	dc.b 8,	2, 4, $FF, 2, 3, 8, $FF, 4, 2, 2, 3, 8,	$FD, 4,	2, 2, 3, 2, $
 
 ; ===========================================================================
 
-;		include	"_incObj/80 Continue Screen Elements.asm"
+		include	"_incObj/80 Continue Screen Elements.asm"		; KEEP!!!!!!
 ;		include	"_incObj/81 Continue Screen Sonic.asm"
 ;		include	"_anim/Continue Screen Sonic.asm"
 ;Map_ContScr:	include	"_maps/Continue Screen.asm"

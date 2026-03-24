@@ -441,12 +441,27 @@ DLE_SLZ:
 		move.w	DLE_SLZx(pc,d0.w),d0
 		jmp	DLE_SLZx(pc,d0.w)
 ; ===========================================================================
-DLE_SLZx:	dc.w DLE_SLZ12-DLE_SLZx
-		dc.w DLE_SLZ12-DLE_SLZx
+DLE_SLZx:	dc.w DLE_SLZ1-DLE_SLZx
+		dc.w DLE_SLZ2-DLE_SLZx
 		dc.w DLE_SLZ3-DLE_SLZx
 ; ===========================================================================
-
-DLE_SLZ12:
+DLE_SLZ1:
+		moveq	#0,d0
+		move.b	(v_dle_routine).w,d0
+		move.w	DLE_SLZMusChk(pc,d0.w),d0
+		jmp	DLE_SLZMusChk(pc,d0.w)
+DLE_SLZMusChk:	dc.w DLE_SLZ1Top-DLE_SLZMusChk
+				dc.w DLE_SLZ2-DLE_SLZMusChk
+DLE_SLZ1Top:
+		cmpi.w	#$10C0,(v_screenposx)	; has Sonic reached the underground hole?
+		blo.s	DLE_SLZ2		; if not, branch
+		cmpi.w	#$100,(v_screenposy)	; has Sonic cut the underground line?
+		blo.s	DLE_SLZ2		; if not, branch
+		move.w	#bgm_SMWCave,d0
+		move.b	d0,(v_zonemusic).w
+		jsr	(QueueSound1).w	; play music
+		addq.b	#2,(v_dle_routine).w
+DLE_SLZ2:
 		rts
 ; ===========================================================================
 
