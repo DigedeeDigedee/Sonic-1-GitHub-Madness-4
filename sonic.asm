@@ -518,6 +518,7 @@ VBla_Index:	dc.w VBla_00-VBla_Index	; (lag frame)
 		dc.w VBla_14-VBla_Index	; Sega Screen PCM
 		dc.w VBla_16-VBla_Index	; Continue Screen
 		dc.w VBla_18-VBla_Index	; Ending Sequence
+		dc.w VBla_1A-VBla_Index	; kys
 ; ===========================================================================
 
 ; ===========================================================================
@@ -544,12 +545,11 @@ VBla_00:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; VBlank 02 - Sega Screen (and im using this for clintonfucker)
+; VBlank 02 - Sega Screen
 ; ---------------------------------------------------------------------------
 
 ; loc_C32:
 VBla_02:
-		jsr	ProcessDMAQueue(pc)	; this is going to break something
 		bsr.w	VBla_StandardTransfers
 		; fall-through
 
@@ -790,6 +790,18 @@ VBla_StandardTransfers:
 		writeCRAM	v_palette_water,0	; write full water palette buffer to CRAM
 		rts
 ; End of function VBla_StandardTransfers
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; FUCKING  EXIT THE LEVEL PROPERLY FROM CLINTON FUCKER I GUESS
+; ---------------------------------------------------------------------------
+VBla_1A:
+		jsr	ProcessDMAQueue(pc)
+		bsr.w	VBla_StandardTransfers
+		tst.w	(v_generictimer).w
+		beq.w	.end
+		subq.w	#1,(v_generictimer).w
+.end:
+		bra.w	ProcessDPLC_9Tiles
 
 ;!@ GenesisDoes: Dummy int/func for Copera Soundblaster FM
 ; ===========================================================================

@@ -16,10 +16,7 @@ GM_ClintonScreens:
 ; ---------------------------------------------------------------------------
 
 Clinton_FailInit:
-	moveq	#1,d4
-
 Clinton_WinInit:
-	add.b	#4,submode.w
 	move.l	#60*2,v_generictimer.w
 	fillVRAM	0, 0, $40 ; clear first two tiles
 	fillVRAM	0, vram_fg, vram_fg+plane_size_64x32 ; clear foreground namespace
@@ -56,17 +53,27 @@ Clinton_WinInit:
 	clearRAM vscroll_buffer,vscroll_buffer_end
 	clearRAM v_spritetablebuffer,v_spritetablebuffer_end
 	clearRAM v_hscrolltablebuffer,v_hscrolltablebuffer_end_padded
-	tst.b	d4
-	beq.s	.Fail
-	nop
-
+	cmpi.b	#4,submode
+	bne.s	.Fail
+	move.b	#8,submode.w
+	move.w	#$FFFF,v_generictimer.w
+	move.l  #Art_ClintonWin,d1
+	move.w  #0,d2
+	move.w  #(CLINTONWINARTSZ/2),d3
+	jsr	QueueDMATransfer.l
+	copyTilemap	MapScr_ClintonWin,vram_bg,40,28
+	bra.s	.Skip
 .Fail:
+	move.b	#8,submode.w
 	move.w	#60*3,v_generictimer.w
 	move.l  #Art_ClintonFail,d1
 	move.w  #0,d2
 	move.w  #(CLINTONFAILARTSZ/2),d3
 	jsr	QueueDMATransfer.l
 	copyTilemap	MapScr_ClintonFail,vram_bg,40,28
+.Skip:
+	move.b	#$1A,(v_vbla_routine).w		; garbage will show for a frame without this
+	jsr	WaitForVBla
 
 	lea	(v_palette+32).w,a0
 	lea	Pal_ClintonFail,a1
@@ -81,10 +88,12 @@ Clinton_WinInit:
 
 Clinton_ShowScr:
 	jsr	PauseGame
-	move.b	#2,(v_vbla_routine).w
+	move.b	#$1A,(v_vbla_routine).w
 	jsr	WaitForVBla
 	tst.w	v_generictimer.w
 	beq.s	.leave
+	tst.w	f_restart.w
+	bne.s	.leave
 	jsr	(ExecuteObjects).l
 	jsr	(BuildSprites).l
 	jsr	(ObjPosLoad).l
@@ -196,7 +205,7 @@ CliFucker_Init2:
 	rts
 
 CliFucker_Main:
-	cmpi.w	#$50,v_screenposx
+	cmpi.w	#$10,v_screenposx
 	ble.w	.Exit
 	add.l	#$7000,clifuck.Speed(a0)
 	move.w	#$250,d3
@@ -239,9 +248,11 @@ CliFucker_Main:
 .Exit:
 	tst.b	(v_endcard).w
 	bne.s	.ok
-	;move.w	(v_limitright2).w,(v_limitleft2).w
+	move.w	(v_limitleft2).w,(v_limitright2).w
 	clr.b	(v_invinc).w	; disable invincibility
 	clr.b	(f_timecount).w	; stop time counter
+	move.b	#id_ClintonScr,v_gamemode.w
+	move.b	#4,submode.w
 	move.b	#id_GotThroughCard,(v_endcard).w
 	moveq	#plcid_WINNERCard,d0
 	jsr	(NewPLC).l	; load title card patterns

@@ -1043,6 +1043,15 @@ Unc_RoaringKnight:
 Pal_ClintonFail:
 		incbin	"palette/Clinton Fail.bin"
 		even
+MapScr_ClintonWin:
+		incbin	"artunc/Clinton Win Map.bin"
+		even
+Art_ClintonWin:
+		incbin	"artunc/Clinton Win Art.bin"
+		even
+Art_ClintonWinE:
+CLINTONWINARTSZ = Art_ClintonWinE-Art_ClintonWin
+
 MapScr_ClintonFail:
 		incbin	"artunc/Clinton Fail Map.bin"
 		even
