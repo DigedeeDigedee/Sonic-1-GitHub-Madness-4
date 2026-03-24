@@ -23,9 +23,8 @@ SMWUnderground_FM2:
 ; FM1 Data
 SMWUnderground_FM1:
 	smpsSetvoice        $00
-	dc.b	nD3, $06, nRst, nF3, nRst, nEb3, nRst
-	dc.b	nG3, nRst, nD3, nRst, nF3, nRst
-	dc.b	nC3, nRst, nCs3, nRst
+	dc.b	nD3, $06, nRst, nF3, nRst, nEb3, nRst, nG3, nRst
+	dc.b	nD3, nRst, nF3, nRst, nC3, nRst, nCs3, nRst
 	smpsJump				SMWUnderground_FM1
 
 ; FM3 Data
@@ -56,21 +55,18 @@ SMWUnderground_PSG2:
 	smpsModSet          $06, $01, $03, $02
 	dc.b	nRst, $60
 	smpsLoop            $00, $04, SMWUnderground_PSG2
+
 SMWUnderground_PSG2L:
 	dc.b	nRst, $18, nAb1, nF1, $24, nC1, $0C, nD1, nF1, $54
 	dc.b	nRst, $18, nC1, nF1, $0C, nC2, $24, nAb1, $60
 SMWUnderground_PSG2L1:
 	dc.b	nRst, $30
 	smpsLoop            $00, $07, SMWUnderground_PSG2L1
-	dc.b	nRst, $18, nAb1, nF1, $24, nC1, $0C, nD1, $0C, nF1, $54
-	dc.b	nRst, $18, nC1, nF1, $0C, nC2, $24, nAb1, $60
+	smpsLoop            $01, $02, SMWUnderground_PSG2L1
 SMWUnderground_PSG2L2:
-	dc.b	nRst, $30
-	smpsLoop            $00, $07, SMWUnderground_PSG2L2
-SMWUnderground_PSG2L3:
 	dc.b	nRst, $18, nAb1, $18, nF1, $24, nC1, $0C, nAb1, $18, nF1, $48
 	dc.b	nG1, $0C, nE1, nC1, nAb1, $18, nG1, $60, nRst, $24
-	smpsLoop            $00, $02, SMWUnderground_PSG2L3
+	smpsLoop            $00, $02, SMWUnderground_PSG2L2
 	smpsJump				SMWUnderground_PSG2L
 
 SMWUnderground_PSG3:
