@@ -459,7 +459,9 @@ v_adverttimer:		ds.l	1
 v_levseldelay:		ds.w	1		; level select - time until change when up/down is held
 v_levselitem:		ds.w	1		; level select - item selected
 v_levselsound:		ds.w	1		; level select - sound selected
-			ds.b	$3A		; unused
+			; ds.b	$3A		; unused (GMZ - Commented)
+titleGoToScreensaver:	ds.w	1	; GMZ - Gonna steal some RAM for... a thing
+			ds.b	$38	; GMZ - what else can we do with this?
 v_scorelife:		ds.l	1		; points required for an extra life (JP1 only)
 v_characterid:		ds.b	1
 v_zonemusic:		ds.b	1
