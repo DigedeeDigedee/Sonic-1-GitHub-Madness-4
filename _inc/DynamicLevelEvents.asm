@@ -381,7 +381,7 @@ DLE_MZ3boss:
 		move.w	#boss_mz_y+$1C,obY(a1)
 
 loc_70D0:
-		move.w	#bgm_Boss,d0
+		move.w	#bgm_Coffinman,d0
 		jsr	(QueueSound1).w	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		addq.b	#2,(v_dle_routine).w
@@ -577,7 +577,7 @@ DLE_SYZ3boss:
 		addq.b	#2,(v_dle_routine).w
 
 loc_71EC:
-		move.w	#bgm_Boss,d0
+		move.w	#bgm_Aporia,d0
 		jsr	(QueueSound1).w	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		moveq	#plcid_Boss,d0
