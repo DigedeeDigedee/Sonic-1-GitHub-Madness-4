@@ -4780,6 +4780,9 @@ Map_BallHogH:	include	"_maps/Ball HogH.asm"
 Map_BallHogV:	include	"_maps/Ball HogV.asm"
 Map_ProtoExplosion: include	"_maps/Proto Explosion.asm"
 		even
+
+		include	"_incObj/29 IZ.asm"
+
 ;Map_MisDissolve:include	"_maps/Buzz Bomber Missile Dissolve.asm"
 		include	"_maps/Explosions.asm"
 
