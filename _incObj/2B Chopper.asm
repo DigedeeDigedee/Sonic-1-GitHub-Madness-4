@@ -19,12 +19,14 @@ Chop_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l 	#Chop_Callback, obColCallback(a0)
 		move.l	#Map_Chop,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Chopper,0,0),obGfx(a0)
+		move.w	#($8F60/$20),obGfx(a0)
 		cmpi.b	#id_CBZ,(v_zone).w		; is zone CBZ?
-		bne.s	.NotCBZ	; if not, branch
+		beq.s	.NotCBZ	; if not, branch
+		bra.w   coderest
+.NotCBZ:
 		move.l	#Map_ChopCBZ,obMap(a0)
 		move.w	#make_art_tile(ArtTile_CBZChopper,0,0),obGfx(a0)
-.NotCBZ:
+coderest:		
 		move.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#9,obColType(a0)
