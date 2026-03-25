@@ -62,6 +62,7 @@ Moto_Action:	; Routine 2
 ; ===========================================================================
 Moto_ActIndex:	dc.w .move-Moto_ActIndex
 		dc.w .findfloor-Moto_ActIndex
+		dc.w .goombafall-Moto_ActIndex
 
 .time = objoff_30
 .smokedelay = objoff_33
@@ -106,12 +107,36 @@ Moto_ActIndex:	dc.w .move-Moto_ActIndex
 		rts
 
 .pause:
+		cmpi.b	#id_CBZ,(v_zone).w		; is zone CBZ?
+		bne.s	.stop	; if not, branch
+		move.w	(v_player+obX).w,d0
+		sub.w	obX(a0),d0
+		bpl.s	.isleft
+		neg.w	d0
+
+.isleft:
+		cmpi.w	#$60,d0		; is Buzz Bomber within $60 pixels of Sonic?
+		bhs.s	.stop	; if not, branch
+		tst.b	obRender(a0)
+		bpl.s	.stop
+		addq.b	#2,ob2ndRout(a0)
+		rts
+.stop:
 		subq.b	#2,ob2ndRout(a0)
 		move.w	#59,.time(a0)	; set pause time to 1 second
 		move.w	#0,obVelX(a0)	; stop the object moving
 		move.b	#0,obAnim(a0)
 		rts
 ; ===========================================================================
+.goombafall:
+		bsr.w	ObjectFall
+		bsr.w	ObjFloorDist
+		tst.w	d1
+		bpl.s	.notonfloor
+		add.w	d1,obY(a0)	; match object's position with the floor
+		clr.b	ob2ndRout(a0)
+.notonfloor:
+		rts
 
 Moto_Animate:	; Routine 4
 		lea	(Ani_Moto).l,a1
