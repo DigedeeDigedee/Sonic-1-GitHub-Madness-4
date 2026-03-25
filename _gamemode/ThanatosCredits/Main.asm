@@ -302,13 +302,13 @@ thantxt: macro txt
 	dc.b	1,1
 
 
-	thantxt	"PROJECT LEADS"
+	thantxt	"PROJECT LEAD"
 	dc.b	1
 	thantxt	"DELTAW"
 	dc.b	1,1
 
 
-	thantxt	"MEMBERS"
+	thantxt	"GHM IV DEV TEAM" ;Originally "Members," but I thought this would be more formal. ~TG2000
 	dc.b	1
 	thantxt	"KATSUSHIMI"
 	thantxt	"ATOLLY GUYKE"
@@ -316,7 +316,7 @@ thantxt: macro txt
 	thantxt	"GENESISDOES"
 	thantxt	"DINGISH"
 	thantxt	"MATTMANIA"
-	thantxt "THE GAMER MM"
+	thantxt "THEGAMERMM"
 	thantxt	"HIPSNAKE"
 	thantxt	"LIQUID GROGU"
 	thantxt	"CONINIGHT"
@@ -329,7 +329,8 @@ thantxt: macro txt
 	thantxt	"ADD YOUR NAME HERE"
 	dc.b	1,1
 	
-	thantxt	"REAL-HW TESTING"
+	thantxt	"HARDWARE TESTING"
+	dc.b	1
 	thantxt	"GENESISDOES"
 	thantxt	"DAXKATTER"
 	dc.b	1,1
