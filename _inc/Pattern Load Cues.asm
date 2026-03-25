@@ -101,7 +101,8 @@ PLC_GHZ:	dc.w ((PLC_GHZ2-PLC_GHZ-2)/6)-1
 		plcm	Nem_PplRock,   ArtTile_GHZ_Purple_Rock        ; purple rock
 		plcm	Nem_Crabmeat,  ArtTile_Crabmeat               ; crabmeat enemy
 		plcm	Nem_Buzz,      ArtTile_Buzz_Bomber            ; buzz bomber enemy
-		plcm	Nem_Chopper,   ArtTile_Chopper                ; chopper enemy
+		dc.l    Nem_Chopper        ; hi
+    	dc.w    $8F60    
 		plcm	Nem_Newtron,   ArtTile_Newtron                ; newtron enemy
 		plcm	Nem_Motobug,   ArtTile_Moto_Bug               ; motobug enemy
 		plcm	Nem_Spikes,    ArtTile_Spikes                 ; spikes
