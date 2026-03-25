@@ -2312,14 +2312,6 @@ Maniac_Animate:
 
 .nomodspeed:
 		lea	(ManiacAni_Run).l,a1 ; use running animation
-		cmpi.w	#$600,d2	; is Sonic at running speed?
-		bhs.s	.running	; if yes, branch
-
-		lea	(ManiacAni_Walk).l,a1 ; use walking animation
-		move.b	d0,d1
-		lsr.b	#1,d1
-		add.b	d1,d0
-
 .running:
 		add.b	d0,d0
 		move.b	d0,d3
