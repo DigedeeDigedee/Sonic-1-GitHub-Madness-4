@@ -62,7 +62,7 @@ SMWUnderground_PSG2L:
 SMWUnderground_PSG2L1:
 	dc.b	nRst, $30
 	smpsLoop            $00, $07, SMWUnderground_PSG2L1
-	smpsLoop            $01, $02, SMWUnderground_PSG2L1
+	smpsLoop            $01, $02, SMWUnderground_PSG2L
 SMWUnderground_PSG2L2:
 	dc.b	nRst, $18, nAb1, $18, nF1, $24, nC1, $0C, nAb1, $18, nF1, $48
 	dc.b	nG1, $0C, nE1, nC1, nAb1, $18, nG1, $60, nRst, $24
