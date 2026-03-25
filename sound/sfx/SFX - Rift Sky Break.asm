@@ -7,7 +7,7 @@ SFX_RiftSkyBreak_Header:
 	smpsHeaderSFXChannel cFM3, SFX_RiftSkyBreak_FM3,	$12, $00
 	smpsHeaderSFXChannel cFM4, SFX_RiftSkyBreak_FM4,	$00, $00
 	smpsHeaderSFXChannel cFM5, SFX_RiftSkyBreak_FM5,	$10, $00
-	smpsHeaderSFXChannel cPSG3, SFX_RiftSkyBreak_PSG3,	$00, $02
+	smpsHeaderSFXChannel cPSG1, SFX_RiftSkyBreak_PSG1,	$00, $02
 
 ; FM3 Data
 SFX_RiftSkyBreak_FM3:
@@ -34,8 +34,8 @@ SFX_RiftSkyBreak_Loop00:
 	smpsLoop            $00, $05, SFX_RiftSkyBreak_Loop00
 	smpsStop
 
-; PSG3 Data
-SFX_RiftSkyBreak_PSG3:
+; PSG1 Data
+SFX_RiftSkyBreak_PSG1:
 	smpsModSet          $50, $30, $0F, $0A
 	smpsPSGform         $E7
 	dc.b	nF3, $2E, nA4, $22, nF5, $01, nAs5, $03
