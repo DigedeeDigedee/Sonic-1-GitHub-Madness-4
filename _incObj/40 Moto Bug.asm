@@ -115,7 +115,7 @@ Moto_ActIndex:	dc.w .move-Moto_ActIndex
 		neg.w	d0
 
 .isleft:
-		cmpi.w	#$60,d0		; is Buzz Bomber within $60 pixels of Sonic?
+		cmpi.w	#$80,d0		; is Buzz Bomber within $80 pixels of Sonic?
 		bhs.s	.stop	; if not, branch
 		tst.b	obRender(a0)
 		bpl.s	.stop
