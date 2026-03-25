@@ -17,6 +17,10 @@ ObjIZ_Index:	dc.w ObjIZ_Main-ObjIZ_Index
 ObjIZ_Main:	; Routine 0
 		move.l	#Map_IZ,obMap(a0)
 		move.w	#make_art_tile(ArtTile_CBZ_IZ,0,0),obGfx(a0)
+		btst	#0,obSubtype(a0)
+		beq.s	.notgreen
+		move.w	#make_art_tile(ArtTile_CBZ_IZ,1,0),obGfx(a0)
+.notgreen:
 		move.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#5,obColType(a0)
@@ -30,6 +34,7 @@ ObjIZ_Main:	; Routine 0
 		bpl.s	.notonfloor
 		add.w	d1,obY(a0)	; match	object's position with the floor
 		move.w	#0,obVelY(a0)
+;		bchg	#0,obStatus(a0)
 		addq.b	#2,obRoutine(a0) ; goto ObjIZ_Action next
 
 .notonfloor:
@@ -42,8 +47,7 @@ ObjIZ_Action:	; Routine 2
 		move.b	ob2ndRout(a0),d0
 		move.w	ObjIZ_ActIndex(pc,d0.w),d1
 		jsr	ObjIZ_ActIndex(pc,d1.w)
-;		lea	(Ani_IZ).l,a1
-;		bsr.w	AnimateSprite
+		bsr.w	ObjIZ_Animate
 		bra.w	RememberState
 
 ; ===========================================================================
@@ -58,7 +62,7 @@ ObjIZ_ActIndex:	dc.w .move-ObjIZ_ActIndex
 		bpl.s	.wait		; if time remains, branch
 
 		addq.b	#2,ob2ndRout(a0)
-		move.w	#$80,obVelX(a0) ; move object to the left
+		move.w	#$180,obVelX(a0) ; move object to the left
 		move.b	#1,obAnim(a0)
 		bchg	#0,obStatus(a0)
 		bne.s	.wait
@@ -87,10 +91,37 @@ ObjIZ_ActIndex:	dc.w .move-ObjIZ_ActIndex
 ; ===========================================================================
 
 ObjIZ_Animate:	; Routine 4
-;		lea	(Ani_ObjIZ).l,a1
-;		bsr.w	AnimateSprite
+		lea	(Ani_IZ).l,a1
+		bsr.w	AnimateSprite
 		bra.w	DisplaySprite
 ; ===========================================================================
 
 ObjIZ_Delete:	; Routine 6
 		bra.w	DeleteObject
+
+Ani_IZ:
+		dc.w Ani_IZ.stand-Ani_IZ
+		dc.w Ani_IZ.walk-Ani_IZ
+		dc.w Ani_IZ.shoot-Ani_IZ
+		dc.w Ani_IZ.fall-Ani_IZ
+		dc.w Ani_IZ.shock-Ani_IZ
+		dc.w Ani_IZ.batt-Ani_IZ
+		
+Ani_IZ.stand:
+		dc.b $F, 0, afEnd
+		even
+Ani_IZ.walk:
+		dc.b 8, 1, 2, 3, afEnd
+		even
+Ani_IZ.shoot:
+		dc.b $C, 4, 5, 5, afChange, 0
+		even
+Ani_IZ.fall:
+		dc.b $C, 6, afChange, 0
+		even
+Ani_IZ.shock:
+		dc.b $C, 7, afChange, 0
+		even
+Ani_IZ.batt:
+		dc.b 4, 8, 9, $A, $B, $C, $D, $E, $F, afEnd
+		even

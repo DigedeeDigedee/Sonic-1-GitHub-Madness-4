@@ -213,10 +213,10 @@ dbug:	macro map,object,subtype,frame,vram
 ;			mappings	object		subtype	frame	VRAM setting
 		dbug 	Map_Ring,	id_Rings,	0,	0,	make_art_tile(ArtTile_Ring,1,0)
 		dbug	Map_Monitor,	id_Monitor,	0,	0,	make_art_tile(ArtTile_Monitor,0,0)
-		dbug	Map_IZ,	id_IZ,	0,	0,	make_art_tile(ArtTile_CBZ_IZ,1,0)
-		dbug	Map_IZ,	id_IZ,	1,	0,	make_art_tile(ArtTile_CBZ_IZ,1,0)
 		dbug	Map_IZ,	id_IZ,	0,	0,	make_art_tile(ArtTile_CBZ_IZ,0,0)
-		dbug	Map_IZ,	id_IZ,	1,	0,	make_art_tile(ArtTile_CBZ_IZ,0,0)
+		dbug	Map_IZ,	id_IZ,	2,	0,	make_art_tile(ArtTile_CBZ_IZ,0,0)
+		dbug	Map_IZ,	id_IZ,	1,	0,	make_art_tile(ArtTile_CBZ_IZ,1,0)
+		dbug	Map_IZ,	id_IZ,	3,	0,	make_art_tile(ArtTile_CBZ_IZ,1,0)
 		dbug	Map_BuzzCBZ,	id_BuzzBomber,	0,	0,	make_art_tile(ArtTile_CBZBuzz_Bomber,0,0)
 		dbug	Map_ChopCBZ,	id_Chopper,	0,	0,	make_art_tile(ArtTile_CBZChopper,0,0)
 		dbug	Map_Spike,	id_Spikes,	0,	0,	make_art_tile(ArtTile_Spikes,0,0)
