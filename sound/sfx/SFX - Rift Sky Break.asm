@@ -1,5 +1,5 @@
 SFX_RiftSkyBreak_Header:
-	smpsHeaderStartSong 1, 1
+	smpsHeaderStartSong 1
 	smpsHeaderVoice     SFX_RiftSkyBreak_Voices
 	smpsHeaderTempoSFX  $01
 	smpsHeaderChanSFX   $04

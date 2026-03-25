@@ -1,5 +1,5 @@
 SFX_Rift_Header:
-	smpsHeaderStartSong 1, 1
+	smpsHeaderStartSong 1
 	smpsHeaderVoice     SFX_Rift_Voices
 	smpsHeaderTempoSFX  $01
 	smpsHeaderChanSFX   $01

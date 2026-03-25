@@ -2,11 +2,75 @@
 ; ---------------------------------------------------------------------------
 ; OBJECT CODE
 ; RiftToGo 
+;
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
+; Why was it programmed like this? Why was it programmed like this? 
 ; ---------------------------------------------------------------------------
 ; ===========================================================================
 
 RiftToGo:
-		rts			; stop
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Rift_Index(pc,d0.w),d1
@@ -71,12 +135,13 @@ Rift_Get:	; Routine 4
 
 Rift_GoToSky:
 		move.b	#0,obColType(a0)
-		move.b	#$1D,obAnim(a0)		; anim
-		bclr	#0,(v_player+obY).w 
-
+	;	move.b	#$1D,obAnim(a0)		; anim
+		move.w	v_limittop1.w,(v_player+obY).w 
+		bset	#4,(v_player+obStatus).w
+		bset	#2,(v_player+obStatus).w
 		move.w	#sfx_RiftSky,d0
 		jsr	(QueueSound2).w		; play riftsky sound
-		addq.b	#2,ob2ndRout(a0)
+		addq.b	#2,obRoutine(a0)
 
 Rift_Return2:
 		rts
