@@ -1040,23 +1040,23 @@ Unc_RoaringKnight:
 ; ---------------------------------------------------------------------------
 ; Clinton Fucker Fail screen data
 ; ---------------------------------------------------------------------------
+Art_ClintonFail:
+		incbin	"artunc/Clinton Fail Art.bin"
+		even
+Art_ClintonFailE:
+CLINTONFAILARTSZ = Art_ClintonFailE-Art_ClintonFail
 Pal_ClintonFail:
 		incbin	"palette/Clinton Fail.bin"
 		even
+
 MapScr_ClintonWin:
 		incbin	"artunc/Clinton Win Map.bin"
+		even
+MapScr_ClintonFail:
+		incbin	"artunc/Clinton Fail Map.bin"
 		even
 Art_ClintonWin:
 		incbin	"artunc/Clinton Win Art.bin"
 		even
 Art_ClintonWinE:
 CLINTONWINARTSZ = Art_ClintonWinE-Art_ClintonWin
-
-MapScr_ClintonFail:
-		incbin	"artunc/Clinton Fail Map.bin"
-		even
-Art_ClintonFail:
-		incbin	"artunc/Clinton Fail Art.bin"
-		even
-Art_ClintonFailE:
-CLINTONFAILARTSZ = Art_ClintonFailE-Art_ClintonFail

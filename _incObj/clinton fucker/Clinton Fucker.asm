@@ -55,6 +55,7 @@ Clinton_WinInit:
 	clearRAM v_hscrolltablebuffer,v_hscrolltablebuffer_end_padded
 	cmpi.b	#4,submode
 	bne.s	.Fail
+	pcm	dClintonWin
 	move.b	#8,submode.w
 	move.w	#$FFFF,v_generictimer.w
 	move.l  #Art_ClintonWin,d1
@@ -64,6 +65,7 @@ Clinton_WinInit:
 	copyTilemap	MapScr_ClintonWin,vram_bg,40,28
 	bra.s	.Skip
 .Fail:
+	pcm	dClintonFail
 	move.b	#8,submode.w
 	move.w	#60*3,v_generictimer.w
 	move.l  #Art_ClintonFail,d1
@@ -152,6 +154,7 @@ ClintonFucker:
 	dc.w CliFucker_Wait-.Index
 	dc.w CliFucker_Init2-.Index
 	dc.w CliFucker_Main-.Index
+	dc.w CliFucker_Wait2-.Index
 ; --------------------------------------------------------------
 
 CliFucker_Init:
@@ -234,12 +237,19 @@ CliFucker_Main:
 	move.b	obStatus(a0),d0
 	andi.b	#%101000,d0
 	beq.s	.NoKill
+	addq.b	#2,obRoutine(a0)
+	move.b	#$FF,d0			; idk what the constant is but it's clearly not changing so who cares
+	jsr	(QueueSound2).l
+	pcm	dClintonFail
 	move.b	#id_ClintonScr,v_gamemode.w
 	move.b	#0,submode.w
-	move.l	a0,-(sp)
-	lea	v_player,a0
-	jsr	KillSonic
-	move.l	(sp)+,a0
+	move.b	#0,v_hud.w
+	move.b	#0,v_player.w		; meh
+	rts
+	;move.l	a0,-(sp)		; do we need to kill sonic anymore?
+	;lea	v_player,a0
+	;jsr	KillSonic
+	;move.l	(sp)+,a0
 .NoKill
 	lea	Ani_Clinton,a1
 	jsr	AnimateSprite
@@ -247,12 +257,17 @@ CliFucker_Main:
 	rts
 .Exit:
 	tst.b	(v_endcard).w
-	bne.s	.ok
+	bne.w	.ok
 	move.w	(v_limitleft2).w,(v_limitright2).w
 	clr.b	(v_invinc).w	; disable invincibility
 	clr.b	(f_timecount).w	; stop time counter
 	move.b	#id_ClintonScr,v_gamemode.w
 	move.b	#4,submode.w
+;	move.b	#$FF,d0			; this doesnt work
+;	jsr	(QueueSound1).l
+
+	move.b	#0,v_hud.w
+	move.b	#0,v_player		; meh
 	move.b	#id_GotThroughCard,(v_endcard).w
 	moveq	#plcid_WINNERCard,d0
 	jsr	(NewPLC).l	; load title card patterns
@@ -275,12 +290,17 @@ CliFucker_Main:
 	move.w	(v_rings).w,d0	; load number of rings
 	mulu.w	#10,d0		; multiply by 10
 	move.w	d0,(v_ringbonus).w ; set ring bonus
-	move.b	#bgm_ActClear,d0
-	jsr	(QueueSound2).l
+
+;	move.b	#bgm_ActClear,d0	; nor did this
+;	jsr	(QueueSound2).l
+
 	jsr	GHM3Explode
 	move.b	#0,(a0)
 .ok:
 	rts
+
+CliFucker_Wait2:
+	jmp	DeleteObject
 
 Ani_Clinton:
 .tbl:

@@ -55,23 +55,25 @@ SampleTable:
 
 	; In-Game SFX SAMPLES
 	dcSample	TYPE_PCM,	letsgoeee,	8000,	FLAGS_SFX	; This is the most important one!!! :fire: :fire: :fire:
-	dcSample	TYPE_PCM,	Boik,		5250,	FLAGS_SFX	; $C4
-	dcSample	TYPE_PCM,	QuakeJump,	0,	FLAGS_SFX	; $C8
-	dcSample	TYPE_PCM,	Fannys,		0,	FLAGS_SFX	; $A3
-	dcSample	TYPE_PCM,	QuakeRocket,	11297			; $B8
-	dcSample	TYPE_PCM,	CL_STFU,	11297,	FLAGS_SFX	; $BB
-	dcSample	TYPE_PCM,	CL_Fuck,	11297			; $BC
-	dcSample	TYPE_DPCM,	Chicken,	16000,	FLAGS_SFX	; $CD if my oc dongles has been added, use this sound effect as a sfx_death replacement
-	dcSample	TYPE_PCM,	GayNeil,	0,	FLAGS_SFX	; $CE
-	dcSample	TYPE_PCM,	CL_Dicks,	11297			; $BF
-	dcSample	TYPE_PCM,	BabyAlarm,	0,	FLAGS_SFX	; $C2
-	dcSample	TYPE_PCM,	CL_YouCanSuck,	11297,	FLAGS_SFX	; $BD
-	dcSample	TYPE_DPCM,	Boost,		16000,	FLAGS_SFX	; $B6
-	dcSample	TYPE_DPCM,	ClintonHi,	20600,	FLAGS_SFX	; $C6
-	dcSample	TYPE_PCM,	CL_DoYouSuck,	11297,	FLAGS_SFX	; $BE
-	dcSample	TYPE_PCM,	CL_OnTheBall,	11297			; $C0
-	dcSample	TYPE_DPCM,	DAMN,		16000,	FLAGS_SFX	; $A2
-	dcSample	TYPE_PCM,	Foxy,		0,	FLAGS_SFX	; $CD
+	dcSample	TYPE_PCM,	Boik,		5250,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_PCM,	QuakeJump,	0,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_PCM,	Fannys,		0,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_PCM,	QuakeRocket,	11297			; $poop 
+	dcSample	TYPE_PCM,	CL_STFU,	11297,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_PCM,	CL_Fuck,	11297			; $poop 
+	dcSample	TYPE_DPCM,	Chicken,	16000,	FLAGS_SFX	; $poop if my oc dongles has been added, use this sound effect as a sfx_death replacement
+	dcSample	TYPE_PCM,	GayNeil,	0,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_PCM,	CL_Dicks,	11297			; $poop 
+	dcSample	TYPE_PCM,	BabyAlarm,	0,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_PCM,	CL_YouCanSuck,	11297,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_DPCM,	Boost,		16000,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_DPCM,	ClintonHi,	20600,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_DPCM,	ClintonWin,	11025,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_DPCM,	ClintonFail,	11025,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_PCM,	CL_DoYouSuck,	11297,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_PCM,	CL_OnTheBall,	11297			; $poop 
+	dcSample	TYPE_DPCM,	DAMN,		16000,	FLAGS_SFX	; $poop 
+	dcSample	TYPE_PCM,	Foxy,		0,	FLAGS_SFX	; $poop 
 	dcSample	TYPE_PCM,	Scream,	8000,	FLAGS_SFX	; $CE
 
 	; Title Screen Samples
@@ -182,6 +184,8 @@ SampleTable:
 	incdac	CL_YouCanSuck, "sound/dac/CL_YouCanSuck.wav"
 	incdac	Boost,"sound/dac/GenesisDoes/Boost.dpcm"
 	incdac	ClintonHi, "sound/dac/Clinton Fucker/hi.dpcm"
+	incdac	ClintonWin, "sound/dac/Clinton Fucker/win.dpcm"
+	incdac	ClintonFail, "sound/dac/Clinton Fucker/fail.dpcm"
 	incdac	CL_OnTheBall, "sound/dac/CL_OnTheBall.wav"
 	incdac	DAMN, "sound/dac/DAX/DAMN.dpcm"
 	incdac	Foxy, "sound/dac/Foxy.wav"
