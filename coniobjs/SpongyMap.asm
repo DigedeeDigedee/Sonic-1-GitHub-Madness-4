@@ -50,14 +50,14 @@ Map_0216_4_End
 
 Map_0216_5:	spriteHeader
  spritePiece -$10, -$10, 2, 2, $43, 0, 0, 0, 0
- spritePiece -$10, 0, 2, 2, $43, 0, 1, 0, 1
+ spritePiece -$10, 0, 2, 2, $43, 0, 1, 0, 0
  spritePiece 0, 0, 2, 2, $43, 1, 1, 0, 0
 Map_0216_5_End
 
 Map_0216_6:	spriteHeader
  spritePiece -$10, -$10, 2, 2, $43, 0, 0, 0, 0
  spritePiece 0, -$10, 2, 2, $43, 1, 0, 0, 0
- spritePiece -$10, 0, 2, 2, $43, 0, 1, 0, 1
+ spritePiece -$10, 0, 2, 2, $43, 0, 1, 0, 0
 Map_0216_6_End
 
 Map_0216_7:	spriteHeader
@@ -68,7 +68,7 @@ Map_0216_7_End
 
 Map_0216_8:	spriteHeader
  spritePiece 0, -$10, 2, 2, $43, 1, 0, 0, 0
- spritePiece -$10, 0, 2, 2, $43, 0, 1, 0, 1
+ spritePiece -$10, 0, 2, 2, $43, 0, 1, 0, 0
  spritePiece 0, 0, 2, 2, $43, 1, 1, 0, 0
 Map_0216_8_End
 
