@@ -994,7 +994,7 @@ ObjPos_DVZ4:	binclude	"objpos/dvz4.bin"
 		even
 ObjPos_NGZ1:	binclude	"objpos/ngz1.bin"
 		even
-ObjPos_NGZ2:	binclude	"objpos/ngz3.bin"
+ObjPos_NGZ2:	binclude	"objpos/ngz2.bin"
 		even
 ObjPos_NGZ3:	binclude	"objpos/ngz3.bin"
 		even
