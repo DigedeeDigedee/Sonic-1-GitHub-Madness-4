@@ -34,10 +34,10 @@ GM_SonicTheScreensaver:
 		bra.s	Screensa_LoadMDLogoPal
 
 ScreensaMDLogoGfx_Tbl:
-		dc.l	ArtNem_ScreensaMDLogo
-		dc.l	ArtNem_ScreensaGENLogo
-		dc.l	ArtNem_ScreensaGENLogo
-		dc.l	ArtNem_ScreensaGENLogo
+		dc.l	ArtNem_ScreensaMDLogo		; DOM 60Hz
+		dc.l	ArtNem_ScreensaA50Logo		; DOM 50Hz
+		dc.l	ArtNem_ScreensaGENLogo		; INT 60Hz
+		dc.l	ArtNem_ScreensaGENLogo		; INT 60Hz
 		; GMZ - Code to check the console's region ends here
 
 Screensa_LoadMDLogoPal:
@@ -62,7 +62,19 @@ Screensa_LoadMDLogoPal:
 Screensa_LoadMDLogoObj:
 		move.w	#$354E,obHeight(a1)	; GMZ - Set width and height measurements
 		move.l	#Map_ScreensaMDLogo,obMap(a1)	; GMZ - Set mappings
+		bra.s	Screensa_LdMDLgoVramAddr
 
+ScreensaMDLogoMap_Tbl:
+		dc.l	Map_ScreensaMDLogo		; DOM 60Hz
+		dc.l	Map_ScreensaA50Logo		; DOM 50Hz
+		dc.l	Map_ScreensaGENLogo		; INT 60Hz
+		dc.l	Map_ScreensaGENLogo		; INT 50Hz
+ScreensaMDLogoMeasure_Tbl:
+		dc.w	$354E		; DOM 60Hz
+		dc.w	$2078		; DOM 50Hz
+		dc.w	$2078		; INT 60Hz
+		dc.w	$2078		; INT 50Hz
+	
 Screensa_LdMDLgoVramAddr:
 		; GMZ - Code to check the console's region ends here
 
@@ -374,6 +386,14 @@ Pal_ScreensaMDLogo:
 		binclude	"Screensaver MD Logo (Palette).bin"
 		even
 
+ArtNem_ScreensaA50Logo:
+		binclude	"A50Art.bin"
+		even
+
+Map_ScreensaA50Logo:
+		include	"A50Map.asm"
+		even
+
 ArtNem_ScreensaGENLogo:
 		binclude	"Screensaver GEN Logo (Art, Nemesis).bin"
 		even
@@ -381,3 +401,4 @@ ArtNem_ScreensaGENLogo:
 Map_ScreensaGENLogo:
 		include	"Screensaver GEN Logo (Mappings).asm"
 		even
+	
