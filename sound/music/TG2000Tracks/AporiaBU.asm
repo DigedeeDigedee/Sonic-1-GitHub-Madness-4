@@ -1310,3 +1310,6 @@ Aporia_PSG3_09_0_64:
 	smpsPSGvoice	AporiaTone_01
 	dc.b $01, nRst, $03
 	smpsReturn
+
+	smpsFooterEndSong	"TG2000Tracks/AporiaBU.asm"
+	even

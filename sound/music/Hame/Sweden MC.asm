@@ -1841,3 +1841,4 @@ SwedenMC_Voices:
 	smpsVcReleaseRate   $07, $00, $07, $00
 	smpsVcTotalLevel    $00, $1C, $00, $20
 
+	smpsFooterEndSong	"Hame/Sweden MC.asm"

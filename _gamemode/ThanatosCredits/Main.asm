@@ -329,17 +329,37 @@ thantxt: macro txt
 	thantxt	"ADD YOUR NAME HERE"
 	dc.b	1,1
 	
+	thantxt	"QA LEAD"
+	dc.b	1
+	thantxt	"GENESISDOES"
+	dc.b	1,1
+	
 	thantxt	"HARDWARE TESTING"
 	dc.b	1
 	thantxt	"GENESISDOES"
 	thantxt	"DAXKATTER"
+	dc.b	1,1
+	
+	thantxt	"BUILD PROCESS"
+	thantxt	"ART COMPRESSION"
+	thantxt	"SOUND COMPRESSION"
+	dc.b	1
+	thantxt	"GENESISDOES"
+	thantxt	"DAXKATTER"
+	thantxt	"KATSUSHIMI"
 	dc.b	1,1
 
 	thantxt	"SPECIAL THANKS"
 	dc.b	1
 	thantxt	"TEETH TONIC"
 	thantxt	"NOID MY GOAT"
-	thantxt	"KRIKZZ FOR EVERDRIVE"
+	thantxt	"SEGA"
+	thantxt	"SSRG"
+	thantxt	"FRANCO AMERICAN"
+	thantxt	"CARDS AG HUMANITY"
+	thantxt	"PRONGLES"
+	thantxt	"MICROSLOP CORP"
+	thantxt	"KRIKZZ FOR EVERDRIVE"	
 	thantxt	"S2 ARCHIVES"
 	thantxt	"AND HIS STUPID TEAM"	
 	dc.b	1,1,1

@@ -169,6 +169,10 @@ cd "eurosega"
 call recmp.bat
 cd ..
 
+cd "GMZ"
+call recmp.bat
+cd ..
+
 cd "LiquidSplashes"
 cd "2kki"
 call recmp.bat
@@ -193,6 +197,9 @@ cd ..
 cd "Tilemaps"
 call recmp.bat
 cd ..\..\
+cd "RobiWK"
+call recmp.bat
+cd ..
 cd "SSRG"
 call recmp.bat
 cd ..\..\

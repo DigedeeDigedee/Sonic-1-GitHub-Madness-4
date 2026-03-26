@@ -86,4 +86,6 @@ RiftSkyBreak_Voices:
 	smpsVcDecayLevel	$02,	$04,	$02,	$01
 	smpsVcReleaseRate	$0F,	$0F,	$0F,	$0F
 	smpsVcTotalLevel	$80,	$04,	$07,	$0E
+	
+	smpsFooterEndSong	"RiftSkyBreak.asm"
 	even
