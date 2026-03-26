@@ -367,6 +367,9 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	; nogales. i'm not renaming like 50 track labels man
 	nextenum bgm_GreenHill
 	nextenum bgm_SMWCave			; Minecraft	(Act 1 - Part 2)
+
+	;More Garbage 
+	nextenum bgm_TF2
 	; Keep this last
 	nextenum bgm__Last
 

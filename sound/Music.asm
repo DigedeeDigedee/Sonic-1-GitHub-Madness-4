@@ -134,7 +134,7 @@ ptr_mus74:		dc.l Music74
 ptr_mus75:		dc.l Music75
 ptr_mus76:		dc.l Music76
 ptr_mus77:		dc.l Music77
-;ptr_mus78:		dc.l Music78
+ptr_mus78:		dc.l Music78
 ;ptr_mus79:		dc.l Music79
 ;ptr_mus7A:		dc.l Music7A
 ;ptr_mus7B:		dc.l Music7B
@@ -510,5 +510,8 @@ Music76:
 		even
 Music77:	
 		include "music/CNTracks/SMWCave.asm"
+		even
+Music78:
+		include	"music/TG2000Tracks/TF2.asm"
 		even
 	END
