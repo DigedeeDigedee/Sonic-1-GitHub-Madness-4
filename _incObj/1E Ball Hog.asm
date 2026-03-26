@@ -28,6 +28,11 @@ Obj1E_Index:	dc.w Obj1E_Main-Obj1E_Index	; 0
 Obj1E_Main:
 		move.l	#Map_BallHogH,obMap(a0)
 		move.w	#make_art_tile(ArtTile_Ball_HogH,1,0),obGfx(a0)
+		cmpi.b	#id_CBZ,(v_zone).w		; is zone CBZ?
+		bne.s	.NotCBZ	; if not, branch
+		move.l	#Map_Spongy,obMap(a0)
+		move.w	#make_art_tile(ArtTile_CBZSpongy,0,0),obGfx(a0)
+.NotCBZ:
 		move.b	#4,obRender(a0)
 		move.w	#$200,obPriority(a0)
 		move.b	#5,obColType(a0)
@@ -96,9 +101,19 @@ Obj1E_Main:
 ; ===========================================================================
 
 Obj1E_Action:
+		cmpi.b	#id_CBZ,(v_zone).w		; is zone CBZ?
+		beq.s	Obj1E_ActionCBZ	; if not, branch
 		lea	Ani_HogHoriz(pc),a1
 		bsr.w	AnimateSprite
 		cmpi.b	#1,obFrame(a0)	; is final frame (01) displayed?
+		bne.s	Obj1E_SetBall	; if not, branch
+		tst.b	hog_wait(a0)		; is it	set to launch cannonball?
+		beq.s	Obj1E_MakeBall	; if yes, branch
+		bra.w	MarkObjGone
+Obj1E_ActionCBZ:
+		lea	Ani_Spongy(pc),a1
+		bsr.w	AnimateSprite
+		cmpi.b	#3,obFrame(a0)	; is final frame (01) displayed?
 		bne.s	Obj1E_SetBall	; if not, branch
 		tst.b	hog_wait(a0)		; is it	set to launch cannonball?
 		beq.s	Obj1E_MakeBall	; if yes, branch
@@ -120,6 +135,13 @@ Obj1E_MakeBall:
 		move.l	#Map_BallHogH,obMap(a1)
 		move.b	#6,obHeight(a1)
 		move.w	#make_art_tile(ArtTile_Ball_HogH,1,0),obGfx(a1)
+		cmpi.b	#id_CBZ,(v_zone).w		; is zone CBZ?
+		bne.s	.NotCheeseball	; if not, branch
+		move.l	#Map_Spongy,obMap(a1)
+		move.w	#make_art_tile(ArtTile_CBZSpongy,0,0),obGfx(a1)
+		move.b	#5,obFrame(a1)
+		move.b	#1,obAnim(a1)
+.NotCheeseball:
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.w	#-$100,d2		; cannonball bounces to	the left
@@ -147,6 +169,10 @@ Obj1E_MakeBall:
 		move.w	d2,obVelX(a1)
 		add.w	d0,obX(a1)
 		addi.w	#$C,obY(a1)
+		cmpi.b	#id_CBZ,(v_zone).w		; is zone CBZ?
+		bne.s	.CheeseballThrow	; if not, branch
+		subi.w	#$28,obY(a1)
+.CheeseballThrow:
 		move.b	obSubtype(a0),obSubtype(a1)	; copy object type from Ball Hog
 
 .no_free_ram:
@@ -428,6 +454,10 @@ Obj1E_NormalBomb:
 		bpl.s	.moving_up
 		add.w	d1,obY(a0)
 		move.w	#-$300,obVelY(a0)
+		cmpi.b	#id_CBZ,(v_zone).w		; is zone CBZ?
+		bne.s	.CheeseballBounce	; if not, branch
+		subi.w	#$300,obVelY(a0)
+.CheeseballBounce:
 		tst.b	d3
 		beq.s	.moving_up
 		bmi.s	.check_Xvel
@@ -455,11 +485,16 @@ Obj1E_NormalBomb:
 ; ---------------------------------------------------------------------------
 
 .time_remaining:
+		cmpi.b	#id_CBZ,(v_zone).w		; is zone CBZ?
+		beq.s	.spongycheeseball	; if not, branch
 		subq.b	#1,obTimeFrame(a0)
 		bpl.s	.wait_frames
 		move.b	#5,obTimeFrame(a0)
 		bchg	#0,obFrame(a0)
-
+		bra.s	.wait_frames
+.spongycheeseball:
+		lea	Ani_Spongy(pc),a1
+		bsr.w	AnimateSprite
 .wait_frames:
 		move.w	(v_limitbtm1).w,d0
 		addi.w	#$E0,d0
@@ -543,3 +578,11 @@ Ani_HogHoriz:
 		dc.b   2,  3,  2,  0,  0,  1, afEnd
 		even
 ; ---------------------------------------------------------------------------
+
+Ani_Spongy:
+		dc.w SpongyStand-Ani_Spongy
+		dc.w SpongyCheeseBall-Ani_Spongy
+SpongyStand:	dc.b   8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 4, afEnd
+		even
+SpongyCheeseBall:	dc.b   5, 5, 6, 7, 8, afEnd
+		even

@@ -228,7 +228,7 @@ dbug:	macro map,object,subtype,frame,vram
 		dbug	Map_Len,	id_Burrobot,	2,	0,	make_art_tile(ArtTile_CBZLen,3,0)
 		dbug	Map_Spring,	id_Springs,	0,	0,	make_art_tile(ArtTile_Spring_Horizontal,0,0)
 		dbug	Map_Newt,	id_Newtron,	0,	0,	make_art_tile(ArtTile_CBZNewtron,1,0)
-		dbug	Map_Spongy,	id_Newtron,	0,	0,	make_art_tile(ArtTile_CBZSpongy,0,0)
+		dbug	Map_Spongy,	id_BallHog,	3,	0,	make_art_tile(ArtTile_CBZSpongy,0,0)
 ;		dbug	Map_Edge,	id_EdgeWalls,	0,	0,	make_art_tile(ArtTile_GHZ_Edge_Wall,2,0)
 ;		dbug	Map_GBall,	id_Obj19,	0,	0,	make_art_tile(ArtTile_GHZ_Giant_Ball,2,0)
 		dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
