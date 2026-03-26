@@ -61,4 +61,6 @@ RiftNormal_Voices:
 	smpsVcDecayLevel	$00,	$00,	$00,	$00
 	smpsVcReleaseRate	$00,	$00,	$00,	$00
 	smpsVcTotalLevel	$00,	$00,	$00,	$00
+	
+	smpsFooterEndSong	"RiftNormal.asm"
 	even

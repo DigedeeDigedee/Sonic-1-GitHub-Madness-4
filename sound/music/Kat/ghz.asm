@@ -632,3 +632,5 @@ Nogales_Voices:
 	smpsVcDecayLevel	$03, $00, $03, $00
 	smpsVcReleaseRate	$08, $00, $08, $00
 	smpsVcTotalLevel	$00, $17, $00, $16
+	
+	smpsFooterEndSong	"Kat/ghz.asm"
