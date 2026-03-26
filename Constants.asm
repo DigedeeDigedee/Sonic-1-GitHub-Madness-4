@@ -93,6 +93,7 @@ id_SplashSkip:	equ ptr_SplashScreenSkipper-GameModeArray
 id_Advert:	equ ptr_Advert-GameModeArray
 id_Battle:	equ ptr_EarthboundBtl-GameModeArray
 id_ClintonScr:	equ ptr_ClintonScreens-GameModeArray
+id_OllieMaster:	equ ptr_OllieMasterpiece-GameModeArray
 
 ; Levels
 id_OWZ:		equ 0

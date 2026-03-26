@@ -412,6 +412,7 @@ ptr_Advert:		dc.l	GM_Advert		; For all the reject splash screens I guess
 ptr_EarthboundBtl:	dc.l	EarthboundBtl		; earthbound battle stuff
 ptr_SonicTheScreensaver:	dc.l	GM_SonicTheScreensaver	; GMZ - DVD Screensaver
 ptr_ClintonScreens:	dc.l	GM_ClintonScreens
+ptr_OllieMasterpiece:	dc.l	GM_OllieMasterpiece	; Uwaaaaa~
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -7489,9 +7490,16 @@ Nem_Wario:	binclude	"artnem/Wario.nem"
 	include	"_incObj/Katsi.asm"	
 ; end of 'ROM'
         include	"EarthboundBtl/MAIN.ASM"
-        
-		even
 
+; ---------------------------------------------------------------------------
+; Uwaaaaa~
+; ---------------------------------------------------------------------------
+
+	include "ollie_masterpiece/main.asm"
+
+; ---------------------------------------------------------------------------
+
+		even
 
 ; ==============================================================
 ; --------------------------------------------------------------
