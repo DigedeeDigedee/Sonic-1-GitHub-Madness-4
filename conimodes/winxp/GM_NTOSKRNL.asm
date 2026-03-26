@@ -93,10 +93,19 @@ GM_WinXP_EndDraw:
 		jsr		(EniDec).l
 
 		move.w	#2*60,(v_generictimer).w 
+		
+		; !@ GD: Play passport song
+		move.b	#bgm_Passport,d0
+		jsr		(PlaySound_Special).l
 
 GM_WinXP_MainLoop:
 		move.b	#2,(v_vbla_routine).w
 		jsr		(WaitForVBla).l
+		
+		;!@ GD: Check for ABC or Start buttons to skip screen
+		move.b	(v_jpadpress1).w,d0
+		andi.w	#btnStart+btnABC,d0	; is Start+ABC pressed?
+		bne.w	GM_WinXP_ChangeMode	; if so, branch
 
 		cmpi.b	#20,(v_foxyframe).w
 		beq.s	GM_WinXP_ChangeMode
