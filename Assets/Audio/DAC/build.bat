@@ -1,5 +1,6 @@
 cls
 copy /y "Boost\Boost.wav" "..\..\..\sound\DAC\GenesisDoes\Boost.wav"
+copy /y "Four\4.wav" "..\..\..\sound\DAC\GenesisDoes\Four.wav"
 copy /y "GenesisCan\GenesisCan1.wav" "..\..\..\sound\DAC\GenesisDoes\GenesisCan1.wav"
 copy /y "GenesisCan\GenesisCan2.wav" "..\..\..\sound\DAC\GenesisDoes\GenesisCan2.wav"
 copy /y "GenesisCan\GenesisCan3.wav" "..\..\..\sound\DAC\GenesisDoes\GenesisCan3.wav"
