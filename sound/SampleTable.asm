@@ -97,8 +97,8 @@ SampleTable:
 	dcSample	TYPE_DPCM,	GenesisCan3,	16000,FLAGS_SFX		; $B5
 
 	; Ollie Samples
-	dcSample	TYPE_PCM,	OllieGameTap,	16000
-	dcSample	TYPE_PCM,	OllieWahoo,	16000
+	dcSample	TYPE_DPCM,	OllieGameTap,	16000
+	dcSample	TYPE_DPCM,	OllieWahoo,	16000
 
 	; SEGA Samples
 	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0,	FLAGS_SFX	; $C9
@@ -222,8 +222,8 @@ SampleTable:
 
 ; ---------------------------------------------------------------
 ; Ollie Samples
-	incdac	OllieGameTap,"sound/dac/ollie/gametap.pcm"
-	incdac	OllieWahoo,"sound/dac/ollie/wahoo.pcm"
+	incdac	OllieGameTap,"sound/dac/ollie/gametap.dpcm"
+	incdac	OllieWahoo,"sound/dac/ollie/wahoo.dpcm"
 
 ; ---------------------------------------------------------------
 ; Unused Samples (Commented Out)

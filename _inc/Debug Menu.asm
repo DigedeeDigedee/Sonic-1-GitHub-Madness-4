@@ -11,6 +11,14 @@ dbugmenuFlag	ds.b 1
 dbugmenuFlag2	ds.b 1
 	dephase
 	!org -
+	
+;!@ GenesisDoes: Play beep highlight sfx
+beep macro
+	movem.l	d0,-(sp)
+	move.b	#sfx_beepy,d0;atgames
+	bsr.w	PlaySound_Special
+	movem.l	(sp)+,d0
+	endm
 ; ---------------------------------------------------------------------------
 GM_DebugMenu:
 		move.b	#0,vscroll_mode
@@ -178,7 +186,7 @@ _dbugmenuSineSlide:
 DebuggerMenu_Controls:
 		move.b	(v_jpadpress1).w,d1
 
-		btst	#7,d1			; Start
+		btst	#bitStart,d1			; Start
 		bne.w	DebuggerMenu_LoadGame
 
 		move.w	(v_levselitem).w,d0
@@ -195,9 +203,9 @@ DebuggerMenu_Controls:
 		bra.w	.soundtest
 		bra.w	.pcmtest
 .soundtest:
-		btst	#5,d1			; C: play sound
+		btst	#bitC,d1			; C: play sound
 		bne.w	DebuggerMenu_PlaySound
-		btst	#6,d1			; A: sound ID +$10
+		btst	#bitA,d1			; A: sound ID +$10
 		beq.s	.snd_checkB
 		move.b	(v_dbgmenu_sndid).w,d0
 		add.b	#$10,d0
@@ -205,7 +213,7 @@ DebuggerMenu_Controls:
 		move.b	d0,(v_dbgmenu_sndid).w
 		bra.w	DebuggerMenu_Redraw
 .snd_checkB:
-		btst	#4,d1			; B: sound ID -$10
+		btst	#bitB,d1			; B: sound ID -$10
 		beq.s	.checklr
 		move.b	(v_dbgmenu_sndid).w,d0
 		sub.b	#$10,d0
@@ -214,9 +222,9 @@ DebuggerMenu_Controls:
 		bra.w	DebuggerMenu_Redraw
 
 .pcmtest:
-		btst	#5,d1			; C: play sound
+		btst	#bitC,d1			; C: play sound
 		bne.w	DebuggerMenu_PlayPCM
-		btst	#6,d1			; A: sound ID +$10
+		btst	#bitA,d1			; A: sound ID +$10
 		beq.s	.pcm_checkB
 		move.b	(v_dbgmenu_pcmid).w,d0
 		add.b	#$10,d0
@@ -224,7 +232,7 @@ DebuggerMenu_Controls:
 		move.b	d0,(v_dbgmenu_pcmid).w
 		bra.w	DebuggerMenu_Redraw
 .pcm_checkB:
-		btst	#4,d1			; B: sound ID -$10
+		btst	#bitB,d1			; B: sound ID -$10
 		beq.s	.checklr
 		move.b	(v_dbgmenu_pcmid).w,d0
 		sub.b	#$10,d0
@@ -233,22 +241,22 @@ DebuggerMenu_Controls:
 		bra.w	DebuggerMenu_Redraw
 .checklr:
 		move.b	d1,d0
-		andi.b	#$0C,d0			; left/right bits
+		andi.b	#(btnL|btnR),d0	; left/right btns
 		bne.s	.leftright
 
-		andi.b	#3,d1			; up/down bits
+		andi.b	#(btnUp|btnDn),d1			; up/down btns
 		beq.s	.noinput
 
 .updown:
 		move.w	(v_levselitem).w,d0
-		btst	#0,d1			; up?
+		btst	#bitUp,d1			; up?
 		beq.s	.down
 		subq.w	#1,d0
 		bcc.s	.down
 		moveq	#(Debugger_Data.end-Debugger_Data)/12-1,d0		; wrap to last item
 
 .down:
-		btst	#1,d1			; down?
+		btst	#bitDn,d1			; down?
 		beq.s	.setsel
 		addq.w	#1,d0
 		cmpi.w	#(Debugger_Data.end-Debugger_Data)/12,d0
@@ -257,8 +265,7 @@ DebuggerMenu_Controls:
 
 .setsel:
 		move.w	d0,(v_levselitem).w
-		move.b	#sfx_beepy,d0;atgames
-		bsr.w	PlaySound_Special
+		beep
 		bra.w	DebuggerMenu_Redraw
 
 .noinput:
@@ -277,9 +284,9 @@ DebuggerMenu_Controls:
 
 		move.b	(a2),d3			; current value
 
-		btst	#2,d0			; left?
-		beq.s	.right
-
+		btst	#bitL,d0			; left?
+		beq.s	.right				; if not, branch (handle right)
+		;Handle left
 		sub.b	d5,d3
 		bcs.s	.setmin
 		cmp.b	d6,d3
@@ -289,7 +296,7 @@ DebuggerMenu_Controls:
 		cmpi.w	#(Debugger_Data.soundtest-Debugger_Data)/12,(v_levselitem).w	; Sound Test wraps
 		beq.s	.commit
 		move.b	d6,d3			; clamp to min
-		bra.s	.commit
+		bra.s	.commit2
 
 .right:
 		add.b	d5,d3
@@ -301,8 +308,13 @@ DebuggerMenu_Controls:
 		cmpi.w	#(Debugger_Data.soundtest-Debugger_Data)/12,(v_levselitem).w	; Sound Test wraps
 		beq.s	.commit
 		move.b	d7,d3			; clamp to max
+		bra.s	.commit2
 
+;GD: Commit with SFX
 .commit:
+		beep
+;GD: Commit without SFX
+.commit2:
 		move.b	d3,(a2)
 		bsr.w	DebuggerMenu_Redraw
 		rts
@@ -325,16 +337,19 @@ DebuggerMenu_Controls:
 		;Check against upper bound ID
 		cmp.b	d7,d0			;Is new ID (d0) >= MAXDAC?
 		bhi.s	.fixhi			;If so, branch (fix)
-		bra.s	.good			
+		bra.s	.good			;We are good, do beep
 		
 .fixlo:
 		move.b	d6,d0			;Set ID to min
-		bra.s	.good
+		bra.s	.end			;Don't play SFX if capped
 		
 .fixhi:
-		move.b	d7,d0			;Set ID to max
-		;No adjustments to make; squidward smells GOOD
-.good:
+		move.b	d7,d0			;Set ID to max		
+		bra.s	.end			;Don't play SFX if capped
+;No adjustments to make; squidward smells GOOD
+.good:		
+		beep					;Play beep sfx
+.end:
 		rts
 ; End of function DebuggerMenu_Controls
 

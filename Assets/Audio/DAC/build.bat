@@ -1,0 +1,12 @@
+cls
+copy /y "Boost\Boost.wav" "..\..\..\sound\DAC\GenesisDoes\Boost.wav"
+copy /y "GenesisCan\GenesisCan1.wav" "..\..\..\sound\DAC\GenesisDoes\GenesisCan1.wav"
+copy /y "GenesisCan\GenesisCan2.wav" "..\..\..\sound\DAC\GenesisDoes\GenesisCan2.wav"
+copy /y "GenesisCan\GenesisCan3.wav" "..\..\..\sound\DAC\GenesisDoes\GenesisCan3.wav"
+copy /y "GenesisDoes1\GenesisDoes.wav" "..\..\..\sound\DAC\GenesisDoes\GenesisDoes1.wav"
+copy /y "MMZ_BF_Jap\eggmanLaugh.wav" "..\..\..\sound\DAC\GenesisDoes\eggmanLaugh.wav"
+copy /y "MMZ_BF_Jap\git-hub.wav" "..\..\..\sound\DAC\GenesisDoes\git-hub.wav"
+copy /y "MMZ_BF_Jap\Madness.wav" "..\..\..\sound\DAC\GenesisDoes\Madness.wav"
+copy /y "MMZ_BF_Jap\MadnessR.wav" "..\..\..\sound\DAC\GenesisDoes\MadnessR.wav"
+copy /y "MMZ_BF_Jap\YoFreddy_Rendered.wav" "..\..\..\sound\DAC\GenesisDoes\YoFreddy.wav"
+REM pause
