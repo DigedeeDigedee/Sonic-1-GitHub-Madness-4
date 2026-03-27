@@ -62,7 +62,8 @@ RunSplashes:
 		move.l	(a4)+,(a3)+	; move data to RAM
 		dbf	d7,.loop_pal
 
-		move.b	(a2)+,d0	; next byte is blank for address alignment
+		move.b	(a2)+,-(sp)	; save fade out flag for later
+
 		move.b	(a2)+,d0 	; is this a pcm or a sound id?
 		bne.s	.sampleid	; if pcm flag set, jump to pcm playback
 		move.b	(a2)+,d0 	; get sound id
@@ -75,7 +76,21 @@ RunSplashes:
 
 	.musicid:
 		move.w	(a2)+,(v_generictimer).w ; duration in seconds
-		jsr	(PaletteFadeIn).w
+		
+		tst.b	(sp)			; should we fade in?
+		beq.s	.no_fade_in		; if not, branch
+		jsr	(PaletteFadeIn).w	; if so, fade in
+		bra.s	.loop
+
+	.no_fade_in:
+		lea	(v_palette_fading).w,a3
+		lea	(v_palette).w,a4
+		moveq	#$80/4-1,d0
+
+	.copy_palette:
+		move.l	(a3)+,(a4)+
+		dbf	d0,.copy_palette
+
 	.loop:
 		move.b	#4,(v_vbla_routine).w
 		jsr	(WaitForVBla).w
@@ -87,8 +102,23 @@ RunSplashes:
 		beq.s	.loop	; if not, branch
 
 	.time_over:
-		jsr	(PaletteFadeOut).w
+		tst.b	(sp)+			; should we fade out?
+		beq.s	.black_out		; if not, branch
 
+	.fade_out:
+		jsr	(PaletteFadeOut).w	; if so, fade out
+		bra.s	.stop_music
+
+	.black_out:
+		lea	(v_palette).w,a3
+		moveq	#0,d0
+		moveq	#$80/4-1,d1
+
+	.black_out_loop:
+		move.l	d0,(a3)+
+		dbf	d1,.black_out_loop
+
+	.stop_music:
 		move.b	#bgm_Stop,d0
 		jsr	(PlaySound_Special).w ; stop music
 
@@ -105,7 +135,7 @@ RunSplashes:
 
 		move.l	(sp)+,a2
 		adda.w	#4,a2
-		bra.s	.time_over
+		bra.s	.fade_out
 Splash_Screen_Entries:
 
 ; include dedicated files for a solid spĺash screen
@@ -124,17 +154,18 @@ Pal_\name\: binclude "SolidSplashes/Pal - \name\.bin"
 _bgm	equ 0
 _pcm	equ 1
 
-splash_solid_split macro art,tilemap,pal,size,pcmflag,musicid,frameduration
+splash_solid_split macro art,tilemap,pal,size,fadeflag,pcmflag,musicid,frameduration
 	dc.w	0
 	dc.l	art,tilemap,pal
-	dc.b	(size/4)-1,0
+	dc.b	(size/4)-1
+	dc.b	fadeflag
 	dc.b	pcmflag,musicid
 	dc.w	frameduration
 	endm
 
 ; dedicated palette,art & tilemap
-splash_solid macro name,size,pcmflag,musicid,frameduration
-	splash_solid_split Art_\name\,Map_\name\,Pal_\name\,size,pcmflag,musicid,frameduration
+splash_solid macro name,size,fadeflag,pcmflag,musicid,frameduration
+	splash_solid_split Art_\name\,Map_\name\,Pal_\name\,size,fadeflag,pcmflag,musicid,frameduration
 	endm
 
 ; for routines
@@ -168,16 +199,16 @@ splash_turd macro routine
 	splash_liquid	Yume2kki
 
 	;!@ GenesisDoes
-	splash_solid	ChadWarden,	$20, _pcm, dsupbeaches,		(60*6)+30
-	splash_solid	Compile,	$40, _bgm, $00,			60*3
-	splash_solid	GenesisDoes1,	$40, _pcm, dGenesisDoes1,	60*10
-	splash_solid	Blessed,	$40, _bgm, sfx_SSGoal,		200
-	splash_solid	SonicBroke,	$20, _bgm, bgm_S1Continue,	480
-	splash_solid	Wait,		$60, _bgm, bgm_PuyoDrown,	145
-	splash_solid	GameTap,	$20, _pcm, dOllieGameTap,	60*3
-	splash_solid	Clownancy,	$20, _bgm, $00,			60*3
-	splash_solid	Ollie,		$20, _pcm, dOllieWahoo,		60*3
-;	splash_solid	W,		$40, _bgm, bgm_Win2K,		380
+	splash_solid	ChadWarden,	$20, 0, _pcm, dsupbeaches,		60*7
+	splash_solid	Compile,	$40, 1, _bgm, $00,			60*3
+	splash_solid	GenesisDoes1,	$40, 1, _pcm, dGenesisDoes1,		60*10
+	splash_solid	Blessed,	$40, 1, _bgm, sfx_SSGoal,		200
+	splash_solid	SonicBroke,	$20, 1, _bgm, bgm_S1Continue,		480
+	splash_solid	Wait,		$60, 1, _bgm, bgm_PuyoDrown,		145
+	splash_solid	GameTap,	$20, 1, _pcm, dOllieGameTap,		60*3
+	splash_solid	Clownancy,	$20, 1, _bgm, $00,			60*3
+	splash_solid	Ollie,		$20, 1, _pcm, dOllieWahoo,		60*3
+;	splash_solid	W,		$40, 1, _bgm, bgm_Win2K,		380
 
 	splash_liquid	GM_NTOSKRNL
 	splash_liquid	GM_SegaEU
