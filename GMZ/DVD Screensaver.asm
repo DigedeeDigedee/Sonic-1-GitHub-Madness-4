@@ -73,7 +73,7 @@ Screensa_LoadMDLogoPal:
 Screensa_LoadMDLogoObj:
 		move.w	#$354E,obHeight(a1)	; GMZ - Set width and height measurements
 		move.l	#Map_ScreensaMDLogo,obMap(a1)	; GMZ - Set mappings
-		bra.s	Screensa_LdMDLgoVramAddr
+		;bra.s	Screensa_LdMDLgoVramAddr
 
 ;ScreensaMDLogoMap_Tbl:		; coni - these two tables are unused as of now
 ;		dc.l	Map_ScreensaMDLogo		; DOM 60Hz
