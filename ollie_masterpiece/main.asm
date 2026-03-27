@@ -34,7 +34,7 @@ ol_clearBuffer macro start, end
 ; ------------------------------------------------------------------------------
 
 GM_OllieMasterpiece:
-	moveq	#bgm_Stop|(~$FF),d0				; Stop sound
+	moveq	#bgm_Fade|(~$FF),d0				; Fade out sound
 	jsr	QueueSound2
 	jsr	PaletteFadeOut					; Fade palette
 

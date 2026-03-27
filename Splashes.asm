@@ -51,7 +51,7 @@ RunSplashes:
 		jsr	(EniDec).w
 		move.l	(sp)+,a2
 
-		copyTilemap	$FF0000,$C000,$28,$1B
+		copyTilemap	$FF0000,$C000,$28,$1C
 
 		lea	(v_palette_fading).w,a3
 		movea.l	(a2)+,a4	; get palette data address
@@ -111,8 +111,11 @@ Splash_Screen_Entries:
 ; include dedicated files for a solid spĺash screen
 inc_solid_splash macro name,{GLOBALSYMBOLS}
 Art_\name\: binclude "SolidSplashes/Art - \name\.nem"
+	even
 Map_\name\: binclude "SolidSplashes/Map - \name\.eni"
+	even
 Pal_\name\: binclude "SolidSplashes/Pal - \name\.bin"
+	even
 	endm
 
 ; in case you use a shared palette/art/tilemap
@@ -165,12 +168,16 @@ splash_turd macro routine
 	splash_liquid	Yume2kki
 
 	;!@ GenesisDoes
-	splash_solid	Compile,	$40, 0,	$00,		60*3
-	splash_solid	GenesisDoes1,	$40, 1,	dGenesisDoes1,	60*10
-	splash_solid	Blessed,	$40, 0,	sfx_SSGoal,	200
-	splash_solid	SonicBroke,	$20, 0,	bgm_S1Continue,	480
-	splash_solid	Wait,		$60, 0,	bgm_PuyoDrown,	145
-;	splash_solid	W,		$40, 0,	bgm_Win2K,	380
+	splash_solid	ChadWarden,	$20, _pcm, dsupbeaches,		(60*6)+30
+	splash_solid	Compile,	$40, _bgm, $00,			60*3
+	splash_solid	GenesisDoes1,	$40, _pcm, dGenesisDoes1,	60*10
+	splash_solid	Blessed,	$40, _bgm, sfx_SSGoal,		200
+	splash_solid	SonicBroke,	$20, _bgm, bgm_S1Continue,	480
+	splash_solid	Wait,		$60, _bgm, bgm_PuyoDrown,	145
+	splash_solid	GameTap,	$20, _pcm, dOllieGameTap,	60*3
+	splash_solid	Clownancy,	$20, _bgm, $00,			60*3
+	splash_solid	Ollie,		$20, _pcm, dOllieWahoo,		60*3
+;	splash_solid	W,		$40, _bgm, bgm_Win2K,		380
 
 	splash_liquid	GM_NTOSKRNL
 	splash_liquid	GM_SegaEU
@@ -182,13 +189,16 @@ splash_turd macro routine
 
 	; Files for solid
 	;!@ GenesisDoes
-	inc_solid_splash GenesisDoes1
+	inc_solid_splash ChadWarden
 	inc_solid_splash Compile
+	inc_solid_splash GenesisDoes1
 	inc_solid_splash Blessed
 	inc_solid_splash SonicBroke
 	inc_solid_splash Wait
-	inc_solid_splash W
-
+	inc_solid_splash GameTap
+	inc_solid_splash Clownancy
+	inc_solid_splash Ollie
+	;inc_solid_splash W
 
 ; Files for liquid
 	include "LiquidSplashes/Rerto/Rerto.asm"

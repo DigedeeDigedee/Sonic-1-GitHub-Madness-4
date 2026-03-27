@@ -93,8 +93,12 @@ SampleTable:
 	dcSample	TYPE_PCM,	supbeaches,	11297			; $B9
 
 	; Commercial Samples
-	dcSample	TYPE_PCM,	BeRightBack,	16000,			; $B2		
+	dcSample	TYPE_PCM,	BeRightBack,	16000			; $B2
 	dcSample	TYPE_DPCM,	GenesisCan3,	16000,FLAGS_SFX		; $B5
+
+	; Ollie Samples
+	dcSample	TYPE_PCM,	OllieGameTap,	16000
+	dcSample	TYPE_PCM,	OllieWahoo,	16000
 
 	; SEGA Samples
 	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0,	FLAGS_SFX	; $C9
@@ -215,6 +219,11 @@ SampleTable:
 	incdac	GenesisCan2,"sound/dac/GenesisDoes/GenesisCan2.dpcm"
 	incdac	GenesisCan3,"sound/dac/GenesisDoes/GenesisCan3.dpcm"
 ;	incdac	Intel,"sound/dac/Intel.dpcm"
+
+; ---------------------------------------------------------------
+; Ollie Samples
+	incdac	OllieGameTap,"sound/dac/ollie/gametap.pcm"
+	incdac	OllieWahoo,"sound/dac/ollie/wahoo.pcm"
 
 ; ---------------------------------------------------------------
 ; Unused Samples (Commented Out)
