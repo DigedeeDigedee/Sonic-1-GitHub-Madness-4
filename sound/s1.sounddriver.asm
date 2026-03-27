@@ -51,6 +51,7 @@ PSG_Index:
 		dc.l PSG_Dole04, PSG_DSK01, PSG_DSK02
 		dc.l PSG_Chicken_01, PSG_Chicken_02, PSG_Chicken_03
 		dc.l PSG_Danstar_01, PSG_Danstar_02, PSG_Danstar_03, PSG_Danstar_04
+		dc.l PSG_TF1, PSG_TF2
 
 PSG1:		dc.b 0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,$80
 	even
@@ -240,6 +241,16 @@ PSG_Chicken_03:
 	PSG_Danstar_04:
 	dc.b	2,2,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	dc.b	1,1,1,1,1,1,1,1,1,2,$80
+	even
+	
+	PSG_TF1:
+	dc.b	0,1,2,3,4,5,6,6,7,7,8,8,9,9,$A,$A,$B,$B,$C
+	dc.b	$C,$D,$D,$D,$E,$E,$E,$F,$80
+	even
+
+	PSG_TF2:
+	dc.b	0,1,2,3,3,4,5,5,6,7,8,8,9,9,$A,$A,$A,$B,$B
+	dc.b	$C,$C,$C,$C,$D,$D,$D,$E,$E,$E,$F,$80
 	even
 
 

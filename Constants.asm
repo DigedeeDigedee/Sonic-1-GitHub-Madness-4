@@ -93,6 +93,7 @@ id_SplashSkip:	equ ptr_SplashScreenSkipper-GameModeArray
 id_Advert:	equ ptr_Advert-GameModeArray
 id_Battle:	equ ptr_EarthboundBtl-GameModeArray
 id_ClintonScr:	equ ptr_ClintonScreens-GameModeArray
+id_OllieMaster:	equ ptr_OllieMasterpiece-GameModeArray
 
 ; Levels
 id_OWZ:		equ 0
@@ -366,6 +367,9 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	; nogales. i'm not renaming like 50 track labels man
 	nextenum bgm_GreenHill
 	nextenum bgm_SMWCave			; Minecraft	(Act 1 - Part 2)
+
+	;More Garbage 
+	nextenum bgm_TF2
 	; Keep this last
 	nextenum bgm__Last
 

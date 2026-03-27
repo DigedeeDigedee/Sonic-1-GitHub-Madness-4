@@ -20,6 +20,7 @@ GM_SonicTheScreensaver:
 		moveq	#0,d0
 		move.b	d0,f_wtr_state
 		move.l	d0,v_pcyc_num
+		move.l	d0,v_lani0_frame
 		disable_ints
 		jsr	ClearScreen
 		clearRAM	v_objspace	; GMZ - Clear the object RAM
@@ -34,10 +35,10 @@ GM_SonicTheScreensaver:
 		bra.s	Screensa_LoadMDLogoPal
 
 ScreensaMDLogoGfx_Tbl:
-		dc.l	ArtNem_ScreensaMDLogo
-		dc.l	ArtNem_ScreensaGENLogo
-		dc.l	ArtNem_ScreensaGENLogo
-		dc.l	ArtNem_ScreensaGENLogo
+		dc.l	ArtNem_ScreensaMDLogo		; DOM 60Hz
+		dc.l	ArtNem_ScreensaA50Logo		; DOM 50Hz
+		dc.l	ArtNem_ScreensaGENLogo		; INT 60Hz
+		dc.l	ArtNem_ScreensaGENLogo		; INT 60Hz
 		; GMZ - Code to check the console's region ends here
 
 Screensa_LoadMDLogoPal:
@@ -46,6 +47,16 @@ Screensa_LoadMDLogoPal:
 		move.l	(a0)+,(a1)+
 		move.l	(a0)+,(a1)+
 		move.w	(a0)+,(a1)+	; GMZ - Load the MD logo's palette
+
+		cmpi.b	#$40,(v_megadrive).w		; domestic 50hz?
+		bne.s	.notasia50hz			; if not, go away
+		lea	Pal_ScreensaA50Logo,a0
+		lea	v_palette,a1
+		move.w	#$F,d7	; 6 colors
+	.loop:
+		move.l  (a0)+,(a1)+
+		dbf.w	d7,.loop
+.notasia50hz:
 
 		jsr	FindFreeObj	; GMZ - Allocate object space for the MD logo
 		bne	Screensa_MainLoop	; GMZ - If we fail to allocate, then give up
@@ -62,7 +73,19 @@ Screensa_LoadMDLogoPal:
 Screensa_LoadMDLogoObj:
 		move.w	#$354E,obHeight(a1)	; GMZ - Set width and height measurements
 		move.l	#Map_ScreensaMDLogo,obMap(a1)	; GMZ - Set mappings
+		bra.s	Screensa_LdMDLgoVramAddr
 
+;ScreensaMDLogoMap_Tbl:		; coni - these two tables are unused as of now
+;		dc.l	Map_ScreensaMDLogo		; DOM 60Hz
+;		dc.l	Map_ScreensaA50Logo		; DOM 50Hz
+;		dc.l	Map_ScreensaGENLogo		; INT 60Hz
+;		dc.l	Map_ScreensaGENLogo		; INT 50Hz
+;ScreensaMDLogoMeasure_Tbl:
+;		dc.w	$354E		; DOM 60Hz
+;		dc.w	$2078		; DOM 50Hz
+;		dc.w	$2078		; INT 60Hz
+;		dc.w	$2078		; INT 50Hz
+	
 Screensa_LdMDLgoVramAddr:
 		; GMZ - Code to check the console's region ends here
 
@@ -81,6 +104,7 @@ Screensa_MainLoop:
 		bsr	ManageScreensaSonic
 		jsr	DisplaySprite
 		jsr	BuildSprites
+		bsr	DVDA50PalCyc	; something for the JP50 logo
 		bsr	AnimateScreensaBgColor
 		bra	Screensa_MainLoop
 
@@ -362,6 +386,41 @@ ASBCPurple_Color2:
 		add.w	#$0200,(a0)
 		rts
 
+DVDA50PalCyc:
+		cmpi.b	#$40,(v_megadrive).w		; domestic 50hz?
+		bne.s	.skip			; if not, go away
+		subq.w	#1,(v_lani1_frame).w
+		bpl.s	.skip
+		move.w	#3,(v_lani1_frame).w
+
+		; increment palette frame and update palette
+		move.w	(v_lani0_frame).w,d0
+
+		add.w	#1,(v_lani0_frame).w	; next frame
+		cmpi.w	#$7,(v_lani0_frame).w	; is it the last frame?
+		bls.s	.update			; if not, branch
+		clr.w	(v_lani0_frame).w		; reset frame counter
+.update:
+		lsl.w	#1,d0
+		lea	(Pal_ScreensaA50LogoCyc).l,a0
+		lea	(v_pal_dry+$2).w,a1
+		adda.w  d0,a0
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.w	(v_lani0_frame).w,d0
+		lsl.w	#1,d0
+		lea	(Pal_ScreensaA50LogoCyc+$20).l,a0
+		lea	(v_pal_dry+$22).w,a1
+		adda.w  d0,a0
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+		move.l  (a0)+,(a1)+
+.skip:
+		rts
+
 ArtNem_ScreensaMDLogo:
 		binclude	"Screensaver MD Logo (Art, Nemesis).bin"
 		even
@@ -374,6 +433,22 @@ Pal_ScreensaMDLogo:
 		binclude	"Screensaver MD Logo (Palette).bin"
 		even
 
+ArtNem_ScreensaA50Logo:
+		binclude	"A50Art.bin"
+		even
+
+Pal_ScreensaA50Logo:
+		binclude	"Asia50 Palette.bin"
+		even
+
+Pal_ScreensaA50LogoCyc:
+		binclude	"A50Cycle.bin"
+		even
+
+Map_ScreensaA50Logo:
+		include	"A50Map.asm"
+		even
+
 ArtNem_ScreensaGENLogo:
 		binclude	"Screensaver GEN Logo (Art, Nemesis).bin"
 		even
@@ -381,3 +456,4 @@ ArtNem_ScreensaGENLogo:
 Map_ScreensaGENLogo:
 		include	"Screensaver GEN Logo (Mappings).asm"
 		even
+	

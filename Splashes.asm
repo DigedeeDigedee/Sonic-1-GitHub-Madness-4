@@ -10,35 +10,42 @@ VDP_Data_Splash:
 	dc.w	$9200 ; window vertical position
 	dc.w	$8B03 ; scroll mode
 	dc.w	$8700 ; set background colour (palette line 0, entry 0)
+VDP_Data_Splash_End:
 
 RunSplashes:
-		move.b	#bgm_Stop,d0
+		moveq	#bgm_Stop|(~$FF),d0
 		jsr	(PlaySound_Special).w ; stop music
 		jsr	(ClearPLC).w
 		jsr	(PaletteFadeOut).w
-		disable_ints
 
 ; 	if SkipSplash = 1
 ; 		move.b	#id_Title,(v_gamemode).w ; PLEASESKIPTHISSHITPLEASEPLEASE
 ; 		rts
 ; 	endif
 
-		lea (Splash_Screen_Entries).l,a2
-	.load_next_splash:
-		tst.w	(a2)+
-		bne.w	.liquid_splash
-		jsr	(ClearScreen).w
+		lea	Splash_Screen_Entries(pc),a2
 
-		clr.b	(f_wtr_state).w
+	.load_next_splash:
+		tst.w	(a2)+			; are we at the end?
+		bmi.w	.exit			; if so, branch
+		bne.w	.liquid_splash		; if we are running a liquid splash screen, branch
+
+		disable_ints			; disable interrupts
+		jsr	(ClearScreen).w		; clear screen
+		clr.b	(f_wtr_state).w		; don't use water palette
 
 		; Set up VDP
 		lea	(vdp_control_port).l,a6
-		move.w	#7-1,d0
-		clr.w	d1
+		lea	VDP_Data_Splash(pc),a3
+		moveq	#(VDP_Data_Splash_End-VDP_Data_Splash)/2-1,d0
+
 	.vdploop:
-		move.w	VDP_Data_Splash(pc,d1.w),(a6)
-		addq.w	#2,d1
+		move.w	(a3)+,(a6)
 		dbf.w	d0,.vdploop
+
+		move.w	(v_vdp_buffer1).w,d0	; disable display
+		andi.w	#~$40,d0
+		move.w	d0,(a6)
 
 		locVRAM 0
 		move.l	(a2)+,a0 ; art
@@ -46,23 +53,24 @@ RunSplashes:
 
 		lea	(v_ram_start).l,a1
 		move.l	(a2)+,a0 ; tilemap
-		clr.w	d0
+		moveq	#0,d0
 		move.l	a2,-(sp)
 		jsr	(EniDec).w
 		move.l	(sp)+,a2
 
-		copyTilemap	$FF0000,$C000,$28,$1B
+		copyTilemap	v_ram_start,$C000,$28,$1C
 
 		lea	(v_palette_fading).w,a3
 		movea.l	(a2)+,a4	; get palette data address
-		clr.w	d7
+		moveq	#0,d7
 		move.b	(a2)+,d7	; get length of palette data
 
 	.loop_pal:
 		move.l	(a4)+,(a3)+	; move data to RAM
 		dbf	d7,.loop_pal
 
-		move.b	(a2)+,d0	; next byte is blank for address alignment
+		move.b	(a2)+,-(sp)	; save fade out flag for later
+
 		move.b	(a2)+,d0 	; is this a pcm or a sound id?
 		bne.s	.sampleid	; if pcm flag set, jump to pcm playback
 		move.b	(a2)+,d0 	; get sound id
@@ -75,9 +83,27 @@ RunSplashes:
 
 	.musicid:
 		move.w	(a2)+,(v_generictimer).w ; duration in seconds
-		jsr	(PaletteFadeIn).w
+
+		move.w	(v_vdp_buffer1).w,d0	; enable display
+		ori.w	#$40,d0
+		move.w	d0,(vdp_control_port).l
+		
+		tst.b	(sp)			; should we fade in?
+		beq.s	.no_fade_in		; if not, branch
+		jsr	(PaletteFadeIn).w	; if so, fade in
+		bra.s	.loop
+
+	.no_fade_in:
+		lea	(v_palette_fading).w,a3
+		lea	(v_palette).w,a4
+		moveq	#$80/4-1,d0
+
+	.copy_palette:
+		move.l	(a3)+,(a4)+
+		dbf	d0,.copy_palette
+
 	.loop:
-		move.b	#4,(v_vbla_routine).w
+		move.b	#2,(v_vbla_routine).w
 		jsr	(WaitForVBla).w
 
 		tst.w	(v_generictimer).w
@@ -85,34 +111,55 @@ RunSplashes:
 
 		tst.b	(v_jpadpress1).w ; check if any button is pressed
 		beq.s	.loop	; if not, branch
+		clr.w	(v_generictimer).w	; clear timer
 
 	.time_over:
-		jsr	(PaletteFadeOut).w
+		tst.b	(sp)+			; should we fade out?
+		beq.s	.black_out		; if not, branch
 
-		move.b	#bgm_Stop,d0
+	.fade_out:
+		jsr	(PaletteFadeOut).w	; if so, fade out
+		bra.s	.stop_music
+
+	.black_out:
+		lea	(v_palette).w,a3
+		moveq	#0,d0
+		moveq	#$80/4-1,d1
+
+	.black_out_loop:
+		move.l	d0,(a3)+
+		dbf	d1,.black_out_loop
+
+	.stop_music:
+		moveq	#bgm_Stop|(~$FF),d0
 		jsr	(PlaySound_Special).w ; stop music
+		
+		move.b	#2,(v_vbla_routine).w	; make sure palette and sound changes go through
+		jsr	(WaitForVBla).w
 
-		tst.l	(a2)
-		bpl.w	.load_next_splash
+		bra.w	.load_next_splash	; load next splash screen
+
+	.liquid_splash:
+		movea.l	(a2)+,a3
+		move.l	a2,-(sp)
+		jsr	(a3)
+		movea.l	(sp)+,a2
+		bra.s	.fade_out
+
+	.exit:
 ; 		move.w	#1,(v_SplashSkip).w
 		move.b	#id_Title,(v_gamemode).w ; go to title screen
 		rts
-	.liquid_splash:
-		move.l	a2,-(sp)
-		move.l	(a2),a2
-		jsr	(a2)
-
-
-		move.l	(sp)+,a2
-		adda.w	#4,a2
-		bra.s	.time_over
 Splash_Screen_Entries:
 
 ; include dedicated files for a solid spĺash screen
 inc_solid_splash macro name,{GLOBALSYMBOLS}
 Art_\name\: binclude "SolidSplashes/Art - \name\.nem"
+	even
 Map_\name\: binclude "SolidSplashes/Map - \name\.eni"
+	even
 Pal_\name\: binclude "SolidSplashes/Pal - \name\.bin"
+	even
 	endm
 
 ; in case you use a shared palette/art/tilemap
@@ -121,17 +168,18 @@ Pal_\name\: binclude "SolidSplashes/Pal - \name\.bin"
 _bgm	equ 0
 _pcm	equ 1
 
-splash_solid_split macro art,tilemap,pal,size,pcmflag,musicid,frameduration
+splash_solid_split macro art,tilemap,pal,size,fadeflag,pcmflag,musicid,frameduration
 	dc.w	0
 	dc.l	art,tilemap,pal
-	dc.b	(size/4)-1,0
+	dc.b	(size/4)-1
+	dc.b	fadeflag
 	dc.b	pcmflag,musicid
 	dc.w	frameduration
 	endm
 
 ; dedicated palette,art & tilemap
-splash_solid macro name,size,pcmflag,musicid,frameduration
-	splash_solid_split Art_\name\,Map_\name\,Pal_\name\,size,pcmflag,musicid,frameduration
+splash_solid macro name,size,fadeflag,pcmflag,musicid,frameduration
+	splash_solid_split Art_\name\,Map_\name\,Pal_\name\,size,fadeflag,pcmflag,musicid,frameduration
 	endm
 
 ; for routines
@@ -165,30 +213,37 @@ splash_turd macro routine
 	splash_liquid	Yume2kki
 
 	;!@ GenesisDoes
-	splash_solid	Compile,	$40, 0,	$00,		60*3
-	splash_solid	GenesisDoes1,	$40, 1,	dGenesisDoes1,	60*10
-	splash_solid	Blessed,	$40, 0,	sfx_SSGoal,	200
-	splash_solid	SonicBroke,	$20, 0,	bgm_S1Continue,	480
-	splash_solid	Wait,		$60, 0,	bgm_PuyoDrown,	145
-;	splash_solid	W,		$40, 0,	bgm_Win2K,	380
+	splash_solid	ChadWarden,	$20, 0, _pcm, dsupbeaches,		60*7
+	splash_solid	Compile,	$40, 1, _bgm, $00,			60*3
+	splash_solid	GenesisDoes1,	$40, 1, _pcm, dGenesisDoes1,		60*10
+	splash_solid	Blessed,	$40, 1, _bgm, sfx_SSGoal,		200
+	splash_solid	SonicBroke,	$20, 1, _bgm, bgm_S1Continue,		480
+	splash_solid	Wait,		$60, 1, _bgm, bgm_PuyoDrown,		145
+	splash_solid	GameTap,	$20, 1, _pcm, dOllieGameTap,		60*3
+	splash_solid	Clownancy,	$20, 1, _bgm, $00,			60*3
+	splash_solid	Ollie,		$20, 1, _pcm, dOllieWahoo,		60*3
+;	splash_solid	W,		$40, 1, _bgm, bgm_Win2K,		380
 
 	splash_liquid	GM_NTOSKRNL
 	splash_liquid	GM_SegaEU
 	splash_turd	Remilia
 	splash_liquid	GM_DWSplash		; the later you have this, the funnier it is
 	splash_liquid	GiovanniSplash		; the later you have this, the funnier it is
-	dc.l	-1 ; end marker
+	dc.w	-1 ; end marker
 
 
 	; Files for solid
 	;!@ GenesisDoes
-	inc_solid_splash GenesisDoes1
+	inc_solid_splash ChadWarden
 	inc_solid_splash Compile
+	inc_solid_splash GenesisDoes1
 	inc_solid_splash Blessed
 	inc_solid_splash SonicBroke
 	inc_solid_splash Wait
-	inc_solid_splash W
-
+	inc_solid_splash GameTap
+	inc_solid_splash Clownancy
+	inc_solid_splash Ollie
+	;inc_solid_splash W
 
 ; Files for liquid
 	include "LiquidSplashes/Rerto/Rerto.asm"

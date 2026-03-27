@@ -102,6 +102,10 @@ dsupbeaches			ds.b 1
 dRightBack			ds.b 1
 dGenesisCan3			ds.b 1
 
+; Ollie Samples
+dOllieGameTap			ds.b 1
+dOllieWahoo			ds.b 1
+
 ; SEGA Samples
 dSega				ds.b 1
 dSega2				ds.b 1
