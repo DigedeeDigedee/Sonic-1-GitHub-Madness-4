@@ -9,5 +9,6 @@ copy /y "MMZ_BF_Jap\eggmanLaugh.wav" "..\..\..\sound\DAC\GenesisDoes\eggmanLaugh
 copy /y "MMZ_BF_Jap\git-hub.wav" "..\..\..\sound\DAC\GenesisDoes\git-hub.wav"
 copy /y "MMZ_BF_Jap\Madness.wav" "..\..\..\sound\DAC\GenesisDoes\Madness.wav"
 copy /y "MMZ_BF_Jap\MadnessR.wav" "..\..\..\sound\DAC\GenesisDoes\MadnessR.wav"
+copy /y "WinZone_Die\windie.wav" "..\..\..\sound\DAC\GenesisDoes\windie.wav"
 copy /y "MMZ_BF_Jap\YoFreddy_Rendered.wav" "..\..\..\sound\DAC\GenesisDoes\YoFreddy.wav"
 REM pause
