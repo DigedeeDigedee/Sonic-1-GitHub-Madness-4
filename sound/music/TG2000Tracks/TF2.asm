@@ -1698,3 +1698,5 @@ Kazotsky_PSG3_13_0_64:
 	smpsPSGAlterVol	$FB
 	dc.b $04, $04, $04, $04
 	smpsReturn
+
+	smpsFooterEndSong	"TG2000Tracks/TF2.asm"
