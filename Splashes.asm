@@ -26,13 +26,13 @@ RunSplashes:
 		lea	Splash_Screen_Entries(pc),a2
 
 	.load_next_splash:
-		disable_ints			; disable interrupts
 		tst.w	(a2)+			; are we at the end?
 		bmi.w	.exit			; if so, branch
 		bne.w	.liquid_splash		; if we are running a liquid splash screen, branch
 
-		jsr	(ClearScreen).w
-		clr.b	(f_wtr_state).w
+		disable_ints			; disable interrupts
+		jsr	(ClearScreen).w		; clear screen
+		clr.b	(f_wtr_state).w		; don't use water palette
 
 		; Set up VDP
 		lea	(vdp_control_port).l,a6
@@ -134,9 +134,7 @@ RunSplashes:
 		moveq	#bgm_Stop|(~$FF),d0
 		jsr	(PlaySound_Special).w ; stop music
 		
-		; I don't fucking know why, but if I don't use 4 here, the NTOSKRNL screen will
-		; display black for its green during the "draw in" phase on Kega Fusion???
-		move.b	#4,(v_vbla_routine).w	; make sure palette and sound changes go through
+		move.b	#2,(v_vbla_routine).w	; make sure palette and sound changes go through
 		jsr	(WaitForVBla).w
 
 		bra.w	.load_next_splash	; load next splash screen
