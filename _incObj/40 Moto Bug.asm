@@ -26,6 +26,12 @@ Moto_Main:	; Routine 0
 		move.w	#make_art_tile(ArtTile_CBZMoto_Bug,0,0),obGfx(a0)
 		move.b	#$E,obActWid(a0)
 .NotCBZ:
+		cmpi.b	#id_MCZ,(v_zone).w		; is zone CBZ?
+		bne.s	.NotMCZ	; if not, branch
+		move.l	#Map_MotoMCZ,obMap(a0)
+		move.w	#make_art_tile(ArtTile_Villager,0,0),obGfx(a0)
+		move.b	#$E,obActWid(a0)
+.NotMCZ:
 		tst.b	obAnim(a0)	; is object a smoke trail?
 		bne.s	.smoke		; if yes, branch
 		move.b	#$E,obHeight(a0)

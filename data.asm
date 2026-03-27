@@ -332,7 +332,8 @@ Nem_Cater:	binclude	"artnem/Enemy Caterkiller.nem"
 		even
 Nem_IE:		binclude	"artnem/Internet Explorer.nem"
 		even
-
+Nem_Villager:		binclude	"artnem/Villager.nem"
+		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - character hud
 ; ---------------------------------------------------------------------------

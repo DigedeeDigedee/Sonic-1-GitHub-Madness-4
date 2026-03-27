@@ -5981,6 +5981,7 @@ Map_Splats:	 include "_maps/Splats.asm"
 
 Map_MotoCBZ:	include	"_maps/Moto BugCBZ.asm"
 		include	"_incObj/4F Splats.asm"
+Map_MotoMCZ:	include	"_maps/villergar.asm";villy
 
 		include	"_incObj/50 Yadrin.asm"
 		include	"_anim/Yadrin.asm"
