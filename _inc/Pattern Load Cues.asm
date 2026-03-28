@@ -107,7 +107,6 @@ PLC_GHZ:	dc.w ((PLC_GHZ2-PLC_GHZ-2)/6)-1
 		plcm	Nem_Motobug,   ArtTile_Moto_Bug               ; motobug enemy
 		plcm	Nem_Spikes,    ArtTile_Spikes                 ; spikes
 		plcm	Nem_HSpring,   ArtTile_Spring_Horizontal      ; horizontal spring
-		plcm	Nem_VSpring,   ArtTile_Spring_Vertical        ; vertical spring
         dc.l    Nem_Rift		;  put this on plcs
 	    dc.w    $9760	
 
@@ -129,7 +128,6 @@ PLC_LZ:		dc.w ((PLC_LZ2-PLC_LZ-2)/6)-1
 
 PLC_LZ2:	dc.w ((PLC_LZ2end-PLC_LZ2-2)/6)-1
 		plcm	Nem_HSpring,     ArtTile_Spring_Horizontal  ; horizontal spring
-		plcm	Nem_VSpring,     ArtTile_Spring_Vertical    ; vertical spring
 PLC_LZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Marble
@@ -153,7 +151,7 @@ PLC_MZ2:	dc.w ((PLC_MZ2end-PLC_MZ2-2)/6)-1
 		plcm	Nem_MzSwitch, ArtTile_Button+4           ; switch
 		plcm	Nem_Spikes,   ArtTile_Spikes             ; spikes
 		plcm	Nem_HSpring,  ArtTile_Spring_Horizontal  ; horizontal spring
-		plcm	Nem_VSpring,  ArtTile_Spring_Vertical    ; vertical spring
+		plcm	Nem_VSpring,  ArtTile_Spring_Vertical    
 		plcm	Nem_MzBlock,  ArtTile_MZ_Block           ; green stone block
 PLC_MZ2end:
 ; ---------------------------------------------------------------------------
@@ -170,7 +168,7 @@ PLC_SLZ:	dc.w ((PLC_SLZ2-PLC_SLZ-2)/6)-1
 		plcm	Nem_SlzWall,   ArtTile_GHZ_SLZ_Smashable_Wall+4 ; breakable wall
 		plcm	Nem_Spikes,    ArtTile_Spikes                   ; spikes
 		plcm	Nem_HSpring,   ArtTile_Spring_Horizontal        ; horizontal spring
-		plcm	Nem_VSpring,   ArtTile_Spring_Vertical          ; vertical spring
+		         
 
 PLC_SLZ2:	dc.w ((PLC_SLZ2end-PLC_SLZ2-2)/6)-1
 		plcm	Nem_Seesaw,    ArtTile_SLZ_Seesaw                ; seesaw
@@ -197,7 +195,7 @@ PLC_SYZ2:	dc.w ((PLC_SYZ2end-PLC_SYZ2-2)/6)-1
 		dc.w $A0E0
  		plcm	Nem_Spikes,    ArtTile_Spikes              ; spikes
 		plcm	Nem_HSpring,   ArtTile_Spring_Horizontal   ; horizontal spring
-		plcm	Nem_VSpring,   ArtTile_Spring_Vertical     ; vertical spring
+		    
 PLC_SYZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Scrap Brain
@@ -227,7 +225,7 @@ PLC_SBZ2:	dc.w ((PLC_SBZ2end-PLC_SBZ2-2)/6)-1
 		plcm	Nem_LzSwitch,   ArtTile_Button                 ; switch
 		plcm	Nem_Spikes,     ArtTile_Spikes                 ; spikes
 		plcm	Nem_HSpring,    ArtTile_Spring_Horizontal      ; horizontal spring
-		plcm	Nem_VSpring,    ArtTile_Spring_Vertical        ; vertical spring
+		plcm	Nem_VSpring,    ArtTile_Spring_Vertical        
 		plcm	Nem_BallHogH,   ArtTile_Ball_HogH                ; ball hog enemy
 		plcm	Nem_BallHogV,   ArtTile_Ball_HogV                ; ball hog enemy
 		plcm	Nem_ProtoExplosion, ArtTile_Proto_Explosion 	; explosion
@@ -245,7 +243,6 @@ PLC_BREW:	dc.w ((PLC_BREW2-PLC_BREW-2)/6)-1
 ;		plcm	Nem_PplRock,   ArtTile_GHZ_Purple_Rock        ; purple rock
 		plcm	Nem_Spikes,    ArtTile_Spikes                 ; spikes
 		plcm	Nem_HSpring,   ArtTile_Spring_Horizontal      ; horizontal spring
-		plcm	Nem_VSpring,   ArtTile_Spring_Vertical        ; vertical spring
 
 PLC_BREW2:	dc.w ((PLC_BREW2end-PLC_BREW2-2)/6)-1
 		plcm	Nem_IZ,		   ArtTile_CBZ_IZ               ; IZ enemy
@@ -266,7 +263,7 @@ PLC_BREW3end:
 PLC_WIN:	dc.w ((PLC_WIN2-PLC_WIN-2)/6)-1
 ;		plcm	Nem_WIN,       ArtTile_Level                    ; SLZ main patterns
 		plcm	Nem_HSpring,   ArtTile_Spring_Horizontal        ; horizontal spring
-		plcm	Nem_VSpring,   ArtTile_Spring_Vertical          ; vertical spring
+		         
 		plcm	Nem_IE,        ArtTile_IE                       ; Internet Explorer enemy
 
 PLC_WIN2:	dc.w ((PLC_WIN2end-PLC_WIN2-2)/6)-1
@@ -280,7 +277,7 @@ PLC_Joint:	dc.w ((PLC_Joint2-PLC_Joint-2)/6)-1
 PLC_Joint2:	dc.w ((PLC_Joint2end-PLC_Joint2-2)/6)-1
 		plcm	Nem_Spikes,     ArtTile_Spikes                 ; spikes
 		plcm	Nem_HSpring,    ArtTile_Spring_Horizontal      ; horizontal spring
-		plcm	Nem_VSpring,    ArtTile_Spring_Vertical        ; vertical spring
+		plcm	Nem_VSpring,    ArtTile_Spring_Vertical        
 PLC_Joint2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - DoleVille
@@ -289,7 +286,6 @@ PLC_DVZ:	dc.w ((PLC_DVZ2-PLC_DVZ-2)/6)-1
 ;		plcm	Nem_Joint,       ArtTile_Level                   ; Joint main patterns
 		plcm	Nem_Spikes,    ArtTile_Spikes                 ; spikes
 		plcm	Nem_HSpring,   ArtTile_Spring_Horizontal      ; horizontal spring
-		plcm	Nem_VSpring,   ArtTile_Spring_Vertical        ; vertical spring
 		plcm	Nem_SlzSwing,  ArtTile_SLZ_Swing                 ; swinging platform
 		plcm	Nem_SyzSpike1, ArtTile_SYZ_Big_Spikeball   ; large spikeball
 		plcm	Nem_SyzSpike2, ArtTile_SYZ_Spikeball_Chain ; small spikeball
@@ -297,7 +293,7 @@ PLC_DVZ:	dc.w ((PLC_DVZ2-PLC_DVZ-2)/6)-1
 PLC_DVZ2:	dc.w ((PLC_DVZ2end-PLC_DVZ2-2)/6)-1
 		plcm	Nem_Spikes,     ArtTile_Spikes                 ; spikes
 		plcm	Nem_HSpring,    ArtTile_Spring_Horizontal      ; horizontal spring
-		plcm	Nem_VSpring,    ArtTile_Spring_Vertical        ; vertical spring
+		plcm	Nem_VSpring,    ArtTile_Spring_Vertical        
 PLC_DVZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Nogales

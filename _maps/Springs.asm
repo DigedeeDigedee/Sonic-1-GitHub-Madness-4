@@ -1,42 +1,33 @@
-; ---------------------------------------------------------------------------
-; Sprite mappings - springs
-; ---------------------------------------------------------------------------
-Map_Spring_internal:	mappingsTable
-	mappingsTableEntry.w	M_Spg_Up
-	mappingsTableEntry.w	M_Spg_UpFlat
-	mappingsTableEntry.w	M_Spg_UpExt
-	mappingsTableEntry.w	M_Spg_Left
-	mappingsTableEntry.w	M_Spg_LeftFlat
-	mappingsTableEntry.w	M_Spg_LeftExt
+; --------------------------------------------------------------------------------
+; Sprite mappings - output from SonMapEd - Sonic 1 format
+; --------------------------------------------------------------------------------
 
-M_Spg_Up:	spriteHeader
-	spritePiece	-$10, -8, 4, 1, 0, 0, 0, 0, 0	; facing up
-	spritePiece	-$10, 0, 4, 1, 4, 0, 0, 0, 0
-M_Spg_Up_End
-
-M_Spg_UpFlat:	spriteHeader
-	spritePiece	-$10, 0, 4, 1, 0, 0, 0, 0, 0	; facing up, flattened
-M_Spg_UpFlat_End
-
-M_Spg_UpExt:	spriteHeader
-	spritePiece	-$10, -$18, 4, 1, 0, 0, 0, 0, 0	; facing up, extended
-	spritePiece	-8, -$10, 2, 2, 8, 0, 0, 0, 0
-	spritePiece	-$10, 0, 4, 1, $C, 0, 0, 0, 0
-M_Spg_UpExt_End
-
-M_Spg_Left:	spriteHeader
-	spritePiece	-8, -$10, 2, 4, 0, 0, 0, 0, 0	; facing left
-M_Spg_Left_End
-
-M_Spg_LeftFlat:	spriteHeader
-	spritePiece	-8, -$10, 1, 4, 4, 0, 0, 0, 0	; facing left, flattened
-M_Spg_LeftFlat_End
-
-M_Spg_LeftExt:	spriteHeader
-	spritePiece	$10, -$10, 1, 4, 4, 0, 0, 0, 0	; facing left, extended
-	spritePiece	-8, -8, 3, 2, 8, 0, 0, 0, 0
-	spritePiece	-8, -$10, 1, 1, 0, 0, 0, 0, 0
-	spritePiece	-8, 8, 1, 1, 3, 0, 0, 0, 0
-M_Spg_LeftExt_End
-
-	even
+SME_bosrB:	
+		dc.w SME_bosrB_C-SME_bosrB, SME_bosrB_17-SME_bosrB	
+		dc.w SME_bosrB_27-SME_bosrB, SME_bosrB_3C-SME_bosrB	
+		dc.w SME_bosrB_47-SME_bosrB, SME_bosrB_57-SME_bosrB	
+SME_bosrB_C:	dc.b 2	
+		dc.b 0, 4, 0, 0, $F0	
+		dc.b 0, 4, 8, 0, 0	
+SME_bosrB_17:	dc.b 3	
+		dc.b 0, 4, 0, 2, $F0	
+		dc.b 0, 4, 8, 2, 0	
+		dc.b $F8, 8, 0, 4, $F1	
+SME_bosrB_27:	dc.b 4	
+		dc.b 0, 4, 0, 2, $F0	
+		dc.b 0, 4, 8, 2, 0	
+		dc.b $F0, 1, 0, 7, $FC	
+		dc.b $E8, 8, 0, 4, $F1	
+SME_bosrB_3C:	dc.b 2	
+		dc.b $F0, 1, 0, 9, $F8	
+		dc.b 0, 1, $10, 9, $F8	
+SME_bosrB_47:	dc.b 3	
+		dc.b $F0, 1, 0, $B, $F8	
+		dc.b 0, 1, $10, $B, $F8	
+		dc.b $F0, 2, 0, $F, 0	
+SME_bosrB_57:	dc.b 4	
+		dc.b $F0, 1, 0, $B, $F8	
+		dc.b 0, 1, $10, $B, $F8	
+		dc.b $F0, 2, 0, $F, $10	
+		dc.b $FC, 4, 0, $D, 0	
+		even
