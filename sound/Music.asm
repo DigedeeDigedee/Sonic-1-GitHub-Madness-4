@@ -135,13 +135,45 @@ ptr_mus75:		dc.l Music75
 ptr_mus76:		dc.l Music76
 ptr_mus77:		dc.l Music77
 ptr_mus78:		dc.l Music78
-;ptr_mus79:		dc.l Music79
+ptr_mus79:		dc.l Music79
 ;ptr_mus7A:		dc.l Music7A
 ;ptr_mus7B:		dc.l Music7B
 ;ptr_mus7C:		dc.l Music7C
 ;ptr_mus7D:		dc.l Music7D
 ;ptr_mus7E:		dc.l Music7E
 ;ptr_mus7F:		dc.l Music7F
+;ptr_mus80:		dc.l Music80
+;ptr_mus81:		dc.l Music81
+;ptr_mus82:		dc.l Music82
+;ptr_mus83:		dc.l Music83
+;ptr_mus84:		dc.l Music84
+;ptr_mus85:		dc.l Music85
+;ptr_mus86:		dc.l Music86
+;ptr_mus87:		dc.l Music87
+;ptr_mus88:		dc.l Music88
+;ptr_mus89:		dc.l Music89
+;ptr_mus8A:		dc.l Music8A
+;ptr_mus8B:		dc.l Music8B
+;ptr_mus8C:		dc.l Music8C
+;ptr_mus8D:		dc.l Music8D
+;ptr_mus8E:		dc.l Music8E
+;ptr_mus8F:		dc.l Music8F
+;ptr_mus90:		dc.l Music90
+;ptr_mus91:		dc.l Music91
+;ptr_mus92:		dc.l Music92
+;ptr_mus93:		dc.l Music93
+;ptr_mus94:		dc.l Music94
+;ptr_mus95:		dc.l Music95
+;ptr_mus96:		dc.l Music96
+;ptr_mus97:		dc.l Music97
+;ptr_mus98:		dc.l Music98
+;ptr_mus99:		dc.l Music99
+;ptr_mus9A:		dc.l Music9A
+;ptr_mus9B:		dc.l Music9B
+;ptr_mus9C:		dc.l Music9C
+;ptr_mus9D:		dc.l Music9D
+;ptr_mus9E:		dc.l Music9E
+;ptr_mus9F:		dc.l Music9F
 	dc.l 0	; i had to do this because for some reason it wouldnt play the final track otherwise - coni
 
 Music01:
@@ -513,5 +545,8 @@ Music77:
 		even
 Music78:
 		include	"music/TG2000Tracks/TF2.asm"
+		even
+Music79:	
+		include "music/CNTracks/CheetahFakeout.asm"
 		even
 	END
