@@ -203,6 +203,8 @@ ol_AlignObjectGrid:
 
 ol_MoveObjectGrid:
 	move.w	ol_obj_grid_speed(a0),d0			; Get speed
+	ext.l	d0
+	lsl.l	#8,d0
 	
 	move.w	ol_obj_target_x(a0),d1				; Should we move horizontally?
 	cmp.w	ol_obj_x(a0),d1
@@ -210,13 +212,19 @@ ol_MoveObjectGrid:
 	bgt.s	.MoveRight					; If we should move right, branch
 
 .MoveLeft:
-	sub.w	d0,ol_obj_x(a0)					; Move left
-	cmp.w	ol_obj_x(a0),d1					; Check if target has been reached
+	sub.l	d0,ol_obj_x(a0)					; Move left
+	cmp.w	ol_obj_x(a0),d1					; Did we pass by the target position?
+	ble.s	.End						; If not, branch
+	move.w	d1,ol_obj_x(a0)					; If so, relocate to target position
+	ori.w	#4,sr						; Target reached
 	rts
 
 .MoveRight:
-	add.w	d0,ol_obj_x(a0)					; Move right
+	add.l	d0,ol_obj_x(a0)					; Move right
 	cmp.w	ol_obj_x(a0),d1					; Check if target has been reached
+	bge.s	.End						; If not, branch
+	move.w	d1,ol_obj_x(a0)					; If so, relocate to target position
+	ori.w	#4,sr						; Target reached
 	rts
 
 .CheckY:
@@ -226,13 +234,19 @@ ol_MoveObjectGrid:
 	bgt.s	.MoveDown					; If we should move down, branch
 
 .MoveUp:
-	sub.w	d0,ol_obj_y(a0)					; Move up
+	sub.l	d0,ol_obj_y(a0)					; Move up
 	cmp.w	ol_obj_y(a0),d1					; Check if target has been reached
+	ble.s	.End						; If not, branch
+	move.w	d1,ol_obj_y(a0)					; If so, relocate to target position
+	ori.w	#4,sr						; Target reached
 	rts
 
 .MoveDown:
-	add.w	d0,ol_obj_y(a0)					; Move down
+	add.l	d0,ol_obj_y(a0)					; Move down
 	cmp.w	ol_obj_y(a0),d1					; Check if target has been reached
+	bge.s	.End						; If not, branch
+	move.w	d1,ol_obj_y(a0)					; If so, relocate to target position
+	ori.w	#4,sr						; Target reached
 
 .End:
 	rts

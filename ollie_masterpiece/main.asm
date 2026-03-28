@@ -83,16 +83,32 @@ GM_OllieMasterpiece:
 ; ------------------------------------------------------------------------------
 
 .TestScript:
+	ol_scriptShowIcon 0,0
 	ol_scriptShowTextbox
 
 	ol_scriptText
-	ol_text "Hello world!"
-	ol_textNewLine
-	ol_textNewLine
-	ol_text "I GOT BLISTERS ON MY FINGERS!!!"
-	ol_textEnd
+	dc.b	"Hello world!", ol_TEXT_NEW_LINE
+	ol_scriptTextEnd
+	
+	ol_scriptWaitUser
+
+	ol_scriptText
+	dc.b	ol_TEXT_NEW_LINE
+	dc.b	"I GOT BLISTERS ON MY FINGERS!!"
+	ol_scriptTextEnd
 
 	ol_scriptWaitUser
+	ol_scriptClearTextbox
+
+	ol_scriptText
+	dc.b	"Yak yak yak yak yak yak.", ol_TEXT_NEW_LINE
+	dc.b	ol_TEXT_NEW_LINE
+	dc.b	"I wonder what lead tastes", ol_TEXT_NEW_LINE
+	dc.b	"like... ^_^"
+	ol_scriptTextEnd
+
+	ol_scriptWaitUser
+
 	ol_scriptEnd
 
 ; ------------------------------------------------------------------------------

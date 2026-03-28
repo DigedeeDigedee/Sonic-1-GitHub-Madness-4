@@ -33,7 +33,7 @@ ol_ResetScript:
 ol_StartScript:
 	bsr.s	ol_ResetScript					; Reset scripting
 	move.l	a1,ol_script_address.w				; Set script address
-	move.b	#%0001,ol_script_flags.w			; Set script flags
+	bset	#0,ol_script_flags.w				; Force textbox redraw
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -77,11 +77,13 @@ ol_RunScript:
 ; ------------------------------------------------------------------------------
 
 .Commands:
-	bra.w	ol_TextScriptCmd				; Draw text
-	bra.w	ol_WaitUserScriptCmd				; Wait for user
-	bra.w	ol_ShowTextboxScriptCmd				; Show textbox
-	bra.w	ol_HideTextboxScriptCmd				; Hide textbox
-	bra.w	ol_SetIconScriptCmd				; Set icon
+	bra.w	ol_ScriptText					; Draw text
+	bra.w	ol_ScriptWaitUser				; Wait for user
+	bra.w	ol_ScriptShowTextbox				; Show textbox
+	bra.w	ol_ScriptHideTextbox				; Hide textbox
+	bra.w	ol_ScriptClearTextbox				; Clear textbox
+	bra.w	ol_ScriptShowIcon				; Show icon
+	bra.w	ol_ScriptHideIcon				; Hide icon
 
 ; ------------------------------------------------------------------------------
 ; Exit script
@@ -95,9 +97,8 @@ ol_ExitScript:
 ; Draw text
 ; ------------------------------------------------------------------------------
 
-ol_TextScriptCmd:
+ol_ScriptText:
 	bset	#3,ol_script_flags.w				; Start drawing text
-	clr.w	ol_script_text_cmd.w				; Reset text VDP command offset
 	move.l	#ol_ExitScript,(sp)				; Exit script
 	rts
 
@@ -105,7 +106,7 @@ ol_TextScriptCmd:
 ; Wait for user
 ; ------------------------------------------------------------------------------
 
-ol_WaitUserScriptCmd:
+ol_ScriptWaitUser:
 	bset	#5,ol_script_flags.w				; Start waiting
 	move.l	#ol_ExitScript,(sp)				; Exit script
 	rts
@@ -114,7 +115,7 @@ ol_WaitUserScriptCmd:
 ; Show textbox
 ; ------------------------------------------------------------------------------
 
-ol_ShowTextboxScriptCmd:
+ol_ScriptShowTextbox:
 	bset	#2,ol_script_flags.w				; Show textbox
 	rts
 
@@ -122,17 +123,36 @@ ol_ShowTextboxScriptCmd:
 ; Hide textbox
 ; ------------------------------------------------------------------------------
 
-ol_HideTextboxScriptCmd:
+ol_ScriptHideTextbox:
 	bclr	#2,ol_script_flags.w				; Hide textbox
 	rts
 
 ; ------------------------------------------------------------------------------
-; Set icon
+; Clear textbox
 ; ------------------------------------------------------------------------------
 
-ol_SetIconScriptCmd:
-	addq.w	#4,a0
+ol_ScriptClearTextbox:
+	bset	#0,ol_script_flags.w				; Clear textbox
+	clr.w	ol_script_text_cmd.w				; Reset text VDP command offset
 	rts
+
+; ------------------------------------------------------------------------------
+; Show icon
+; ------------------------------------------------------------------------------
+
+ol_ScriptShowIcon:
+	addq.w	#4,a0
+	
+	bset	#1,ol_script_flags.w				; Show icon
+	bra.s	ol_ScriptClearTextbox				; Clear textbox
+
+; ------------------------------------------------------------------------------
+; Hide icon
+; ------------------------------------------------------------------------------
+
+ol_ScriptHideIcon:
+	bclr	#1,ol_script_flags.w				; Hide icon
+	bra.s	ol_ScriptClearTextbox				; Clear textbox
 
 ; ------------------------------------------------------------------------------
 ; Update graphics related to scripting

@@ -8,12 +8,21 @@
 ; ------------------------------------------------------------------------------
 
 	phase 0
-ol_SCRIPT_TEXT:		ds.b 1					; Draw text
-ol_SCRIPT_WAIT_USER:	ds.b 1					; Wait for user
-ol_SCRIPT_SHOW_TEXTBOX:	ds.b 1					; Show textbox
-ol_SCRIPT_HIDE_TEXTBOX:	ds.b 1					; Hide textbox
-ol_SCRIPT_SET_ICON:	ds.b 1					; Set icon
+ol_SCRIPT_TEXT		ds.b 1					; Draw text
+ol_SCRIPT_WAIT_USER	ds.b 1					; Wait for user
+ol_SCRIPT_SHOW_TEXTBOX	ds.b 1					; Show textbox
+ol_SCRIPT_HIDE_TEXTBOX	ds.b 1					; Hide textbox
+ol_SCRIPT_CLEAR_TEXTBOX	ds.b 1					; Clear textbox
+ol_SCRIPT_SHOW_ICON	ds.b 1					; Show icon
+ol_SCRIPT_HIDE_ICON	ds.b 1					; Hide icon
 	dephase
+
+; ------------------------------------------------------------------------------
+; Text flags
+; ------------------------------------------------------------------------------
+
+ol_TEXT_TERMINATE	equ 0					; Terminator
+ol_TEXT_NEW_LINE	equ -1					; New line
 
 ; ------------------------------------------------------------------------------
 ; End of script
@@ -32,30 +41,11 @@ ol_scriptText macro
 	endm
 
 ; ------------------------------------------------------------------------------
-; Define text
-; ------------------------------------------------------------------------------
-; ARGUMENTS:
-;	text - Text to draw
+; End of text
 ; ------------------------------------------------------------------------------
 
-ol_text macro text
-	dc.b	text
-	endm
-
-; ------------------------------------------------------------------------------
-; Define new line in text
-; ------------------------------------------------------------------------------
-
-ol_textNewLine macro
-	dc.b	-1
-	endm
-
-; ------------------------------------------------------------------------------
-; Define end of text
-; ------------------------------------------------------------------------------
-
-ol_textEnd macro
-	dc.b	0
+ol_scriptTextEnd macro
+	dc.b	ol_TEXT_TERMINATE
 	even
 	endm
 
@@ -84,25 +74,32 @@ ol_scriptHideTextbox macro
 	endm
 
 ; ------------------------------------------------------------------------------
-; Hide icon
+; Clear textbox
 ; ------------------------------------------------------------------------------
 
-ol_scriptHideIcon macro
-	dc.w	ol_SCRIPT_SET_ICON
-	dc.w	-1, -1
+ol_scriptClearTextbox macro
+	dc.w	ol_SCRIPT_CLEAR_TEXTBOX
 	endm
 
 ; ------------------------------------------------------------------------------
-; Set icon
+; Show icon
 ; ------------------------------------------------------------------------------
 ; ARGUMENTS:
 ;	char - Character ID
 ;	anim - Animation ID
 ; ------------------------------------------------------------------------------
 
-ol_scriptSetIcon macro char, anim
-	dc.w	ol_SCRIPT_SET_ICON
+ol_scriptShowIcon macro char, anim
+	dc.w	ol_SCRIPT_SHOW_ICON
 	dc.w	char, anim
+	endm
+
+; ------------------------------------------------------------------------------
+; Hide icon
+; ------------------------------------------------------------------------------
+
+ol_scriptHideIcon macro char, anim
+	dc.w	ol_SCRIPT_HIDE_ICON
 	endm
 
 ; ------------------------------------------------------------------------------

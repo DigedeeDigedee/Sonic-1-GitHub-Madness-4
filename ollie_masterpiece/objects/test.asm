@@ -11,7 +11,7 @@ ol_TestObject:
 	move.l	#ol_TestObjectUpdate,ol_obj_update(a0)		; Set update state
 	move.l	#ol_DrawTestObject,ol_obj_draw(a0)		; Set draw function
 
-	move.w	#2,ol_obj_grid_speed(a0)			; Set grid movement speed
+	move.w	#$180,ol_obj_grid_speed(a0)			; Set grid movement speed
 	bsr.w	ol_AlignObjectGrid				; Align to grid
 
 ; ------------------------------------------------------------------------------
