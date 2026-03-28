@@ -519,5 +519,3 @@ v_regbuffer:	ds.b	$40	; stores registers d0-a7 during an error event
 v_spbuffer:	ds.l	1	; stores most recent sp address
 v_errortype:	ds.b	1	; error type
 	dephase
-
-	!org 0

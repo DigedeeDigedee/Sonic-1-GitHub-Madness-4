@@ -16,7 +16,7 @@ ol_InitMap:
 	movea.l	(a6,d0.w),a6
 
 	movea.l	(a6)+,a0					; Load graphics
-	move.l	#$40000000,vdp_control_port
+	move.l	#ol_vramWriteCmd(0),ol_VDP_CTRL
 	jsr	NemDec.w
 
 	movea.l	(a6)+,a0					; Get palette data
@@ -148,8 +148,8 @@ ol_DrawMapRow:
 	clr.l	(a0)+						; Mark row as drawn
 	
 	lea	ol_map_row_2,a1					; Row data (bottom)
-	lea	vdp_control_port,a2				; VDP control port
-	lea	vdp_data_port,a3				; VDP data port
+	lea	ol_VDP_CTRL,a2					; VDP control port
+	lea	ol_VDP_DATA,a3					; VDP data port
 
 	move.w	(a0)+,d1					; Get number of blocks in first set
 	move.w	d1,d2
@@ -204,8 +204,8 @@ ol_DrawMapColumn:
 	clr.l	(a0)+						; Mark column as drawn
 	
 	lea	ol_map_column_2,a1				; Column data (right)
-	lea	vdp_control_port,a2				; VDP control port
-	lea	vdp_data_port,a3				; VDP data port
+	lea	ol_VDP_CTRL,a2					; VDP control port
+	lea	ol_VDP_DATA,a3					; VDP data port
 
 	move.w	#$8F80,(a2)					; Draw downwards
 
@@ -259,7 +259,7 @@ ol_DrawMapColumn:
 
 ol_RedrawMap:
 	move.w	sr,-(sp)					; Save status register
-	disable_ints						; Disable interrupts
+	move.w	#$2700,sr					; Disable interrupts
 
 	moveq	#0,d0						; Y offset
 	moveq	#(256/16)-1,d1					; Number of rows to draw
@@ -351,9 +351,9 @@ ol_BufferMapRow:
 	andi.w	#$1F0,d1
 	lsr.w	#2,d1
 	add.w	d1,d0
-	ori.w	#$4000,d0
+	ori.w	#$4000|(ol_PLANE_A_VRAM&$3FFF),d0
 	move.w	d0,(a4)+
-	move.w	#3,(a4)+
+	move.w	#ol_PLANE_A_VRAM/$4000,(a4)+
 
 	lsr.w	#2,d1						; Get number of blocks in first set
 	subi.w	#(512/16)-1,d1
@@ -450,9 +450,9 @@ ol_BufferMapColumn:
 	andi.w	#$F0,d1
 	lsl.w	#4,d1
 	add.w	d1,d0
-	ori.w	#$4000,d0
+	ori.w	#$4000|(ol_PLANE_A_VRAM&$3FFF),d0
 	move.w	d0,(a5)+
-	move.w	#3,(a5)+
+	move.w	#ol_PLANE_A_VRAM/$4000,(a5)+
 
 	move.w	d3,d1						; Get number of blocks in first set
 	andi.w	#$F0,d1

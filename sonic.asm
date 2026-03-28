@@ -58,9 +58,14 @@ ZoneCount = 6
 SonicMappingsVer = 1
 SonicDplcVer = 1
 	include "_maps/_MapMacros.asm"
+
+	include "ollie_masterpiece/definitions.inc"
+	include "ollie_masterpiece/macros.inc"
+	include "ollie_masterpiece/script.inc"
 ; ===========================================================================
 ; start of ROM
 
+	!org 0
 StartOfRom:
 	if * <> 0
 		fatal "StartOfRom was $\{*} but it should be 0"
