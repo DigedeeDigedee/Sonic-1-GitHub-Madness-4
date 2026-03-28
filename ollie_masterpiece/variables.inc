@@ -14,8 +14,11 @@ ol_obj_layer		ds.b 1					; Layer
 ol_obj_flags		ds.b 1					; Flags
 ol_obj_x		ds.l 1					; X position
 ol_obj_y		ds.l 1					; Y position
+ol_obj_target_x		ds.w 1					; Target X position
+ol_obj_target_y		ds.w 1					; Target Y position
 ol_obj_x_speed		ds.w 1					; X speed
 ol_obj_y_speed		ds.w 1					; Y speed
+ol_obj_grid_speed	ds.w 1					; Grid movement speed
 ol_obj_free		ds.b object_size-*			; Free space
 ol_obj_struct_size	ds.b 0					; Size of structure
 	dephase

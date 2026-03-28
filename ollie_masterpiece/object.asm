@@ -87,3 +87,154 @@ ol_DrawObject:
 	rts
 
 ; ------------------------------------------------------------------------------
+; Do grid movement left
+; ------------------------------------------------------------------------------
+; RETURNS:
+;	eq/ne - Cannot move/Can move
+; ------------------------------------------------------------------------------
+
+ol_MoveObjectGridLeft:
+	bsr.s	ol_AlignObjectGrid				; Align to grid
+
+	move.w	ol_obj_target_x(a0),d0				; Is there a solid block in the way?
+	subi.w	#$10,d0
+	move.w	ol_obj_target_y(a0),d1
+	bsr.w	ol_CheckBlockSolid
+	bne.s	.End						; If so, branch
+
+	subi.w	#$10,ol_obj_target_x(a0)			; Set target position left
+	andi.w	#~4,sr						; Can move
+
+.End:
+	rts
+
+; ------------------------------------------------------------------------------
+; Do grid movement right
+; ------------------------------------------------------------------------------
+; RETURNS:
+;	eq/ne - Cannot move/Can move
+; ------------------------------------------------------------------------------
+
+ol_MoveObjectGridRight:
+	bsr.s	ol_AlignObjectGrid				; Align to grid
+
+	move.w	ol_obj_target_x(a0),d0				; Is there a solid block in the way?
+	addi.w	#$10,d0
+	move.w	ol_obj_target_y(a0),d1
+	bsr.w	ol_CheckBlockSolid
+	bne.s	.End						; If so, branch
+
+	addi.w	#$10,ol_obj_target_x(a0)			; Set target position right
+	andi.w	#~4,sr						; Can move
+	
+.End:
+	rts
+
+; ------------------------------------------------------------------------------
+; Do grid movement up
+; ------------------------------------------------------------------------------
+; RETURNS:
+;	eq/ne - Cannot move/Can move
+; ------------------------------------------------------------------------------
+
+ol_MoveObjectGridUp:
+	bsr.s	ol_AlignObjectGrid				; Align to grid
+
+	move.w	ol_obj_target_x(a0),d0				; Is there a solid block in the way?
+	move.w	ol_obj_target_y(a0),d1
+	subi.w	#$10,d1
+	bsr.w	ol_CheckBlockSolid
+	bne.s	.End						; If so, branch
+
+	subi.w	#$10,ol_obj_target_y(a0)			; Set target position up
+	andi.w	#~4,sr						; Can move
+
+.End:
+	rts
+
+; ------------------------------------------------------------------------------
+; Do grid movement down
+; ------------------------------------------------------------------------------
+; RETURNS:
+;	eq/ne - Cannot move/Can move
+; ------------------------------------------------------------------------------
+
+ol_MoveObjectGridDown:
+	bsr.s	ol_AlignObjectGrid				; Align to grid
+
+	move.w	ol_obj_target_x(a0),d0				; Is there a solid block in the way?
+	move.w	ol_obj_target_y(a0),d1
+	addi.w	#$10,d1
+	bsr.w	ol_CheckBlockSolid
+	bne.s	.End						; If so, branch
+
+	addi.w	#$10,ol_obj_target_y(a0)			; Set target position down
+	andi.w	#~4,sr						; Can move
+
+.End:
+	rts
+
+; ------------------------------------------------------------------------------
+; Align object for grid movement
+; ------------------------------------------------------------------------------
+
+ol_AlignObjectGrid:
+	move.w	ol_obj_x(a0),d0					; Reset X position
+	andi.w	#~$F,d0
+	addq.w	#8,d0
+	move.w	d0,ol_obj_x(a0)
+	move.w	d0,ol_obj_target_x(a0)
+
+	move.w	ol_obj_y(a0),d0					; Reset Y position
+	andi.w	#~$F,d0
+	addq.w	#8,d0
+	move.w	d0,ol_obj_y(a0)
+	move.w	d0,ol_obj_target_y(a0)
+	rts
+
+; ------------------------------------------------------------------------------
+; Move object towards its target position
+; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	a0.l  - Object slot address
+; RETURNS:
+;	eq/ne - Target reached/Target not reached
+; ------------------------------------------------------------------------------
+
+ol_MoveObjectGrid:
+	move.w	ol_obj_grid_speed(a0),d0			; Get speed
+	
+	move.w	ol_obj_target_x(a0),d1				; Should we move horizontally?
+	cmp.w	ol_obj_x(a0),d1
+	beq.s	.CheckY						; If not, branch
+	bgt.s	.MoveRight					; If we should move right, branch
+
+.MoveLeft:
+	sub.w	d0,ol_obj_x(a0)					; Move left
+	cmp.w	ol_obj_x(a0),d1					; Check if target has been reached
+	rts
+
+.MoveRight:
+	add.w	d0,ol_obj_x(a0)					; Move right
+	cmp.w	ol_obj_x(a0),d1					; Check if target has been reached
+	rts
+
+.CheckY:
+	move.w	ol_obj_target_y(a0),d1				; Should we move vertically?
+	cmp.w	ol_obj_y(a0),d1
+	beq.s	.End						; If not, branch
+	bgt.s	.MoveDown					; If we should move down, branch
+
+.MoveUp:
+	sub.w	d0,ol_obj_y(a0)					; Move up
+	cmp.w	ol_obj_y(a0),d1					; Check if target has been reached
+	rts
+
+.MoveDown:
+	add.w	d0,ol_obj_y(a0)					; Move down
+	cmp.w	ol_obj_y(a0),d1					; Check if target has been reached
+
+.End:
+	rts
+
+; ------------------------------------------------------------------------------
