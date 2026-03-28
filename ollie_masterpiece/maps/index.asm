@@ -22,7 +22,7 @@ ol_MapIndex:
 	dc.l	.TestForeground					; Foreground
 	dc.l	.TestCollision					; Collision
 	dc.l	0						; Objects
-	dc.w	0, $300, 0, $300				; Boundaries
+	dc.w	0, $280, 0, $280				; Boundaries
 
 .TestGfx:
 	incbin	"test/gfx.nem"
@@ -41,20 +41,6 @@ ol_MapIndex:
 	even
 .TestCollision:
 	incbin	"test/collision.bin"
-	even
-
-; ------------------------------------------------------------------------------
-; Common data
-; ------------------------------------------------------------------------------
-
-ol_CollisionHeights:	
-	incbin	"collision_heights.bin"
-	even
-ol_CollisionWidths:	
-	incbin	"collision_widths.bin"
-	even
-ol_CollisionAngles:	
-	incbin	"collision_angles.bin"
 	even
 
 ; ------------------------------------------------------------------------------

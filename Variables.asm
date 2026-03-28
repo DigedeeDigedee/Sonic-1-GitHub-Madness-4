@@ -20,6 +20,7 @@ v_bgscroll_buffer:	ds.b	$200		; background scroll buffer
 v_ngfx_buffer:		ds.b	$200		; Nemesis graphics decompression buffer
 v_ngfx_buffer_end:
 v_spritequeue:		ds.b	$400		; sprite display queue, in order of priority
+v_spritequeue_end:
 v_16x16:		ds.b	$1800		; 16x16 tile mappings
 
 VDP_Command_Buffer:	ds.w	7*$12		; stores 18 ($12) VDP commands to issue the next time ProcessDMAQueue is called
@@ -130,9 +131,11 @@ v_gamemode:		ds.b	1		; game mode (00=Sega; 04=Title; 08=Demo; 0C=Level; 10=SS; 1
 submode:		ds.b	1		; game mode sub mode cntr (for mode within a gamemode)
 v_jpadhold2:		ds.b	1		; joypad input - held, duplicate
 v_jpadpress2:		ds.b	1		; joypad input - pressed, duplicate
-v_jpadhold1:		ds.b	1		; joypad input - held
-v_jpadpress1:		ds.b	1		; joypad input - pressed
-			ds.b	6		; unused
+v_jpadhold1:		ds.b	1		; joypad input - held (player 1)
+v_jpadpress1:		ds.b	1		; joypad input - pressed (player 1)
+v_jpadholdp2:		ds.b	1		; joypad input - held (player 2)
+v_jpadpressp2:		ds.b	1		; joypad input - pressed (player 2)
+			ds.b	4		; unused
 v_vdp_buffer1:		ds.w	1		; VDP instruction buffer of register $81 (used for enabling/disabling display)
 v_flashcolor:		ds.w	1		; flash color
 v_bg_calc_var:		ds.w	1		; bg calc

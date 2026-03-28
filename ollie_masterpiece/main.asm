@@ -22,71 +22,60 @@ GM_OllieMasterpiece:
 
 	bsr.w	ol_InitVdp					; Initialize VDP
 
-	lea	v_ram_start,a0					; RAM to clear
+	lea	v_ram_start,a0					; Buffers and variables
 	moveq	#0,d0						; Zero
-	move.w	#(v_ngfx_buffer-v_ram_start_def)/4-1,d1	; Length to clear
+	move.w	#(v_ngfx_buffer-v_ram_start_def)/4-1,d1		; Length to clear
 
 .ClearRam:
-	move.l	d0,(a0)+					; Clear RAM
+	move.l	d0,(a0)+					; Clear buffers and variables
 	dbf	d1,.ClearRam					; Loop until finished
+
+	lea	ol_objects,a0					; Object pool
+	move.w	#(ol_objects_end-ol_objects)/4-1,d1		; Length to clear
+
+.ClearObjects:
+	move.l	d0,(a0)+					; Clear object pool
+	dbf	d1,.ClearObjects				; Loop until finished
+
+	lea	ol_object_draw,a0				; Object draw queue
+	move.w	#(ol_object_draw_end-ol_object_draw)/4-1,d1	; Length to clear
+
+.ClearObjectDraw:
+	move.l	d0,(a0)+					; Clear object draw queue
+	dbf	d1,.ClearObjectDraw				; Loop until finished
 
 	bsr.w	ol_InitMap					; Initialize map
 
-	move.w	#$E0,ol_camera_x.w
-	move.w	#$80,ol_camera_y.w
+	move.l	#ol_TestObject,ol_objects.w			; Spawn test object
+	move.w	#$180,ol_objects+ol_obj_x.w
+	move.w	#$F0,ol_objects+ol_obj_y.w
+
+	bsr.w	ol_UpdateObjects				; Update objects
+
+	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
+	bsr.w	ol_DrawObjects					; Draw object sprites
+	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
 	bsr.w	ol_ScrollMap					; Scroll map
 	bsr.w	ol_RedrawMap					; Redraw map
 
 	jsr	PaletteFadeIn.w					; Fade in palette
-	bra.w	*
-
-; ------------------------------------------------------------------------------
-; Initialize the VDP
-; ------------------------------------------------------------------------------
-
-ol_InitVdp:
-	lea	.Registers(pc),a0				; VDP registers
-	lea	vdp_control_port,a1				; VDP control port
-	moveq	#(.RegistersEnd-.Registers)/2-1,d0		; Number of VDP registers
-
-.SetRegisters:
-	move.w	(a0)+,(a1)					; Set VDP register
-	dbf	d0,.SetRegisters				; Loop until finished
-
-	jmp	ClearScreen.w					; Clear screen
 
 ; ------------------------------------------------------------------------------
 
-.Registers:
-	dc.w	$8004						; Disable H-BLANK interrupt
-	dc.w	$8200+(vram_fg>>10)				; Plane A address
-	dc.w	$8300+($D000>>10)				; Window plane address
-	dc.w	$8400+(vram_bg>>13)				; Plane B address
-	dc.w	$8500+(vram_sprites>>9)				; Sprite table address
-	dc.w	$8720						; Background color
-	dc.w	$8ADF						; H-BLANK interrupt frequency
-	dc.w	$8B00						; Full screen scrolling
-	dc.w	$8C81						; H40 mode
-	dc.w	$8D00+(vram_hscroll>>10)			; Horizontal scroll table address
-	dc.w	$8F02						; Auto-increment
-	dc.w	$9001						; 64x32 plane size
-	dc.w	$9100						; Window horizontal position
-	dc.w	$9200						; Window vertical position
-.RegistersEnd:
+.Loop:
+	bsr.w	ol_VSync					; VSync
 
-; ------------------------------------------------------------------------------
-; VSync
-; ------------------------------------------------------------------------------
+	bsr.w	ol_UpdateObjects				; Update objects
 
-ol_VSync:
-	st.b	v_vbla_routine.w				; Set VSync flag
-	enable_ints						; Enable interrupts
+	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
+	bsr.w	ol_DrawObjects					; Draw object sprites
+	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
-.Wait:
-	tst.b	v_vbla_routine.w				; Has the V-BLANK interrupt run yet?
-	bne.s	.Wait						; If not, branch
-	rts
+	bsr.w	ol_ScrollMap					; Scroll map
+	bsr.w	ol_DrawMap					; Draw map
+
+	bra.w	.Loop						; Loop
 
 ; ------------------------------------------------------------------------------
 ; V-BLANK interrupt
@@ -115,6 +104,8 @@ ol_VBlank:
 	bsr.w	ol_DrawMapRow					; Draw map row
 	bsr.w	ol_DrawMapColumn				; Draw map column
 
+	jsr	ReadJoypads.w					; Read joypads
+
 	enable_ints						; Enable interrupts
 	jsr	UpdateMusic					; Update sound driver
 
@@ -125,12 +116,22 @@ ol_VBlank:
 ; Includes
 ; ------------------------------------------------------------------------------
 
+	include	"interrupt.asm"
+	include	"vdp.asm"
+	include	"sprite.asm"
 	include	"map.asm"
+	include	"object.asm"
+
+; ------------------------------------------------------------------------------
+; Objects
+; ------------------------------------------------------------------------------
+
+	include	"objects/test.asm"
 
 ; ------------------------------------------------------------------------------
 ; Data
 ; ------------------------------------------------------------------------------
 
-	include	"maps/maps.asm"
+	include	"maps/index.asm"
 
 ; ------------------------------------------------------------------------------

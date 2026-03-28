@@ -38,23 +38,102 @@ ol_InitMap:
 	move.l	(a6)+,ol_map_top.w				; Set map top and bottom boundaries
 	rts
 	
-
 ; ------------------------------------------------------------------------------
 ; Scroll map
 ; ------------------------------------------------------------------------------
 
 ol_ScrollMap:
-	moveq	#0,d0						; Set horizontal scroll
-	move.w	ol_camera_x.w,d0
-	neg.w	d0
-	swap	d0
-	move.l	d0,ol_scroll_x.w
+	move.w	ol_objects+ol_obj_x.w,d0			; Get camera position
+	subi.w	#160,d0
+	move.w	ol_objects+ol_obj_y.w,d1
+	subi.w	#112,d1
 
-	moveq	#0,d0						; Set vertical scroll
-	move.w	ol_camera_y.w,d0
-	neg.w	d0
-	swap	d0
-	move.l	d0,ol_scroll_y.w
+	move.w	ol_map_left.w,d2				; Get left boundary
+	cmp.w	d2,d0						; Has the camera gone past the left boundary?
+	bge.s	.CheckRight					; If not, branch
+	move.w	d2,d0						; If so, cap at left boundary
+
+.CheckRight:
+	move.w	ol_map_right.w,d2				; Get right boundary
+	subi.w	#320,d2
+	cmp.w	d2,d0						; Has the camera gone past the right boundary?
+	ble.s	.CheckTop					; If not, branch
+	move.w	d2,d0						; If so, cap at right boundary
+
+.CheckTop:
+	move.w	ol_map_top.w,d2					; Get top boundary
+	cmp.w	d2,d1						; Has the camera gone past the top boundary?
+	bge.s	.CheckBottom					; If not, branch
+	move.w	d2,d1						; If so, cap at left boundary
+
+.CheckBottom:
+	move.w	ol_map_bottom.w,d2				; Get right boundary
+	subi.w	#224,d2
+	cmp.w	d2,d1						; Has the camera gone past the right boundary?
+	ble.s	.SetScroll					; If not, branch
+	move.w	d2,d1						; If so, cap at right boundary
+
+.SetScroll:
+	move.w	d0,ol_camera_x.w				; Set camera position
+	move.w	d1,ol_camera_y.w
+
+	moveq	#0,d2						; Set horizontal scroll
+	move.w	d0,d2
+	neg.w	d2
+	swap	d2
+	move.l	d2,ol_scroll_x.w
+
+	moveq	#0,d2						; Set vertical scroll
+	move.w	d1,d2
+	swap	d2
+	move.l	d2,ol_scroll_y.w
+	rts
+
+; ------------------------------------------------------------------------------
+; Check if a block at a position is solid
+; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	d0.w  - X position
+;	d1.w  - Y position
+; RETURNS:
+;	eq/ne - Not solid/Solid
+; ------------------------------------------------------------------------------
+
+ol_CheckBlockSolid:
+	movea.l	ol_map_foreground,a1				; Get chunk row
+	move.w	d1,d2
+	andi.w	#~$1F,d2
+	asr.w	#4,d2
+	adda.w	(a1,d2.w),a1
+	
+	move.w	d0,d2						; Get chunk
+	andi.w	#~$1F,d2
+	asr.w	#4,d2
+	move.w	(a1,d2.w),d2
+
+	movea.l	ol_map_chunks,a1				; Get chunk data
+	lsl.w	#3,d2
+
+	move.w	d0,d3						; Get block X offset
+	andi.w	#~$F,d3
+	asr.w	#3,d3
+	add.w	d3,d2
+
+	move.w	d1,d3						; Get block Y offset
+	andi.w	#~$F,d3
+	asr.w	#2,d3
+	add.w	d3,d2
+
+	move.w	(a1,d2.w),d2					; Get block
+	move.w	d2,d3
+	andi.w	#$3FF,d3
+
+	movea.l	ol_map_collision,a1				; Is this block solid?
+	tst.b	(a1,d3.w)
+	beq.s	.End						; If not, branch
+	andi.w	#$C00,d2					; If so, check if block's solidity is enabled
+
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -194,8 +273,56 @@ ol_RedrawMap:
 	addi.w	#$10,d0						; Next row
 	dbf	d1,.DrawLoop					; Loop until finished
 
+	move.w	ol_camera_x.w,d0				; Set previous camera position
+	andi.w	#~$F,d0
+	move.w	d0,ol_camera_prev_x.w
+	move.w	ol_camera_y.w,d0
+	andi.w	#~$F,d0
+	move.w	d0,ol_camera_prev_y.w
+
 	move.w	(sp)+,sr					; Restore status register
 	rts
+
+; ------------------------------------------------------------------------------
+; Draw map
+; ------------------------------------------------------------------------------
+
+ol_DrawMap:
+	move.w	ol_camera_x.w,d0				; Get camera X position
+	andi.w	#~$F,d0						; Block align it
+	cmp.w	ol_camera_prev_x.w,d0				; Have we moved?
+	beq.s	.CheckY						; If we haven't moved, branch
+	bgt.s	.Right						; If we have moved right, branch
+
+.Left:
+	move.w	d0,ol_camera_prev_x.w				; Set previous camera X position
+	moveq	#0,d0						; Draw column at left side of screen
+	bsr.w	ol_BufferMapColumn
+	bra.s	.CheckY						; Check vertical movement
+
+.Right:
+	move.w	d0,ol_camera_prev_x.w				; Set previous camera X position
+	move.w	#320,d0						; Draw column at right side of screen
+	bsr.w	ol_BufferMapColumn
+
+.CheckY:
+	move.w	ol_camera_y.w,d0				; Get camera Y position
+	andi.w	#~$F,d0						; Block align it
+	cmp.w	ol_camera_prev_y.w,d0				; Have we moved?
+	beq.s	.End						; If we haven't moved, branch
+	bgt.s	.Down						; If we moved down, branch
+
+.Up:
+	move.w	d0,ol_camera_prev_y.w				; Set previous camera Y position
+	moveq	#0,d0						; Draw row at top of screen
+	bra.s	ol_BufferMapRow
+
+.End:
+	rts
+
+.Down:
+	move.w	d0,ol_camera_prev_y.w				; Set previous camera Y position
+	move.w	#224,d0						; Draw row at bottom of screen
 
 ; ------------------------------------------------------------------------------
 ; Buffer map row for drawing

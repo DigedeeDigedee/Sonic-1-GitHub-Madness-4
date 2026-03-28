@@ -4,6 +4,23 @@
 ; ------------------------------------------------------------------------------
 
 ; ------------------------------------------------------------------------------
+; Object structure
+; ------------------------------------------------------------------------------
+
+	phase 0
+ol_obj_update		ds.l 1					; Update function address
+ol_obj_draw		ds.l 1					; Draw function address
+ol_obj_layer		ds.b 1					; Layer
+ol_obj_flags		ds.b 1					; Flags
+ol_obj_x		ds.l 1					; X position
+ol_obj_y		ds.l 1					; Y position
+ol_obj_x_speed		ds.w 1					; X speed
+ol_obj_y_speed		ds.w 1					; Y speed
+ol_obj_free		ds.b object_size-*			; Free space
+ol_obj_struct_size	ds.b 0					; Size of structure
+	dephase
+
+; ------------------------------------------------------------------------------
 ; Buffers
 ; ------------------------------------------------------------------------------
 
@@ -17,6 +34,12 @@ ol_palette:		equ v_palette				; Palette buffer
 ol_sprites:		equ v_spritetablebuffer			; Sprite table buffer
 ol_scroll_x:		equ v_hscrolltablebuffer		; Horizontal scroll buffer
 ol_scroll_y:		equ v_scrposy_vdp			; Vertical scroll buffer
+ol_objects:		equ v_objspace				; Object pool
+ol_objects_end:		equ v_objspace_end			; End of object pool
+ol_object_draw:		equ v_spritequeue			; Object draw queue
+ol_object_draw_end:	equ v_spritequeue_end			; End of object draw queue
+
+ol_OBJECT_COUNT:	equ (ol_objects_end-ol_objects)/ol_obj_struct_size
 
 ; ------------------------------------------------------------------------------
 
@@ -46,6 +69,16 @@ ol_map_bottom:		ds.w 1					; Map bottom boundary
 
 ol_camera_x:		ds.w 1					; Camera X position
 ol_camera_y:		ds.w 1					; Camera Y position
+ol_camera_prev_x:	ds.w 1					; Previous camera X position
+ol_camera_prev_y:	ds.w 1					; Previous camera Y position
+
+ol_sprite_slot:		ds.w 1					; Sprite slot address
+ol_sprites_left:	ds.w 1					; Sprite slots left
+
+ol_p1_ctrl_hold:	equ v_jpadhold1				; Player 1 controller buttons (held)
+ol_p1_ctrl_tap:		equ v_jpadpress1			; Player 1 controller buttons (tapped)
+ol_p2_ctrl_hold:	equ v_jpadholdp2			; Player 2 controller buttons (held)
+ol_p2_ctrl_tap:		equ v_jpadpressp2			; Player 2 controller buttons (tapped)
 
 ; ------------------------------------------------------------------------------
 
