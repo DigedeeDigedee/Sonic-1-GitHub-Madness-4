@@ -195,8 +195,7 @@ PLC_SYZ2:	dc.w ((PLC_SYZ2end-PLC_SYZ2-2)/6)-1
 		plcm	Nem_SyzSpike2, ArtTile_SYZ_Spikeball_Chain ; small spikeball
 		dc.l Nem_Cater		; caterkiller enemy
 		dc.w $A0E0
-		plcm	Nem_LzSwitch,  ArtTile_Button              ; switch
-		plcm	Nem_Spikes,    ArtTile_Spikes              ; spikes
+ 		plcm	Nem_Spikes,    ArtTile_Spikes              ; spikes
 		plcm	Nem_HSpring,   ArtTile_Spring_Horizontal   ; horizontal spring
 		plcm	Nem_VSpring,   ArtTile_Spring_Vertical     ; vertical spring
 PLC_SYZ2end:
