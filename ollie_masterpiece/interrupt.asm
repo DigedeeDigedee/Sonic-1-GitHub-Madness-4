@@ -8,11 +8,11 @@
 ; ------------------------------------------------------------------------------
 
 ol_VSync:
-	st.b	v_vbla_routine.w				; Set VSync flag
+	st.b	ol_vsync_flag.w					; Set VSync flag
 	enable_ints						; Enable interrupts
 
 .Wait:
-	tst.b	v_vbla_routine.w				; Has the V-BLANK interrupt run yet?
+	tst.b	ol_vsync_flag.w					; Has the V-BLANK interrupt run yet?
 	bne.s	.Wait						; If not, branch
 	rts
 

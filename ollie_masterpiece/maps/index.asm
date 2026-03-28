@@ -22,7 +22,7 @@ ol_MapIndex:
 	dc.l	.TestForeground					; Foreground
 	dc.l	.TestCollision					; Collision
 	dc.l	0						; Objects
-	dc.w	0, $280, 0, $280				; Boundaries
+	dc.w	0, $280, 0, $200				; Boundaries
 
 .TestGfx:
 	incbin	"test/gfx.nem"

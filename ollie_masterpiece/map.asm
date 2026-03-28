@@ -20,7 +20,7 @@ ol_InitMap:
 	jsr	NemDec.w
 
 	movea.l	(a6)+,a0					; Get palette data
-	lea	v_palette_fading.w,a1				; Get palette buffer
+	lea	ol_palette_fade.w,a1				; Get palette buffer
 	moveq	#$80/4-1,d0					; Length of palette
 
 .LoadPalette:

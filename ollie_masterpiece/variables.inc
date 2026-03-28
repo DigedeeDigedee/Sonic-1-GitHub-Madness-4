@@ -31,6 +31,7 @@ ol_map_column_1:	ds.w (256/8)+3				; Map column buffer 1
 ol_map_column_2:	ds.w (256/8)				; Map column buffer 2
 
 ol_palette:		equ v_palette				; Palette buffer
+ol_palette_fade:	equ v_palette_fading			; Palette fade buffer
 ol_sprites:		equ v_spritetablebuffer			; Sprite table buffer
 ol_scroll_x:		equ v_hscrolltablebuffer		; Horizontal scroll buffer
 ol_scroll_y:		equ v_scrposy_vdp			; Vertical scroll buffer
@@ -79,6 +80,12 @@ ol_p1_ctrl_hold:	equ v_jpadhold1				; Player 1 controller buttons (held)
 ol_p1_ctrl_tap:		equ v_jpadpress1			; Player 1 controller buttons (tapped)
 ol_p2_ctrl_hold:	equ v_jpadholdp2			; Player 2 controller buttons (held)
 ol_p2_ctrl_tap:		equ v_jpadpressp2			; Player 2 controller buttons (tapped)
+ol_frame_count:		equ v_vbla_count			; Frame count
+ol_vsync_flag:		equ v_vbla_routine			; VSync flag
+ol_vblank_jmp:		equ v_vintcode.jmp			; V-BLANK interrupt jump opcode
+ol_vblank_addr:		equ v_vintcode.addr			; V-BLANK interrupt address
+ol_hblank_jmp:		equ v_hintcode.jmp			; H-BLANK interrupt jump opcode
+ol_hblank_addr:		equ v_hintcode.addr			; H-BLANK interrupt address
 
 ; ------------------------------------------------------------------------------
 

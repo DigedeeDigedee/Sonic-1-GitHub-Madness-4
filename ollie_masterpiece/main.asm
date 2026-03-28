@@ -16,9 +16,9 @@ GM_OllieMasterpiece:
 	jsr	PaletteFadeOut.w				; Fade out palette
 
 	disable_ints						; Disable interrupts
-	move.w	#opcode_jmpabslong,v_vintcode.jmp.w		; Setup V-BLANK interrupt
-	move.l	#ol_VBlank,v_vintcode.addr.w
-	move.w	#opcode_rte,(v_hintcode.jmp).w			; Disable H-BLANK interrupt
+	move.w	#opcode_jmpabslong,ol_vblank_jmp.w		; Setup V-BLANK interrupt
+	move.l	#ol_VBlank,ol_vblank_addr.w
+	move.w	#opcode_rte,ol_hblank_jmp.w			; Disable H-BLANK interrupt
 
 	bsr.w	ol_InitVdp					; Initialize VDP
 
@@ -52,12 +52,12 @@ GM_OllieMasterpiece:
 
 	bsr.w	ol_UpdateObjects				; Update objects
 
+	bsr.w	ol_ScrollMap					; Scroll map
+	bsr.w	ol_RedrawMap					; Redraw map
+
 	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
 	bsr.w	ol_DrawObjects					; Draw object sprites
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
-
-	bsr.w	ol_ScrollMap					; Scroll map
-	bsr.w	ol_RedrawMap					; Redraw map
 
 	jsr	PaletteFadeIn.w					; Fade in palette
 
@@ -68,12 +68,12 @@ GM_OllieMasterpiece:
 
 	bsr.w	ol_UpdateObjects				; Update objects
 
+	bsr.w	ol_ScrollMap					; Scroll map
+	bsr.w	ol_DrawMap					; Draw map
+
 	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
 	bsr.w	ol_DrawObjects					; Draw object sprites
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
-
-	bsr.w	ol_ScrollMap					; Scroll map
-	bsr.w	ol_DrawMap					; Draw map
 
 	bra.w	.Loop						; Loop
 
@@ -84,8 +84,8 @@ GM_OllieMasterpiece:
 ol_VBlank:
 	movem.l	d0-a6,-(sp)					; Save registers
 
-	clr.b	v_vbla_routine.w				; Clear VSync flag
-	addq.l	#1,v_vbla_count.w				; Increment frame count
+	clr.b	ol_vsync_flag.w					; Clear VSync flag
+	addq.l	#1,ol_frame_count.w				; Increment frame count
 
 	lea	vdp_control_port,a0				; VDP control port
 	lea	vdp_data_port,a1				; VDP data port
@@ -98,7 +98,7 @@ ol_VBlank:
 	move.l	#ol_vsramWriteCmd(0),(a0)			; Set vertical scroll
 	move.l	ol_scroll_y.w,(a1)
 
-	ol_dmaCram v_palette,0,$80,(a0)				; Load palette into CRAM
+	ol_dmaCram ol_palette,0,$80,(a0)			; Load palette into CRAM
 	ol_dmaVram ol_sprites,vram_sprites,$280,(a0)		; Load sprites into VRAM
 
 	bsr.w	ol_DrawMapRow					; Draw map row
