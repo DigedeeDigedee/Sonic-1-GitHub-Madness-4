@@ -439,7 +439,7 @@ KillSonic:
 		; It was removed in the CENSOR prototype of Sonic 2 onwards.
 		move.w	obY(a0),objoff_38(a0)
 	endif
-		move.b	#id_Null,obAnim(a0)
+		move.b	#id_Death,obAnim(a0)
 		bset	#7,obGfx(a0)
 
 		move.b	#dChicken,d0		; play spikes death sound

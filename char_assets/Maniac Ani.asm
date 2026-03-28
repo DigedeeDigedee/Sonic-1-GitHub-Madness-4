@@ -44,10 +44,10 @@ ManiacAni_Run:
 		even
 
 ManiacAni_Roll:	
-		dc.b $FE, $18, $19, $1A, $1B, $1C, afEnd
+		dc.b $FE, $1C, $1D, $1E, $1F, $1C, afEnd
 		even
 ManiacAni_Roll2:	
-		dc.b $FE, $18, $19, $1A, $1B, $1C, afEnd
+		dc.b $FE, $1C, $1D, $1E, $1F, $1C, afEnd
 		even
 ManiacAni_Push:	
 		dc.b $FF, 5, 6,	7, 6, afEnd
@@ -62,7 +62,7 @@ ManiacAni_Wait:
 ManiacAni_Balance:
 
 ManiacAni_LookUp:
-
+		dc.b 5,2,3,4,3,afBack,4
 ManiacAni_Duck:	
 
 ManiacAni_Warp1:
@@ -74,7 +74,7 @@ ManiacAni_Warp3:
 ManiacAni_Warp4:
 
 ManiacAni_Stop:	
-		dc.b 3,$16,$17,afEnd
+		dc.b 3,$1A,$1B,afEnd
 		even
 ManiacAni_Float1:
 
@@ -99,15 +99,15 @@ ManiacAni_Burnt:
 ManiacAni_Drown:
 		
 ManiacAni_Death:
-		dc.b 17, $13, afEnd
+		dc.b 17, $17, afEnd
 		even			
 ManiacAni_Shrink
 		
 ManiacAni_Hurt:	
-		dc.b 1,$11,afEnd
+		dc.b 1,$15,$16,afEnd
 		even	
 ManiacAni_WaterSlide:
-		dc.b 1,8,afEnd
+		dc.b 1,$15,$16,afEnd
 		even			
 ManiacAni_Null:	
 		
