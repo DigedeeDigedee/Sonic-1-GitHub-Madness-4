@@ -115,13 +115,13 @@ ol_CheckBlockSolid:
 	lsl.w	#3,d2
 
 	move.w	d0,d3						; Get block X offset
-	andi.w	#~$F,d3
-	asr.w	#3,d3
+	andi.w	#$10,d3
+	lsr.w	#3,d3
 	add.w	d3,d2
 
 	move.w	d1,d3						; Get block Y offset
-	andi.w	#~$F,d3
-	asr.w	#2,d3
+	andi.w	#$10,d3
+	lsr.w	#2,d3
 	add.w	d3,d2
 
 	move.w	(a1,d2.w),d2					; Get block
@@ -131,7 +131,7 @@ ol_CheckBlockSolid:
 	movea.l	ol_map_collision,a1				; Is this block solid?
 	tst.b	(a1,d3.w)
 	beq.s	.End						; If not, branch
-	andi.w	#$C00,d2					; If so, check if block's solidity is enabled
+	andi.w	#$F000,d2					; If so, check if block's solidity is enabled
 
 .End:
 	rts
