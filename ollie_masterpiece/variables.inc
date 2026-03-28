@@ -8,6 +8,15 @@
 ; ------------------------------------------------------------------------------
 
 	phase v_ram_start_def
+ol_map_row_1:		ds.w (512/8)+3				; Map row buffer 1
+ol_map_row_2:		ds.w (512/8)				; Map row buffer 2
+ol_map_column_1:	ds.w (256/8)+3				; Map column buffer 1
+ol_map_column_2:	ds.w (256/8)				; Map column buffer 2
+
+ol_palette:		equ v_palette				; Palette buffer
+ol_sprites:		equ v_spritetablebuffer			; Sprite table buffer
+ol_scroll_x:		equ v_hscrolltablebuffer		; Horizontal scroll buffer
+ol_scroll_y:		equ v_scrposy_vdp			; Vertical scroll buffer
 
 ; ------------------------------------------------------------------------------
 

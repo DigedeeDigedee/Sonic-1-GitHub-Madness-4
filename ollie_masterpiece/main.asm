@@ -4,6 +4,7 @@
 ; ------------------------------------------------------------------------------
 
 	include "variables.inc"
+	include "macros.inc"
 
 ; ------------------------------------------------------------------------------
 ; Main
@@ -30,6 +31,12 @@ GM_OllieMasterpiece:
 	dbf	d1,.ClearRam					; Loop until finished
 
 	bsr.w	ol_InitMap					; Initialize map
+
+	move.w	#$E0,ol_camera_x.w
+	move.w	#$80,ol_camera_y.w
+
+	bsr.w	ol_ScrollMap					; Scroll map
+	bsr.w	ol_RedrawMap					; Redraw map
 
 	jsr	PaletteFadeIn.w					; Fade in palette
 	bra.w	*
@@ -91,14 +98,22 @@ ol_VBlank:
 	clr.b	v_vbla_routine.w				; Clear VSync flag
 	addq.l	#1,v_vbla_count.w				; Increment frame count
 
-	move.w	vdp_control_port,d0				; Clear VDP write latch
+	lea	vdp_control_port,a0				; VDP control port
+	lea	vdp_data_port,a1				; VDP data port
 
-	move.l	#$40000010,vdp_control_port			; Set vertical scroll
-	move.l	v_scrposy_vdp.w,vdp_data_port
+	move.w	(a0),d0						; Clear VDP write latch
 
-	writeCRAM v_palette,0					; Load palette into CRAM
-	writeVRAM v_spritetablebuffer,vram_sprites		; Load sprites into VRAM
-	writeVRAM v_hscrolltablebuffer,vram_hscroll		; Load horizontal scroll data into VRAM
+	move.l	#ol_vramWriteCmd(vram_hscroll),(a0)		; Set horizontal scroll
+	move.l	ol_scroll_x.w,(a1)
+
+	move.l	#ol_vsramWriteCmd(0),(a0)			; Set vertical scroll
+	move.l	ol_scroll_y.w,(a1)
+
+	ol_dmaCram v_palette,0,$80,(a0)				; Load palette into CRAM
+	ol_dmaVram ol_sprites,vram_sprites,$280,(a0)		; Load sprites into VRAM
+
+	bsr.w	ol_DrawMapRow					; Draw map row
+	bsr.w	ol_DrawMapColumn				; Draw map column
 
 	enable_ints						; Enable interrupts
 	jsr	UpdateMusic					; Update sound driver
