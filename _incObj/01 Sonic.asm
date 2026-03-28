@@ -898,9 +898,12 @@ loc_131AA:
 		tst.w	obInertia(a0)	; is Sonic moving?
 		bne.s	loc_131CC	; if yes, branch
 		bclr	#2,obStatus(a0)
-		bsr.w	GetOtherPlayerData
-		move.b	d2,obHeight(a0)
-		move.b	d3,obWidth(a0)
+;		bsr.w	GetOtherPlayerData
+;		move.b	d2,obHeight(a0)
+;		move.b	d3,obWidth(a0)
+		bclr	#2,obStatus(a0)
+		move.b	#$13,obHeight(a0)
+		move.b	#9,obWidth(a0)
 		move.b	#id_Wait,obAnim(a0) ; use "standing" animation
 		subq.w	#5,obY(a0)
 
@@ -1203,11 +1206,13 @@ Sonic_ChkRoll:
 ; Obj01_DoRoll
 .roll:
 		bset	#2,obStatus(a0)
-		bsr.w	GetOtherPlayerData
-		sub.b	#5,d2
-		sub.b	#2,d3
-		move.b	d2,obHeight(a0)
-		move.b	d3,obWidth(a0)
+		;bsr.w	GetOtherPlayerData
+		;sub.b	#5,d2
+		;sub.b	#2,d3
+		;move.b	d2,obHeight(a0)
+		;move.b	d3,obWidth(a0)
+		move.b	#$E,obHeight(a0)
+		move.b	#7,obWidth(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation
 		addq.w	#5,obY(a0)
 		move.w	#sfx_Roll,d0
@@ -1229,6 +1234,7 @@ ExtraJumpUsed:		equ  $3b
 ; ----------------------------------------------------------------------------
 
 Sonic_ExtraJump:
+		rts
 		tst.b   ExtraJumpUsed(a0)   
 		bne.s   ExtraJumpReturn
 		move.b  (v_jpadpress2).w,d0    ; Is ABC pressed? 
@@ -1251,7 +1257,7 @@ ExtraJumpReturn:
 
 
 Sonic_Jump:
-		clr.b   ExtraJumpUsed(a0)
+;		clr.b   ExtraJumpUsed(a0)
 		move.b	(v_jpadpress2).w,d0
 		andi.b	#btnB|btnC,d0	; is B or C pressed?
 		beq.w	.return	; if not, branch
@@ -1708,11 +1714,16 @@ Sonic_ResetOnFloor:
 		btst	#2,obStatus(a0)	; check if Sonic is in a ball state.
 		beq.s	.notball	; if not, skip.
 		bclr	#2,obStatus(a0)	; clear ball flag.
+
+		movem.l	d0-d3/a2,-(sp)
 		bsr.w	GetOtherPlayerData
 		move.b	d2,obHeight(a0)
 		move.b	d3,obWidth(a0)
+		movem.l	(sp)+,d0-d3/a2
+		
 		move.b	#id_Walk,obAnim(a0) ; use running/walking animation
 		subq.w	#5,obY(a0)	; raise Sonic up 5 pixels so he's not inside the ground.
+
 
 .notball:
 		move.b	#0,jumping(a0)	; clear jump flag.
