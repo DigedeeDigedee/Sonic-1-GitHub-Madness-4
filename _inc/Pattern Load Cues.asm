@@ -187,7 +187,7 @@ PLC_SYZ:	dc.w ((PLC_SYZ2-PLC_SYZ-2)/6)-1
 ;		plcm	Nem_SYZ,       ArtTile_Level               ; SYZ main patterns
 		plcm	Nem_Crabmeat,  ArtTile_Crabmeat            ; crabmeat enemy
 		plcm	Nem_Buzz,      ArtTile_Buzz_Bomber         ; buzz bomber enemy
-		plcm	Nem_Yadrin,    ArtTile_Yadrin              ; yadrin enemy
+		plcm	Nem_Wario,       ArtTile_Wario              ; Wario
 
 PLC_SYZ2:	dc.w ((PLC_SYZ2end-PLC_SYZ2-2)/6)-1
 		plcm	Nem_Bumper,    ArtTile_SYZ_Bumper          ; bumper
