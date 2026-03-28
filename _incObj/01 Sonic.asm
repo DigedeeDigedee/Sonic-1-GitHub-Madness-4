@@ -117,36 +117,41 @@ PlayerMapList:
 ; ----------------------------------------------------------------------------
 ; Get... other player data!
 ; OUTPUTS:
-;	d0.w - Lives counter art
-;	d1.w - Death noise
-;	d2.w - Height
-;	d3.w - Width
+;	a5 = Info table pointer
 ; ----------------------------------------------------------------------------
+; idk
+
+ch_hudlives	equ 0
+ch_hurtpcm	equ 2
+
+; lazy struct
+
+pdat.livesart	= 0
+pdat.hurtsnd	= 2
+pdat.height	= 4
+pdat.height2	= 5
+pdat.width	= 6
+pdat.width2	= 7
 
 GetOtherPlayerData:
 	moveq	#0,d0
 	move.b	(v_characterid).w,d0
 	chk	#chrid_last,d0
 	lsl.w	#3,d0
-	lea	OtherPlayerData(pc,d0.w),a2
-	move.w	(a2)+,d0
-	move.w	(a2)+,d1
-	move.w	(a2)+,d2
-	move.w	(a2)+,d3
+	lea	OtherPlayerData(pc,d0.w),a5
 	rts
 
 	; HUD Life Icon Art, Damage SFX
-ch_hudlives	equ 0
-ch_hurtpcm	equ 2
+
 OtherPlayerData:
 	dc.w	Nem_TonicLives-Nem_Lives
 	dc.w	dFuck
-	dc.w	19				; height
-	dc.w	9				; width
+	dc.b	19,14				; stand, roll height
+	dc.b	 9, 7				; stand, roll width
 	dc.w	Nem_ManiacLives-Nem_Lives
 	dc.w	dGayNeil
-	dc.w	15
-	dc.w	7
+	dc.b	15, 9
+	dc.b	 7, 4
 ; ----------------------------------------------------------------------------
 ; TeethTonic character init routine
 ; ----------------------------------------------------------------------------
@@ -154,8 +159,8 @@ OtherPlayerData:
 Tonic_Init:
 		addq.b	#2,obRoutine(a0)
 		bsr.w	GetOtherPlayerData
-		move.b	d2,obHeight(a0)
-		move.b	d3,obWidth(a0)
+		move.b	pdat.height(a5),obHeight(a0)
+		move.b	pdat.width(a5),obWidth(a0)
 		bsr.w	GetPlayerData
 		move.l	d0,obMap(a0)
 		move.l	d1,dgfxaddr(a0)
@@ -176,8 +181,8 @@ Tonic_Init:
 Maniac_Init:
 		addq.b	#2,obRoutine(a0)
 		bsr.w	GetOtherPlayerData
-		move.b	d2,obHeight(a0)
-		move.b	d3,obWidth(a0)
+		move.b	pdat.height(a5),obHeight(a0)
+		move.b	pdat.width(a5),obWidth(a0)
 		bsr.w	GetPlayerData
 		move.l	d0,obMap(a0)
 		move.l	d1,dgfxaddr(a0)
@@ -898,12 +903,9 @@ loc_131AA:
 		tst.w	obInertia(a0)	; is Sonic moving?
 		bne.s	loc_131CC	; if yes, branch
 		bclr	#2,obStatus(a0)
-;		bsr.w	GetOtherPlayerData
-;		move.b	d2,obHeight(a0)
-;		move.b	d3,obWidth(a0)
-		bclr	#2,obStatus(a0)
-		move.b	#$13,obHeight(a0)
-		move.b	#9,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	pdat.height(a5),obHeight(a0)
+		move.b	pdat.width(a5),obWidth(a0)
 		move.b	#id_Wait,obAnim(a0) ; use "standing" animation
 		subq.w	#5,obY(a0)
 
@@ -1206,13 +1208,9 @@ Sonic_ChkRoll:
 ; Obj01_DoRoll
 .roll:
 		bset	#2,obStatus(a0)
-		;bsr.w	GetOtherPlayerData
-		;sub.b	#5,d2
-		;sub.b	#2,d3
-		;move.b	d2,obHeight(a0)
-		;move.b	d3,obWidth(a0)
-		move.b	#$E,obHeight(a0)
-		move.b	#7,obWidth(a0)
+		bsr.w	GetOtherPlayerData
+		move.b	pdat.height2(a5),obHeight(a0)
+		move.b	pdat.width2(a5),obWidth(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation
 		addq.w	#5,obY(a0)
 		move.w	#sfx_Roll,d0
@@ -1241,8 +1239,8 @@ Sonic_ExtraJump:
 		andi.b  #btnB|btnC,d0             ; the button input itself
 		beq.w   ExtraJumpReturn      ; If not, branch
 		move.b  #1,ExtraJumpUsed(a0)
-	    move.w  #-$3E0,obVelY(a0)    
-        move.w  #-$300,obVelX(a0)
+		move.w  #-$3E0,obVelY(a0)    
+		move.w  #-$300,obVelX(a0)
 		btst	#0,obStatus(a0)	; Is Sonic facing left?
 		bne.s	ExtraJumpReturn	; if not, branch
 		neg.w	obVelX(a0)
@@ -1291,15 +1289,13 @@ Sonic_Jump:
 		move.b	#dQuakeJump,d0
 		jsr	(MegaPCM_PlaySample).l
 		bsr.w	GetOtherPlayerData
-		move.b	d2,obHeight(a0)
-		move.b	d3,obWidth(a0)
+		move.b	pdat.height(a5),obHeight(a0)
+		move.b	pdat.width(a5),obWidth(a0)
 		btst	#2,obStatus(a0)	; is Sonic already in a ball state?
 		bne.s	.rolljump	; if so, branch.
 		bsr.w	GetOtherPlayerData
-		sub.b	#5,d2
-		sub.b	#2,d3
-		move.b	d2,obHeight(a0)
-		move.b	d3,obWidth(a0)
+		move.b	pdat.height2(a5),obHeight(a0)
+		move.b	pdat.width2(a5),obWidth(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "jumping" animation
 		bset	#2,obStatus(a0)
 		addq.w	#5,obY(a0)
@@ -1714,13 +1710,9 @@ Sonic_ResetOnFloor:
 		btst	#2,obStatus(a0)	; check if Sonic is in a ball state.
 		beq.s	.notball	; if not, skip.
 		bclr	#2,obStatus(a0)	; clear ball flag.
-
-		movem.l	d0-d3/a2,-(sp)
 		bsr.w	GetOtherPlayerData
-		move.b	d2,obHeight(a0)
-		move.b	d3,obWidth(a0)
-		movem.l	(sp)+,d0-d3/a2
-		
+		move.b	pdat.height(a5),obHeight(a0)
+		move.b	pdat.width(a5),obWidth(a0)
 		move.b	#id_Walk,obAnim(a0) ; use running/walking animation
 		subq.w	#5,obY(a0)	; raise Sonic up 5 pixels so he's not inside the ground.
 

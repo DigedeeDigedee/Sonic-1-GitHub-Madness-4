@@ -2705,7 +2705,7 @@ Level_NoMusicFade:
 		; load player hud lives art
 ;		move.w	#ch_hudlives,d0
 		jsr	(GetOtherPlayerData).l
-
+		move.w	pdat.livesart(a5),d0
 		add.l	#Nem_Lives,d0 ; use RAM for PLC
 		lea	(v_ram_start).l,a1
 		move.l	d0,(a1)

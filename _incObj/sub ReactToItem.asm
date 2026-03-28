@@ -386,8 +386,7 @@ HurtSonic:
 		; hurt pcm
 ;		move.w	#ch_hurtpcm,d0
 		jsr	(GetOtherPlayerData).l
-		moveq	#0,d0
-		move.w	d1,d0
+		move.w	pdat.hurtsnd(a5),d0
 		jsr	(MegaPCM_PlaySample).l
 
 		move.w	#sfx_HitSpikes,d0
