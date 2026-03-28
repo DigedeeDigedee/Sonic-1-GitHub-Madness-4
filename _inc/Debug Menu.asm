@@ -662,7 +662,7 @@ RenderHexByte:
 ; ===========================================================================
 
 TextData_DebugHeading:
-		dc.b	"PROJECT: SONIC SPRINT - DEBUG MENU"
+		dc.b	"THE MADNESS OF ALL GITHUBS        "
 		
 Text_MainMenu:
 		dc.b	"GAME MODE ID    "	; 16 chars each
