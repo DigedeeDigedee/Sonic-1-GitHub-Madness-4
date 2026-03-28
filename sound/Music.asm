@@ -136,7 +136,7 @@ ptr_mus76:		dc.l Music76
 ptr_mus77:		dc.l Music77
 ptr_mus78:		dc.l Music78
 ptr_mus79:		dc.l Music79
-;ptr_mus7A:		dc.l Music7A
+ptr_mus7A:		dc.l Music7A
 ;ptr_mus7B:		dc.l Music7B
 ;ptr_mus7C:		dc.l Music7C
 ;ptr_mus7D:		dc.l Music7D
@@ -548,5 +548,8 @@ Music78:
 		even
 Music79:	
 		include "music/CNTracks/CheetahFakeout.asm"
+		even
+Music7A:
+		include	"music/TG2000Tracks/MJ.asm"
 		even
 	END

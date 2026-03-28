@@ -371,6 +371,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	;More Garbage 
 	nextenum bgm_TF2
 	nextenum bgm_PizzaPopBoss
+	nextenum bgm_MJWin
 	; Keep this last
 	nextenum bgm__Last
 
