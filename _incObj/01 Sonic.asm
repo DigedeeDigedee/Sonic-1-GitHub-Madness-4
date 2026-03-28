@@ -1232,7 +1232,6 @@ ExtraJumpUsed:		equ  $3b
 ; ----------------------------------------------------------------------------
 
 Sonic_ExtraJump:
-		rts
 		tst.b   ExtraJumpUsed(a0)   
 		bne.s   ExtraJumpReturn
 		move.b  (v_jpadpress2).w,d0    ; Is ABC pressed? 
@@ -1255,7 +1254,7 @@ ExtraJumpReturn:
 
 
 Sonic_Jump:
-;		clr.b   ExtraJumpUsed(a0)
+		clr.b   ExtraJumpUsed(a0)
 		move.b	(v_jpadpress2).w,d0
 		andi.b	#btnB|btnC,d0	; is B or C pressed?
 		beq.w	.return	; if not, branch
