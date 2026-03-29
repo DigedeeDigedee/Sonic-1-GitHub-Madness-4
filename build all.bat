@@ -222,10 +222,8 @@ call recmp.bat
 cd ..
 
 cd "ollie_masterpiece"
-cd "maps"
-cd "test"
 call recmp.bat
-cd ..\..\..
+cd ..
 
 cd "segadoodoo"
 call recmp.bat

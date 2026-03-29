@@ -144,12 +144,19 @@ ol_ScriptClearTextbox:
 ; ------------------------------------------------------------------------------
 
 ol_ScriptShowIcon:
+	move.w	(a0)+,d0					; Get icon animation ID
 	move.l	(a0)+,ol_script_icon_addr.w			; Set icon data address
-	lea	ol_script_icon_anim.w,a1			; Set icon animation
-	move.l	(a0)+,a2
+	beq.s	.ShowIcon					; If it's not set, branch
+
+	movea.l	ol_script_icon_addr.w,a1			; Set icon animation
+	movea.l	$C(a1),a2
+	add.w	d0,d0
+	adda.w	(a2,d0.w),a2
+	lea	ol_script_icon_anim.w,a1
 	bsr.w	ol_SetAnimation
-	
-	bset	#1,ol_script_flags.w				; Show icon
+
+.ShowIcon:
+	bset	#1,ol_script_flags.w				; Make space for icon
 	bra.s	ol_ScriptClearTextbox				; Clear textbox
 
 ; ------------------------------------------------------------------------------
@@ -161,7 +168,7 @@ ol_ScriptHideIcon:
 	lea	ol_script_icon_anim.w,a1			; Clear icon animation
 	bsr.w	ol_ClearAnimation
 	
-	bclr	#1,ol_script_flags.w				; Hide icon
+	bclr	#1,ol_script_flags.w				; Don't make space for icon
 	bra.s	ol_ScriptClearTextbox				; Clear textbox
 
 ; ------------------------------------------------------------------------------
@@ -173,7 +180,7 @@ ol_UpdateScriptGfx:
 	beq.s	.NoTextboxRedraw				; If not, branch
 	
 	lea	ol_TextboxMapNoIcon,a1				; Textbox with no icon
-	btst	#1,ol_script_flags.w				; Should the icon be visible?
+	btst	#1,ol_script_flags.w				; Should there be space for an icon?
 	beq.s	.DrawTextbox					; If not, branch
 	lea	ol_TextboxMapIcon,a1				; Textbox with icon
 
@@ -205,7 +212,7 @@ ol_UpdateScriptGfx:
 
 	move.w	#ol_vramWriteCmd(ol_WINDOW_VRAM+$A82)>>16,d1	; Get VDP command
 	add.w	ol_script_text_cmd.w,d1
-	btst	#1,ol_script_flags.w				; Should the icon be visible?
+	btst	#1,ol_script_flags.w				; Is there space for an icon?
 	beq.s	.SetTextVdpCommand				; If not, branch
 	addi.w	#$10,d1						; If so, offset text further to the right
 	
@@ -243,7 +250,7 @@ ol_UpdateScriptGfx:
 ; ------------------------------------------------------------------------------
 
 ol_DrawTextboxIcon:
-	btst	#1,ol_script_flags.w				; Should we draw the icon?
+	btst	#1,ol_script_flags.w				; Is there space for an icon?
 	beq.s	.End						; If not, branch
 	
 	move.l	ol_script_icon_addr.w,d0			; Get icon data
@@ -258,12 +265,14 @@ ol_DrawTextboxIcon:
 	move.w	#168,d1
 	moveq	#0,d2
 	move.w	#(ol_TEXTBOX_VRAM/$20)+$69,d3
-	moveq	#0,d4
+	move.b	ol_script_icon_anim+ol_anim_frame.w,d4
 	bsr.w	ol_DrawSprite
 
 	movea.l	(a0),a1						; Load icon graphics
 	movea.l	4(a0),a2
-	moveq	#0,d0
+	move.b	ol_script_icon_anim+ol_anim_frame.w,d0
+	cmp.b	ol_script_icon_anim+ol_anim_prev_frame.w,d0
+	beq.s	.End
 	move.w	#ol_TEXTBOX_VRAM+($69*$20),d1
 	bra.w	ol_LoadSpriteGfx
 

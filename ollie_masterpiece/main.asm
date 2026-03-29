@@ -85,7 +85,7 @@ GM_OllieMasterpiece:
 ; ------------------------------------------------------------------------------
 
 .TestScript:
-	ol_scriptShowIcon 0, 0
+	ol_scriptShowIcon ol_TestIcon, 0
 	ol_scriptShowTextbox
 
 	ol_scriptText
@@ -100,6 +100,7 @@ GM_OllieMasterpiece:
 	ol_scriptTextEnd
 
 	ol_scriptWaitUser
+	ol_scriptHideIcon
 	ol_scriptClearTextbox
 
 	ol_scriptText
@@ -176,16 +177,6 @@ ol_VBlank:
 ; Data
 ; ------------------------------------------------------------------------------
 
-	include	"maps/index.asm"
-
-ol_TextboxGfx:
-	incbin	"gfx/textbox.nem"
-	even
-ol_TextboxMapNoIcon:
-	incbin	"tilemaps/textbox_no_icon.bin"
-	even
-ol_TextboxMapIcon:
-	incbin	"tilemaps/textbox_icon.bin"
-	even
+	include	"data.asm"
 
 ; ------------------------------------------------------------------------------

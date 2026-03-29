@@ -63,7 +63,7 @@ ol_EndSpriteDraw:
 ;	d1.w - Y position
 ;	d2.b - Draw flags
 ;	d3.w - Sprite tile
-;	d4.w - Sprite frame ID
+;	d4.b - Sprite frame ID
 ;	a1.l - Sprite data address
 ; ------------------------------------------------------------------------------
 
@@ -77,7 +77,8 @@ ol_DrawSprite:
 	btst	#5,d2						; Should we directly draw 1 sprite piece?
 	bne.s	.Draw						; If so, branch
 
-	add.w	d4,d4						; Get sprite frame data
+	andi.w	#$FF,d4						; Get sprite frame data
+	add.w	d4,d4
 	adda.w	(a1,d4.w),a1
 
 	move.w	(a1)+,d6					; Get number of sprite pieces
@@ -322,20 +323,22 @@ ol_DrawSprite:
 ; Load sprite graphics
 ; ------------------------------------------------------------------------------
 ; ARGUMENTS:
-;	d0.w - Sprite frame ID
+;	d0.b - Sprite frame ID
 ;	d1.w - VRAM address
 ;	a1.l - Sprite graphics data address
 ;	a2.l - Sprite graphics script address
 ; ------------------------------------------------------------------------------
 
 ol_LoadSpriteGfx:
-	add.w	d0,d0						; Get script for sprite frame
+	andi.w	#$FF,d0						; Get script for sprite frame
+	add.w	d0,d0
 	adda.w	(a2,d0.w),a2
-	move.w	(a2)+,d5					; Get number of entries in script
-	subq.w	#1,d5
+	move.w	(a2)+,d6					; Get number of entries in script
+	subq.w	#1,d6
 	bmi.s	.End						; If there are none, branch
 
 	move.w	d1,d4						; Set initial VRAM address
+	move.l	a1,d5						; Set sprite graphics data address
 
 .Loop:
 	move.b	(a2),d3						; Get length of graphics to load in words
@@ -346,14 +349,14 @@ ol_LoadSpriteGfx:
 	move.w	(a2)+,d1
 	andi.w	#$FFF,d1
 	lsl.l	#5,d1
-	add.l	a1,d1
+	add.l	d5,d1
 
 	move.w	d4,d2						; Set VRAM address to load into	
 	add.w	d3,d4						; Advance VRAM address
 	add.w	d3,d4
 
 	bsr.w	ol_QueueGfxDma					; Queue graphics for loading
-	dbf	d5,.Loop					; Loop until finished
+	dbf	d6,.Loop					; Loop until finished
 
 .End:
 	rts
