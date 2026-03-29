@@ -146,6 +146,7 @@ ptr_Roaring_Knight:	dc.l Obj_Roaring_Knight
 ptr_Sunset:		dc.l ObjSunset
 ptr_RobiWK:		dc.l OBJ_RobiWK_Logo
 ;ptr_Sunset:		dc.l NullObject
+prt_NeedleBoss		dc.l ObjNeedleBoss
 
 NullObject:
 		jmp	(DeleteObject).l	; It would be safer to have this instruction here, but instead it just falls through to ObjectFall
@@ -294,3 +295,4 @@ id_ExplosionSHC:	equ ((ptr_ExplosionSHC-Obj_Index)/4)+1
 id_Roaring_Knight:	equ ((ptr_Roaring_Knight-Obj_Index)/4)+1
 id_Sunset:		equ ((ptr_Sunset-Obj_Index)/4)+1
 id_RobiWK_Logo:		equ ((ptr_RobiWK-Obj_Index)/4)+1
+id_NeedleBoss:		equ ((prt_NeedleBoss-Obj_Index)/4)+1

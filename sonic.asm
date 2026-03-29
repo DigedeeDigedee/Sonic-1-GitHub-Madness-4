@@ -7455,6 +7455,8 @@ SoundDriver:	include "sound/s1.sounddriver.asm"
 		include	"_incObj/10 Player Bullet.asm"
 
 		include	"_incObj/Arif/Main.asm"
+		
+		include	"_incObj/NeedleBoss/NeedleBoss.asm"
 
 ; ---------------------------------------------------------------------------
 ; GMZ - garblemarden's slop will go here

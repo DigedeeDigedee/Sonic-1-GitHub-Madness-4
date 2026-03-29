@@ -1288,7 +1288,6 @@ Sonic_Jump:
 		move.b	#dQuakeJump,d0
 		jsr	(MegaPCM_PlaySample).l
 		bsr.w	GetOtherPlayerData
-		jsr	(GHM3Explode).l
 		move.b	pdat.height(a5),obHeight(a0)
 		move.b	pdat.width(a5),obWidth(a0)
 		btst	#2,obStatus(a0)	; is Sonic already in a ball state?
