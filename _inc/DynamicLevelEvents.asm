@@ -906,15 +906,18 @@ DLE_DVZ3:
 		rts	; null for now
 ; ---------------------------------------------------------------------------
 .InitBoss:
-		cmpi.w	#$400,(v_screenposx).w
+		cmpi.w	#$380,v_screenposx.w
 		blt.s	.Exit
-		addq.b	#4,v_dle_routine.w	; yeah sorry i'm weird
+		st.b	f_lockscreen.w 		; lock screen
+		move.w	v_screenposx.w,v_limitleft2.w
+		addq.b	#4,v_dle_routine.w		; yeah sorry i'm weird
 		jsr	FindFreeObj.l
 		bne.s	.Exit
-
 		move.b	#id_NeedleBoss,obID(a1)
 		move.w	#$4D0,obX(a1)
 		move.w	#$1F0,obY(a1)
+		lea	ArtList_NeedleBoss.l,a1
+		jsr	UserPLC.w
 .Exit:
 		rts
 

@@ -51,10 +51,15 @@ ObjNeedleBoss:
 ; ----------------------------------------------------------------------------
 .Index	
 	dc.w	NeedleBoss_Init-.Index
-	dc.w	NeedleBoss_Wait-.Index
+	dc.w	NeedleBoss_WalkIn-.Index
+	dc.w	NeedleBoss_Stand-.Index
 ; ----------------------------------------------------------------------------
 
 NeedleBoss_Init:
+		tst.l	v_plc_buffer.w
+		beq.s	.Go
+		rts
+.Go
 		add.b	#2, obRoutine(a0)
 		move.l	#Map_NeedleBoss, obMap(a0)
 		move.w	#NEEDLB_GFX,obGfx(a0)
@@ -64,8 +69,8 @@ NeedleBoss_Init:
 		move.b	#16,obActWid(a0)
 		move.b	#2,obPriority(a0)
 		move.b	#8,obFrame(a0)
-		lea	ArtList_NeedleBoss.l,a1
-		jsr	UserPLC.w
+		move.b	#0,obAnim(a0)
+		bset	#0,obStatus(a0)
 
 		; load palette
 
@@ -76,10 +81,36 @@ NeedleBoss_Init:
 		move.l	(a2)+,(a1)+
 		endr
 
-NeedleBoss_Wait:
-		jmp	DisplaySprite
+NeedleBoss_WalkIn:
+		sub.w	#2,obX(a0)
+		cmpi.w	#$480,obX(a0)
+		bgt.s	.Skip
+		addq.b	#2,obRoutine(a0)
+		move.b	#1,obAnim(a0)
+.Skip
+NeedleBoss_Stand:
+		lea	Ani_NeedleBoss(pc),a1
+		jsr	AnimateSprite.l
+		jmp	DisplaySprite.l
+
+
 
 ; ----------------------------------------------------------------------------
+; Ani_NeedleBoss
+; ----------------------------------------------------------------------------
+
+Ani_NeedleBoss:
+.t
+	dc.w	.walkin-.t
+	dc.w	.stand-.t
+.walkin:
+	dc.b	4
+	dc.b	2,3,4,5,6,7,afEnd
+	even
+.stand
+	dc.b	12
+	dc.b	$E,2,1,afBack,1
+	even
 
 ArtList_NeedleBoss:
 	dc.l	Nem_NeedleBoss
