@@ -168,10 +168,11 @@ EndOfHeader:
 ; Crash/Freeze the 68000. Unlike Sonic 2, Sonic 1 uses the 68000 for playing music, so it stops too
 
 ErrorTrap:
-		nop	
-		nop	
+		nop
+		nop
 		bra.s	ErrorTrap
 ; ===========================================================================
+; these labels must never changed location or else the game switching won't work
 
 EntryPoint:
 		disable_ints
@@ -281,6 +282,7 @@ SetupValues:	dc.w $8000		; VDP register start number
 		dc.b $80		; VDP $97 - DMA fill VRAM
 		dc.l $40000080		; VRAM address 0
 
+Z80_SetupValues:
 		; Z80 instructions (not the sound driver; that gets loaded later)
 		save
 		CPU Z80 ; start assembling Z80 code
@@ -366,9 +368,9 @@ CheckSumOk:
 
 GameInit:
 		clearRAM v_ram_start_def,v_crossresetram
-		move.w	#opcode_jmpabslong,(v_vintcode.jmp).w
-		move.l	#VBlank,(v_vintcode.addr).w
-		move.w	#opcode_rte,(v_hintcode.jmp).w
+		bra.w	Get_CurGame	; This is where we branch to the different game
+
+Init_GHM4:
 		bsr.w	InitDMAQueue
 		bsr.w	VDPSetupGame
 		bsr.w	JoypadInit
@@ -435,6 +437,82 @@ CheckSumError:
 	endif
 
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; Subroutine to get the current game and then jump to it
+; ---------------------------------------------------------------------------
+
+Get_CurGame:
+		moveq	#0,d1
+		move.b	(v_curgame).w,d1	; Get the current game
+		cmp.b	(v_lastgame).w,d1	; Are we still on the same game?
+		beq.s	.samegame		; If yes, don't clear cross-reset RAM
+
+		clearRAM v_crossresetram,v_gamechangeram	; We don't want to clear the last $18 bytes of RAM space
+
+		moveq	#0,d0
+		move.w	#$100,d7
+		lea	Z80_SetupValues(pc),a5	; load setup values array address
+		lea	(z80_ram).l,a0
+		move.w	d7,(z80_bus_request).l	; stop the Z80
+		move.w	d7,(z80_reset).l	; reset the Z80
+
+.WaitForZ80:
+		btst	d0,(z80_bus_request).l	; has the Z80 stopped?
+		bne.s	.WaitForZ80		; if not, branch
+
+		moveq	#$25,d2
+.Z80InitLoop:
+		move.b	(a5)+,(a0)+
+		dbf	d2,.Z80InitLoop
+
+		move.w	d0,(z80_reset).l
+		move.w	d0,(z80_bus_request).l	; start the Z80
+		move.w	d7,(z80_reset).l	; reset the Z80
+
+.samegame:
+		move.w	#opcode_jmpabslong,(v_vintcode.jmp).w	; Let's set these up first
+		move.w	#opcode_jmpabslong,(v_hintcode.jmp).w
+		add.w	d1,d1
+		moveq	#0,d0
+		move.w	.GameIndex(pc,d1.w),d0
+		jmp	.GameIndex(pc,d0.w)
+
+; ===========================================================================
+.GameIndex:
+		dc.w	.GHM4-.GameIndex	;  0
+		dc.w	.TooLimited-.GameIndex	;  2
+		dc.w	.Osomatsu-.GameIndex	;  4
+; ===========================================================================
+
+.GHM4:
+		move.l	#VBlank,(v_vintcode.addr).w		; Setup Vint for GHM4
+		move.w	#opcode_rte,(v_hintcode.jmp).w		; Setup Hint for GHM4
+		move.b	(v_curgame).w,(v_lastgame).w
+		bra.w	Init_GHM4				; Boot up GHM4
+
+; ===========================================================================
+
+.TooLimited:
+;		move.l	#V_Int_2LS,(v_vintcode.addr).w		; Setup Vint for Too LimitedSonic
+		move.l	#VBlank,(v_vintcode.addr).w		; Setup Vint for GHM4 (whilst we get the games in)
+;		move.l	#H_Int_2LS,(v_hintcode.addr).w		; Setup Hint for Too LimitedSonic
+		move.w	#opcode_rte,(v_hintcode.jmp).w		; Setup Hint for GHM4 (whilst we get the games in)
+		move.b	(v_curgame).w,(v_lastgame).w
+		bra.w	Init_GHM4				; Boot up GHM4 (whilst we get the games in)
+;		bra.w	Init_TooLimited				; Boot up Too LimitedSonic
+
+; ===========================================================================
+
+.Osomatsu:
+;		move.l	#V_Int_Osomatsu,(v_vintcode.addr).w	; Setup Vint for Osomatsu-kun
+		move.l	#VBlank,(v_vintcode.addr).w		; Setup Vint for GHM4 (whilst we get the games in)
+;		move.l	#H_Int_Osomatsu,(v_hintcode.addr).w	; Setup Hint for Osomatsu-kun
+		move.w	#opcode_rte,(v_hintcode.jmp).w		; Setup Hint for GHM4 (whilst we get the games in)
+		move.b	(v_curgame).w,(v_lastgame).w
+		bra.w	Init_GHM4				; Boot up GHM4 (whilst we get the games in)
+;		bra.w	Init_Osomatsu-kun			; Boot up Too LimitedSonic
+
+; ===========================================================================
 
 Art_Text:	binclude	"artunc/menutext.bin" ; text used in level select and debug mode
 Art_Text_End:	even
@@ -442,7 +520,7 @@ Art_Text_End:	even
 Art_TextAT:	binclude	"artunc/menutextAT.bin" ; text used in level select and debug mode
 Art_TextAT_End:	even
 
-
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Write VScroll buffer to VSRAM
 ; ---------------------------------------------------------------------------

@@ -488,8 +488,7 @@ f_debugmode:		ds.w	1		; debug mode flag
 v_gamechangeram:
 
 v_random:		ds.l	1
-v_megadrive:		ds.b	1		; Megadrive machine type
-			ds.b	1
+v_megadrive:		ds.w	1		; Megadrive machine type
 v_curgame:		ds.b	1		; Used to toggle which game to boot
 v_lastgame:		ds.b	1		; Used to test if to clear Cross-Reset RAM and Z80 RAM on game boot
 
@@ -501,6 +500,7 @@ v_hintcode:
 .addr:			ds.l	1
 
 v_init:			ds.l	1		; 'init' text string
+
 v_ram_end:
     if * > 0	; Don't declare more space than the RAM can contain!
 	fatal "The RAM variable declarations are too large by $\{*} bytes."
