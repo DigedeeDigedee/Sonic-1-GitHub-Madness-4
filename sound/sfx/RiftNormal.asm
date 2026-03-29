@@ -1,66 +1,39 @@
-; =============================================================================================
-; Project Name:		RiftNormal
-; Created:		22nd March 2026
-; ---------------------------------------------------------------------------------------------
-; ASM'd using S1SMPS2ASM version 1.1 by Marc Gordon (AKA Cinossu)
-; =============================================================================================
+SFX_Rift_Header:
+	smpsHeaderStartSong 1
+	smpsHeaderVoice     SFX_Rift_Voices
+	smpsHeaderTempoSFX  $01
+	smpsHeaderChanSFX   $01
 
-RiftNormal_Header:
-;	Voice Pointer	location
-	smpsHeaderVoice	RiftNormal_Voices
-;	Channel Setup	FM	PSG
-	smpsHeaderChan	$01,	$01
-;	Tempo Setup	divider	modifier
-	smpsHeaderTempo	$80,	$A0
+	smpsHeaderSFXChannel cPSG1, SFX_Rift_PSG1,	$00, $04
 
-;	DAC Pointer	location
-	smpsHeaderDAC	RiftNormal_DAC
-;	PSG1 Pointer	location	pitch		volume	instrument
-	smpsHeaderPSG	RiftNormal_PSG1,	smpsPitch00+$01,	$F4,	$1F3
-	dc.b		smpsNoAttack
-RiftNormal_Loop01:
-	dc.b		nCs4,	$20
-;	Loop To	 	index	loops	location
-	smpsLoop	$00,	$01,	RiftNormal_Loop01
-	dc.b		nF4,	$0C,	nEb5,	$0A,	nG5,	$33,	nEb5,	$0C
-	dc.b		nF4,	$0C,	nCs4,	$10,	nD3,	$44
-RiftNormal_Loop02:
-	dc.b		nCs4,	$10
-;	Loop To	 	index	loops	location
-	smpsLoop	$00,	$01,	RiftNormal_Loop02
-	dc.b		nF4,	$0C,	nEb5,	$0A,	nG5,	$33,	nEb5,	$0C
-	dc.b		nF4,	$0C,	nCs4,	$10,	nD3,	$44
-RiftNormal_Loop03:
-	dc.b		nCs4,	$10
-;	Loop To	 	index	loops	location
-	smpsLoop	$00,	$01,	RiftNormal_Loop03
-	dc.b		nF4,	$0C,	nEb5,	$0A,	nG5,	$33,	nEb5,	$0C
-	dc.b		nF4,	$0C,	nCs4,	$10
-RiftNormal_Loop04:
-	dc.b		nD3,	$01,	smpsNoAttack
-;	Set Volume	value
-	smpsSetVol	$04
-;	Loop To	 	index	loops	location
-	smpsLoop	$00,	$03,	RiftNormal_Loop04
+; PSG1 Data
+SFX_Rift_PSG1:
+	smpsModSet          $01, $01, $F4, $01
+	smpsPSGform         $E7
+
+SFX_Rift_Loop00:
+	dc.b	nCs4, $20
+	smpsLoop            $00, $01, SFX_Rift_Loop00  
+	dc.b	nF4, $0C, nDs5, $0A, nG5, $33, nDs5, $0C, nF4, $0C, nCs4, $10
+	dc.b	nD3, $44
+
+SFX_Rift_Loop01:
+	dc.b	nCs4, $10
+	smpsLoop            $01, $01, SFX_Rift_Loop01  
+	dc.b	nF4, $0C, nDs5, $0A, nG5, $33, nDs5, $0C, nF4, $0C, nCs4, $10
+	dc.b	nD3, $44
+
+SFX_Rift_Loop02:
+	dc.b	nCs4, $10
+	smpsLoop            $02, $01, SFX_Rift_Loop02  
+	dc.b	nF4, $0C, nDs5, $0A, nG5, $33, nDs5, $0C, nF4, $0C, nCs4, $10
+
+SFX_Rift_Loop03:
+	dc.b	nD3, $01, smpsNoAttack
+	smpsPSGAlterVol     $04
+	smpsLoop            $00, $03, SFX_Rift_Loop03  
 	smpsStop
 
-RiftNormal_Voices:
-;	Voice 00
-;	$00,$F7,$01,$F4,$01,$F3,$00,$0A,$00,$04,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-;				#
-	smpsVcAlgorithm		$00
-	smpsVcFeedback		$00
-;				op1	op2	op3	op4
-	smpsVcDetune		$00,	$0F,	$00,	$0F
-	smpsVcCoarseFreq	$01,	$04,	$01,	$07
-	smpsVcRateScale		$00,	$00,	$00,	$03
-	smpsVcAttackRate	$00,	$0A,	$00,	$13
-	smpsVcAmpMod		$00,	$00,	$00,	$00
-	smpsVcDecayRate1	$00,	$00,	$00,	$04
-	smpsVcDecayRate2	$00,	$00,	$00,	$00
-	smpsVcDecayLevel	$00,	$00,	$00,	$00
-	smpsVcReleaseRate	$00,	$00,	$00,	$00
-	smpsVcTotalLevel	$00,	$00,	$00,	$00
-	
-	smpsFooterEndSong	"RiftNormal.asm"
-	even
+; Song seems to not use any FM voices
+SFX_Rift_Voices:
+	smpsFooterEndSong	"SFX - Rift.asm"
