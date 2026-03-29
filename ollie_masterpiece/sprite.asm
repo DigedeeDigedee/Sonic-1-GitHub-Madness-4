@@ -319,3 +319,43 @@ ol_DrawSprite:
 	rts
 
 ; ------------------------------------------------------------------------------
+; Load sprite graphics
+; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	d0.w - Sprite frame ID
+;	d1.w - VRAM address
+;	a1.l - Sprite graphics data address
+;	a2.l - Sprite graphics script address
+; ------------------------------------------------------------------------------
+
+ol_LoadSpriteGfx:
+	add.w	d0,d0						; Get script for sprite frame
+	adda.w	(a2,d0.w),a2
+	move.w	(a2)+,d5					; Get number of entries in script
+	subq.w	#1,d5
+	bmi.s	.End						; If there are none, branch
+
+	move.w	d1,d4						; Set initial VRAM address
+
+.Loop:
+	move.b	(a2),d3						; Get length of graphics to load in words
+	andi.w	#$F0,d3
+	addi.w	#$10,d3
+
+	moveq	#0,d1						; Get graphics data to load
+	move.w	(a2)+,d1
+	andi.w	#$FFF,d1
+	lsl.l	#5,d1
+	add.l	a1,d1
+
+	move.w	d4,d2						; Set VRAM address to load into	
+	add.w	d3,d4						; Advance VRAM address
+	add.w	d3,d4
+
+	bsr.w	ol_QueueGfxDma					; Queue graphics for loading
+	dbf	d5,.Loop					; Loop until finished
+
+.End:
+	rts
+
+; ------------------------------------------------------------------------------

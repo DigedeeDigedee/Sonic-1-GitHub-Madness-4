@@ -16,13 +16,13 @@ ol_InitVdp:
 	move.w	(a0)+,(a1)					; Set VDP register
 	dbf	d0,.SetRegisters				; Loop until finished
 
-	bsr.s	ol_ClearScreen					; Clear screen
-	bra.w	ol_InitSprites					; Initialize sprites
+	bra.s	ol_ClearScreen					; Clear screen
 
 ; ------------------------------------------------------------------------------
 
 .Registers:
 	dc.w	$8004						; Disable H-BLANK interrupt
+	dc.w	$8134						; Disable display, enable DMA and V-BLANK interrupt
 	dc.w	$8200+(ol_PLANE_A_VRAM>>10)			; Plane A address
 	dc.w	$8300+(ol_WINDOW_VRAM>>10)			; Window plane address
 	dc.w	$8400+(ol_PLANE_B_VRAM>>13)			; Plane B address
@@ -43,7 +43,9 @@ ol_InitVdp:
 ; ------------------------------------------------------------------------------
 
 ol_ClearScreen:
-	jmp	ClearScreen.w					; Clear screen
+	jsr	ClearScreen.w					; Clear screen
+	bsr.w	ol_InitGfxDma					; Initialize graphics DMA queue
+	bra.w	ol_InitSprites					; Initialize sprites
 
 ; ------------------------------------------------------------------------------
 ; Draw tilemap
@@ -80,5 +82,31 @@ ol_DrawTilemap:
 
 .End:
 	rts
+
+; ------------------------------------------------------------------------------
+; Initialize graphics DMA queue
+; ------------------------------------------------------------------------------
+
+ol_InitGfxDma:
+	jmp	InitDMAQueue.w					; Initialize queue
+
+; ------------------------------------------------------------------------------
+; Queue graphics data for DMA
+; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	d1.l - Graphics data address
+;	d2.w - VRAM address
+;	d3.w - Graphics data length in words
+; ------------------------------------------------------------------------------
+
+ol_QueueGfxDma:
+	jmp	QueueDMATransfer.w				; Queue graphics
+
+; ------------------------------------------------------------------------------
+; Flush graphics DMA queue
+; ------------------------------------------------------------------------------
+
+ol_FlushGfxDma:
+	jmp	ProcessDMAQueue.w				; Flush queue
 
 ; ------------------------------------------------------------------------------

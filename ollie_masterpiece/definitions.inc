@@ -22,6 +22,29 @@ ol_SPRITES_VRAM		equ $F800				; Sprite table VRAM address
 ol_HSCROLL_VRAM		equ $FC00				; Horizontal scroll table VRAM address
 
 ; ------------------------------------------------------------------------------
+; Animation flags
+; ------------------------------------------------------------------------------
+
+	phase 0
+ol_ANIM_RESTART		ds.w 1					; Restart flag
+ol_ANIM_STOP		ds.w 1					; Stop flag
+	dephase
+
+; ------------------------------------------------------------------------------
+; Animation structure
+; ------------------------------------------------------------------------------
+
+	phase 0
+ol_anim_addr		ds.l 1					; Animation script address
+ol_anim_speed		ds.w 1					; Animation speed
+ol_anim_end		ds.b 1					; Animation script end index
+			ds.b 1
+ol_anim_index		ds.w 1					; Animation script index
+ol_anim_frame		ds.w 1					; Animation frame ID
+ol_anim_struct_size	ds.b 0					; Size of structure
+	dephase
+
+; ------------------------------------------------------------------------------
 ; Object structure
 ; ------------------------------------------------------------------------------
 
@@ -102,7 +125,7 @@ ol_script_flags		ds.b 1					; Script flags
 			ds.b 1
 ol_script_text_cmd	ds.w 1					; Script text VDP command
 ol_script_icon_addr	ds.l 1					; Script icon data address
-ol_script_icon_anim	ds.w 1					; Script icon animation ID
+ol_script_icon_anim	ds.b ol_anim_struct_size		; Script icon animation
 ol_script_icon_frame	ds.w 1					; Script icon frame
 
 ol_p1_ctrl_hold		equ v_jpadhold1				; Player 1 controller buttons (held)

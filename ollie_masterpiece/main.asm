@@ -60,6 +60,7 @@ GM_OllieMasterpiece:
 	lea	.TestScript(pc),a1				; Start test script
 	bsr.w	ol_StartScript
 
+	move.w	#$8174,ol_VDP_CTRL				; Enable display
 	jsr	PaletteFadeIn.w					; Fade in palette
 
 ; ------------------------------------------------------------------------------
@@ -141,10 +142,10 @@ ol_VBlank:
 	ol_dmaCram ol_palette,0,$80,(a0)			; Load palette into CRAM
 	ol_dmaVram ol_sprites,ol_SPRITES_VRAM,$280,(a0)		; Load sprites into VRAM
 
+	bsr.w	ol_UpdateScriptGfx				; Update script graphics
+	bsr.w	ol_FlushGfxDma					; Flush graphics DMA queue
 	bsr.w	ol_DrawMapRow					; Draw map row
 	bsr.w	ol_DrawMapColumn				; Draw map column
-
-	bsr.w	ol_UpdateScriptGfx				; Update script graphics
 
 .SkipUpdates:
 	move.w	#$2000,sr					; Enable interrupts
@@ -160,6 +161,7 @@ ol_VBlank:
 	include	"interrupt.asm"
 	include	"vdp.asm"
 	include	"sprite.asm"
+	include	"animation.asm"
 	include	"object.asm"
 	include	"map.asm"
 	include	"script.asm"

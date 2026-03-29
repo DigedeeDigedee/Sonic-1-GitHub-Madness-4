@@ -22,7 +22,7 @@ ol_ResetScript:
 	move.b	d0,ol_script_flags.w				; Clear script flags
 	move.w	d0,ol_script_text_cmd.w				; Clear script text VDP command
 	move.l	d0,ol_script_icon_addr.w			; Clear script icon data address
-	move.w	d0,ol_script_icon_anim.w			; Clear script icon animation ID
+	move.l	d0,ol_script_icon_anim+ol_anim_addr.w		; Clear script icon animation script
 	move.w	d0,ol_script_icon_frame.w			; Clear script icon frame ID
 
 	move.w	#$9200,ol_VDP_CTRL				; Hide textbox
@@ -145,7 +145,7 @@ ol_ScriptClearTextbox:
 
 ol_ScriptShowIcon:
 	move.l	(a0)+,ol_script_icon_addr.w			; Set icon data address
-	move.w	(a0)+,ol_script_icon_anim.w			; Set icon animation ID
+	move.l	(a0)+,ol_script_icon_anim.w			; Set icon animation script
 	bset	#1,ol_script_flags.w				; Show icon
 	bra.s	ol_ScriptClearTextbox				; Clear textbox
 
@@ -244,15 +244,22 @@ ol_DrawTextboxIcon:
 	beq.s	.End						; If it's not set, branch
 	movea.l	d0,a0						; Prepare to read icon data
 
-	; TODO: Handle animation and graphics loading
+	lea	ol_script_icon_anim.w,a1			; Update icon animation
+	bsr.w	ol_UpdateAnimation
 
-	movea.l	(a0),a1						; Draw icon sprite
+	movea.l	8(a0),a1					; Draw icon sprite
 	moveq	#8,d0
 	move.w	#168,d1
 	moveq	#0,d2
 	move.w	#(ol_TEXTBOX_VRAM/$20)+$69,d3
 	moveq	#0,d4
-	bra.w	ol_DrawSprite
+	bsr.w	ol_DrawSprite
+
+	movea.l	(a0),a1						; Load icon graphics
+	movea.l	4(a0),a2
+	moveq	#0,d0
+	move.w	#ol_TEXTBOX_VRAM+($69*$20),d1
+	bra.w	ol_LoadSpriteGfx
 
 .End:
 	rts
