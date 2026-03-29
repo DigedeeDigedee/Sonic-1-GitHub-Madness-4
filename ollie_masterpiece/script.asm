@@ -18,9 +18,14 @@ ol_InitScript:
 
 ol_ResetScript:
 	moveq	#0,d0						; Zero
-	move.l	d0,ol_script_address.w				; Clear script address
+	move.l	d0,ol_script_addr.w				; Clear script address
 	move.b	d0,ol_script_flags.w				; Clear script flags
 	move.w	d0,ol_script_text_cmd.w				; Clear script text VDP command
+	move.l	d0,ol_script_icon_addr.w			; Clear script icon data address
+	move.w	d0,ol_script_icon_anim.w			; Clear script icon animation ID
+	move.w	d0,ol_script_icon_frame.w			; Clear script icon frame ID
+
+	move.w	#$9200,ol_VDP_CTRL				; Hide textbox
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -32,7 +37,7 @@ ol_ResetScript:
 
 ol_StartScript:
 	bsr.s	ol_ResetScript					; Reset scripting
-	move.l	a1,ol_script_address.w				; Set script address
+	move.l	a1,ol_script_addr.w				; Set script address
 	bset	#0,ol_script_flags.w				; Force textbox redraw
 	rts
 
@@ -41,7 +46,7 @@ ol_StartScript:
 ; ------------------------------------------------------------------------------
 
 ol_RunScript:
-	move.l	ol_script_address.w,d0				; Get script address
+	move.l	ol_script_addr.w,d0				; Get script address
 	beq.s	.End						; If it's not set, branch
 
 	btst	#3,ol_script_flags.w				; Is text being drawn?
@@ -59,18 +64,16 @@ ol_RunScript:
 .Loop:
 	move.w	(a0)+,d0					; Get command
 	bmi.s	.ScriptDone					; If the script is done, branch
-
 	add.w	d0,d0						; Run command
 	add.w	d0,d0
 	jsr	.Commands(pc,d0.w)
-
 	bra.s	.Loop						; Get next command
 	
 .End:
 	rts
 
 .ScriptDone:
-	clr.l	ol_script_address.w				; Clear script address
+	clr.l	ol_script_addr.w				; Clear script address
 	clr.b	ol_script_flags.w				; Clear script flags
 	rts
 
@@ -90,7 +93,7 @@ ol_RunScript:
 ; ------------------------------------------------------------------------------
 
 ol_ExitScript:
-	move.l	a0,ol_script_address.w				; Update script address
+	move.l	a0,ol_script_addr.w				; Update script address
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -141,8 +144,8 @@ ol_ScriptClearTextbox:
 ; ------------------------------------------------------------------------------
 
 ol_ScriptShowIcon:
-	addq.w	#4,a0
-	
+	move.l	(a0)+,ol_script_icon_addr.w			; Set icon data address
+	move.w	(a0)+,ol_script_icon_anim.w			; Set icon animation ID
 	bset	#1,ol_script_flags.w				; Show icon
 	bra.s	ol_ScriptClearTextbox				; Clear textbox
 
@@ -151,6 +154,7 @@ ol_ScriptShowIcon:
 ; ------------------------------------------------------------------------------
 
 ol_ScriptHideIcon:
+	clr.l	ol_script_icon_addr.w				; Clear icon data address
 	bclr	#1,ol_script_flags.w				; Hide icon
 	bra.s	ol_ScriptClearTextbox				; Clear textbox
 
@@ -163,7 +167,7 @@ ol_UpdateScriptGfx:
 	beq.s	.NoTextboxRedraw				; If not, branch
 	
 	lea	ol_TextboxMapNoIcon,a1				; Textbox with no icon
-	btst	#1,ol_script_flags.w				; Should we draw the icon?
+	btst	#1,ol_script_flags.w				; Should the icon be visible?
 	beq.s	.DrawTextbox					; If not, branch
 	lea	ol_TextboxMapIcon,a1				; Textbox with icon
 
@@ -185,7 +189,7 @@ ol_UpdateScriptGfx:
 
 	btst	#3,ol_script_flags.w				; Is text being drawn?
 	beq.s	.End						; If not, branch
-	movea.l	ol_script_address.w,a0				; Get text from script
+	movea.l	ol_script_addr.w,a0				; Get text from script
 
 .TextLoop:
 	moveq	#0,d0						; Get character
@@ -195,7 +199,7 @@ ol_UpdateScriptGfx:
 
 	move.w	#ol_vramWriteCmd(ol_WINDOW_VRAM+$A82)>>16,d1	; Get VDP command
 	add.w	ol_script_text_cmd.w,d1
-	btst	#1,ol_script_flags.w				; Should we draw the icon?
+	btst	#1,ol_script_flags.w				; Should the icon be visible?
 	beq.s	.SetTextVdpCommand				; If not, branch
 	addi.w	#$10,d1						; If so, offset text further to the right
 	
@@ -207,7 +211,7 @@ ol_UpdateScriptGfx:
 	addi.w	#(ol_TEXTBOX_VRAM/$20)-$20,d0			; Draw character
 	move.w	d0,ol_VDP_DATA
 	
-	move.l	a0,ol_script_address.w				; Update script address
+	move.l	a0,ol_script_addr.w				; Update script address
 	rts
 
 .NewTextLine:
@@ -222,8 +226,33 @@ ol_UpdateScriptGfx:
 	andi.w	#1,d0
 	adda.w	d0,a0
 
-	move.l	a0,ol_script_address.w				; Update script address
+	move.l	a0,ol_script_addr.w				; Update script address
 	bclr	#3,ol_script_flags.w				; Clear text draw flag
+
+.End:
+	rts
+
+; ------------------------------------------------------------------------------
+; Draw textbox icon
+; ------------------------------------------------------------------------------
+
+ol_DrawTextboxIcon:
+	btst	#1,ol_script_flags.w				; Should we draw the icon?
+	beq.s	.End						; If not, branch
+	
+	move.l	ol_script_icon_addr.w,d0			; Get icon data
+	beq.s	.End						; If it's not set, branch
+	movea.l	d0,a0						; Prepare to read icon data
+
+	; TODO: Handle animation and graphics loading
+
+	movea.l	(a0),a1						; Draw icon sprite
+	moveq	#8,d0
+	move.w	#168,d1
+	moveq	#0,d2
+	move.w	#(ol_TEXTBOX_VRAM/$20)+$69,d3
+	moveq	#0,d4
+	bra.w	ol_DrawSprite
 
 .End:
 	rts

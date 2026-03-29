@@ -75,6 +75,7 @@ GM_OllieMasterpiece:
 	bsr.w	ol_RunScript					; Run script
 
 	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
+	bsr.w	ol_DrawTextboxIcon				; Draw textbox icon
 	bsr.w	ol_DrawObjects					; Draw object sprites
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
@@ -83,7 +84,7 @@ GM_OllieMasterpiece:
 ; ------------------------------------------------------------------------------
 
 .TestScript:
-	ol_scriptShowIcon 0,0
+	ol_scriptShowIcon 0, 0
 	ol_scriptShowTextbox
 
 	ol_scriptText

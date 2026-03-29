@@ -85,13 +85,14 @@ ol_scriptClearTextbox macro
 ; Show icon
 ; ------------------------------------------------------------------------------
 ; ARGUMENTS:
-;	char - Character ID
+;	data - Icon data
 ;	anim - Animation ID
 ; ------------------------------------------------------------------------------
 
-ol_scriptShowIcon macro char, anim
+ol_scriptShowIcon macro data, anim
 	dc.w	ol_SCRIPT_SHOW_ICON
-	dc.w	char, anim
+	dc.l	data
+	dc.w	anim
 	endm
 
 ; ------------------------------------------------------------------------------

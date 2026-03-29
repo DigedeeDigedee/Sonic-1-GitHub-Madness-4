@@ -63,7 +63,7 @@ ol_EndSpriteDraw:
 ;	d1.w - Y position
 ;	d2.b - Draw flags
 ;	d3.w - Sprite tile
-;	d4.b - Sprite frame ID
+;	d4.w - Sprite frame ID
 ;	a1.l - Sprite data address
 ; ------------------------------------------------------------------------------
 
@@ -77,8 +77,7 @@ ol_DrawSprite:
 	btst	#5,d2						; Should we directly draw 1 sprite piece?
 	bne.s	.Draw						; If so, branch
 
-	andi.w	#$FF,d4						; Get sprite frame data
-	add.w	d4,d4
+	add.w	d4,d4						; Get sprite frame data
 	adda.w	(a1,d4.w),a1
 
 	move.w	(a1)+,d6					; Get number of sprite pieces

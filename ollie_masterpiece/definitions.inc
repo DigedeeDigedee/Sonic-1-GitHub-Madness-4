@@ -14,7 +14,7 @@ ol_VDP_CTRL		equ $C00004				; VDP control port
 ; VRAM addresses
 ; ------------------------------------------------------------------------------
 
-ol_TEXTBOX_VRAM		equ $B2E0				; Textbox VRAM address
+ol_TEXTBOX_VRAM		equ $AE60				; Textbox VRAM address
 ol_PLANE_A_VRAM		equ $C000				; Plane A VRAM address
 ol_WINDOW_VRAM		equ $D000				; Window plane VRAM address
 ol_PLANE_B_VRAM		equ $E000				; Plane B VRAM address
@@ -97,10 +97,13 @@ ol_camera_prev_y	ds.w 1					; Previous camera Y position
 ol_sprite_slot		ds.w 1					; Sprite slot address
 ol_sprites_left		ds.w 1					; Sprite slots left
 
-ol_script_address	ds.l 1					; Script address
+ol_script_addr		ds.l 1					; Script address
 ol_script_flags		ds.b 1					; Script flags
 			ds.b 1
 ol_script_text_cmd	ds.w 1					; Script text VDP command
+ol_script_icon_addr	ds.l 1					; Script icon data address
+ol_script_icon_anim	ds.w 1					; Script icon animation ID
+ol_script_icon_frame	ds.w 1					; Script icon frame
 
 ol_p1_ctrl_hold		equ v_jpadhold1				; Player 1 controller buttons (held)
 ol_p1_ctrl_tap		equ v_jpadpress1			; Player 1 controller buttons (tapped)
