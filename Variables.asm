@@ -473,7 +473,6 @@ MegaCDMode:		ds.b 	1
 			ds.b 	9
 v_quoteid:		ds.b 	1
 			ds.b 	1
-v_random:		ds.l	1
 f_levselcheat:		ds.b	1		; level select cheat flag
 f_slomocheat:		ds.b	1		; slow motion & frame advance cheat flag
 f_debugcheat:		ds.b	1		; debug mode cheat flag
@@ -484,6 +483,7 @@ v_title_ccount:		ds.w	1		; number of times C is pressed on title screen
 f_demo:			ds.w	1		; demo mode flag (0 = no; 1 = yes; $8001 = ending)
 v_demonum:		ds.w	1		; demo level number (not the same as the level number)
 v_creditsnum:		ds.w	1		; credits index number
+v_random:		ds.l	1
 v_toolimited:		ds.b 	1		; Used to toggle which game to boot
 			ds.b 	1
 v_megadrive:		ds.b	1		; Megadrive machine type
