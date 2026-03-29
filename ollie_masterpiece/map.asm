@@ -99,7 +99,9 @@ ol_ScrollMap:
 ;	eq/ne - Not solid/Solid
 ; ------------------------------------------------------------------------------
 
-ol_CheckBlockSolid:
+ol_CheckSolidBlock:
+	movem.w	d0-d1,-(sp)					; Save registers
+
 	movea.l	ol_map_foreground,a1				; Get chunk row
 	move.w	d1,d2
 	andi.w	#~$1F,d2
@@ -134,6 +136,7 @@ ol_CheckBlockSolid:
 	andi.w	#$F000,d2					; If so, check if block's solidity is enabled
 
 .End:
+	movem.w	(sp)+,d0-d1					; Restore registers
 	rts
 
 ; ------------------------------------------------------------------------------

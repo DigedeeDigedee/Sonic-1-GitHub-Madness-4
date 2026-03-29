@@ -45,16 +45,29 @@ ol_obj_update		ds.l 1					; Update function address
 ol_obj_draw		ds.l 1					; Draw function address
 ol_obj_layer		ds.b 1					; Layer
 ol_obj_flags		ds.b 1					; Flags
+ol_obj_subtype		ds.b 1					; Subtype
+ol_obj_subtype_2	ds.b 1					; Subtype 2
 ol_obj_x		ds.l 1					; X position
 ol_obj_y		ds.l 1					; Y position
 ol_obj_target_x		ds.w 1					; Target X position
 ol_obj_target_y		ds.w 1					; Target Y position
 ol_obj_x_speed		ds.w 1					; X speed
 ol_obj_y_speed		ds.w 1					; Y speed
-ol_obj_grid_speed	ds.w 1					; Grid movement speed
 ol_obj_free		ds.b object_size-*			; Free space
 ol_obj_struct_size	ds.b 0					; Size of structure
 	dephase
+
+; ------------------------------------------------------------------------------
+; Object flags
+; ------------------------------------------------------------------------------
+
+ol_OBJECT_DIRECTION	equ %11					; Object direction mask
+ol_OBJECT_LEFT		equ 0					; Left
+ol_OBJECT_RIGHT		equ 1					; Right
+ol_OBJECT_UP		equ 2					; Up
+ol_OBJECT_DOWN		equ 3					; Down
+
+ol_OBJECT_MOVE		equ 2					; Object move flag
 
 ; ------------------------------------------------------------------------------
 ; Buffers
@@ -66,6 +79,8 @@ ol_map_row_2		ds.w (512/8)				; Map row buffer 2
 ol_map_column_1		ds.w (256/8)+3				; Map column buffer 1
 ol_map_column_2		ds.w (256/8)				; Map column buffer 2
 
+ol_solid_objects	ds.w $1F+1				; Solid object list
+
 ol_palette		equ v_palette				; Palette buffer
 ol_palette_fade		equ v_palette_fading			; Palette fade buffer
 ol_sprites		equ v_spritetablebuffer			; Sprite table buffer
@@ -76,7 +91,11 @@ ol_objects_end		equ v_objspace_end			; End of object pool
 ol_object_draw		equ v_spritequeue			; Object draw queue
 ol_object_draw_end	equ v_spritequeue_end			; End of object draw queue
 
+ol_player_object	equ ol_objects				; Player object
+ol_object_spawn		equ ol_objects+(ol_obj_struct_size*1)	; Object spawn pool
+
 ol_OBJECT_COUNT		equ (ol_objects_end-ol_objects)/ol_obj_struct_size
+ol_OBJECT_SPAWN_COUNT	equ (ol_objects_end-ol_object_spawn)/ol_obj_struct_size
 
 ; ------------------------------------------------------------------------------
 

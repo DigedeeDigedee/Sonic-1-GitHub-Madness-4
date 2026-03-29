@@ -11,8 +11,10 @@ ol_PlayerObject:
 	move.l	#ol_PlayerUpdate,ol_obj_update(a0)		; Set update state
 	move.l	#ol_PlayerDraw,ol_obj_draw(a0)			; Set draw function
 
-	move.w	#$180,ol_obj_grid_speed(a0)			; Set grid movement speed
 	bsr.w	ol_AlignObjectGrid				; Align to grid
+
+	move.w	#$180,ol_obj_x_speed(a0)			; Set speed
+	move.w	#$180,ol_obj_y_speed(a0)
 
 ; ------------------------------------------------------------------------------
 ; Update state
@@ -21,6 +23,9 @@ ol_PlayerObject:
 ol_PlayerUpdate:
 	bsr.w	ol_MoveObjectGrid				; Do grid movement
 	bne.s	.Draw						; If we are still moving, branch
+
+	tst.l	ol_script_addr.w				; Is a script active?
+	bne.s	.Draw						; If so, branch
 
 	btst	#0,ol_p1_ctrl_hold.w				; Is up being held?
 	beq.s	.CheckDown					; If not, branch

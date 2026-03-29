@@ -44,9 +44,13 @@ GM_OllieMasterpiece:
 	bsr.w	ol_InitMap					; Initialize map
 	bsr.w	ol_InitScript					; Initialize scripting
 
-	move.l	#ol_PlayerObject,ol_objects.w			; Spawn player object
-	move.w	#$180,ol_objects+ol_obj_x.w
-	move.w	#$F0,ol_objects+ol_obj_y.w
+	move.l	#ol_PlayerObject,ol_player_object.w		; Spawn player object
+	move.w	#$188,ol_player_object+ol_obj_x.w
+	move.w	#$F8,ol_player_object+ol_obj_y.w
+
+	move.l	#ol_NpcObject,ol_object_spawn.w			; Spawn test NPC object
+	move.w	#$168,ol_object_spawn+ol_obj_x.w
+	move.w	#$C8,ol_object_spawn+ol_obj_y.w
 
 	bsr.w	ol_UpdateObjects				; Update objects
 
@@ -56,9 +60,6 @@ GM_OllieMasterpiece:
 	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
 	bsr.w	ol_DrawObjects					; Draw object sprites
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
-
-	lea	.TestScript(pc),a1				; Start test script
-	bsr.w	ol_StartScript
 
 	move.w	#$8174,ol_VDP_CTRL				; Enable display
 	jsr	PaletteFadeIn.w					; Fade in palette
@@ -81,36 +82,6 @@ GM_OllieMasterpiece:
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
 	bra.w	.Loop						; Loop
-
-; ------------------------------------------------------------------------------
-
-.TestScript:
-	ol_scriptShowIcon ol_PlayerIcon, 0
-	ol_scriptShowTextbox
-
-	ol_scriptText
-	dc.b	"Hello world!", ol_TEXT_NEW_LINE
-	ol_scriptTextEnd
-	
-	ol_scriptWaitUser
-
-	ol_scriptText
-	dc.b	ol_TEXT_NEW_LINE
-	dc.b	"I GOT BLISTERS ON MY FINGERS!!"
-	ol_scriptTextEnd
-
-	ol_scriptWaitUser
-	ol_scriptClearTextbox
-
-	ol_scriptText
-	dc.b	"Yak yak yak yak yak yak.", ol_TEXT_NEW_LINE
-	dc.b	ol_TEXT_NEW_LINE
-	dc.b	"I wonder what lead tastes like... ^_^"
-	ol_scriptTextEnd
-
-	ol_scriptWaitUser
-
-	ol_scriptEnd
 
 ; ------------------------------------------------------------------------------
 ; V-BLANK interrupt
@@ -170,6 +141,7 @@ ol_VBlank:
 ; ------------------------------------------------------------------------------
 
 	include	"objects/player.asm"
+	include	"objects/npc.asm"
 
 ; ------------------------------------------------------------------------------
 ; Data
