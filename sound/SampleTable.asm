@@ -59,9 +59,9 @@ SampleTable:
 	dcSample	TYPE_PCM,	QuakeJump,	0,	FLAGS_SFX			; $A8 
 	dcSample	TYPE_PCM,	Fannys,		0,	FLAGS_SFX			; $A9
 	dcSample	TYPE_PCM,	QuakeRocket,	11297				; $AA 
-	dcSample	TYPE_PCM,	CL_STFU,	11297,	FLAGS_SFX		; $AB 
+	dcSample	TYPE_DPCM,	CL_STFU,	8000,	FLAGS_SFX		; $AB 
 	dcSample	TYPE_PCM,	CL_Fuck,	11297					; $AC 
-	dcSample	TYPE_DPCM,	Chicken,	16000,	FLAGS_SFX		; $AD if my oc dodongos has been added, use this sound effect as a sfx_death replacement
+	dcSample	TYPE_DPCM,	Chicken,	8000,	FLAGS_SFX		; $AD if my oc dodongos has been added, use this sound effect as a sfx_death replacement
 	dcSample	TYPE_PCM,	GayNeil,	0,	FLAGS_SFX			; $AE
 	dcSample	TYPE_PCM,	CL_Dicks,	11297					; $AF
 	dcSample	TYPE_PCM,	BabyAlarm,	0,	FLAGS_SFX			; $B0
@@ -83,7 +83,7 @@ SampleTable:
 	dcSample	TYPE_DPCM,	MadnessR,	16000,	FLAGS_SFX		; $BE
 	dcSample	TYPE_DPCM,	TheFourth,	16000,	FLAGS_SFX		; $BF
 	dcSample	TYPE_DPCM,	eggmanLaugh,	16000,	FLAGS_SFX	; $C0
-	dcSample	TYPE_DPCM,	windie,	16000,	FLAGS_SFX			; $C1
+	dcSample	TYPE_DPCM,	windie,		16000,	FLAGS_SFX			; $C1
 
 	; Splash Screens
 	dcSample	TYPE_PCM,	EggNo,		11297					; $C2
@@ -91,10 +91,10 @@ SampleTable:
 	dcSample	TYPE_DPCM,	yume2kki,	16000,	FLAGS_SFX		; $C4
 	dcSample	TYPE_DPCM,	EagleSoft_Song,	16000,	FLAGS_SFX	; $C5
 	dcSample	TYPE_DPCM,	GenesisDoes1,	16000				; $C6
-	dcSample	TYPE_PCM,	supbeaches,	11297					; $C7
+	dcSample	TYPE_DPCM,	supbeaches,	8000					; $C7
 
 	; Commercial Samples
-	dcSample	TYPE_PCM,	BeRightBack,	16000				; $C8
+	dcSample	TYPE_DPCM,	BeRightBack,	8000				; $C8
 	dcSample	TYPE_DPCM,	GenesisCan3,	16000,FLAGS_SFX		; $C9
 
 	; Ollie Samples
@@ -103,8 +103,11 @@ SampleTable:
 
 	; SEGA Samples
 	dcSample	TYPE_PCM_TURBO,	SegaPCM,	0,	FLAGS_SFX		; $CC
-	dcSample	TYPE_PCM,	Segay,		0,	FLAGS_SFX			; $CD
+
 	; Unused
+
+
+;	dcSample	TYPE_PCM,	Segay,		0,	FLAGS_SFX			; $CD
 ;	dcSample	TYPE_PCM,	CL_Penis,	11297					; $CE
 ;	dcSample	TYPE_PCM,	Boioing,	5250,	FLAGS_SFX		; $CF
 ;	dcSample	TYPE_DPCM,	OrngLaugh,	8000,	FLAGS_SFX		; $D0
@@ -179,7 +182,7 @@ SampleTable:
 	incdac	QuakeJump, "sound/dac/quakejump.wav"
 	incdac	Fannys, "sound/dac/Trevor.wav"
 	incdac	QuakeRocket, "sound/dac/tankfire1.wav"
-	incdac	CL_STFU, "sound/dac/CL_STFU.wav"
+	incdac	CL_STFU, "sound/dac/CL_STFU.dpcm"
 	incdac	CL_Fuck, "sound/dac/CL_Fuck.wav"
 	incdac	Chicken, "sound/dac/Chicken.dpcm"
 	incdac	GayNeil, "sound/dac/gayneil.wav"
@@ -194,7 +197,7 @@ SampleTable:
 	incdac	CL_OnTheBall, "sound/dac/CL_OnTheBall.wav"
 	incdac	DAMN, "sound/dac/DAX/DAMN.dpcm"
 	incdac	Foxy, "sound/dac/Foxy.wav"
-    incdac	Scream, "sound/dac/Scream.wav"
+	incdac	Scream, "sound/dac/Scream.wav"
 ; ---------------------------------------------------------------
 ; Title Screen Samples
 	incdac	YoFreddy, "sound/dac/GenesisDoes/YoFreddy.dpcm"
@@ -212,11 +215,11 @@ SampleTable:
 	incdac	yume2kki, "sound/dac/2kki.dpcm"
 	incdac	EagleSoft_Song,	"sound/dac/GenesisDoes/EagleSoft_Song.dpcm"
 	incdac	GenesisDoes1,"sound/dac/GenesisDoes/GenesisDoes1.dpcm"
-	incdac	supbeaches, "sound/dac/supbeaches.wav"
+	incdac	supbeaches, "sound/dac/supbeaches.dpcm"
 
 ; ---------------------------------------------------------------
 ; Advertisement Samples
-	incdac	BeRightBack,"sound/dac/well-be-right-back.wav"	
+	incdac	BeRightBack,"sound/dac/well-be-right-back.dpcm"	
 	incdac	GenesisCan1,"sound/dac/GenesisDoes/GenesisCan1.dpcm"
 	incdac	GenesisCan2,"sound/dac/GenesisDoes/GenesisCan2.dpcm"
 	incdac	GenesisCan3,"sound/dac/GenesisDoes/GenesisCan3.dpcm"
@@ -240,4 +243,3 @@ SampleTable:
 ; ---------------------------------------------------------------
 ; Whatever you want the Sega sound to be
 	incdac	SegaPCM, "sound/dac/sega.wav"
-	incdac	Segay, "sound/dac/sega2.wav" ; (add a region check so the sample will play)
