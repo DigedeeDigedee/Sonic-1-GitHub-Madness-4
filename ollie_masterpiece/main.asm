@@ -44,7 +44,7 @@ GM_OllieMasterpiece:
 	bsr.w	ol_InitMap					; Initialize map
 	bsr.w	ol_InitScript					; Initialize scripting
 
-	move.l	#ol_TestObject,ol_objects.w			; Spawn test object
+	move.l	#ol_PlayerObject,ol_objects.w			; Spawn player object
 	move.w	#$180,ol_objects+ol_obj_x.w
 	move.w	#$F0,ol_objects+ol_obj_y.w
 
@@ -85,7 +85,7 @@ GM_OllieMasterpiece:
 ; ------------------------------------------------------------------------------
 
 .TestScript:
-	ol_scriptShowIcon ol_TestIcon, 0
+	ol_scriptShowIcon ol_PlayerIcon, 0
 	ol_scriptShowTextbox
 
 	ol_scriptText
@@ -100,14 +100,12 @@ GM_OllieMasterpiece:
 	ol_scriptTextEnd
 
 	ol_scriptWaitUser
-	ol_scriptHideIcon
 	ol_scriptClearTextbox
 
 	ol_scriptText
 	dc.b	"Yak yak yak yak yak yak.", ol_TEXT_NEW_LINE
 	dc.b	ol_TEXT_NEW_LINE
-	dc.b	"I wonder what lead tastes", ol_TEXT_NEW_LINE
-	dc.b	"like... ^_^"
+	dc.b	"I wonder what lead tastes like... ^_^"
 	ol_scriptTextEnd
 
 	ol_scriptWaitUser
@@ -171,7 +169,7 @@ ol_VBlank:
 ; Objects
 ; ------------------------------------------------------------------------------
 
-	include	"objects/test.asm"
+	include	"objects/player.asm"
 
 ; ------------------------------------------------------------------------------
 ; Data

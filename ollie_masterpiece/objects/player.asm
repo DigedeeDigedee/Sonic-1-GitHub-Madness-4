@@ -4,12 +4,12 @@
 ; ------------------------------------------------------------------------------
 
 ; ------------------------------------------------------------------------------
-; Test object
+; Player object
 ; ------------------------------------------------------------------------------
 
-ol_TestObject:
-	move.l	#ol_TestObjectUpdate,ol_obj_update(a0)		; Set update state
-	move.l	#ol_DrawTestObject,ol_obj_draw(a0)		; Set draw function
+ol_PlayerObject:
+	move.l	#ol_PlayerUpdate,ol_obj_update(a0)		; Set update state
+	move.l	#ol_PlayerDraw,ol_obj_draw(a0)			; Set draw function
 
 	move.w	#$180,ol_obj_grid_speed(a0)			; Set grid movement speed
 	bsr.w	ol_AlignObjectGrid				; Align to grid
@@ -18,7 +18,7 @@ ol_TestObject:
 ; Update state
 ; ------------------------------------------------------------------------------
 
-ol_TestObjectUpdate:
+ol_PlayerUpdate:
 	bsr.w	ol_MoveObjectGrid				; Do grid movement
 	bne.s	.Draw						; If we are still moving, branch
 
@@ -51,8 +51,8 @@ ol_TestObjectUpdate:
 ; Draw function
 ; ------------------------------------------------------------------------------
 
-ol_DrawTestObject:
-	lea	ol_TestSprites(pc),a1				; Draw sprite
+ol_PlayerDraw:
+	lea	ol_PlayerSprites,a1				; Draw sprite
 	move.w	ol_obj_x(a0),d0
 	sub.w	ol_camera_x.w,d0
 	move.w	ol_obj_y(a0),d1

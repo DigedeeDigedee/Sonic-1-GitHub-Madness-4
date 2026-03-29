@@ -18,30 +18,30 @@ ol_TextboxMapIcon:
 	even
 
 ; ------------------------------------------------------------------------------
-; Test object
+; Player object
 ; ------------------------------------------------------------------------------
 
-ol_TestSprites:
-	include	"sprites/test_sprites.asm"
+ol_PlayerSprites:
+	include	"sprites/player_sprites.asm"
 	even
 
-ol_TestIcon:
-	dc.l	ol_TestIconGfx
-	dc.l	ol_TestIconGfxScript
-	dc.l	ol_TestIconSprites
-	dc.l	ol_TestIconAnims
+ol_PlayerIcon:
+	dc.l	ol_PlayerIconGfx
+	dc.l	ol_PlayerIconGfxScript
+	dc.l	ol_PlayerIconSprites
+	dc.l	ol_PlayerIconAnims
 
-ol_TestIconGfx:
-	incbin	"gfx/test_icon_gfx.bin"
+ol_PlayerIconGfx:
+	incbin	"gfx/player_icon_gfx.bin"
 	even
-ol_TestIconGfxScript:
-	include	"gfx/test_icon_gfx_script.asm"
+ol_PlayerIconGfxScript:
+	include	"gfx/player_icon_gfx_script.asm"
 	even
-ol_TestIconSprites:
-	include	"sprites/test_icon_sprites.asm"
+ol_PlayerIconSprites:
+	include	"sprites/player_icon_sprites.asm"
 	even
-ol_TestIconAnims:
-	include	"anims/test_icon_anims.asm"
+ol_PlayerIconAnims:
+	include	"anims/player_icon_anims.asm"
 	even
 
 ; ------------------------------------------------------------------------------
