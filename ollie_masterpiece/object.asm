@@ -441,11 +441,11 @@ ol_CheckInteractObject:
 	cmp.w	d1,d3
 	bne.s	.NoInteract					; If not, branch
 	
-	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set direction to down
-	if ol_OBJECT_DOWN<>0
-		ori.b	#ol_OBJECT_DOWN,ol_obj_flags(a0)
+	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set our direction to up
+	if ol_OBJECT_UP<>0
+		ori.b	#ol_OBJECT_UP,ol_obj_flags(a0)
 	endif
-	bra.s	.Interact					; There's an interaction
+	bra.s	.Interact					; Interaction detected
 
 ; ------------------------------------------------------------------------------
 
@@ -454,11 +454,11 @@ ol_CheckInteractObject:
 	cmp.w	d0,d2
 	bne.s	.NoInteract					; If not, branch
 	
-	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set direction to left
-	if ol_OBJECT_LEFT<>0
-		ori.b	#ol_OBJECT_LEFT,ol_obj_flags(a0)
+	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set our direction to right
+	if ol_OBJECT_RIGHT<>0
+		ori.b	#ol_OBJECT_RIGHT,ol_obj_flags(a0)
 	endif
-	bra.s	.Interact					; There's an interaction
+	bra.s	.Interact					; Interaction detected
 
 ; ------------------------------------------------------------------------------
 
@@ -467,11 +467,11 @@ ol_CheckInteractObject:
 	cmp.w	d0,d2
 	bne.s	.NoInteract					; If not, branch
 	
-	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set direction to right
-	if ol_OBJECT_RIGHT<>0
-		ori.b	#ol_OBJECT_RIGHT,ol_obj_flags(a0)
+	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set our direction to left
+	if ol_OBJECT_LEFT<>0
+		ori.b	#ol_OBJECT_LEFT,ol_obj_flags(a0)
 	endif
-	bra.s	.Interact					; There's an interaction
+	bra.s	.Interact					; Interaction detected
 
 ; ------------------------------------------------------------------------------
 
@@ -480,10 +480,10 @@ ol_CheckInteractObject:
 	cmp.w	d1,d3
 	bne.s	.NoInteract					; If not, branch
 	
-	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set direction to left
+	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set our direction to left
 	if ol_OBJECT_DOWN<>0
 		ori.b	#ol_OBJECT_DOWN,ol_obj_flags(a0)
 	endif
-	bra.s	.Interact					; There's an interaction
+	bra.s	.Interact					; Interaction detected
 
 ; ------------------------------------------------------------------------------
