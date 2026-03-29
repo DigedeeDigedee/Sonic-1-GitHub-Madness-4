@@ -261,8 +261,8 @@ ol_DrawTextboxIcon:
 	bsr.w	ol_UpdateAnimation
 
 	movea.l	8(a0),a1					; Draw icon sprite
-	moveq	#8,d0
-	move.w	#168,d1
+	moveq	#34,d0
+	move.w	#192,d1
 	moveq	#0,d2
 	move.w	#(ol_TEXTBOX_VRAM/$20)+$69,d3
 	move.b	ol_script_icon_anim+ol_anim_frame.w,d4
