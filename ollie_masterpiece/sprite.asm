@@ -48,8 +48,8 @@ ol_EndSpriteDraw:
 	moveq	#0,d0						; Zero
 
 .ClearUnused:
-	move.l	d0,(a0)+					; Clear unused sprite slot
-	move.l	d0,(a0)+
+	move.w	d0,(a0)						; Move unused sprite slot off-screen
+	addq.w	#8,a0
 	dbf	d1,.ClearUnused					; Loop until finished
 
 .End:
