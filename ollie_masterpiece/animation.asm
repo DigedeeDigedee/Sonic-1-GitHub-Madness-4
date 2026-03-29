@@ -13,9 +13,12 @@
 
 ol_SetAnimation:
 	move.l	a2,ol_anim_addr(a1)				; Set animation script address
+	beq.s	.End						; If it's not set, branch
 	move.w	(a2)+,ol_anim_speed(a1)				; Set animation speed
 	move.b	(a2)+,ol_anim_end(a1)				; Set animation script end index
 	clr.l	ol_anim_index(a1)				; Reset animation script index and frame ID
+
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------

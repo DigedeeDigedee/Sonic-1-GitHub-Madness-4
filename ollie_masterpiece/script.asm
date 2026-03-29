@@ -145,7 +145,10 @@ ol_ScriptClearTextbox:
 
 ol_ScriptShowIcon:
 	move.l	(a0)+,ol_script_icon_addr.w			; Set icon data address
-	move.l	(a0)+,ol_script_icon_anim.w			; Set icon animation script
+	lea	ol_script_icon_anim.w,a1			; Set icon animation
+	move.l	(a0)+,a2
+	bsr.w	ol_SetAnimation
+	
 	bset	#1,ol_script_flags.w				; Show icon
 	bra.s	ol_ScriptClearTextbox				; Clear textbox
 
@@ -155,6 +158,9 @@ ol_ScriptShowIcon:
 
 ol_ScriptHideIcon:
 	clr.l	ol_script_icon_addr.w				; Clear icon data address
+	lea	ol_script_icon_anim.w,a1			; Clear icon animation
+	bsr.w	ol_ClearAnimation
+	
 	bclr	#1,ol_script_flags.w				; Hide icon
 	bra.s	ol_ScriptClearTextbox				; Clear textbox
 
