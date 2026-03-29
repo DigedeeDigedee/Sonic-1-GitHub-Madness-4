@@ -483,14 +483,15 @@ v_title_ccount:		ds.w	1		; number of times C is pressed on title screen
 f_demo:			ds.w	1		; demo mode flag (0 = no; 1 = yes; $8001 = ending)
 v_demonum:		ds.w	1		; demo level number (not the same as the level number)
 v_creditsnum:		ds.w	1		; credits index number
+f_debugmode:		ds.w	1		; debug mode flag
 
-; Keep 
+v_gamechangeram:
+
 v_random:		ds.l	1
-v_curgame:		ds.b	1		; Used to toggle which game to boot
-v_lastgame:		ds.b	1		; Used to test if to clear Cross-Reset RAM and Z80 RAM on game boot
 v_megadrive:		ds.b	1		; Megadrive machine type
 			ds.b	1
-f_debugmode:		ds.w	1		; debug mode flag
+v_curgame:		ds.b	1		; Used to toggle which game to boot
+v_lastgame:		ds.b	1		; Used to test if to clear Cross-Reset RAM and Z80 RAM on game boot
 
 v_vintcode:
 .jmp:			ds.w	1
