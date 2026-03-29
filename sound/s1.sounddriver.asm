@@ -53,6 +53,7 @@ PSG_Index:
 		dc.l PSG_Danstar_01, PSG_Danstar_02, PSG_Danstar_03, PSG_Danstar_04
 		dc.l PSG_TF1, PSG_TF2
 		dc.l PSG_Apple1, PSG_Apple2, PSG_Apple3, PSG_Apple4
+		dc.l PSG_Scrap1, PSG_Scrap2, PSG_Cheetah, PSG_Coffin, PSG_Doom
 
 PSG1:		dc.b 0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,$80
 	even
@@ -271,6 +272,29 @@ PSG_Chicken_03:
 
 	PSG_Apple4:
 	dc.b	0,$80
+	even
+
+	PSG_Scrap1:
+	dc.b	0,1,1,2,2,2,2,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4
+	dc.b	4,5,$80
+	even
+
+	PSG_Scrap2:
+	dc.b	4,3,2,2,2,2,1,1,1,1,1,0,$80
+	even
+
+	PSG_Cheetah:
+	dc.b	2,$80
+	even
+
+	PSG_Coffin:
+	dc.b	7,6,5,4,4,3,3,2,2,1,0,0,0,0,0,0,0,1,1,2,2,2
+	dc.b	2,3,3,4,4,5,5,6,6,7,$80
+	even
+
+	PSG_Doom:
+	dc.b	0,0,0,0,0,0,0,0,1,2,2,3,3,3,4,5,5,6,6,7,7,7
+	dc.b	8,8,8,9,9,9,9,$A,$80
 	even
 
 

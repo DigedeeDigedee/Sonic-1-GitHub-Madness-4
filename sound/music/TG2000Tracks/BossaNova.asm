@@ -1250,7 +1250,7 @@ BossaNova_PSG3_Jump:
 
 BossaNova_PSG3_0B_0_64_0D:
 	smpsPSGvoice	AppleTone_01
-	dc.b nRst, $04
+	dc.b nMaxPSG, $04
 	smpsPSGAlterVol	$03
 	dc.b $04
 	smpsPSGAlterVol	$FD

@@ -1233,7 +1233,7 @@ Bad_Apple_PSG3_Jump:
 	smpsJump Bad_Apple_PSG3_Jump
 
 Bad_Apple_PSG3_00_0_64:
-	dc.b smpsNoAttack, $04
+	dc.b nRst, $04
 	smpsPSGvoice	AppleTone_01
 	dc.b nMaxPSG, $02, $06, $02, $06, $02, $06, $02, $06, $02, $06, $02, $06, $02, $06, $02
 	dc.b $02
