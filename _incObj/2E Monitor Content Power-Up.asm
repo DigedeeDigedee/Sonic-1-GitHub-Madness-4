@@ -147,12 +147,15 @@ Pow_RingSound:
 Pow_ChkS:
 		cmpi.b	#7,d0		; does monitor contain 'S'?
 		bne.s	Pow_ChkGoggles
-;		move.b	#2,(v_curgame).w	; Fuck you, you're going to Osomatsu-kun
+		move.b	#1,(v_curgame).w	; Fuck you, you're going to Osomatsu-kun
+		move.b	#bgm_Stop,d0
+		jsr	(QueueSound2).l
+		jsr	(PaletteFadeOut).l
 		nop
-;		nop
-;		disable_ints
-;		lea	(v_systemstack).l,sp
-;		jmp	(EntryPoint).l		; Jump to entry point to load Osomatsu-kun data
+		nop
+		disable_ints
+		lea	(v_systemstack).l,sp
+		jmp	(EntryPoint).l		; Jump to entry point to load Osomatsu-kun data
 
 Pow_ChkGoggles:
 ; Uncomment these lines to set up the goggles monitor to work with it

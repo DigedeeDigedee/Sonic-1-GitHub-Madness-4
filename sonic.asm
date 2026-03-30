@@ -166,12 +166,14 @@ EndOfHeader:
 ; ===========================================================================
 ; The entirety of Osomatsu-kun (with the header stripped out)
 
-;Init_Osomatsu:			= $5EB0
-;H_Int_Osomatsu:		= $5F7A
-;V_Int_Osomatsu:		= $5F8A
+Init_TooLimited:		= $382
+H_Int_2LS:		= $AE4
+V_Int_2LS:		= $3E2
 
-;	binclude	"_bonusgames/Osomatsu-kun/Osomatsu-kun.bin"	; Welp, the DMA Queue is gonna be problematic
-;	even
+	binclude	"_bonusgames/Too LimitedSonic/Too_LimitedSonic.bin"	; Welp, the DMA Queue is gonna be problematic
+	even
+
+	align	$8000
 
 		binclude "rom manual.txt"
 		even
@@ -454,72 +456,75 @@ CheckSumError:
 ; ---------------------------------------------------------------------------
 
 Get_CurGame:
-;		moveq	#0,d1
-;		move.b	(v_curgame).w,d1	; Get the current game
-;		cmp.b	(v_lastgame).w,d1	; Are we still on the same game?
-;		beq.s	.samegame		; If yes, don't clear cross-reset RAM
+		moveq	#0,d3
+		move.b	(v_curgame).w,d3	; Get the current game
+		cmp.b	(v_lastgame).w,d3	; Are we still on the same game?
+		beq.s	.samegame		; If yes, don't clear cross-reset RAM
 
-;		clearRAM v_crossresetram,v_gamechangeram	; We don't want to clear the last $18 bytes of RAM space
+		clearRAM v_crossresetram,v_gamechangeram	; We don't want to clear the last $18 bytes of RAM space
 
-;		moveq	#0,d0
-;		move.w	#$100,d7
-;		lea	Z80_SetupValues(pc),a5	; load setup values array address
-;		lea	(z80_ram).l,a0
-;		move.w	d7,(z80_bus_request).l	; stop the Z80
-;		move.w	d7,(z80_reset).l	; reset the Z80
+		moveq	#0,d0
+		move.w	#$100,d7
+		lea	Z80_SetupValues(pc),a5	; load setup values array address
+		lea	(z80_ram).l,a0
+		move.w	d7,(z80_bus_request).l	; stop the Z80
+		move.w	d7,(z80_reset).l	; reset the Z80
 
-;.WaitForZ80:
-;		btst	d0,(z80_bus_request).l	; has the Z80 stopped?
-;		bne.s	.WaitForZ80		; if not, branch
+.WaitForZ80:
+		btst	d0,(z80_bus_request).l	; has the Z80 stopped?
+		bne.s	.WaitForZ80		; if not, branch
 
-;		moveq	#$25,d2
-;.Z80InitLoop:
-;		move.b	(a5)+,(a0)+
-;		dbf	d2,.Z80InitLoop
+		moveq	#$25,d2
+.Z80InitLoop:
+		move.b	(a5)+,(a0)+
+		dbf	d2,.Z80InitLoop
 
-;		move.w	d0,(z80_reset).l
-;		move.w	d0,(z80_bus_request).l	; start the Z80
-;		move.w	d7,(z80_reset).l	; reset the Z80
+		move.w	d0,(z80_reset).l
+		move.w	d0,(z80_bus_request).l	; start the Z80
+		move.w	d7,(z80_reset).l	; reset the Z80
 
-;.samegame:
+.samegame:
 		move.w	#opcode_jmpabslong,(v_vintcode.jmp).w	; Let's set these up first
-;		move.w	#opcode_jmpabslong,(v_hintcode.jmp).w
-;		add.w	d1,d1
-;		moveq	#0,d0
-;		move.w	.GameIndex(pc,d1.w),d0
-;		jmp	.GameIndex(pc,d0.w)
+		move.w	#opcode_jmpabslong,(v_hintcode.jmp).w
+		add.w	d3,d3
+		moveq	#0,d0
+		move.w	.GameIndex(pc,d3.w),d0
+		jmp	.GameIndex(pc,d0.w)
 
 ; ===========================================================================
-;.GameIndex:
-;		dc.w	.GHM4-.GameIndex	;  0
-;		dc.w	.TooLimited-.GameIndex	;  2
-;		dc.w	.Osomatsu-.GameIndex	;  4
+.GameIndex:
+		dc.w	.GHM4-.GameIndex	;  0
+		dc.w	.TooLimited-.GameIndex	;  2
+		dc.w	.Osomatsu-.GameIndex	;  4
 ; ===========================================================================
 
-;.GHM4:
+.GHM4:
 		move.l	#VBlank,(v_vintcode.addr).w		; Setup Vint for GHM4
 		move.w	#opcode_rte,(v_hintcode.jmp).w		; Setup Hint for GHM4
-;		move.b	(v_curgame).w,(v_lastgame).w
+		move.b	(v_curgame).w,(v_lastgame).w
 		jmp	(Init_GHM4).l				; Boot up GHM4
 
 ; ===========================================================================
 
-;.TooLimited:
-;		move.l	#V_Int_2LS,(v_vintcode.addr).w		; Setup Vint for Too LimitedSonic
+.TooLimited:
+		move.l	#V_Int_2LS,(v_vintcode.addr).w		; Setup Vint for Too LimitedSonic
 ;		move.l	#VBlank,(v_vintcode.addr).w		; Setup Vint for GHM4 (whilst we get the games in)
-;		move.l	#H_Int_2LS,(v_hintcode.addr).w		; Setup Hint for Too LimitedSonic
+		move.l	#H_Int_2LS,(v_hintcode.addr).w		; Setup Hint for Too LimitedSonic
 ;		move.w	#opcode_rte,(v_hintcode.jmp).w		; Setup Hint for GHM4 (whilst we get the games in)
-;		move.b	(v_curgame).w,(v_lastgame).w
+		move.b	(v_curgame).w,(v_lastgame).w
+		jmp	(Init_TooLimited).l			; Boot up Too LimitedSonic
 ;		bra.w	Init_GHM4				; Boot up GHM4 (whilst we get the games in)
-;		jmp	(Init_TooLimited).l				; Boot up Too LimitedSonic
 
 ; ===========================================================================
 
-;.Osomatsu:
+.Osomatsu:
 ;		move.l	#V_Int_Osomatsu,(v_vintcode.addr).w	; Setup Vint for Osomatsu-kun
+		move.l	#VBlank,(v_vintcode.addr).w		; Setup Vint for GHM4 (whilst we get the games in)
 ;		move.l	#H_Int_Osomatsu,(v_hintcode.addr).w	; Setup Hint for Osomatsu-kun
-;		move.b	(v_curgame).w,(v_lastgame).w
+		move.w	#opcode_rte,(v_hintcode.jmp).w		; Setup Hint for GHM4 (whilst we get the games in)
+		move.b	(v_curgame).w,(v_lastgame).w
 ;		jmp	(Init_Osomatsu).w			; Boot up Osomatsu-kun
+		bra.w	Init_GHM4				; Boot up GHM4 (whilst we get the games in)
 
 ; ===========================================================================
 
