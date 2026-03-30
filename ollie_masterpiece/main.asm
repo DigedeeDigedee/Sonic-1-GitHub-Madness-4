@@ -48,10 +48,7 @@ GM_OllieMasterpiece:
 	move.w	#$188,ol_player_object+ol_obj_x.w
 	move.w	#$F8,ol_player_object+ol_obj_y.w
 
-	move.l	#ol_NpcObject,ol_object_spawn.w			; Spawn test NPC object
-	move.w	#$168,ol_object_spawn+ol_obj_x.w
-	move.w	#$C8,ol_object_spawn+ol_obj_y.w
-
+	bsr.w	ol_SpawnMapObjects				; Spawn map objects
 	bsr.w	ol_UpdateObjects				; Update objects
 
 	bsr.w	ol_ScrollMap					; Scroll map

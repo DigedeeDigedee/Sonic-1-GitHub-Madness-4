@@ -44,6 +44,37 @@ ol_InitMap:
 	lea	ol_NpcGfx,a0					; Load NPC graphics
 	move.l	#ol_vramWriteCmd(ol_FREE_VRAM),ol_VDP_CTRL
 	jmp	(NemDec).l
+
+; ------------------------------------------------------------------------------
+; Spawn map objects
+; ------------------------------------------------------------------------------
+
+ol_SpawnMapObjects:
+	movea.l	ol_map_objects.w,a0				; Get map objects
+	lea	ol_MapObjectIndex,a2				; Map object index
+
+	move.w	(a0)+,d1					; Get number of objects
+	subq.w	#1,d1
+	bmi.s	.End						; If there are none, branch
+
+.SpawnLoop:
+	bsr.w	ol_SpawnObject					; Spawn object
+	bne.s	.End						; If it failed, branch
+
+	move.w	(a0)+,d0					; Set update function
+	add.w	d0,d0
+	add.w	d0,d0
+	move.l	-4(a2,d0.w),ol_obj_update(a1)
+	
+	move.w	(a0)+,ol_obj_subtype(a1)			; Set subtypes
+
+	move.w	(a0)+,ol_obj_x(a1)				; Set position
+	move.w	(a0)+,ol_obj_y(a1)
+
+	dbf	d1,.SpawnLoop					; Loop until finished
+
+.End:
+	rts
 	
 ; ------------------------------------------------------------------------------
 ; Scroll map

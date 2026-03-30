@@ -18,6 +18,13 @@ ol_TextboxMapIcon:
 	even
 
 ; ------------------------------------------------------------------------------
+; Map objects
+; ------------------------------------------------------------------------------
+
+ol_MapObjectIndex:
+	dc.l	ol_NpcObject					; NPC
+
+; ------------------------------------------------------------------------------
 ; Player object
 ; ------------------------------------------------------------------------------
 
@@ -82,7 +89,7 @@ ol_TestMap:
 	dc.l	.Chunks						; Chunks
 	dc.l	.Foreground					; Foreground
 	dc.l	.Collision					; Collision
-	dc.l	0						; Objects
+	dc.l	.Objects					; Objects
 	dc.w	0, $280, 0, $200				; Boundaries
 
 .Gfx:
@@ -102,6 +109,9 @@ ol_TestMap:
 	even
 .Collision:
 	incbin	"maps/test/collision.bin"
+	even
+.Objects:
+	incbin	"maps/test/objects.bin"
 	even
 
 ; ------------------------------------------------------------------------------

@@ -23,7 +23,7 @@ ol_UpdateObjects:
 	clr.w	ol_solid_objects				; Clear solid object list
 
 	adda.w	#ol_obj_struct_size,a0				; Go to object spawn pool
-	moveq	#ol_OBJECT_SPAWN_COUNT-1,d7			; Object spawn pool count
+	moveq	#ol_OBJECT_SPAWN_COUNT-1,d7			; Object spawn pool slot count
 
 .UpdateLoop:
 	move.l	ol_obj_update(a0),d0				; Get update function
@@ -99,6 +99,28 @@ ol_DrawObject:
 	addq.w	#2,(a1)						; Increment objects queued
 	adda.w	(a1),a1						; Add object to queue
 	move.w	a0,(a1)
+
+.End:
+	rts
+
+; ------------------------------------------------------------------------------
+; Spawn object
+; ------------------------------------------------------------------------------
+; RETURNS:
+;	a1.l  - Object slot address (if available)
+;	eq/ne - Object slot found/No object slot found
+; ------------------------------------------------------------------------------
+
+ol_SpawnObject:
+	lea	ol_object_spawn.w,a1				; Object spawn pool
+	moveq	#ol_OBJECT_SPAWN_COUNT-1,d0			; Object spawn pool slot count
+
+.FindSlot:
+	tst.l	ol_obj_update(a1)				; Is this slot available?
+	beq.s	.End						; If so, branch
+
+	adda.w	#ol_obj_struct_size,a1				; Next object
+	dbf	d0,.FindSlot					; Loop until finished
 
 .End:
 	rts
