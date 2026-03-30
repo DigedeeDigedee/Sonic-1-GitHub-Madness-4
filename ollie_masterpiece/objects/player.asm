@@ -24,43 +24,39 @@ ol_PlayerObject:
 
 ol_PlayerUpdate:
 	bsr.w	ol_MoveObjectGrid				; Do grid movement
-	bne.s	.Draw						; If we are still moving, branch
-
+	bne.s	.GetAnimation					; If we haven't reached our target, branch
 	tst.l	ol_script_addr.w				; Is a script active?
-	bne.s	.Draw						; If so, branch
+	bne.s	.GetAnimation					; If so, branch
 
 	btst	#0,ol_p1_ctrl_hold.w				; Is up being held?
 	beq.s	.CheckDown					; If not, branch
 	bsr.w	ol_MoveObjectGridUp				; Move up
-	bra.s	.Draw						; Draw sprite
+	bra.s	.GetAnimation					; Get animation
 
 .CheckDown:
 	btst	#1,ol_p1_ctrl_hold.w				; Is down being held?
 	beq.s	.CheckLeft					; If not, branch
 	bsr.w	ol_MoveObjectGridDown				; Move down
-	bra.s	.Draw						; Draw sprite
+	bra.s	.GetAnimation					; Get animation
 
 .CheckLeft:
 	btst	#2,ol_p1_ctrl_hold.w				; Is left being held?
 	beq.s	.CheckRight					; If not, branch
 	bsr.w	ol_MoveObjectGridLeft				; Move left
-	bra.s	.Draw						; Draw sprite
+	bra.s	.GetAnimation					; Get animation
 
 .CheckRight:
 	btst	#3,ol_p1_ctrl_hold.w				; Is right being held?
-	beq.s	.Draw						; If not, branch
+	beq.s	.GetAnimation					; If not, branch
 	bsr.w	ol_MoveObjectGridRight				; Move right
 
-.Draw:
+.GetAnimation:
 	lea	ol_player_anim(a0),a1				; Animation structure
 	lea	ol_PlayerAnims,a2				; Animation scripts
 
 	move.b	ol_obj_flags(a0),d0				; Get direction as animation ID
 	andi.w	#ol_OBJECT_DIRECTION,d0
-	tst.l	ol_script_addr.w				; Is a script active?
-	bne.s	.SetAnimation					; If so, branch
-	move.b	ol_p1_ctrl_hold.w,d1				; Is the D-pad being held?
-	andi.b	#$F,d1
+	bsr.w	ol_CheckObjectMove				; Are we moving?
 	beq.s	.SetAnimation					; If not, branch
 	addq.w	#4,d0						; If so, use movement animation ID
 

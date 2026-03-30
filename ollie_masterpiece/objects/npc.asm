@@ -32,9 +32,14 @@ ol_NpcUpdate:
 	lea	ol_npc_anim(a0),a1				; Animation structure
 	lea	ol_NpcAnims,a2					; Animation scripts
 
-	move.b	ol_obj_flags(a0),d0				; Set animation
+	move.b	ol_obj_flags(a0),d0				; Get direction as animation ID
 	andi.w	#ol_OBJECT_DIRECTION,d0
-	add.w	d0,d0
+	bsr.w	ol_CheckObjectMove				; Are we moving?
+	beq.s	.SetAnimation					; If not, branch
+	addq.w	#4,d0						; If so, use movement animation ID
+
+.SetAnimation:
+	add.w	d0,d0						; Set animation
 	adda.w	(a2,d0.w),a2
 	bsr.w	ol_SetAnimation
 

@@ -53,6 +53,8 @@ ol_obj_subtype		ds.b 1					; Subtype
 ol_obj_subtype_2	ds.b 1					; Subtype 2
 ol_obj_x		ds.l 1					; X position
 ol_obj_y		ds.l 1					; Y position
+ol_obj_prev_x		ds.l 1					; Previous X position
+ol_obj_prev_y		ds.l 1					; Previous Y position
 ol_obj_target_x		ds.w 1					; Target X position
 ol_obj_target_y		ds.w 1					; Target Y position
 ol_obj_x_speed		ds.w 1					; X speed
@@ -70,8 +72,6 @@ ol_OBJECT_DOWN		equ 0					; Down
 ol_OBJECT_UP		equ 1					; Up
 ol_OBJECT_RIGHT		equ 2					; Right
 ol_OBJECT_LEFT		equ 3					; Left
-
-ol_OBJECT_MOVE		equ 2					; Object move flag
 
 ; ------------------------------------------------------------------------------
 ; Buffers

@@ -12,19 +12,27 @@ ol_UpdateObjects:
 
 	move.l	ol_obj_update(a0),d0				; Get player update function
 	beq.s	.SkipPlayer					; If it's not set, branch
-	movea.l	d0,a1						; If it is, run it
+
+	move.l	ol_obj_x(a0),ol_obj_prev_x(a0)			; Set player previous position
+	move.l	ol_obj_y(a0),ol_obj_prev_y(a0)
+
+	movea.l	d0,a1						; Run player update function
 	jsr	(a1)
 	
 .SkipPlayer:
-	adda.w	#ol_obj_struct_size,a0				; Go to object spawn pool
 	clr.w	ol_solid_objects				; Clear solid object list
+
+	adda.w	#ol_obj_struct_size,a0				; Go to object spawn pool
 	moveq	#ol_OBJECT_SPAWN_COUNT-1,d7			; Object spawn pool count
 
 .UpdateLoop:
 	move.l	ol_obj_update(a0),d0				; Get update function
 	beq.s	.NextObject					; If it's not set, branch
+	
+	move.l	ol_obj_x(a0),ol_obj_prev_x(a0)			; Set previous position
+	move.l	ol_obj_y(a0),ol_obj_prev_y(a0)
 
-	move.l	d7,-(sp)					; Run update function
+	move.l	d7,-(sp)					; Update object
 	movea.l	d0,a1
 	jsr	(a1)
 	move.l	(sp)+,d7
@@ -271,6 +279,7 @@ ol_MoveObjectGrid:
 .CheckY:
 	move.w	ol_obj_target_y(a0),d2				; Should we move vertically?
 	cmp.w	ol_obj_y(a0),d2
+	beq.s	.End						; If not, branch
 	bgt.s	.MoveDown					; If we should move down, branch
 
 .MoveUp:
@@ -289,13 +298,52 @@ ol_MoveObjectGrid:
 	move.w	d2,ol_obj_y(a0)					; If so, relocate to target position
 
 .TargetReached:
-	bclr	#ol_OBJECT_MOVE,ol_obj_flags(a0)		; Mark as not moving
 	ori.w	#4,sr						; Target reached
 	rts
 
 .TargetNotReached:
-	bset	#ol_OBJECT_MOVE,ol_obj_flags(a0)		; Mark as moving
 	andi.w	#~4,sr						; Target not reached
+
+.End:
+	rts
+
+; ------------------------------------------------------------------------------
+; Check if an object is moving
+; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	a0.l  - Object slot address
+; RETURNS:
+;	eq/ne - Not moving/Moving
+; ------------------------------------------------------------------------------
+
+ol_CheckObjectMove:
+	move.l	a1,-(sp)					; Save registers
+
+	movea.w	a0,a1						; Check movement
+	bsr.s	ol_CheckOtherObjectMove
+
+	movea.l	(sp)+,a1					; Restore registers
+	rts
+
+; ------------------------------------------------------------------------------
+; Check if some other object is moving
+; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	a1.l  - Object slot address
+; RETURNS:
+;	eq/ne - Not moving/Moving
+; ------------------------------------------------------------------------------
+
+ol_CheckOtherObjectMove:
+	movem.l	d0-d1,-(sp)					; Save registers
+
+	move.l	ol_obj_x(a1),d0					; Get horizontal distance traveled
+	sub.l	ol_obj_prev_x(a1),d0
+	move.l	ol_obj_y(a1),d1					; Get vertical distance traveled
+	sub.l	ol_obj_prev_y(a1),d1
+	or.l	d0,d1						; Combine and check if we moved
+	
+	movem.l	(sp)+,d0-d1					; Restore registers
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -389,13 +437,13 @@ ol_CheckInteractObject:
 	btst	#6,ol_p1_ctrl_tap.w				; Has A been pressed?
 	beq.s	.End						; If not, branch
 
-	btst	#ol_OBJECT_MOVE,ol_obj_flags(a0)		; Are we moving?
+	bsr.w	ol_CheckObjectMove				; Are we moving?
 	bne.s	.NoInteract					; If so, branch
 
 	lea	ol_player_object.w,a1				; Get player
 	tst.l	ol_obj_update(a1)				; Was the player deleted?
 	beq.s	.End						; If so, branch
-	btst	#ol_OBJECT_MOVE,ol_obj_flags(a1)		; Is the player moving?
+	bsr.w	ol_CheckOtherObjectMove				; Is the player moving?
 	bne.s	.NoInteract					; If so, branch
 
 	moveq	#~$F,d4						; Position alignment mask
