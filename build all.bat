@@ -61,7 +61,10 @@ call recmp.bat
 cd ..\..
 cd "clinton fucker"
 call recmp.bat
-cd ..\..
+cd ..
+cd "NeedleBoss"
+call recmp.bat
+cd ..\..\
 
 cd "artkos"
 call recmp.bat
@@ -171,7 +174,9 @@ cd ..
 
 cd "GMZ"
 call recmp.bat
-cd ..
+cd "Rhythm"
+call recmp.bat
+cd ..\..
 
 cd "LiquidSplashes"
 cd "2kki"
@@ -222,8 +227,16 @@ call recmp.bat
 cd ..
 
 cd "ollie_masterpiece"
+cd "gfx"
 call recmp.bat
 cd ..
+cd "maps"
+cd "test"
+call recmp.bat
+cd ..
+cd "test_2"
+call recmp.bat
+cd ..\..\..
 
 cd "segadoodoo"
 call recmp.bat

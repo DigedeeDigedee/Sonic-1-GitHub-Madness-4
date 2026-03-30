@@ -1311,5 +1311,5 @@ Aporia_PSG3_09_0_64:
 	dc.b $01, nRst, $03
 	smpsReturn
 
-	smpsFooterEndSong	"TG2000Tracks/AporiaBU.asm"
+	smpsFooterEndSong	"TG2000Tracks/AporiaVGM.asm"
 	even

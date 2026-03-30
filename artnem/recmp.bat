@@ -164,7 +164,7 @@ call KENSSharp.exe -r n "Unused - MZ Background.nem"
 call KENSSharp.exe -r n "Unused - Smoke.nem"
 call KENSSharp.exe -r n "Unused - SStage Flash.nem"
 call KENSSharp.exe -r n "Unused - SYZ Sparkles.nem"
+call KENSSharp.exe -r n "Villager.nem"
 call KENSSharp.exe -r n "Wario.nem"
 call KENSSharp.exe -r n "WIN Cards.nem"
-call KENSSharp.exe -r n "Villager.nem"
 REM pause

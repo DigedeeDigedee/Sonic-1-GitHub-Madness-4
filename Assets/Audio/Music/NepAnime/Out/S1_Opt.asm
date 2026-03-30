@@ -1,21 +1,21 @@
 ; To clean up
-NEPU_DIMTRIP_Header:
+Nepu_DimTrip_Header:
 	smpsHeaderStartSong	1
-	smpsHeaderVoice	NEPU_DIMTRIP_Patches
+	smpsHeaderVoice	Nepu_DimTrip_Patches
 	smpsHeaderChan	$07, $03
 	smpsHeaderTempo	$02, $06
-	smpsHeaderDAC	NEPU_DIMTRIP_DAC
-	smpsHeaderFM	NEPU_DIMTRIP_FM1, $00, $1E
-	smpsHeaderFM	NEPU_DIMTRIP_FM2, $00, $1E
-	smpsHeaderFM	NEPU_DIMTRIP_FM3, $00, $1E
-	smpsHeaderFM	NEPU_DIMTRIP_FM4, $00, $1E
-	smpsHeaderFM	NEPU_DIMTRIP_FM5, $00, $1E
-	smpsHeaderFM	NEPU_DIMTRIP_FM6, $00, $1E
-	smpsHeaderPSG	NEPU_DIMTRIP_PSG1, $00, $08, $00, $00
-	smpsHeaderPSG	NEPU_DIMTRIP_PSG2, $00, $08, $00, $00
-	smpsHeaderPSG	NEPU_DIMTRIP_PSG3, $00, $08, $00, $00
+	smpsHeaderDAC	Nepu_DimTrip_DAC
+	smpsHeaderFM	Nepu_DimTrip_FM1, $00, $1E
+	smpsHeaderFM	Nepu_DimTrip_FM2, $00, $1E
+	smpsHeaderFM	Nepu_DimTrip_FM3, $00, $1E
+	smpsHeaderFM	Nepu_DimTrip_FM4, $00, $1E
+	smpsHeaderFM	Nepu_DimTrip_FM5, $00, $1E
+	smpsHeaderFM	Nepu_DimTrip_FM6, $00, $1E
+	smpsHeaderPSG	Nepu_DimTrip_PSG1, $00, $08, $00, $00
+	smpsHeaderPSG	Nepu_DimTrip_PSG2, $00, $08, $00, $00
+	smpsHeaderPSG	Nepu_DimTrip_PSG3, $00, $08, $00, $00
 
-NEPU_DIMTRIP_FM1:
+Nepu_DimTrip_FM1:
 	smpsFMvoice		$00
 	dc.b	nRst, $10, nB4, $08, nB3, $04, nB4, nB3
 	dc.b	nBb4, nB4, nB3, nB3, nCs5, nB4, nB3, nBb4
@@ -35,7 +35,7 @@ NEPU_DIMTRIP_FM1:
 	dc.b	nEb4, nB3, nB4, $08, nB3, $04, nA4, nB3
 	dc.b	nG4, nFs4, nB3, nA4, $08, nB3, $04, nRst
 
-NEPU_DIMTRIP_Jump1:
+Nepu_DimTrip_Jump1:
 	dc.b	nB3, $04, nCs5, nE5, nRst, nEb5, $08, nRst
 	dc.b	$04, nE5, nRst, nFs5, nE5, nEb5, nB4, $10
 	dc.b	nRst, $7F, $79
@@ -68,17 +68,17 @@ NEPU_DIMTRIP_Jump1:
 	dc.b	nE4, $08, nB3, $04, nEb4, nB3, nCs4, nEb4
 	dc.b	nB3, nB4, $08, nB3, $04, nA4, nB3, nG4
 	dc.b	nFs4, nB3, nA4, $08, nB3, $04, nB4
-	smpsJump		NEPU_DIMTRIP_Jump1
+	smpsJump		Nepu_DimTrip_Jump1
 
-NEPU_DIMTRIP_FM2:
+Nepu_DimTrip_FM2:
 	smpsFMvoice		$00
 	dc.b	nRst
 
-NEPU_DIMTRIP_Loop1:
+Nepu_DimTrip_Loop1:
 	dc.b	$40
-	smpsLoop		$00, $08, NEPU_DIMTRIP_Loop1
+	smpsLoop		$00, $08, Nepu_DimTrip_Loop1
 
-NEPU_DIMTRIP_Jump2:
+Nepu_DimTrip_Jump2:
 	dc.b	nRst, $7F, $7F, $3A
 	smpsFMvoice		$05
 	dc.b	$04, nG5, $02, nRst, $0E, nA5, $02, nRst
@@ -95,37 +95,37 @@ NEPU_DIMTRIP_Jump2:
 	dc.b	nB4, $04, nBb4, nBb4, nAb4, nBb4, nRst, nB4
 	dc.b	$08, nB3, $04, nB4, nRst, $7F, $7F, $7F
 	dc.b	$63
-	smpsJump		NEPU_DIMTRIP_Jump2
+	smpsJump		Nepu_DimTrip_Jump2
 
-NEPU_DIMTRIP_FM3:
+Nepu_DimTrip_FM3:
 	smpsFMvoice		$01
 	dc.b	nRst, $10, nB2, $08, $04
 
-NEPU_DIMTRIP_Loop2:
+Nepu_DimTrip_Loop2:
 	dc.b	nRst, nB2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop2
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop2
 	dc.b	nRst, nF2, $08, $04
 
-NEPU_DIMTRIP_Loop3:
+Nepu_DimTrip_Loop3:
 	dc.b	nRst, nF2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop3
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop3
 	dc.b	nRst, nE2, $08, $04, nRst, $14, nE2, $08
 	dc.b	$04, nRst, $14, nD2, $08, $04, nRst, $14
 	dc.b	nA2, $08, $04, nRst, $14, nB2, $08, $04
 
-NEPU_DIMTRIP_Loop4:
+Nepu_DimTrip_Loop4:
 	dc.b	nRst, nB2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop4
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop4
 	dc.b	nRst, nF2, $08, $04
 
-NEPU_DIMTRIP_Loop5:
+Nepu_DimTrip_Loop5:
 	dc.b	nRst, nF2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop5
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop5
 	dc.b	nRst, nE2, $08, $04, nRst, $14, nE2, $08
 	dc.b	$04, nRst, $14, nD2, $08, $04, nRst, $14
 	dc.b	nA2, $08, $04, nRst
 
-NEPU_DIMTRIP_Jump3:
+Nepu_DimTrip_Jump3:
 	dc.b	nRst, $10, nB2, nRst, $08, nB2, $04, nRst
 	dc.b	nB2, nRst, $14, nFs2, $0C, nRst, $7F, $49
 	dc.b	nE2, $04, nRst, $1C, nG2, $02, nRst, $0E
@@ -145,9 +145,9 @@ NEPU_DIMTRIP_Jump3:
 	dc.b	nRst, $06, nE2, $02, nRst, $0A, nE2, $02
 	dc.b	nRst, $0A, nFs2, $02, nRst, $06
 
-NEPU_DIMTRIP_Loop6:
+Nepu_DimTrip_Loop6:
 	dc.b	nE2, $02, nRst, nF2, nRst, nFs2, nRst
-	smpsLoop		$00, $02, NEPU_DIMTRIP_Loop6
+	smpsLoop		$00, $02, Nepu_DimTrip_Loop6
 	dc.b	nE2, nRst, nFs2, nRst, nFs2, nRst, nFs2, $08
 	dc.b	nRst, $0C, nB2, $04, nRst, nB2, nB2, nB2
 	dc.b	nB2, nB2, nB2, nE2, nRst, nE2, nE2, nE2
@@ -167,111 +167,111 @@ NEPU_DIMTRIP_Loop6:
 	dc.b	nE3, nE3, nE3, nFs2, $02, nRst, $1E, nB2
 	dc.b	$08, $04
 
-NEPU_DIMTRIP_Loop7:
+Nepu_DimTrip_Loop7:
 	dc.b	nRst, nB2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop7
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop7
 	dc.b	nRst, nF2, $08, $04
 
-NEPU_DIMTRIP_Loop8:
+Nepu_DimTrip_Loop8:
 	dc.b	nRst, nF2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop8
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop8
 	dc.b	nRst, nE2, $08, $04, nRst, $14, nE2, $08
 	dc.b	$04, nRst, $14, nD2, $08, $04, nRst, $14
 	dc.b	nA2, $08, $04, nRst, $14, nB2, $08, $04
 
-NEPU_DIMTRIP_Loop9:
+Nepu_DimTrip_Loop9:
 	dc.b	nRst, nB2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop9
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop9
 	dc.b	nRst, nF2, $08, $04
 
-NEPU_DIMTRIP_Loop10:
+Nepu_DimTrip_Loop10:
 	dc.b	nRst, nF2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop10
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop10
 	dc.b	nRst, nE2, $08, $04, nRst, $14, nE2, $08
 	dc.b	$04, nRst, $14, nD2, $08, $04, nRst, $14
 	dc.b	nA2, $08, $04, nRst
-	smpsJump		NEPU_DIMTRIP_Jump3
+	smpsJump		Nepu_DimTrip_Jump3
 
-NEPU_DIMTRIP_FM4:
+Nepu_DimTrip_FM4:
 	smpsFMvoice		$02
 	dc.b	nRst, $04, nA2, nA2, nA2, nRst, $08
 
-NEPU_DIMTRIP_Loop11:
+Nepu_DimTrip_Loop11:
 	dc.b	nB3, $04, nB2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop11
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop11
 	dc.b	nAb2, nFs2, nRst, $08
 
-NEPU_DIMTRIP_Loop12:
+Nepu_DimTrip_Loop12:
 	dc.b	nF3, $04, nF2
-	smpsLoop		$00, $07, NEPU_DIMTRIP_Loop12
+	smpsLoop		$00, $07, Nepu_DimTrip_Loop12
 
-NEPU_DIMTRIP_Loop13:
+Nepu_DimTrip_Loop13:
 	dc.b	nRst, $08, nE3, $04, nE2, nE2, nE2, nE3
 	dc.b	nE2
-	smpsLoop		$00, $02, NEPU_DIMTRIP_Loop13
+	smpsLoop		$00, $02, Nepu_DimTrip_Loop13
 	dc.b	nRst, $08, nD3, $04, nD2, nD2, nD2, nD3
 	dc.b	nD2, nRst, $08, nA3, $04, nA2, nA2, nA2
 	dc.b	nA3, nA2, nRst, $08
 
-NEPU_DIMTRIP_Loop14:
+Nepu_DimTrip_Loop14:
 	dc.b	nB3, $04, nB2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop14
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop14
 	dc.b	nAb2, nFs2, nRst, $08
 
-NEPU_DIMTRIP_Loop15:
+Nepu_DimTrip_Loop15:
 	dc.b	nF3, $04, nF2
-	smpsLoop		$00, $07, NEPU_DIMTRIP_Loop15
+	smpsLoop		$00, $07, Nepu_DimTrip_Loop15
 	dc.b	nRst, $08, nE3, $04, nE2, nE2, nE2, nE3
 	dc.b	nE2, nRst, $08, nE3, $04, nD2, nD2, nD2
 	dc.b	nE3, nD2, nRst, $08, nD3, $04, nF2, nF2
 	dc.b	nF2, nD3, nF2, nRst, $08, nA3, $04, nA2
 
-NEPU_DIMTRIP_Jump4:
+Nepu_DimTrip_Jump4:
 	dc.b	nA2, $04, $04, nA3, nA2, nRst, $38, nFs3
 	dc.b	$0C
 
-NEPU_DIMTRIP_Loop16:
+Nepu_DimTrip_Loop16:
 	dc.b	nB2, $02, nRst
-	smpsLoop		$00, $10, NEPU_DIMTRIP_Loop16
+	smpsLoop		$00, $10, Nepu_DimTrip_Loop16
 
-NEPU_DIMTRIP_Loop17:
+Nepu_DimTrip_Loop17:
 	dc.b	nE3, nRst
-	smpsLoop		$00, $10, NEPU_DIMTRIP_Loop17
+	smpsLoop		$00, $10, Nepu_DimTrip_Loop17
 
-NEPU_DIMTRIP_Loop18:
+Nepu_DimTrip_Loop18:
 	dc.b	nB2, nRst
-	smpsLoop		$00, $0F, NEPU_DIMTRIP_Loop18
+	smpsLoop		$00, $0F, Nepu_DimTrip_Loop18
 	dc.b	nB2, nRst, $0A, nE3, $02, nRst, nE3, nRst
 	dc.b	$12, nG2, $02, nRst, nG2, nRst, $0A, nA2
 	dc.b	$02, nRst, nA2, nRst, $0A
 
-NEPU_DIMTRIP_Loop19:
+Nepu_DimTrip_Loop19:
 	dc.b	nB2, $02, nRst
-	smpsLoop		$00, $10, NEPU_DIMTRIP_Loop19
+	smpsLoop		$00, $10, Nepu_DimTrip_Loop19
 
-NEPU_DIMTRIP_Loop20:
+Nepu_DimTrip_Loop20:
 	dc.b	nE2, nRst
-	smpsLoop		$00, $0B, NEPU_DIMTRIP_Loop20
+	smpsLoop		$00, $0B, Nepu_DimTrip_Loop20
 	dc.b	nE2, nRst, $16, nAb2, $02, nRst, nAb2, nRst
 	dc.b	nAb2, nRst, nB2, nRst, nBb2, nRst, nAb2, nRst
 	dc.b	$0A, nFs2, $02, nRst, nFs2, nRst, nFs2, nRst
 	dc.b	nBb2, nRst, nAb2, nRst, nFs2, nRst, $0A
 
-NEPU_DIMTRIP_Loop21:
+Nepu_DimTrip_Loop21:
 	dc.b	nE2, $02, nRst
-	smpsLoop		$00, $07, NEPU_DIMTRIP_Loop21
+	smpsLoop		$00, $07, Nepu_DimTrip_Loop21
 	dc.b	nFs3, nRst, nE3, nRst, nF3, nRst, nFs3, nRst
 	dc.b	$06, nE3, $02, nRst, $3A, nE2, $02, nRst
 	dc.b	nE2, nRst, nE2, nRst, $0A
 
-NEPU_DIMTRIP_Loop22:
+Nepu_DimTrip_Loop22:
 	dc.b	nFs2, $02, nRst
-	smpsLoop		$00, $05, NEPU_DIMTRIP_Loop22
+	smpsLoop		$00, $05, Nepu_DimTrip_Loop22
 	dc.b	nFs2, nRst, $0A
 
-NEPU_DIMTRIP_Loop23:
+Nepu_DimTrip_Loop23:
 	dc.b	nAb2, $02, nRst
-	smpsLoop		$00, $07, NEPU_DIMTRIP_Loop23
+	smpsLoop		$00, $07, Nepu_DimTrip_Loop23
 	dc.b	nEb2, nRst, $06, nEb2, $02, nRst, nEb2, nRst
 	dc.b	nEb2, nRst, $0A, nEb2, $02, nRst, $06, nE2
 	dc.b	$02, nRst, nE2, nRst, nE2, nRst, nE2, nRst
@@ -298,72 +298,72 @@ NEPU_DIMTRIP_Loop23:
 	dc.b	$04, $04, $04, nRst, $08, nE3, $04, $04
 	dc.b	$04, $04, $04, $04, nFs3, $02, nRst, $26
 
-NEPU_DIMTRIP_Loop24:
+Nepu_DimTrip_Loop24:
 	dc.b	nB3, $04, nB2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop24
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop24
 	dc.b	nAb2, nFs2, nRst, $08
 
-NEPU_DIMTRIP_Loop25:
+Nepu_DimTrip_Loop25:
 	dc.b	nF3, $04, nF2
-	smpsLoop		$00, $07, NEPU_DIMTRIP_Loop25
+	smpsLoop		$00, $07, Nepu_DimTrip_Loop25
 
-NEPU_DIMTRIP_Loop26:
+Nepu_DimTrip_Loop26:
 	dc.b	nRst, $08, nE3, $04, nE2, nE2, nE2, nE3
 	dc.b	nE2
-	smpsLoop		$00, $02, NEPU_DIMTRIP_Loop26
+	smpsLoop		$00, $02, Nepu_DimTrip_Loop26
 	dc.b	nRst, $08, nD3, $04, nD2, nD2, nD2, nD3
 	dc.b	nD2, nRst, $08, nA3, $04, nA2, nA2, nA2
 	dc.b	nA3, nA2, nRst, $08
 
-NEPU_DIMTRIP_Loop27:
+Nepu_DimTrip_Loop27:
 	dc.b	nB3, $04, nB2
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop27
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop27
 	dc.b	nAb2, nFs2, nRst, $08
 
-NEPU_DIMTRIP_Loop28:
+Nepu_DimTrip_Loop28:
 	dc.b	nF3, $04, nF2
-	smpsLoop		$00, $07, NEPU_DIMTRIP_Loop28
+	smpsLoop		$00, $07, Nepu_DimTrip_Loop28
 	dc.b	nRst, $08, nE3, $04, nE2, nE2, nE2, nE3
 	dc.b	nE2, nRst, $08, nE3, $04, nD2, nD2, nD2
 	dc.b	nE3, nD2, nRst, $08, nD3, $04, nF2, nF2
 	dc.b	nF2, nD3, nF2, nRst, $08, nA3, $04, nA2
-	smpsJump		NEPU_DIMTRIP_Jump4
+	smpsJump		Nepu_DimTrip_Jump4
 
-NEPU_DIMTRIP_FM5:
+Nepu_DimTrip_FM5:
 	smpsFMvoice		$03
 	dc.b	nRst, $7F, $25
 
-NEPU_DIMTRIP_Loop29:
+Nepu_DimTrip_Loop29:
 	dc.b	nE3, $04, $04, $04, nRst, $14
-	smpsLoop		$00, $02, NEPU_DIMTRIP_Loop29
+	smpsLoop		$00, $02, Nepu_DimTrip_Loop29
 	dc.b	nD3, $04, $04, $04, nRst, $14, nA3, $04
 	dc.b	$04, $04, nRst, $7F, $15
 
-NEPU_DIMTRIP_Loop30:
+Nepu_DimTrip_Loop30:
 	dc.b	nE3, $04, $04, $04, nRst, $14
-	smpsLoop		$00, $02, NEPU_DIMTRIP_Loop30
+	smpsLoop		$00, $02, Nepu_DimTrip_Loop30
 	dc.b	nD3, $04, $04, $04, nRst, $10
 
-NEPU_DIMTRIP_Jump5:
+Nepu_DimTrip_Jump5:
 	dc.b	nRst, $04, nA3, nA3, nA3, nRst, $28, nE3
 	dc.b	$04, nEb3, nE3, nE3, nRst, $0C
 
-NEPU_DIMTRIP_Loop31:
+Nepu_DimTrip_Loop31:
 	dc.b	nB3, $02, nRst
-	smpsLoop		$00, $10, NEPU_DIMTRIP_Loop31
+	smpsLoop		$00, $10, Nepu_DimTrip_Loop31
 
-NEPU_DIMTRIP_Loop32:
+Nepu_DimTrip_Loop32:
 	dc.b	nE4, nRst
-	smpsLoop		$00, $10, NEPU_DIMTRIP_Loop32
+	smpsLoop		$00, $10, Nepu_DimTrip_Loop32
 
-NEPU_DIMTRIP_Loop33:
+Nepu_DimTrip_Loop33:
 	dc.b	nB3, nRst
-	smpsLoop		$00, $10, NEPU_DIMTRIP_Loop33
+	smpsLoop		$00, $10, Nepu_DimTrip_Loop33
 	dc.b	nE3, nRst, nE3, nE3, nRst, $08
 
-NEPU_DIMTRIP_Loop34:
+Nepu_DimTrip_Loop34:
 	dc.b	nE3, $02, nRst
-	smpsLoop		$00, $04, NEPU_DIMTRIP_Loop34
+	smpsLoop		$00, $04, Nepu_DimTrip_Loop34
 	dc.b	nG3, nRst, nG3
 	smpsFMvoice		$06
 	dc.b	nRst, nG6, nRst
@@ -374,19 +374,19 @@ NEPU_DIMTRIP_Loop34:
 	smpsFMvoice		$03
 	dc.b	$04
 
-NEPU_DIMTRIP_Loop35:
+Nepu_DimTrip_Loop35:
 	dc.b	nB3, $02, nRst, nB3, nRst, $06, nB3, $02
 	dc.b	nRst, $06
-	smpsLoop		$00, $02, NEPU_DIMTRIP_Loop35
+	smpsLoop		$00, $02, Nepu_DimTrip_Loop35
 
-NEPU_DIMTRIP_Loop36:
+Nepu_DimTrip_Loop36:
 	dc.b	nB3, $02, nRst
-	smpsLoop		$00, $06, NEPU_DIMTRIP_Loop36
+	smpsLoop		$00, $06, Nepu_DimTrip_Loop36
 	dc.b	nE3, nRst, nE3, nRst, nE3
 
-NEPU_DIMTRIP_Loop37:
+Nepu_DimTrip_Loop37:
 	dc.b	nRst, nE3, nRst, $06, nE3, $02
-	smpsLoop		$00, $02, NEPU_DIMTRIP_Loop37
+	smpsLoop		$00, $02, Nepu_DimTrip_Loop37
 	dc.b	nRst, $06, nE3, $02, nRst, nE3, nRst, $16
 	dc.b	nAb3, $02, nRst, nAb3, nRst, nAb3, nRst, nE4
 	dc.b	nRst, nB3, nRst, nAb3, nRst, $0A, nFs3, $02
@@ -401,9 +401,9 @@ NEPU_DIMTRIP_Loop37:
 	dc.b	$04, nE3, $02, nRst, nE3, nRst, nE3, nRst
 	dc.b	$0A
 
-NEPU_DIMTRIP_Loop38:
+Nepu_DimTrip_Loop38:
 	dc.b	nFs3, $02, nRst
-	smpsLoop		$00, $05, NEPU_DIMTRIP_Loop38
+	smpsLoop		$00, $05, Nepu_DimTrip_Loop38
 	dc.b	nFs3, nRst, $0A, nAb3, $02, nRst, nFs3, nRst
 	dc.b	nAb3, nRst, nB3, nRst, nBb3, nRst, nAb3, nRst
 	dc.b	nFs3, nRst, $0A, nEb3, $02, nRst, nEb3, nRst
@@ -419,48 +419,48 @@ NEPU_DIMTRIP_Loop38:
 	dc.b	nRst, $14, nA3, $04, $04, $04, nRst, $7F
 	dc.b	$15
 
-NEPU_DIMTRIP_Loop39:
+Nepu_DimTrip_Loop39:
 	dc.b	nE3, $04, $04, $04, nRst, $14
-	smpsLoop		$00, $02, NEPU_DIMTRIP_Loop39
+	smpsLoop		$00, $02, Nepu_DimTrip_Loop39
 	dc.b	nD3, $04, $04, $04, nRst, $10
-	smpsJump		NEPU_DIMTRIP_Jump5
+	smpsJump		Nepu_DimTrip_Jump5
 
-NEPU_DIMTRIP_FM6:
+Nepu_DimTrip_FM6:
 	smpsFMvoice		$04
 	dc.b	nRst
 
-NEPU_DIMTRIP_Loop40:
+Nepu_DimTrip_Loop40:
 	dc.b	$40
-	smpsLoop		$00, $08, NEPU_DIMTRIP_Loop40
+	smpsLoop		$00, $08, Nepu_DimTrip_Loop40
 
-NEPU_DIMTRIP_Jump6:
+Nepu_DimTrip_Jump6:
 	dc.b	nRst
 
-NEPU_DIMTRIP_Loop41:
+Nepu_DimTrip_Loop41:
 	dc.b	$52
-	smpsLoop		$00, $0A, NEPU_DIMTRIP_Loop41
+	smpsLoop		$00, $0A, Nepu_DimTrip_Loop41
 	dc.b	nCs5, $02, nRst, nCs5, nRst, nCs5, nRst
 
-NEPU_DIMTRIP_Loop42:
+Nepu_DimTrip_Loop42:
 	dc.b	$72
-	smpsLoop		$00, $09, NEPU_DIMTRIP_Loop42
-	smpsJump		NEPU_DIMTRIP_Jump6
+	smpsLoop		$00, $09, Nepu_DimTrip_Loop42
+	smpsJump		Nepu_DimTrip_Jump6
 
-NEPU_DIMTRIP_PSG1:
+Nepu_DimTrip_PSG1:
 	dc.b	nRst
 
-NEPU_DIMTRIP_Loop43:
+Nepu_DimTrip_Loop43:
 	dc.b	$40
-	smpsLoop		$00, $08, NEPU_DIMTRIP_Loop43
+	smpsLoop		$00, $08, Nepu_DimTrip_Loop43
 
-NEPU_DIMTRIP_Jump7:
+Nepu_DimTrip_Jump7:
 	dc.b	nRst, $5C, nFs1, $02, nRst, nFs1, nRst, nFs1
 	dc.b	nRst, nAb1, $06, nRst, $02, nFs1, $08, nRst
 	dc.b	$10
 
-NEPU_DIMTRIP_Loop44:
+Nepu_DimTrip_Loop44:
 	dc.b	nFs1, $02, nRst
-	smpsLoop		$00, $04, NEPU_DIMTRIP_Loop44
+	smpsLoop		$00, $04, Nepu_DimTrip_Loop44
 	dc.b	nE1, $06, nRst, $02, nB0, $08, nRst, $34
 	dc.b	nFs1, $06, nRst, $02, nB1, nRst, nBb1, $06
 	dc.b	nRst, $02, nFs1, $06, nRst, $12, nFs1, $06
@@ -493,9 +493,9 @@ NEPU_DIMTRIP_Loop44:
 	smpsPSGvoice	$00
 	dc.b	$04, nBb0, $02, nRst, nCs1, $06
 
-NEPU_DIMTRIP_Loop45:
+Nepu_DimTrip_Loop45:
 	dc.b	nRst, $02, nB1, $18, nRst, $04, nCs2, $02
-	smpsLoop		$00, $02, NEPU_DIMTRIP_Loop45
+	smpsLoop		$00, $02, Nepu_DimTrip_Loop45
 	dc.b	nRst, nB1, $0A, nRst, $02, nBb1, $06, nRst
 	dc.b	$02, nB1, nRst, nCs2, nRst, $06, nCs2, nRst
 	dc.b	$02, nEb2, nRst, nEb2, $08, nRst, $04, nEb2
@@ -517,9 +517,9 @@ NEPU_DIMTRIP_Loop45:
 	dc.b	nB1, $06, nRst, $02, nB1, $04, nBb1, nBb1
 	dc.b	nAb1, nBb1, nRst, nB1, $10, nRst, $7F, $7F
 	dc.b	$7F, $63
-	smpsJump		NEPU_DIMTRIP_Jump7
+	smpsJump		Nepu_DimTrip_Jump7
 
-NEPU_DIMTRIP_PSG2:
+Nepu_DimTrip_PSG2:
 	dc.b	nRst, $10, nB1, $08, nB0, $04, nB1, nB0
 	dc.b	nBb1, nB1, nB0, nB0, nCs2, nB1, nB0, nBb1
 	dc.b	nB0, nB1, nB0, nB1, $08, nB0, $04, nB1
@@ -538,7 +538,7 @@ NEPU_DIMTRIP_PSG2:
 	dc.b	nEb1, nB0, nB1, $08, nB0, $04, nA1, nB0
 	dc.b	nG1, nFs1, nB0, nA1, $08, nB0, $04, nB1
 
-NEPU_DIMTRIP_Jump8:
+Nepu_DimTrip_Jump8:
 	dc.b	nB0, $04, nCs2, nE2, nRst, nEb2, $08, nRst
 	dc.b	$04, nE2, nRst, nFs2, nE2, nEb2, nB1, $10
 	dc.b	nRst, $7F, $7D
@@ -573,21 +573,21 @@ NEPU_DIMTRIP_Jump8:
 	dc.b	nE1, $08, nB0, $04, nEb1, nB0, nCs1, nEb1
 	dc.b	nB0, nB1, $08, nB0, $04, nA1, nB0, nG1
 	dc.b	nFs1, nB0, nA1, $08, nB0, $04, nB1
-	smpsJump		NEPU_DIMTRIP_Jump8
+	smpsJump		Nepu_DimTrip_Jump8
 
-NEPU_DIMTRIP_PSG3:
+Nepu_DimTrip_PSG3:
 	dc.b	nRst
 
-NEPU_DIMTRIP_Loop46:
+Nepu_DimTrip_Loop46:
 	dc.b	$40
-	smpsLoop		$00, $08, NEPU_DIMTRIP_Loop46
+	smpsLoop		$00, $08, Nepu_DimTrip_Loop46
 
-NEPU_DIMTRIP_Jump9:
+Nepu_DimTrip_Jump9:
 	dc.b	nRst
 
-NEPU_DIMTRIP_Loop47:
+Nepu_DimTrip_Loop47:
 	dc.b	$60
-	smpsLoop		$00, $08, NEPU_DIMTRIP_Loop47
+	smpsLoop		$00, $08, Nepu_DimTrip_Loop47
 	smpsPSGvoice	$00
 	dc.b	$10, nCs1, $20
 	smpsPSGvoice	$00
@@ -598,9 +598,9 @@ NEPU_DIMTRIP_Loop47:
 	dc.b	$06, nRst, $02, nB1, $04, nBb1, nBb1, nAb1
 	dc.b	nBb1, nRst, nB1, $08, nB0, $04, nB1, nRst
 	dc.b	$7F, $7F, $7F, $63
-	smpsJump		NEPU_DIMTRIP_Jump9
+	smpsJump		Nepu_DimTrip_Jump9
 
-NEPU_DIMTRIP_DAC:
+Nepu_DimTrip_DAC:
 	dc.b	nRst, $04, dSpinSnare, dSpinSnare, dSpinSnare, dKick, $08
 
 Nepu_DimTrip_DAC_Loop1:
@@ -729,7 +729,7 @@ Nepu_DimTrip_DAC_Loop14:
 	dc.b	$08, dKick
 	smpsJump		Nepu_DimTrip_DAC_Jump1
 
-NEPU_DIMTRIP_Patches:
+Nepu_DimTrip_Patches:
 	dc.b	$3B
 	dc.b	$3E, $42, $41, $33,	$DE, $14, $1E, $14
 	dc.b	$14, $0F, $0F, $00,	$01, $00, $00, $00
@@ -775,5 +775,5 @@ NEPU_DIMTRIP_Patches:
 	dc.b	$04, $06, $04, $08,	$00, $01, $03, $00
 	dc.b	$16, $17, $16, $A6,	$25, $2F, $25, $00
 
-	smpsFooterEndSong	"GenesisDoes\HDNAnimeOpen.asm"
+	smpsFooterEndSong	"GenesisDoes\NepAnime.asm"
 	even
