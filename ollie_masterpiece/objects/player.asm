@@ -15,8 +15,8 @@ ol_PlayerObject:
 
 	bsr.w	ol_AlignObjectGrid				; Align to grid
 
-	move.w	#$180,ol_obj_x_speed(a0)			; Set speed
-	move.w	#$180,ol_obj_y_speed(a0)
+	move.w	#$100,ol_obj_x_speed(a0)			; Set speed
+	move.w	#$100,ol_obj_y_speed(a0)
 
 ; ------------------------------------------------------------------------------
 ; Update state

@@ -126,6 +126,61 @@ ol_SpawnObject:
 	rts
 
 ; ------------------------------------------------------------------------------
+; Move object
+; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	a0.l - Object slot address
+; ------------------------------------------------------------------------------
+
+ol_MoveObject:
+	movem.w	ol_obj_x_speed(a0),d0-d1			; Get speeds
+	lsl.l	#8,d0
+	lsl.l	#8,d1
+
+	add.l	d0,ol_obj_x(a0)					; Add to position
+	add.l	d1,ol_obj_y(a0)
+	rts
+
+; ------------------------------------------------------------------------------
+; Check if an object is moving
+; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	a0.l  - Object slot address
+; RETURNS:
+;	eq/ne - Not moving/Moving
+; ------------------------------------------------------------------------------
+
+ol_CheckObjectMove:
+	move.l	a1,-(sp)					; Save registers
+
+	movea.w	a0,a1						; Check movement
+	bsr.s	ol_CheckOtherObjectMove
+
+	movea.l	(sp)+,a1					; Restore registers
+	rts
+
+; ------------------------------------------------------------------------------
+; Check if some other object is moving
+; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	a1.l  - Object slot address
+; RETURNS:
+;	eq/ne - Not moving/Moving
+; ------------------------------------------------------------------------------
+
+ol_CheckOtherObjectMove:
+	movem.l	d0-d1,-(sp)					; Save registers
+
+	move.l	ol_obj_x(a1),d0					; Get horizontal distance traveled
+	sub.l	ol_obj_prev_x(a1),d0
+	move.l	ol_obj_y(a1),d1					; Get vertical distance traveled
+	sub.l	ol_obj_prev_y(a1),d1
+	or.l	d0,d1						; Combine and check if we moved
+	
+	movem.l	(sp)+,d0-d1					; Restore registers
+	rts
+
+; ------------------------------------------------------------------------------
 ; Do grid movement left
 ; ------------------------------------------------------------------------------
 ; RETURNS:
@@ -248,6 +303,9 @@ ol_MoveObjectGridDown:
 ; ------------------------------------------------------------------------------
 ; Align object for grid movement
 ; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	a0.l - Object slot address
+; ------------------------------------------------------------------------------
 
 ol_AlignObjectGrid:
 	move.w	ol_obj_x(a0),d0					; Reset X position
@@ -264,7 +322,7 @@ ol_AlignObjectGrid:
 	rts
 
 ; ------------------------------------------------------------------------------
-; Move object towards its target position
+; Move object towards its target position on grid
 ; ------------------------------------------------------------------------------
 ; ARGUMENTS:
 ;	a0.l  - Object slot address
@@ -327,45 +385,6 @@ ol_MoveObjectGrid:
 	andi.w	#~4,sr						; Target not reached
 
 .End:
-	rts
-
-; ------------------------------------------------------------------------------
-; Check if an object is moving
-; ------------------------------------------------------------------------------
-; ARGUMENTS:
-;	a0.l  - Object slot address
-; RETURNS:
-;	eq/ne - Not moving/Moving
-; ------------------------------------------------------------------------------
-
-ol_CheckObjectMove:
-	move.l	a1,-(sp)					; Save registers
-
-	movea.w	a0,a1						; Check movement
-	bsr.s	ol_CheckOtherObjectMove
-
-	movea.l	(sp)+,a1					; Restore registers
-	rts
-
-; ------------------------------------------------------------------------------
-; Check if some other object is moving
-; ------------------------------------------------------------------------------
-; ARGUMENTS:
-;	a1.l  - Object slot address
-; RETURNS:
-;	eq/ne - Not moving/Moving
-; ------------------------------------------------------------------------------
-
-ol_CheckOtherObjectMove:
-	movem.l	d0-d1,-(sp)					; Save registers
-
-	move.l	ol_obj_x(a1),d0					; Get horizontal distance traveled
-	sub.l	ol_obj_prev_x(a1),d0
-	move.l	ol_obj_y(a1),d1					; Get vertical distance traveled
-	sub.l	ol_obj_prev_y(a1),d1
-	or.l	d0,d1						; Combine and check if we moved
-	
-	movem.l	(sp)+,d0-d1					; Restore registers
 	rts
 
 ; ------------------------------------------------------------------------------
