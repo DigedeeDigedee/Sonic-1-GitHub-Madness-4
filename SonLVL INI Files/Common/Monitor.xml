@@ -33,7 +33,7 @@
       <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="8" startpal="0" />
     </ImageFromMappings>
-    <ImageFromMappings id="s">
+    <ImageFromMappings id="toolimited">
       <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="9" startpal="0" />
     </ImageFromMappings>
