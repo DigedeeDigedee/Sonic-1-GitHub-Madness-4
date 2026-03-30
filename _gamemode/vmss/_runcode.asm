@@ -67,6 +67,8 @@ Malachi_Splash:
 ; load joypad routine
 		lea	.joypad(pc),a0
 		move.l	a0,(a1)+
+		move.w	#bgm_SneakySnitch,d0
+		jsr	(QueueSound1).l
 ; run screen
 		jsr	(a5)
 ; alright we're done
@@ -75,6 +77,7 @@ Malachi_Splash:
 		rts
 ; d0 = non-zero to skip screen
 .joypad:
+		jsr	(UpdateMusic).l
 		jsr	(ReadJoypads).l
 		move.b	(v_jpadpress1).w,d0
 		and.b	#btnStart,d0
