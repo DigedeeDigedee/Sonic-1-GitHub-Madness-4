@@ -64,7 +64,7 @@ EarthboundBtl:
 	bsr.w   PrintMsg
 
 	move.b	#bgm_Dingaling,d0
-	jsr	QueueSound1.w
+	jsr	(QueueSound1).l
 
 	pea	*
 	move.b	#6,(v_vbla_routine).w

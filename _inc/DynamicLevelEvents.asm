@@ -158,7 +158,7 @@ loc_6EB0:
 
 .noobj:
 		move.w	#bgm_Boss,d0
-		jsr	(QueueSound1).w		; play boss music
+		jsr	(QueueSound1).l		; play boss music
 
 		move.w	#$280B, (v_limitleft2).w	; limit left bound
 		move.w	#$2900, (v_limitright2).w ; limit right bound
@@ -167,7 +167,7 @@ loc_6EB0:
 		addq.b	#2,(v_dle_routine).w
 
 		lea	(PLC_Arif).l,a1
-		jmp	(UserPLC).w
+		jmp	(UserPLC).l
 
 ; ===========================================================================
 
@@ -207,7 +207,7 @@ DLE_LZ3:
 		jsr	(FindFreeObj).l
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_Boss,d0
-		jmp	(AddPLC).w	; load boss patterns
+		jmp	(AddPLC).l	; load boss patterns
 ; ===========================================================================
 
 locret_6F62:
@@ -382,11 +382,11 @@ DLE_MZ3boss:
 
 loc_70D0:
 		move.w	#bgm_Coffinman,d0
-		jsr	(QueueSound1).w	; play boss music
+		jsr	(QueueSound1).l	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_Boss,d0
-		jmp	(AddPLC).w	; load boss patterns
+		jmp	(AddPLC).l	; load boss patterns
 ; ===========================================================================
 
 locret_70E8:
@@ -421,7 +421,7 @@ DLE_MZ4chkboss:
 
 .spawnfail:
 		move.w	#bgm_Boss,d0
-		jsr	(QueueSound1).w	; play boss music
+		jsr	(QueueSound1).l	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		addq.b	#2,(v_dle_routine).w	
 
@@ -459,7 +459,7 @@ DLE_SLZ1Top:
 		blo.s	DLE_SLZ2		; if not, branch
 		move.w	#bgm_SMWCave,d0
 		move.b	d0,(v_zonemusic).w
-		jsr	(QueueSound1).w	; play music
+		jsr	(QueueSound1).l	; play music
 		addq.b	#2,(v_dle_routine).w
 DLE_SLZ2:
 		rts
@@ -495,11 +495,11 @@ DLE_SLZ3boss:
 
 loc_7144:
 		move.w	#bgm_Megalovania,d0
-		jsr	(QueueSound1).w	; play boss music
+		jsr	(QueueSound1).l	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_Boss,d0
-		jmp	(AddPLC).w	; load boss patterns
+		jmp	(AddPLC).l	; load boss patterns
 ; ===========================================================================
 
 locret_715C:
@@ -578,10 +578,10 @@ DLE_SYZ3boss:
 
 loc_71EC:
 		move.w	#bgm_Aporia,d0
-		jsr	(QueueSound1).w	; play boss music
+		jsr	(QueueSound1).l	; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		moveq	#plcid_Boss,d0
-		jmp	(AddPLC).w	; load boss patterns
+		jmp	(AddPLC).l	; load boss patterns
 ; ===========================================================================
 
 locret_7200:
@@ -654,7 +654,7 @@ DLE_SBZ2boss:
 		move.b	#id_FalseFloor,obID(a1) ; load collapsing block object
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_EggmanSBZ2,d0
-		jmp	(AddPLC).w		; load SBZ2 Eggman patterns
+		jmp	(AddPLC).l		; load SBZ2 Eggman patterns
 ; ===========================================================================
 
 locret_7298:
@@ -703,7 +703,7 @@ DLE_FZmain:
 		blo.s	loc_72F4
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_FZBoss,d0
-		jsr	(AddPLC).w	; load FZ boss patterns
+		jsr	(AddPLC).l	; load FZ boss patterns
 
 loc_72F4:
 		bra.s	loc_72C2
@@ -802,7 +802,7 @@ DLE_BREW3main:
 		cmpi.w	#boss_ghz_x-$220,(v_screenposx).w
 		bcs.s	BrewAutoScroll
 		lea	(EizaArtList).l,a1
-		jsr	(UserPLC).w
+		jsr	(UserPLC).l
 		clr.w	(v_limitleft2).w
 		move.w	#boss_ghz_x,(v_limitright2).w
 		move.w	#boss_ghz_y,(v_limitbtm1).w
@@ -844,11 +844,11 @@ loc_6EB0BR:
 
 loc_6ED0BR:
 		move.w	#bgm_Boss,d0
-		jsr	(QueueSound1).w		; play boss music
+		jsr	(QueueSound1).l		; play boss music
 		move.b	#1,(f_lockscreen).w ; lock screen
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_Boss,d0
-		jmp	(AddPLC).w	; load boss patterns
+		jmp	(AddPLC).l	; load boss patterns
 ; ===========================================================================
 
 locret_6EE8BR:
@@ -917,7 +917,7 @@ DLE_DVZ3:
 		move.w	#$4D0,obX(a1)
 		move.w	#$1F0,obY(a1)
 		lea	ArtList_NeedleBoss.l,a1
-		jsr	UserPLC.w
+		jsr	(UserPLC).l
 .Exit:
 		rts
 

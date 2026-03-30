@@ -9,7 +9,8 @@ __LABEL__:
 
 mSBZp:	macro duration,colours,sourceAddress,destinationPaletteIndex
 		dc.b duration, colours
-		dc.w sourceAddress, v_palette+destinationPaletteIndex*2
+		dc.l sourceAddress
+		dc.w v_palette+destinationPaletteIndex*2
 		endm
 
 ; duration in frames, number of colours, palette address, RAM address

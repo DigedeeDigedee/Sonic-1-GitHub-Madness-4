@@ -13,7 +13,7 @@ GM_SSRGScreen:
 		;!@ moveq	#$FFFFFFE4,d0				; set music ID to "stop music"
 		;!@ moveq	#bgm_Stop,d0				; set music ID to "stop music"
 		move.w	#bgm_Stop,d0
-		jsr	(PlaySound_Special).w
+		jsr	(PlaySound_Special).l
 
 ;!@ Stop music, then play Act Clear music
 		move.w	#($3C * $02),(v_demolength).w
@@ -25,11 +25,11 @@ SSRG_Wait:
 		bne.s	SSRG_Wait
 		
 		move.w	#bgm_S1ActClear,d0
-		jsr	(PlaySound_Special).w			; play ID
-		jsr	(ClearPLC).w				; clear pattern load cues list
+		jsr	(PlaySound_Special).l			; play ID
+		jsr	(ClearPLC).l				; clear pattern load cues list
 		;!@ jsr	Pal_FadeFrom				; fade palettes out
-		jsr	(PaletteFadeOut).w				; fade palettes out
-		jsr	(ClearScreen).w				; clear the plane mappings
+		jsr	(PaletteFadeOut).l				; fade palettes out
+		jsr	(ClearScreen).l				; clear the plane mappings
 		;!@ lea	($FFFFD000).w,a1			; load object ram address to a1
 		lea	(v_objspace).w,a1			; load object ram to a1		
 		moveq	#$00,d0					; clear d0
@@ -52,24 +52,24 @@ SRG_ClearObjects:
 		;!@ move.l	#$40200000,($C00004).l			; set VDP to V-Ram write mode with address
 		move.l	#$40200000,(vdp_control_port).l			; set VDP to V-Ram write mode with address
 		lea	ArtMain_SSRG(pc),a0			; load compressed art address
-		jsr	(NemDec).w					; decompress and dump
+		jsr	(NemDec).l					; decompress and dump
 		;!@ move.l	#$40000001,($C00004).l			; set VDP to V-Ram write mode with address
 		move.l	#$40000001,(vdp_control_port).l			; set VDP to V-Ram write mode with address
 		lea	ArtSquare_SSRG(pc),a0			; load compressed art address
-		jsr	(NemDec).w					; decompress and dump
+		jsr	(NemDec).l					; decompress and dump
 		;!@ move.l	#$40000002,($C00004).l			; set VDP to V-Ram write mode with address
 		move.l	#$40000002,(vdp_control_port).l			; set VDP to V-Ram write mode with address		
 		lea	ArtSonic_SSRG(pc),a0			; load compressed art address
-		jsr	(NemDec).w					; decompress and dump
+		jsr	(NemDec).l					; decompress and dump
 		;!@ move.l	#$50000002,($C00004).l			; set VDP to V-Ram write mode with address
 		move.l	#$50000002,(vdp_control_port).l			; set VDP to V-Ram write mode with address
 		lea	ArtLink_SSRG(pc),a0			; load compressed art address
-		jsr	(NemDec).w					; decompress and dump
+		jsr	(NemDec).l					; decompress and dump
 		
 		lea	MapLink_SSRG(pc),a0			; load compressed mappings address
 		;!@ lea	($FFFF0000).l,a1			; set temporary ram space to dump to
 		lea	(v_ram_start).l,a1			; set temporary ram space to dump to
-		jsr	(KosDec).w					; decompress and dump
+		jsr	(KosDec).l					; decompress and dump
 		;!@ lea	($FFFF0000).l,a5			; load mappings to read
 		lea	(v_ram_start).l,a5			; set temporary ram space to dump to
 		moveq	#$1F,d0					; set number of columns
@@ -80,7 +80,7 @@ SRG_ClearObjects:
 		;!@ EagleSoft Ltd. link
 		lea	MapLink2_SSRG(pc),a0			; load compressed mappings address
 		lea	(v_ram_start).l,a1			; set temporary ram space to dump to
-		jsr	(KosDec).w					; decompress and dump
+		jsr	(KosDec).l					; decompress and dump
 		lea	(v_ram_start).l,a5			; load mappings to read
 		moveq	#$1C,d0					; set number of columns
 		moveq	#$00,d1					; set number of rows
@@ -94,11 +94,11 @@ SRG_ClearObjects:
 		lea	MapMain_SSRG(pc),a0			; load compressed mappings address
 		;!@ lea	($FFFF0000).l,a1			; set temporary ram space to dump to
 		lea	(v_ram_start).l,a1			; set temporary ram space to dump to
-		jsr	(KosDec).w					; decompress and dump
+		jsr	(KosDec).l					; decompress and dump
 		lea	MapSquare_SSRG(pc),a0			; load compressed mappings address
 		;!@ lea	($FFFF4000).l,a1			; set temporary ram space to dump to
 		lea	(v_ram_start+$4000).l,a1			; set temporary ram space to dump to
-		jsr	(KosDec).w					; decompress and dump
+		jsr	(KosDec).l					; decompress and dump
 		lea	Pal_SSRG(pc),a0				; load palette address to a0
 		;!@ lea	($FFFFFB80).w,a1			; load palette buffer address to a1
 		lea	(v_palette_fading).w,a1			; load palette buffer address to a1		
@@ -172,8 +172,8 @@ SSRGScreen_Loop:
 		blt.s	SSRGScreen_Loop				; if not, loop
 
 SSRGScreen_Finish:
-		jsr	(PaletteFadeOut).w
-		jsr	(VDPSetupGame).w
+		jsr	(PaletteFadeOut).l
+		jsr	(VDPSetupGame).l
 		enable_display
 		;RaiseError "SSRG finished"
 		;!@ move.b	#$04,($FFFFF600).w			; set the screen mode to Title Screen		
@@ -323,7 +323,7 @@ OSN_MoveIn:
 		clr.w	$10(a0)					; stop sonic moving (no X speed)
 		;!@ moveq	#$FFFFFFBE,d0				; set to play spinning SFX
 		move.w	#sfx_Roll,d0		
-		jsr	(PlaySound_Special).w			; play SFX
+		jsr	(PlaySound_Special).l			; play SFX
 		addq.b	#$02,$24(a0)				; increase routine counter
 
 OSN_NoStop:
@@ -429,7 +429,7 @@ OS_PlaySound:
 		addq.b	#$02,$24(a0)				; increase routine counter
 		;!@moveq	#$FFFFFFBC,d0				; set to play spin release SFX
 		move.w	#sfx_Teleport,d0				; set to play spin release SFX
-		jsr	(PlaySound_Special).w			; play SFX
+		jsr	(PlaySound_Special).l			; play SFX
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -445,7 +445,7 @@ OS_SpinIn:
 		;!@ moveq	#$FFFFFFBD,d0		; set to play spiked chandelier SFX
 		move.w	#sfx_WallSmash,d0		; set the ugly explosion sfx
 
-		jsr	(PlaySound_Special).w			; play SFX
+		jsr	(PlaySound_Special).l			; play SFX
 		move.l	#$FF00FC00,$10(a0)			; set X and Y bounce off speeds
 		;!@ lea	($FFFFD010).l,a1			; load object ram's X and Y speeds
 		lea	(v_objspace+$10).l,a1			; load object ram's X and Y speeds

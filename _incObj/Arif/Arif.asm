@@ -81,7 +81,7 @@ ArifBoss_Arif:
 		
 		move.w	#$25,(v_screenshaketime).w
 		move.w	#sfx_Thud, d0
-		jsr	(QueueSound2).w
+		jsr	(QueueSound2).l
 
 		move.w	#-$500, obVelY(a0)			; fly away now, fly awaaaaay
 		add.b	#2, obRoutine(a0)			; change routine
@@ -117,7 +117,7 @@ ArifBoss_Arif:
 		sub.w	#$1, .RoutineTimer(a0) 
 
 		move.w	#sfx_HitBoss, d0
-		jsr	(QueueSound2).w
+		jsr	(QueueSound2).l
 
 		jsr	(FindFreeObj).l
 		move.b	#id_Arif, (a1)
@@ -190,7 +190,7 @@ ArifBoss_Arif:
 
 		move.w	#$25,(v_screenshaketime).w
 		move.w	#sfx_Thud, d0
-		jsr	(QueueSound2).w
+		jsr	(QueueSound2).l
 
 		move.w 	#0, obVelX(a0)
 		move.w 	#0, obVelY(a0)
@@ -292,7 +292,7 @@ ArifBoss_Arif:
 		move.b	#$18, .FlashTimer(a0)			; set number of times to flash 
 		
 		move.w	#sfx_HitBoss, d0
-		jsr	(QueueSound2).w
+		jsr	(QueueSound2).l
 
 .HitFlash:
 		tst.b	obFrame(a0)

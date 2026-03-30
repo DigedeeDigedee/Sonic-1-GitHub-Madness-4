@@ -39,11 +39,11 @@ Sign_Touch:	; Routine 2
 		cmpi.w	#$20,d0		; is Sonic within $20 pixels of the signpost?
 		bhs.s	.notouch	; if not, branch
 		move.w	#sfx_Signpost,d0
-		jsr	(QueueSound1).w	; play signpost sound
+		jsr	(QueueSound1).l	; play signpost sound
 		clr.b	(f_timecount).w	; stop time counter
 		move.w	(v_limitright2).w,(v_limitleft2).w ; lock screen position
 		move.w	#bgm_Stop,d0
-		jsr	(QueueSound2).w	; stop music		
+		jsr	(QueueSound2).l	; stop music		
 		addq.b	#2,obRoutine(a0)
 
 .notouch:
@@ -172,7 +172,7 @@ GotThroughAct:
 		clr.b	(f_timecount).w	; stop time counter
 		move.b	#id_GotThroughCard,(v_endcard).w
 		moveq	#plcid_WINNERCard,d0
-		jsr	(NewPLC).w	; load title card patterns
+		jsr	(NewPLC).l	; load title card patterns
 		move.b	#1,(f_endactbonus).w
 		moveq	#0,d0
 		move.b	(v_timemin).w,d0
@@ -193,7 +193,7 @@ GotThroughAct:
 		mulu.w	#10,d0		; multiply by 10
 		move.w	d0,(v_ringbonus).w ; set ring bonus
 		move.b	#bgm_ActClear,d0
-		jsr	(QueueSound2).w
+		jsr	(QueueSound2).l
 
 locret_ECEE:
 		rts

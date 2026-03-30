@@ -2,8 +2,8 @@
 ; Project Yume2kki
 ; ---------------------------------------------------------------------------
 Yume2kki:
-	jsr	(PaletteFadeOut).w
-	jsr	(ClearScreen).w
+	jsr	(PaletteFadeOut).l
+	jsr	(ClearScreen).l
 	
 	lea	(v_ram_start).l, a0
 	move.l	#(($8000)/4)-1, d0
@@ -17,22 +17,22 @@ Yume2kki:
 	move.w	#$9011, (a6)
 
 	move.b	#bgm_Stop,d0
-	jsr	(QueueSound2).w
+	jsr	(QueueSound2).l
 
 	lea	(v_ram_start).l, a1 ; load background here
 	lea	(.Mappings).l, a0
 	move.w #320, d0
-	jsr	(EniDec).w
+	jsr	(EniDec).l
 
 	lea	(v_ram_start).l, a1
 	move.l	#$60000003, d0
 	moveq	#39, d1
 	moveq	#30, d2
-	jsr	(TilemapToVRAM).w	; mappings -> vram
+	jsr	(TilemapToVRAM).l	; mappings -> vram
 
 	move.l	#$68000000, (vdp_control_port).l
 	lea	(.Art).l, a0
-	jsr	(NemDec).w
+	jsr	(NemDec).l
 
 	lea 	(.Palette).l, a0
 	lea 	(v_palette_fading).l, a1
@@ -47,11 +47,11 @@ Yume2kki:
 
 	move.w	#60*9, (v_generictimer).w
 
-	jsr	(PaletteFadeIn).w
+	jsr	(PaletteFadeIn).l
 
 .Loop:
 	move.b	#$4,(v_vbla_routine).w
-	jsr	(WaitForVBla).w
+	jsr	(WaitForVBla).l
 
 	andi.b	#btnStart, (v_jpadpress1).w 
 	bne.w	.Exit

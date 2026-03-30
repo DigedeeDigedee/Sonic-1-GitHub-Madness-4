@@ -11,12 +11,12 @@ v_splash_logo_b = v_objspace+object_size
 
 GM_DaxKatter:
 		move.b	#bgm_Stop,d0
-		jsr	(PlaySound_Special).w		; fade out music
-		jsr	(ClearPLC).w
-		jsr	(PaletteFadeOut).w
+		jsr	(PlaySound_Special).l		; fade out music
+		jsr	(ClearPLC).l
+		jsr	(PaletteFadeOut).l
 		disable_ints
 		disable_display
-		jsr	(ClearScreen).w
+		jsr	(ClearScreen).l
 
 		fillVRAM	0, $0000, $10000
 
@@ -44,23 +44,23 @@ GM_DaxKatter:
 		; load art
 		locVRAM	$20
 		lea	(ArtNem_DaxKatter_D).l,a0
-		jsr	(NemDec).w
+		jsr	(NemDec).l
 
 		locVRAM	$1000
 		lea	(ArtNem_DaxKatter_Text).l,a0
-		jsr	(NemDec).w
+		jsr	(NemDec).l
 
 		lea	(EniMap_DaxKatterText).l,a0
 		lea	(v_ram_start).l,a1
 		move.w	#make_art_tile($80,0,0),d0
-		jsr	(EniDec).w
+		jsr	(EniDec).l
 
 		copyTilemap128	vram_fg+$A52,31-1,4-1	; Send plane mappings to VRAM
 
 		lea	(EniMap_BringsYou).l,a0
 		lea	(v_ram_start).l,a1
 		move.w	#make_art_tile($80,1,0),d0
-		jsr	(EniDec).w
+		jsr	(EniDec).l
 
 		copyTilemap128	vram_fg+$E5A,18-1,3-1	; Send plane mappings to VRAM
 
@@ -73,18 +73,18 @@ GM_DaxKatter:
 		dbf	d0,.loadpal
 
 		move.b	#$12,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 		move.b	#id_DaxKatterD,(v_splash_logo).w
 		move.b	#$12,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		enable_display
-		jsr	(PaletteFadeIn).w
+		jsr	(PaletteFadeIn).l
 
 .main
 		move.b	#2,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		andi.b	#btnStart,(v_jpadpress1).w	; check if Start is pressed
@@ -95,7 +95,7 @@ GM_DaxKatter:
 .scroll
 ; movement
 		move.b	#2,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		andi.b	#btnStart,(v_jpadpress1).w	; check if Start is pressed
@@ -108,8 +108,8 @@ GM_DaxKatter:
 
 .flash
 		move.b	#sfx_Dash,d0
-		jsr	(PlaySound_Special).w		; play Spindash Release SFX
-		jsr	(PaletteWhiteOut).w
+		jsr	(PlaySound_Special).l		; play Spindash Release SFX
+		jsr	(PaletteWhiteOut).l
 
 		moveq	#16/2-1,d0
 		lea	(Pal_DaxKatterOn).l,a1
@@ -118,7 +118,7 @@ GM_DaxKatter:
 		move.l	(a1)+,(a2)+
 		dbf	d0,.loadpal2
 
-		jsr	(PaletteWhiteIn).w
+		jsr	(PaletteWhiteIn).l
 
 		moveq	#16/2-1,d0
 		lea	(Pal_DaxKatterBringsYou).l,a1
@@ -129,14 +129,14 @@ GM_DaxKatter:
 		dbf	d0,.loadpal3
 
 		move.b	#sfx_MenuConfirm,d0
-		jsr	(PlaySound_Special).w		; play Menu Confirmation SFX
+		jsr	(PlaySound_Special).l		; play Menu Confirmation SFX
 		move.w	#$202F,(v_pfade_start).w ; set start position = 0; size = $40
-		jsr	(PalFadeIn_Alt).w
+		jsr	(PalFadeIn_Alt).l
 		move.w	#5*30,(v_generictimer).w
 
 .mainloop2
 		move.b	#2,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		andi.b	#btnStart,(v_jpadpress1).w	; check if Start is pressed
@@ -146,9 +146,9 @@ GM_DaxKatter:
 
 .done
 		move.b	#bgm_Fade,d0
-		jsr	(PlaySound_Special).w		; fade out music
-		jsr	(PaletteFadeOut).w
-		jsr	(VDPSetupGame).w
+		jsr	(PlaySound_Special).l		; fade out music
+		jsr	(PaletteFadeOut).l
+		jsr	(VDPSetupGame).l
 		enable_display
 		move.b	#id_Title,(v_gamemode).w	; go to title screen if not in Splashes
 		rts
@@ -191,7 +191,7 @@ Obj_DaxD_Move:
 		addq.b	#2,obRoutine(a0)
 		move.w	#$80+40,obX(a0)
 		move.b	#sfx_Thud,d0
-		jsr	(PlaySound_Special).w
+		jsr	(PlaySound_Special).l
 		move.b	#1,obAnim(a0)
 
 Obj_DaxD_TestobAnim:

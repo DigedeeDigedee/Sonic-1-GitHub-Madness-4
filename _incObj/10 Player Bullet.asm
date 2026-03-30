@@ -30,7 +30,7 @@ PBullet_Init:
 		move.w	#(VRAM_ATTACK/32),obGfx(a0)
 
 		move.b	obAngle(a0), d0  ; get angle to d0
-		jsr	(CalcSine).w  ; returns the sine in d0 and the cosine in d1
+		jsr	(CalcSine).l  ; returns the sine in d0 and the cosine in d1
 		move.w	bulletfactor(a0), d2  ; set speed
 		muls.w	d2, d1    ; multiply cosine by $600
 		asr.l	#8, d1    ; division by $100
@@ -124,7 +124,7 @@ PTonicAtt_Main:
 		bclr	#0,obRender(a0)
 .skip2
 		add.w	d1,obX(a0)
-		jsr	(CalcSine).w	; returns the sine in d0 and the cosine in d1
+		jsr	(CalcSine).l	; returns the sine in d0 and the cosine in d1
 		move.w	d0,d2
 		move.w	d0,d3
 		move.w	d3,d4

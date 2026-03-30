@@ -484,6 +484,7 @@ f_demo:			ds.w	1		; demo mode flag (0 = no; 1 = yes; $8001 = ending)
 v_demonum:		ds.w	1		; demo level number (not the same as the level number)
 v_creditsnum:		ds.w	1		; credits index number
 f_debugmode:		ds.w	1		; debug mode flag
+			ds.w	1
 
 v_gamechangeram:
 

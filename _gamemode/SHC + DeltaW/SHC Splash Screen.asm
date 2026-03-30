@@ -29,8 +29,8 @@ SHCwriteVRAM:	macro source,length,destination
 GM_SHCSplash:
 		move.b	#bgm_Stop,d0
 		jsr	(PlaySound_Special).l
-		jsr	(PaletteFadeOut).w
-		jsr	(ClearScreen).w
+		jsr	(PaletteFadeOut).l
+		jsr	(ClearScreen).l
 		lea	(vdp_control_port).l,a6
 		move.w	#$8004,(a6)			; 8-color mode
 		move.w	#$8174,(a6)		
@@ -49,15 +49,15 @@ GM_SHCSplash:
 
 		locVRAM 0
 		lea	(SHC_Art).l,a0
-		jsr 	(NemDec).w
+		jsr 	(NemDec).l
 
 		locVRAM	$5A0*$20
 		lea	(Nem_Explode_SHC).l,a0
-		jsr 	(NemDec).w
+		jsr 	(NemDec).l
 
 		locVRAM $685*$20
 		lea	(Art_WBomb).l,a0
-		jsr 	(NemDec).w
+		jsr 	(NemDec).l
 
 		lea	(SHC_Map_Comp).l,a0
 		move.w	#$6000,d7
@@ -100,10 +100,10 @@ GM_SHCSplash:
 -		move.l	d0,(a1)+
 		dbf	d1,-
 		move.b	#id_WBomb,(v_objspace+$C0).w	; load the bomb
-		jsr	(PaletteFadeIn).w
+		jsr	(PaletteFadeIn).l
 
 		move.b	#bgm_SHCSplash,d0
-		jsr	(PlaySound_Unused).w
+		jsr	(PlaySound_Unused).l
 
 		lea	SHC_Anim(pc),a0
 		lea	(port_1_data).l,a1	; load the base address of the IO ports into a1
@@ -147,13 +147,13 @@ SHC_MainLoop:
 		
 .endAnim:
 		move.b	#sfx_ExplodeDone,d0			; play flash sound effect
-		jsr	(PlaySound_Special).w
-		jsr	(PaletteWhiteOut).w		; flash to white
+		jsr	(PlaySound_Special).l
+		jsr	(PaletteWhiteOut).l		; flash to white
 		move.w	#90,(v_generictimer).w		; set hold time to 1.5 second (90 frames at 60hz)
 		
 .holdWhite:
 		move.b	#2,(v_vbla_routine).w		; set V-blank routine
-		jsr	(WaitForVBla).w			; wait for V-blank
+		jsr	(WaitForVBla).l			; wait for V-blank
 		tst.w	(v_generictimer).w		; has hold time finished?
 		bne.s	.holdWhite			; if not, keep holding
 
@@ -162,7 +162,7 @@ SHC_MainLoop:
 ; ---------------------------------------------------------------------------
 SHC_UpdateScreen:	; no shaking yet
 		move.b	#2,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 
 		lea	(vdp_control_port).l,a6
 		move.w	d5,d1

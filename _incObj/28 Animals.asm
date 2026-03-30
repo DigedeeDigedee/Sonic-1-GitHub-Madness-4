@@ -137,7 +137,7 @@ Anml_Ending:	; Routine 0
 
 Anml_FromEnemy:
 		addq.b	#2,obRoutine(a0)
-		jsr	(RandomNumber).w
+		jsr	(RandomNumber).l
 		andi.w	#1,d0
 		moveq	#0,d1
 		move.b	(v_zone).w,d1

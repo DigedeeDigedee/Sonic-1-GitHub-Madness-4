@@ -77,13 +77,13 @@ ddd		;move.w	obX(a0),obX(a1)
 		tst.b	(v_invinc).w		; you have invincibility?
 		beq.s	ExplItem_NormalSFX	; so no, jump it
 		move.w	#$CB,d0
-		jsr	(PlaySound_Special).w	; play odd explosion sfx
+		jsr	(PlaySound_Special).l	; play odd explosion sfx
 						; i hate "PlaySound_Special" name, i prefer to use "SetSound" - atolly
 		bra.s	ExplItem_stupidjump
 
 ExplItem_NormalSFX:				;29_Index	
 		move.w	#sfx_Bomb,d0
-		jsr	(PlaySound_Special).w ;	play breaking enemy sound
+		jsr	(PlaySound_Special).l ;	play breaking enemy sound
 
 ExplItem_stupidjump:
 		move.w  #$25, v_screenshaketime.w

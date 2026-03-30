@@ -110,7 +110,7 @@ Rift_Normal:
 		move.b	#0,obAnim(a0)
 		addq.b	#2,ob2ndRout(a0)	; run "Rift_CheckDist" routine
 		move.w	#sfx_Rift,d0		; Done and Dusted
- 		jmp	(QueueSound2).w		; play rift normal sound
+ 		jmp	(QueueSound2).l		; play rift normal sound
 ; ===========================================================================
 
 Rift_ChkDist:
@@ -140,7 +140,7 @@ Rift_GoToSky:
 		bset	#4,(v_player+obStatus).w
 		bset	#2,(v_player+obStatus).w
 		move.w	#sfx_RiftSky,d0
-		jsr	(QueueSound2).w		; play riftsky sound
+		jsr	(QueueSound2).l		; play riftsky sound
 		addq.b	#2,obRoutine(a0)
 
 Rift_Return2:

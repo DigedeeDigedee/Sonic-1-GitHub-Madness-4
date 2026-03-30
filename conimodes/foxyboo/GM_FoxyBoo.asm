@@ -40,7 +40,7 @@ GM_Foxy_ClrObjRam:
 
 		locVRAM	0
 		lea	(Nem_FoxyBoo).l,a0
-		jsr	(NemDec).w
+		jsr	(NemDec).l
 
 		moveq	#palid_Foxy,d0
 		jsr		(PalLoad2).l		; load palette
@@ -63,7 +63,7 @@ GM_Foxy_Loop:
 		lea 	FoxyBooFrames(pc),a0
 		move.l	(a0,d0.w),a0
 		move.w	#0,d0
-		jsr	(EniDec).w
+		jsr	(EniDec).l
 		lea	(v_ram_start).l,a1
 		locVRAM	$E000,d0
 		moveq	#$1F,d1

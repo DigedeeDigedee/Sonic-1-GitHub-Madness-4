@@ -233,93 +233,50 @@ ResetDMAQueue macro
 ; sub_144E: DMA_68KtoVRAM: QueueCopyToVRAM: QueueVDPCommand:
 Add_To_DMA_Queue:
 QueueDMATransfer:
-	if UseVIntSafeDMA==1
-		move.w	sr,-(sp)									; Save current interrupt mask
-		disableInts											; Mask off interrupts
-	endif ; UseVIntSafeDMA==1
-	movea.w	(VDP_Command_Buffer_Slot).w,a1
+	movea.l	(VDP_Command_Buffer_Slot).w,a1
 	cmpa.w	#VDP_Command_Buffer_Slot,a1
-	beq.s	.done											; Return if there's no more room in the buffer
+	beq.s	.return ; return if there's no more room in the buffer
 
-	if AssumeSourceAddressInBytes<>0
-		lsr.l	#1,d1										; Source address is in words for the VDP registers
-	endif
-	if UseRAMSourceSafeDMA<>0
-		bclr.l	#23,d1										; Make sure bit 23 is clear (68k->VDP DMA flag)
-	endif	; UseRAMSourceSafeDMA
-	movep.l	d1,DMAEntry.Source(a1)							; Write source address; the useless top byte will be overwritten later
-	moveq	#0,d0											; We need a zero on d0
+	; piece together some VDP commands and store them for later...
+	move.w	#$9300,d0 ; command to specify DMA transfer length & $00FF
+	move.b	d3,d0
+	move.w	d0,(a1)+ ; store command
 
-	if Use128kbSafeDMA<>0
-		; Detect if transfer crosses 128KB boundary
-		; Using sub+sub instead of move+add handles the following edge cases:
-		; (1) d3.w == 0 => 128kB transfer
-		;   (a) d1.w == 0 => no carry, don't split the DMA
-		;   (b) d1.w != 0 => carry, need to split the DMA
-		; (2) d3.w != 0
-		;   (a) if there is carry on d1.w + d3.w
-		;     (* ) if d1.w + d3.w == 0 => transfer comes entirely from current 128kB block, don't split the DMA
-		;     (**) if d1.w + d3.w != 0 => need to split the DMA
-		;   (b) if there is no carry on d1.w + d3.w => don't split the DMA
-		; The reason this works is that carry on d1.w + d3.w means that
-		; d1.w + d3.w >= $10000, whereas carry on (-d3.w) - (d1.w) means that
-		; d1.w + d3.w > $10000.
-		sub.w	d3,d0										; Using sub instead of move and add allows checking edge cases
-		sub.w	d1,d0										; Does the transfer cross over to the next 128kB block?
-		bcs.s	.doubletransfer								; Branch if yes
-	endif	; Use128kbSafeDMA
-	; It does not cross a 128kB boundary. So just finish writing it.
-	movep.w	d3,DMAEntry.Size(a1)							; Write DMA length, overwriting useless top byte of source address
+	move.w	#$9400,d0 ; command to specify DMA transfer length & $FF00
+	lsr.w	#8,d3
+	move.b	d3,d0
+	move.w	d0,(a1)+ ; store command
 
-.finishxfer:
-	; Command to specify destination address and begin DMA
-	move.w	d2,d0											; Use the fact that top word of d0 is zero to avoid clearing on vdpCommReg
-	vdpCommReg d0,VRAM,DMA,0								; Convert destination address to VDP DMA command
-	lea	DMAEntry.Command(a1),a1								; Seek to correct RAM address to store VDP DMA command
-	move.l	d0,(a1)+										; Write VDP DMA command for destination address
-	move.w	a1,(VDP_Command_Buffer_Slot).w					; Write next queue slot
+	move.w	#$9500,d0 ; command to specify source address & $0001FE
+	lsr.l	#1,d1
+	move.b	d1,d0
+	move.w	d0,(a1)+ ; store command
 
-.done:
-	if UseVIntSafeDMA==1
-		move.w	(sp)+,sr									; Restore interrupts to previous state
-	endif ;UseVIntSafeDMA==1
+	move.w	#$9600,d0 ; command to specify source address & $01FE00
+	lsr.l	#8,d1
+	move.b	d1,d0
+	move.w	d0,(a1)+ ; store command
+
+	move.w	#$9700,d0 ; command to specify source address & $FE0000
+	lsr.l	#8,d1
+	;andi.b	#$7F,d1		; this instruction safely allows source to be in RAM; S3K added this
+	move.b	d1,d0
+	move.w	d0,(a1)+ ; store command
+
+	andi.l	#$FFFF,d2 ; command to specify destination address and begin DMA
+	lsl.l	#2,d2
+	lsr.w	#2,d2
+	swap	d2
+	ori.l	#vdpComm($0000,VRAM,DMA),d2 ; set bits to specify VRAM transfer
+	move.l	d2,(a1)+ ; store command
+
+	move.l	a1,(VDP_Command_Buffer_Slot).w ; set the next free slot address
+	cmpa.w	#VDP_Command_Buffer_Slot,a1
+	beq.s	.return ; return if there's no more room in the buffer
+	move.w	#0,(a1) ; put a stop token at the end of the used part of the buffer
+; return_14AA: QueueDMATransfer_Done:
+.return:
 	rts
-; ---------------------------------------------------------------------------
-	if Use128kbSafeDMA<>0
-.doubletransfer:
-		; We need to split the DMA into two parts, since it crosses a 128kB block
-		add.w	d3,d0										; Set d0 to the number of words until end of current 128kB block
-		movep.w	d0,DMAEntry.Size(a1)						; Write DMA length of first part, overwriting useless top byte of source addres
-
-		cmpa.w	#VDP_Command_Buffer_Slot-DMAEntry.len,a1	; Does the queue have enough space for both parts?
-		beq.s	.finishxfer									; Branch if not
-
-		; Get second transfer's source, destination, and length
-		sub.w	d0,d3										; Set d3 to the number of words remaining
-		add.l	d0,d1										; Offset the source address of the second part by the length of the first part
-		add.w	d0,d0										; Convert to number of bytes
-		add.w	d2,d0										; Set d0 to the VRAM destination of the second part
-
-		; If we know top word of d2 is clear, the following vdpCommReg can be set to not
-		; clear it. There is, unfortunately, no faster way to clear it than this.
-		vdpCommReg d2,VRAM,DMA,1							; Convert destination address of first part to VDP DMA command
-		move.l	d2,DMAEntry.Command(a1)						; Write VDP DMA command for destination address of first part
-
-		; Do second transfer
-		movep.l	d1,DMAEntry.len+DMAEntry.Source(a1)			; Write source address of second part; useless top byte will be overwritten later
-		movep.w	d3,DMAEntry.len+DMAEntry.Size(a1)			; Write DMA length of second part, overwriting useless top byte of source addres
-
-		; Command to specify destination address and begin DMA
-		vdpCommReg d0,VRAM,DMA,0							; Convert destination address to VDP DMA command; we know top half of d0 is zero
-		lea	DMAEntry.len+DMAEntry.Command(a1),a1			; Seek to correct RAM address to store VDP DMA command of second part
-		move.l	d0,(a1)+									; Write VDP DMA command for destination address of second part
-
-		move.w	a1,(VDP_Command_Buffer_Slot).w				; Write next queue slot
-		if UseVIntSafeDMA==1
-			move.w	(sp)+,sr								; Restore interrupts to previous state
-		endif ;UseVIntSafeDMA==1
-		rts
-	endif	; Use128kbSafeDMA
 ; End of function QueueDMATransfer
 ; ===========================================================================
 
@@ -329,41 +286,38 @@ QueueDMATransfer:
 ; Resets the queue when it's done
 ; ---------------------------------------------------------------------------
 
+; Used to use UltraDMAQueue by Flamewing, but it stopped working, so here's
+; the regular one
+
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 ; sub_14AC: CopyToVRAM: IssueVDPCommands: Process_DMA:
 Process_DMA_Queue:
 ProcessDMAQueue:
-	movea.w	(VDP_Command_Buffer_Slot).w,a1
-	jmp	.jump_table-VDP_Command_Buffer(a1)
-; ---------------------------------------------------------------------------
-.jump_table:
-	rts
-	rept 6
-		trap	#0											; Just in case
-	endm
-; ---------------------------------------------------------------------------
-	set	.c,1
-	rept QueueSlotCount
-		lea	(VDP_control_port).l,a5
-		lea	(VDP_Command_Buffer).w,a1
-		if .c<>QueueSlotCount
-			bra.w	.jump0 - .c*8
-		endif
-		set	.c,.c + 1
-	endm
-; ---------------------------------------------------------------------------
-	rept QueueSlotCount
-		move.l	(a1)+,(a5)									; Transfer length
-		move.l	(a1)+,(a5)									; Source address high
-		move.l	(a1)+,(a5)									; Source address low + destination high
-		move.w	(a1)+,(a5)									; Destination low, trigger DMA
-	endm
+	lea	(VDP_control_port).l,a5
+	lea	(VDP_Command_Buffer).w,a1
 
-.jump0:
-	ResetDMAQueue
+; loc_14B6: ProcessDMAQueue_Loop:
+.loop
+	move.w	(a1)+,d0
+	beq.s	.done ; branch if we reached a stop token
+	; issue a set of VDP commands...
+	move.w	d0,(a5)		; transfer length
+	move.w	(a1)+,(a5)	; transfer length
+	move.w	(a1)+,(a5)	; source address
+	move.w	(a1)+,(a5)	; source address
+	move.w	(a1)+,(a5)	; source address
+	move.w	(a1)+,(a5)	; destination
+	move.w	(a1)+,(a5)	; destination
+	cmpa.w	#VDP_Command_Buffer_Slot,a1
+	bne.s	.loop ; loop if we haven't reached the end of the buffer
+; loc_14CE: ProcessDMAQueue_Done:
+.done:
+	move.w	#0,(VDP_Command_Buffer).w
+	move.l	#VDP_Command_Buffer,(VDP_Command_Buffer_Slot).w
 	rts
 ; End of function ProcessDMAQueue
+
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------

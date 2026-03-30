@@ -10,6 +10,9 @@ locVRAM:	macro loc,controlport=(vdp_control_port).l
 ;!@ GenesisDoes		
 locVRAMfm function loc,($40000000+(((loc)&$3FFF)<<16)+(((loc)&$C000)>>14))		
 
+; makes a VDP command
+vdpComm function addr,type,rwd,(((type&rwd)&3)<<30)|((addr&$3FFF)<<16)|(((type&rwd)&$FC)<<2)|((addr&$C000)>>14)
+
 ; ---------------------------------------------------------------------------
 ; DMA copy data from 68K (ROM/RAM) to the VRAM
 ; input: source, length, destination
@@ -98,7 +101,7 @@ scrollVDPPlanes_set:	macro	vBLA,bgxpos,bgypos,fgxpos,fgypos
 		
 		;Wait until upload into VRAM
 		move.b	#vBLA,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -157,7 +160,7 @@ copyTilemap:	macro source,destination,width,height
 		locVRAM	destination,d0
 		moveq	#(width)-1,d1
 		moveq	#(height)-1,d2
-		jsr	(TilemapToVRAM).w
+		jsr	(TilemapToVRAM).l
 		endm
 
 ; ---------------------------------------------------------------------------

@@ -42,7 +42,7 @@ GM_CB_ClrObjRam:
 
 		locVRAM	0
 		lea	(Nem_ColdBrew).l,a0 ;	; load art
-		jsr	(NemDec).w
+		jsr	(NemDec).l
 		lea	(v_ram_start).l,a1
 		lea	(Eni_ColdBrew).l,a0 ; load map
 		move.w	#0,d0

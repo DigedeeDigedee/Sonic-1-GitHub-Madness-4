@@ -32,7 +32,7 @@ Obj_WBomb_Wait:	; Routine 2
 		bne.s	.stillWaiting				; if timer not zero, keep waiting
 		addq.b	#2,obRoutine(a0)
 		move.w	#sfx_Fall,d0
-		jsr	(PlaySound_Special).w			; play falling sound when starting to drop
+		jsr	(PlaySound_Special).l			; play falling sound when starting to drop
 
 .stillWaiting:
 		rts
@@ -51,7 +51,7 @@ Obj_WBomb_Land:
 		move.b	#1,obFrame(a0)
 ;		move.w	#-1,(Glide_screen_shake).w
 		move.b	#bgm_Stop,d0
-		jsr	(PlaySound_Unused).w
+		jsr	(PlaySound_Unused).l
 		move.w	#5,bomb_timer(a0)		; start spawning in 5 frames
 
 Obj_WBomb_Stand:	; Routine 6
@@ -64,7 +64,7 @@ Obj_WBomb_Stand:	; Routine 6
 		bne.s	.noExplosion
 		move.b	#id_ExplosionSHC,(a1)
 
-		jsr	(RandomNumber).w
+		jsr	(RandomNumber).l
 		move.w	d0,d1
 		andi.w	#$1FF,d1			; 0-511 range
 		cmpi.w	#320,d1				; if > 320
@@ -73,7 +73,7 @@ Obj_WBomb_Stand:	; Routine 6
 .xOK:
 		move.w	d1,obX(a1)
 
-		jsr	(RandomNumber).w
+		jsr	(RandomNumber).l
 		andi.w	#$FF,d0				; 0-255 range
 		cmpi.w	#224,d0				; if > 224
 		bls.s	.yOK

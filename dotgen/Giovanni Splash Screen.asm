@@ -13,7 +13,7 @@ GiovanniSplash:
 	move.b	#bgm_Stop,d0				; set music ID to "stop music"
 	jsr     PlaySound_Special			; play ID
 	jsr     PaletteFadeOut				; fade palettes out
-	jsr     ClearScreen.w				; clear the plane mappings
+	jsr     (ClearScreen).l				; clear the plane mappings
 	lea	(vdp_control_port).l,a6
 
 	; setup VDP

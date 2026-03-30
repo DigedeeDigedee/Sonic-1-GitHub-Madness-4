@@ -17,7 +17,7 @@ ol_InitMap:
 
 	movea.l	(a6)+,a0					; Load graphics
 	move.l	#ol_vramWriteCmd(ol_MAP_VRAM),ol_VDP_CTRL
-	jsr	NemDec.w
+	jsr	(NemDec).l
 
 	movea.l	(a6)+,a0					; Get palette data
 	lea	ol_palette_fade.w,a1				; Get palette buffer
@@ -39,11 +39,11 @@ ol_InitMap:
 	
 	lea	ol_PlayerGfx,a0					; Load player graphics
 	move.l	#ol_vramWriteCmd(ol_PLAYER_VRAM),ol_VDP_CTRL
-	jsr	NemDec.w
+	jsr	(NemDec).l
 
 	lea	ol_NpcGfx,a0					; Load NPC graphics
 	move.l	#ol_vramWriteCmd(ol_FREE_VRAM),ol_VDP_CTRL
-	jmp	NemDec.w
+	jmp	(NemDec).l
 	
 ; ------------------------------------------------------------------------------
 ; Scroll map

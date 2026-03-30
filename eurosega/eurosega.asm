@@ -2,8 +2,8 @@
 ; EUROPEAN SEGA SPLASH SCREEN (PORTED FROM 3.5)
 ;----------------------------------------------------------------------------
 GM_SegaEU:
-	jsr	(PaletteFadeOut).w
-	jsr	(ClearScreen).w
+	jsr	(PaletteFadeOut).l
+	jsr	(ClearScreen).l
 	
 	lea	(v_ram_start).l, a0
 	move.l	#(($8000)/4)-1, d0
@@ -17,22 +17,22 @@ GM_SegaEU:
 	move.w	#$9011, (a6)
 
 	move.b	#bgm_Stop,d0
-	jsr	(QueueSound2).w
+	jsr	(QueueSound2).l
 
 	lea	(v_ram_start).l, a1 ; load background here
 	lea	(.Mappings).l, a0
 	move.w	#320, d0
-	jsr	(EniDec).w
+	jsr	(EniDec).l
 
 	lea	(v_ram_start).l, a1
 	move.l	#$40000003, d0
 	moveq	#39, d1
 	moveq	#30, d2
-	jsr	(TilemapToVRAM).w 	; mappings -> vram
+	jsr	(TilemapToVRAM).l 	; mappings -> vram
 
 	move.l	#$68000000, (vdp_control_port).l
 	lea	(.Art).l, a0
-	jsr	(NemDec).w
+	jsr	(NemDec).l
 
 	lea 	(.Palette).l, a0
 	lea 	(v_palette_fading), a1
@@ -43,15 +43,15 @@ GM_SegaEU:
 	dbf 	d0, .PaletteLoop
 
 	move.b	#bgm_EuroSega,d0
-	jsr	(PlaySound_Special).w
+	jsr	(PlaySound_Special).l
 
 	move.w	#130, (v_generictimer).w
 
-	jsr	(PaletteFadeIn).w
+	jsr	(PaletteFadeIn).l
 
 .Loop:
 	move.b	#$4,(v_vbla_routine).w
-	jsr	(WaitForVBla).w
+	jsr	(WaitForVBla).l
 	andi.b	#btnStart,(v_jpadpress1).l
 	bne.s	.Exit
 	tst.w	(v_generictimer).w

@@ -117,7 +117,7 @@ Got_ChkBonus:
 		tst.w	d0		; is there any bonus?
 		bne.s	Got_AddBonus	; if yes, branch
 		move.w	#sfx_Cash,d0
-		jsr	(QueueSound2).w	; play "ker-ching" sound
+		jsr	(QueueSound2).l	; play "ker-ching" sound
 		addq.b	#2,obRoutine(a0)
 		cmpi.w	#(id_PPZ<<8)+1,(v_zone).w
 		bne.s	Got_SetDelay
@@ -136,7 +136,7 @@ Got_AddBonus:
 		andi.b	#3,d0
 		bne.s	locret_C692
 		move.w	#sfx_FCSelect,d0
-		jmp	(QueueSound2).w	; play "blip" sound
+		jmp	(QueueSound2).l	; play "blip" sound
 ; ===========================================================================
 
 Got_NextLevel:	; Routine $A

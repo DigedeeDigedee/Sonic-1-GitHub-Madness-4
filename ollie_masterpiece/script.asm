@@ -10,7 +10,7 @@
 ol_InitScript:
 	lea	ol_TextboxGfx,a0				; Load textbox graphics
 	move.l	#ol_vramWriteCmd(ol_TEXTBOX_VRAM),ol_VDP_CTRL
-	jsr	NemDec.w
+	jsr	(NemDec).l
 
 ; ------------------------------------------------------------------------------
 ; Reset scripting

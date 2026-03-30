@@ -21,9 +21,9 @@ SonicRetro:
 	move.b	#bgm_Fade,d0
 	jsr	(QueueSound2).l
 
-	jsr	(PaletteFadeOut).w
-	jsr	(ClearScreen).w
-	jsr	(ClearPLC).w
+	jsr	(PaletteFadeOut).l
+	jsr	(ClearScreen).l
+	jsr	(ClearPLC).l
 
 	lea	(v_objspace).w, a0
 	move.l	#$7FF, d0
@@ -39,31 +39,31 @@ SonicRetro:
 	; Logo
 	locVRAM $0
 	lea	(.LogoArt).l, a0
-	jsr	(NemDec).w
+	jsr	(NemDec).l
 
 	; Emerald
 	locVRAM $100*$20
 	lea	(.EmeraldArt).l, a0
-	jsr	(NemDec).w
+	jsr	(NemDec).l
 
 	; Sonic
 	locVRAM $172*$20
 	lea	(.SonicArt).l, a0
-	jsr	(NemDec).w
+	jsr	(NemDec).l
 
 	; Old Man
 	locVRAM $295*$20
 	lea	(.OldManArt).l, a0
-	jsr	(NemDec).w
+	jsr	(NemDec).l
 	move.l	#$6AE00000, (vdp_control_port).l
 
 	; Palette
 	moveq	#palid_SonicRetro, d0
-	jsr	(PalLoad1).w
+	jsr	(PalLoad1).l
 
 	if retrodebug==0
 	; This randomizer sucks from the front rather then the back
-	jsr	(RandomNumber).w
+	jsr	(RandomNumber).l
 	and.l	#$FFFF,d0			; clear high word, it's kinda funky with divu
 	divu.w	#(.InitRoutinesEnd-.InitRoutines)/4,d0
 	swap	d0				; get modulo
@@ -121,11 +121,11 @@ SonicRetro:
 	bsr.w	.DrawLogo
 
 	move.b	#bgm_Retro,d0
-	jsr	(QueueSound2).w
+	jsr	(QueueSound2).l
 
 	bsr.w	.ExecuteObjects
 	jsr	(BuildSprites).l
-	jsr	(PaletteFadeIn).w
+	jsr	(PaletteFadeIn).l
 
 	move.w	#13*60, (v_generictimer).w
 	rts
@@ -142,14 +142,14 @@ SonicRetro:
 	bsr.w	.DrawLogo
 
 	moveq	#palid_SonicRetro, d0
-	jsr	(PalLoad1).w
+	jsr	(PalLoad1).l
 
 	move.b	#bgm_Retro,d0
-	jsr	(QueueSound2).w
+	jsr	(QueueSound2).l
 
 	bsr.w	.ExecuteObjects
 	jsr	(BuildSprites).l
-	jsr	(PaletteFadeIn).w
+	jsr	(PaletteFadeIn).l
 
 	move.w	#13*60, (v_generictimer).w
 	rts
@@ -169,11 +169,11 @@ SonicRetro:
 	bsr.w	.DrawLogo
 
 	move.b	#bgm_Retro,d0
-	jsr	(QueueSound2).w
+	jsr	(QueueSound2).l
 
 	bsr.w	.ExecuteObjects
 	jsr	(BuildSprites).l
-	jsr	(PaletteFadeIn).w
+	jsr	(PaletteFadeIn).l
 
 	move.w	#13*60,(v_generictimer).w
 	rts
@@ -189,14 +189,14 @@ SonicRetro:
 	bsr.w	.DrawLogo
 
 	moveq	#palid_SonicRetro, d0
-	jsr	(PalLoad1).w
+	jsr	(PalLoad1).l
 
 	move.b	#bgm_RonicSetro,d0
-	jsr	(QueueSound2).w
+	jsr	(QueueSound2).l
 
 	bsr.w	.ExecuteObjects
 	jsr	(BuildSprites).l
-	jsr	(PaletteFadeIn).w
+	jsr	(PaletteFadeIn).l
 
 	move.w	#13*60, (v_generictimer).w
 	rts
@@ -204,7 +204,7 @@ SonicRetro:
 
 .Loop:
 	move.b	#$4,(v_vbla_routine).w
-	jsr	(WaitForVBla).w
+	jsr	(WaitForVBla).l
 	bsr.w	.ExecuteObjects
 	jsr	(BuildSprites).l
 
@@ -259,12 +259,12 @@ SonicRetro:
 .DrawLogo:
 	lea	(v_ram_start),a1			; The location to decompress in a1
 	move.w	#0, d0				; VRAM 0ffset (not per-tile)
-	jsr	(EniDec).w			; Decompress!
+	jsr	(EniDec).l			; Decompress!
 
 	move.l	#$60000003,d0			; What plane? BG B!
 	moveq	#39, d1				; Width
 	moveq	#30, d2				; Height
-	jsr	(TilemapToVRAM).w		; And we're good to go~
+	jsr	(TilemapToVRAM).l		; And we're good to go~
 	rts
 
 ; ====================================================================================
@@ -272,8 +272,8 @@ SonicRetro:
 .Exit:
 	move.b	#bgm_Stop,d0
 	jsr	(QueueSound2).l		; stop music
-	jsr	(PaletteFadeOut).w
-	jsr	(VDPSetupGame).w
+	jsr	(PaletteFadeOut).l
+	jsr	(VDPSetupGame).l
 	enable_display
 	if retrodebug<0
 	tst.w	(v_pcyc_num).w

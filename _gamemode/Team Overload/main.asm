@@ -1,8 +1,8 @@
 TeamOverload_Splash:
 		move.b	#bgm_Fade,d0
-		jsr	(PlaySound_Special).w
-		jsr	(ClearPLC).w
-		jsr	(ClearScreen).w
+		jsr	(PlaySound_Special).l
+		jsr	(ClearPLC).l
+		jsr	(ClearScreen).l
 		disable_ints
 
 Overload_SetupVDP:
@@ -15,25 +15,25 @@ Overload_SetupVDP:
 		move.w	#$8B03,(a6)		; screen resolution / shadow-highlight mode disabled
 		move.w	#$8720,(a6)		; Backdrop color setting (1st entry from 3rd palette)
 		clr.b	(f_wtr_state).w
-		jsr	(ClearScreen).w		; Clear the screen maps and palette
+		jsr	(ClearScreen).l		; Clear the screen maps and palette
 
 		clearRAM v_objspace
 
 		locVRAM	1*$20
 		lea	(Nem_TOverload).l,a0
-		jsr	(NemDec).w
+		jsr	(NemDec).l
 
 		lea	(v_ram_start).l,a1
 		lea	(Map_TOverloadA).l,a0
 		move.w	#make_art_tile(1,0,0),d0
-		jsr	(EniDec).w
+		jsr	(EniDec).l
 
 		copyTilemap	v_ram_start,vram_fg,40,28
 
 		lea	(v_ram_start).l,a1
 		lea	(Map_TOverloadB).l,a0
 		move.w	#make_art_tile(1,1,0),d0
-		jsr	(EniDec).w
+		jsr	(EniDec).l
 
 		copyTilemap	v_ram_start,vram_bg,40,28
 
@@ -45,14 +45,14 @@ Overload_SetupVDP:
 
 		move.w	#$A86,(v_palette_fading_line_3)
 		move.w	#bgm_Donnie,d0			; Change it to a better fitting ID!
-		jsr	(PlaySound_Special).w
-		jsr	(PaletteFadeIn).w
+		jsr	(PlaySound_Special).l
+		jsr	(PaletteFadeIn).l
 		move.w	#4*60,(v_generictimer).w		; 6 seconds
 ; ---------------------------------------------------------------------------------------------------------------------
 
 .loop:
 		move.b	#4,(v_vbla_routine).w		; Function 2 in vInt
-		jsr	(WaitForVBla).w			; Run delay program
+		jsr	(WaitForVBla).l			; Run delay program
 		tst.w	(v_generictimer).w		; timer expired?
 		beq.s	.quit				; if yes, quit
 		andi.b	#btnStart,(v_jpadpress1).w	; Start button pressed?
@@ -60,9 +60,9 @@ Overload_SetupVDP:
 
 .quit:
 		move.b	#bgm_Fade,d0
-		jsr	(PlaySound_Special).w		; fade out music
-		jsr	(PaletteFadeOut).w
-		jsr	(VDPSetupGame).w
+		jsr	(PlaySound_Special).l		; fade out music
+		jsr	(PaletteFadeOut).l
+		jsr	(VDPSetupGame).l
 		enable_display
 		move.b	#id_Title,(v_gamemode).w	; go to title screen
 		rts

@@ -9,8 +9,8 @@
 
 GM_OllieMasterpiece:
 	moveq	#bgm_Fade|(~$FF),d0				; Fade out sound
-	jsr	QueueSound2.w
-	jsr	PaletteFadeOut.w				; Fade out palette
+	jsr	(QueueSound2).l
+	jsr	(PaletteFadeOut).l				; Fade out palette
 
 	move.w	#$2700,sr					; Disable interrupts
 	move.w	#opcode_jmpabslong,ol_vblank_jmp.w		; Setup V-BLANK interrupt
@@ -62,7 +62,7 @@ GM_OllieMasterpiece:
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
 	move.w	#$8174,ol_VDP_CTRL				; Enable display
-	jsr	PaletteFadeIn.w					; Fade in palette
+	jsr	(PaletteFadeIn).l					; Fade in palette
 
 ; ------------------------------------------------------------------------------
 
@@ -96,7 +96,7 @@ ol_VBlank:
 	clr.b	ol_vsync_flag.w					; Clear VSync flag
 	addq.l	#1,ol_frame_count.w				; Increment frame count
 	
-	jsr	ReadJoypads.w					; Read joypads
+	jsr	(ReadJoypads).l					; Read joypads
 
 	lea	ol_VDP_CTRL,a0					; VDP control port
 	lea	ol_VDP_DATA,a1					; VDP data port

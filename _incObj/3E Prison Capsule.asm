@@ -110,7 +110,7 @@ Pri_Explosion:	; Routine 6, 8, $A
 		jsr	(GHM3Explode).l
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
-		jsr	(RandomNumber).w
+		jsr	(RandomNumber).l
 		moveq	#0,d1
 		move.b	d0,d1
 		lsr.b	#2,d1

@@ -30,8 +30,8 @@ Bump_Hit:	; Routine 2
 		move.w	obY(a0),d2
 		sub.w	obX(a1),d1
 		sub.w	obY(a1),d2
-		jsr	(CalcAngle).w
-		jsr	(CalcSine).w
+		jsr	(CalcAngle).l
+		jsr	(CalcSine).l
 		muls.w	#-$800,d1
 		asr.l	#8,d1
 		move.w	d1,obVelX(a1)	; bounce Sonic away

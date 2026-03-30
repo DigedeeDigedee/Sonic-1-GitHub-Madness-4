@@ -70,12 +70,12 @@ Malachi_Splash:
 ; run screen
 		jsr	(a5)
 ; alright we're done
-		jsr	(VDPSetupGame).w
+		jsr	(VDPSetupGame).l
 		enable_display
 		rts
 ; d0 = non-zero to skip screen
 .joypad:
-		jsr	(ReadJoypads).w
+		jsr	(ReadJoypads).l
 		move.b	(v_jpadpress1).w,d0
 		and.b	#btnStart,d0
 		rts

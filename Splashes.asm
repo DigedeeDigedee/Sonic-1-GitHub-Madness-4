@@ -14,9 +14,9 @@ VDP_Data_Splash_End:
 
 RunSplashes:
 		moveq	#bgm_Stop|(~$FF),d0
-		jsr	(PlaySound_Special).w ; stop music
-		jsr	(ClearPLC).w
-		jsr	(PaletteFadeOut).w
+		jsr	(PlaySound_Special).l ; stop music
+		jsr	(ClearPLC).l
+		jsr	(PaletteFadeOut).l
 
 ; 	if SkipSplash = 1
 ; 		move.b	#id_Title,(v_gamemode).w ; PLEASESKIPTHISSHITPLEASEPLEASE
@@ -31,7 +31,7 @@ RunSplashes:
 		bne.w	.liquid_splash		; if we are running a liquid splash screen, branch
 
 		disable_ints			; disable interrupts
-		jsr	(ClearScreen).w		; clear screen
+		jsr	(ClearScreen).l		; clear screen
 		clr.b	(f_wtr_state).w		; don't use water palette
 
 		; Set up VDP
@@ -49,13 +49,13 @@ RunSplashes:
 
 		locVRAM 0
 		move.l	(a2)+,a0 ; art
-		jsr	(NemDec).w
+		jsr	(NemDec).l
 
 		lea	(v_ram_start).l,a1
 		move.l	(a2)+,a0 ; tilemap
 		moveq	#0,d0
 		move.l	a2,-(sp)
-		jsr	(EniDec).w
+		jsr	(EniDec).l
 		move.l	(sp)+,a2
 
 		copyTilemap	v_ram_start,$C000,$28,$1C
@@ -74,7 +74,7 @@ RunSplashes:
 		move.b	(a2)+,d0 	; is this a pcm or a sound id?
 		bne.s	.sampleid	; if pcm flag set, jump to pcm playback
 		move.b	(a2)+,d0 	; get sound id
-		jsr	(PlaySound_Special).w
+		jsr	(PlaySound_Special).l
 		bra.s	.musicid
 
 	.sampleid:
@@ -90,7 +90,7 @@ RunSplashes:
 		
 		tst.b	(sp)			; should we fade in?
 		beq.s	.no_fade_in		; if not, branch
-		jsr	(PaletteFadeIn).w	; if so, fade in
+		jsr	(PaletteFadeIn).l	; if so, fade in
 		bra.s	.loop
 
 	.no_fade_in:
@@ -104,7 +104,7 @@ RunSplashes:
 
 	.loop:
 		move.b	#2,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 
 		tst.w	(v_generictimer).w
 		beq.s	.time_over
@@ -118,7 +118,7 @@ RunSplashes:
 		beq.s	.black_out		; if not, branch
 
 	.fade_out:
-		jsr	(PaletteFadeOut).w	; if so, fade out
+		jsr	(PaletteFadeOut).l	; if so, fade out
 		bra.s	.stop_music
 
 	.black_out:
@@ -132,10 +132,10 @@ RunSplashes:
 
 	.stop_music:
 		moveq	#bgm_Stop|(~$FF),d0
-		jsr	(PlaySound_Special).w ; stop music
+		jsr	(PlaySound_Special).l ; stop music
 		
 		move.b	#2,(v_vbla_routine).w	; make sure palette and sound changes go through
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 
 		bra.w	.load_next_splash	; load next splash screen
 

@@ -22,12 +22,12 @@ RetroBlast:
 
 		locVRAM $0
 		lea	(ArtNem_RetroBlast),a0
-		jsr	(NemDec).w
+		jsr	(NemDec).l
 
 		lea	(MapEni_RetroBlast).l,a0
 		lea	(v_ram_start).l,a1
 		move.w	#make_art_tile(0,0,0),d0
-		jsr	(EniDec).w
+		jsr	(EniDec).l
 
 		copyTilemap	v_ram_start,vram_fg,32,28
 
@@ -43,7 +43,7 @@ RetroBlast:
 		enable_display
 		move.b	#bgm_RetroBlast,d0
 		jsr	(QueueSound2).l
-		jsr	(PaletteWhiteIn).w
+		jsr	(PaletteWhiteIn).l
 
 		jsr	(LoopDelay_ChkStart).l
 

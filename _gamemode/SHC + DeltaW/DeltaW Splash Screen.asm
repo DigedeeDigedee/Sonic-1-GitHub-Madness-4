@@ -6,8 +6,8 @@
 GM_DWSplash:
 		move.b	#bgm_Stop,d0
 		jsr	PlaySound_Special
-		jsr	PaletteWhiteOut.w		; flash to white		
-		jsr	ClearScreen.w
+		jsr	(PaletteWhiteOut).l		; flash to white		
+		jsr	(ClearScreen).l
 		lea	(vdp_control_port).l,a6
 		move.w	#$8004,(a6)			; 8-color mode
 		move.w	#$8174,(a6)		
@@ -22,17 +22,17 @@ GM_DWSplash:
 		lea	(v_256x256).l,a1
 		lea	(Eni_SplashScreen).l,a0
 		move.w	#320,d0
-		jsr	(EniDec).w
+		jsr	(EniDec).l
 
 		locVRAM	$140*$20
 		lea	(Nem_SplashScreen).l,a0
-		jsr	(NemDec).w
+		jsr	(NemDec).l
 
 		lea	(v_256x256).l,a1
 		move.l	#$60000003,d0
 		moveq	#39,d1
 		moveq	#30,d2
-		jsr	(TilemapToVRAM).w
+		jsr	(TilemapToVRAM).l
 
 		lea	Pal_SplashScreen.l,a0
 		lea	(v_palette_fading_line_1).l,a1
@@ -52,9 +52,9 @@ DW_PalLoop2:
 		bsr.w	TextInit_DeltaW_Text
 		
 		move.b	#2,(v_vbla_routine).w
-		jsr	WaitForVBla.w
+		jsr	(WaitForVBla).l
 		
-		jsr	PaletteWhiteIn.w
+		jsr	(PaletteWhiteIn).l
 		moveq	#0,d0
 		move.b	(v_quoteid).w,d0
 		move.b	QuoteSoundTable(pc,d0.w),d0
@@ -63,7 +63,7 @@ DW_PalLoop2:
 
 DW_MainLoop:
 		move.b	#2,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 		tst.b	(v_jpadpress1).w
 		bmi.s	DW_GotoTitle
 		tst.w	(v_demolength).w
@@ -72,7 +72,7 @@ DW_MainLoop:
 DW_GotoTitle:
 		move.b	#bgm_Fade,d0
 		jsr	(PlaySound_Special).l		; fade out music
-		jsr	(PaletteFadeOut).w
+		jsr	(PaletteFadeOut).l
 		jsr	VDPSetupGame
 		enable_display
 		move.b	#id_Title,(v_gamemode).w
@@ -230,7 +230,7 @@ TextInit_DeltaW_Text:
 		rts
 ; ===========================================================================
 QuoteRandomizer:
-		jsr	(RandomNumber).w
+		jsr	(RandomNumber).l
 		andi.w	#$FF,d0
 		cmpi.b	#(TextData_QuotePointers_End-TextData_QuotePointers)/2,d0	; Check greater than quote IDs
 		bhs.s	QuoteRandomizer

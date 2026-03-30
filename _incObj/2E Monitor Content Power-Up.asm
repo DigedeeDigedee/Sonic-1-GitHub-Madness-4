@@ -65,7 +65,7 @@ ExtraLife:
 		addq.b	#1,(v_lives).w	; add 1 to the number of lives you have
 		addq.b	#1,(f_lifecount).w ; update the lives counter
 		move.w	#bgm_ExtraLife,d0
-		jmp	(QueueSound1).w	; play extra life music
+		jmp	(QueueSound1).l	; play extra life music
 ; ===========================================================================
 
 Pow_ChkShoes:
@@ -83,7 +83,7 @@ Pow_ChkShoes:
 		;!@ GenesisDoes: Play boost powa PCM
 		pcm	dBoostPower
 		move.b	#bgm_AVGNInv,d0
-		jmp	(QueueSound1).w		; Speed up the music
+		jmp	(QueueSound1).l		; Speed up the music
 ; ===========================================================================
 
 Pow_ChkShield:
@@ -93,7 +93,7 @@ Pow_ChkShield:
 		move.b	#1,(v_shield).w	; give Sonic a shield
 		move.b	#id_ShieldItem,(v_shieldobj).w ; load shield object ($38)
 		move.w	#sfx_Shield,d0
-		jmp	(QueueSound1).w	; play shield sound
+		jmp	(QueueSound1).l	; play shield sound
 ; ===========================================================================
 
 Pow_ChkInvinc:
@@ -117,7 +117,7 @@ Pow_ChkInvinc:
 		cmpi.w	#$C,(v_air).w
 		bls.s	Pow_NoMusic
 		move.w	#bgm_Invincible,d0
-		jmp	(QueueSound1).w ; play invincibility music
+		jmp	(QueueSound1).l ; play invincibility music
 ; ===========================================================================
 
 Pow_NoMusic:
@@ -141,20 +141,25 @@ Pow_ChkRings:
 
 Pow_RingSound:
 		move.w	#sfx_Ring,d0
-		jmp	(QueueSound1).w	; play ring sound
+		jmp	(QueueSound1).l	; play ring sound
 ; ===========================================================================
 
 Pow_ChkS:
 		cmpi.b	#7,d0		; does monitor contain 'S'?
 		bne.s	Pow_ChkGoggles
-		nop	
+;		move.b	#2,(v_curgame).w	; Fuck you, you're going to Osomatsu-kun
+		nop
+;		nop
+;		disable_ints
+;		lea	(v_systemstack).l,sp
+;		jmp	(EntryPoint).l		; Jump to entry point to load Osomatsu-kun data
 
 Pow_ChkGoggles:
 ; Uncomment these lines to set up the goggles monitor to work with it
-	;	cmpi.b	#8,d0		; does monitor contain goggles?
-	;	bne.s	Pow_ChkEnd
-	;	nop	
-	
+		cmpi.b	#8,d0		; does monitor contain goggles?
+		bne.s	Pow_ChkEnd
+		nop	
+
 Pow_ChkEnd:
 		rts		; 'S' and goggles monitors do nothing
 ; ===========================================================================

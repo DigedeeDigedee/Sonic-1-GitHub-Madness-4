@@ -149,7 +149,7 @@ loc_1AF6:
 		move.b	d0,(a1)+
 		andi.w	#$F,d0
 		add.w	d0,d0
-		movea.w	(a2)+,a0
+		movea.l	(a2)+,a0
 		movea.w	(a2)+,a3
 		move.w	(a0,d0.w),(a3)
 

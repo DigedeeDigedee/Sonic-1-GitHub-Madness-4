@@ -39,7 +39,7 @@ RoadRollerRight:
 		move.w	#$F00,obVelX(a0) ; move object to the right
 		move.b	#$A2,obColType(a0)
 		move.w	#sfx_VehiRev,d0
-		jmp	(PlaySound_Special).w		; play RoadRoller sound
+		jmp	(PlaySound_Special).l		; play RoadRoller sound
 
 .return:
 		rts	
@@ -58,7 +58,7 @@ RoadRollerGoLeft:
 		bset	#0,obRender(a0)
 ;		move.b	#2,obFrame(a0)
 		move.w	#sfx_VehiRev,d0
-		jmp	(PlaySound_Special).w		; play RoadRoller sound
+		jmp	(PlaySound_Special).l		; play RoadRoller sound
 ; ===========================================================================
 
 .update:

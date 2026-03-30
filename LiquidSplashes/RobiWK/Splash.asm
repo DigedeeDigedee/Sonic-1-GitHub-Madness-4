@@ -1,11 +1,11 @@
 RobiWanKenobi_Splash:
 	move.b	#bgm_Stop,d0
-	jsr	(PlaySound_Special).w		; fade out music
-	jsr	(ClearPLC).w
-	jsr	(PaletteFadeOut).w
+	jsr	(PlaySound_Special).l		; fade out music
+	jsr	(ClearPLC).l
+	jsr	(PaletteFadeOut).l
 	disable_ints
 	disable_display
-	jsr	(ClearScreen).w
+	jsr	(ClearScreen).l
 	fillVRAM	0, $0000, $10000
 	lea	(vdp_control_port).l,a6
 	move.w	#$8004,(a6)			; 8-colour mode
@@ -49,7 +49,7 @@ RobiWanKenobi_Splash:
 	dbf	d0,.loadpal
 
 	move.b	#Bgm_GooglePlayStock,d0
-	jsr	(PlaySound_Special).w ; stop music
+	jsr	(PlaySound_Special).l ; stop music
 
 	move.b	#id_RobiWK_Logo,(v_splash_logo).w
 	move.b	#id_RobiWK_Logo,(v_splash_logo_b).w
@@ -57,12 +57,12 @@ RobiWanKenobi_Splash:
 	jsr	(ExecuteObjects).l
 	jsr	(BuildSprites).l
 
-	jsr	(PaletteFadeIn).w
+	jsr	(PaletteFadeIn).l
 	move.w	#6*60,(v_generictimer).w			; Time
 
 .loop:
 	move.b	#2,(v_vbla_routine).w
-	jsr	(WaitForVBla).w
+	jsr	(WaitForVBla).l
 	jsr	(ExecuteObjects).l
 	jsr	(BuildSprites).l
 	andi.b	#btnStart,(v_jpadpress1).w	; check if Start is pressed
@@ -70,7 +70,7 @@ RobiWanKenobi_Splash:
 	tst.w	(v_generictimer).w
 	bne.s	.loop
 .title:
-	jsr	(PaletteFadeOut).w
+	jsr	(PaletteFadeOut).l
 	move.b	#id_Title,(v_gamemode).w	; set the screen mode to Title Screen
 	rts
 

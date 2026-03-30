@@ -2,10 +2,10 @@ GM_TheSunsetJester:
 		move.b	#bgm_Fade,d0
 		jsr	PlaySound_Special
 		jsr	(ClearPLC).l
-		jsr	(PaletteFadeOut).w
+		jsr	(PaletteFadeOut).l
 		disable_ints
 		disable_display
-		jsr	(ClearScreen).w
+		jsr	(ClearScreen).l
 
 		fillVRAM	0, $0000, $10000
 
@@ -70,7 +70,7 @@ GM_TheSunsetJester:
 
 .loop:
 		move.b	#2,(v_vbla_routine).w
-		jsr	(WaitForVBla).w
+		jsr	(WaitForVBla).l
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		jsr	PalCycTSR
