@@ -22,13 +22,13 @@ ol_TextboxMapIcon:
 ; ------------------------------------------------------------------------------
 
 ol_PlayerGfx:
-	incbin	"gfx/player_gfx.nem"
+	incbin	"gfx/player.nem"
 	even
 ol_PlayerSprites:
-	include	"sprites/player_sprites.asm"
+	include	"sprites/player.asm"
 	even
 ol_PlayerAnims:
-	include	"anims/player_anims.asm"
+	include	"anims/player.asm"
 	even
 
 ol_PlayerIcon:
@@ -38,16 +38,16 @@ ol_PlayerIcon:
 	dc.l	ol_PlayerIconAnims
 
 ol_PlayerIconGfx:
-	incbin	"gfx/player_icon_gfx.bin"
+	incbin	"gfx/player_icon.bin"
 	even
 ol_PlayerIconGfxScript:
-	include	"gfx/player_icon_gfx_script.asm"
+	include	"gfx/player_icon_script.asm"
 	even
 ol_PlayerIconSprites:
-	include	"sprites/player_icon_sprites.asm"
+	include	"sprites/player_icon.asm"
 	even
 ol_PlayerIconAnims:
-	include	"anims/player_icon_anims.asm"
+	include	"anims/player_icon.asm"
 	even
 
 ; ------------------------------------------------------------------------------
@@ -55,13 +55,13 @@ ol_PlayerIconAnims:
 ; ------------------------------------------------------------------------------
 
 ol_NpcGfx:
-	incbin	"gfx/npc_gfx.nem"
+	incbin	"gfx/npc.nem"
 	even
 ol_NpcSprites:
-	include	"sprites/npc_sprites.asm"
+	include	"sprites/npc.asm"
 	even
 ol_NpcAnims:
-	include	"anims/npc_anims.asm"
+	include	"anims/npc.asm"
 	even
 
 ; ------------------------------------------------------------------------------
