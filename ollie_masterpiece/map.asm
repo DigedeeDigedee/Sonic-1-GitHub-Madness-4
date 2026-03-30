@@ -16,7 +16,7 @@ ol_InitMap:
 	movea.l	(a6,d0.w),a6
 
 	movea.l	(a6)+,a0					; Load graphics
-	move.l	#ol_vramWriteCmd(0),ol_VDP_CTRL
+	move.l	#ol_vramWriteCmd(ol_MAP_VRAM),ol_VDP_CTRL
 	jsr	NemDec.w
 
 	movea.l	(a6)+,a0					; Get palette data
@@ -36,7 +36,14 @@ ol_InitMap:
 	move.l	(a6)+,ol_map_objects.w				; Set map objects address
 	move.l	(a6)+,ol_map_left.w				; Set map left and right boundaries
 	move.l	(a6)+,ol_map_top.w				; Set map top and bottom boundaries
-	rts
+	
+	lea	ol_PlayerGfx,a0					; Load player graphics
+	move.l	#ol_vramWriteCmd(ol_PLAYER_VRAM),ol_VDP_CTRL
+	jsr	NemDec.w
+
+	lea	ol_NpcGfx,a0					; Load NPC graphics
+	move.l	#ol_vramWriteCmd(ol_FREE_VRAM),ol_VDP_CTRL
+	jmp	NemDec.w
 	
 ; ------------------------------------------------------------------------------
 ; Scroll map

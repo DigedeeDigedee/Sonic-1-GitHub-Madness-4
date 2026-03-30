@@ -3,6 +3,8 @@
 ; By Ollie_Ollie_TechDeck
 ; ------------------------------------------------------------------------------
 
+ol_player_anim		equ ol_obj_free				; Animation
+
 ; ------------------------------------------------------------------------------
 ; Player object
 ; ------------------------------------------------------------------------------
@@ -50,6 +52,24 @@ ol_PlayerUpdate:
 	bsr.w	ol_MoveObjectGridRight				; Move right
 
 .Draw:
+	lea	ol_player_anim(a0),a1				; Animation structure
+	lea	ol_PlayerAnims,a2				; Animation scripts
+
+	move.b	ol_obj_flags(a0),d0				; Get direction as animation ID
+	andi.w	#ol_OBJECT_DIRECTION,d0
+	tst.l	ol_script_addr.w				; Is a script active?
+	bne.s	.SetAnimation					; If so, branch
+	move.b	ol_p1_ctrl_hold.w,d1				; Is the D-pad being held?
+	andi.b	#$F,d1
+	beq.s	.SetAnimation					; If not, branch
+	addq.w	#4,d0						; If so, use movement animation ID
+
+.SetAnimation:
+	add.w	d0,d0						; Set animation
+	adda.w	(a2,d0.w),a2
+	bsr.w	ol_SetAnimation
+
+	bsr.w	ol_UpdateAnimation				; Update animation
 	bra.w	ol_DrawObject					; Draw sprite
 
 ; ------------------------------------------------------------------------------
@@ -62,11 +82,9 @@ ol_PlayerDraw:
 	sub.w	ol_camera_x.w,d0
 	move.w	ol_obj_y(a0),d1
 	sub.w	ol_camera_y.w,d1
-	move.b	ol_frame_count+3.w,d2
-	lsr.b	#3,d2
-	andi.b	#3,d2
-	moveq	#1,d3
-	moveq	#0,d4
+	moveq	#0,d2
+	move.w	#ol_PLAYER_VRAM/$20,d3
+	move.b	ol_player_anim+ol_anim_frame(a0),d4
 	bra.w	ol_DrawSprite
 
 ; ------------------------------------------------------------------------------

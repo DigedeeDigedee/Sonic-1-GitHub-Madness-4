@@ -3,6 +3,8 @@
 ; By Ollie_Ollie_TechDeck
 ; ------------------------------------------------------------------------------
 
+ol_npc_anim		equ ol_obj_free				; Animation
+
 ; ------------------------------------------------------------------------------
 ; NPC objects
 ; ------------------------------------------------------------------------------
@@ -27,6 +29,16 @@ ol_NpcUpdate:
 	bsr.w	ol_StartScript
 
 .NoInteract:
+	lea	ol_npc_anim(a0),a1				; Animation structure
+	lea	ol_NpcAnims,a2					; Animation scripts
+
+	move.b	ol_obj_flags(a0),d0				; Set animation
+	andi.w	#ol_OBJECT_DIRECTION,d0
+	add.w	d0,d0
+	adda.w	(a2,d0.w),a2
+	bsr.w	ol_SetAnimation
+
+	bsr.w	ol_UpdateAnimation				; Update animation
 	bra.w	ol_DrawObject					; Draw sprite
 
 ; ------------------------------------------------------------------------------
@@ -65,14 +77,14 @@ ol_NpcUpdate:
 ; ------------------------------------------------------------------------------
 
 ol_NpcDraw:
-	lea	ol_PlayerSprites,a1				; Draw sprite
+	lea	ol_NpcSprites,a1				; Draw sprite
 	move.w	ol_obj_x(a0),d0
 	sub.w	ol_camera_x.w,d0
 	move.w	ol_obj_y(a0),d1
 	sub.w	ol_camera_y.w,d1
 	moveq	#0,d2
-	moveq	#1,d3
-	moveq	#0,d4
+	move.w	#ol_FREE_VRAM/$20,d3
+	move.b	ol_npc_anim+ol_anim_frame(a0),d4
 	bra.w	ol_DrawSprite
 
 ; ------------------------------------------------------------------------------

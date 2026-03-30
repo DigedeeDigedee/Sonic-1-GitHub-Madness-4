@@ -12,6 +12,9 @@
 ; ------------------------------------------------------------------------------
 
 ol_SetAnimation:
+	cmpa.l	ol_anim_addr(a1),a2				; Is this animation script already set?
+	beq.s	.End						; If so, branch
+
 	move.l	a2,ol_anim_addr(a1)				; Set animation script address
 	beq.s	.End						; If it's not set, branch
 	
@@ -57,7 +60,7 @@ ol_UpdateAnimation:
 
 	move.b	ol_anim_loop(a1),d0				; Get loop point
 	cmpi.b	#-1,d0						; Should we stop animating?
-	beq.s	.StopAnim					; If so, branch
+	beq.s	.StopAnimation					; If so, branch
 	
 	move.b	d0,ol_anim_index(a1)				; Go to loop point
 
@@ -68,7 +71,7 @@ ol_UpdateAnimation:
 	add.w	d0,ol_anim_index(a1)
 	rts
 
-.StopAnim:
+.StopAnimation:
 	move.b	ol_anim_end(a1),d0				; Get last animation frame ID
 	subq.b	#1,d0
 	move.b	4(a2,d0.w),ol_anim_frame(a1)

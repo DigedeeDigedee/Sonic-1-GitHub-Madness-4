@@ -21,8 +21,14 @@ ol_TextboxMapIcon:
 ; Player object
 ; ------------------------------------------------------------------------------
 
+ol_PlayerGfx:
+	incbin	"gfx/player_gfx.nem"
+	even
 ol_PlayerSprites:
 	include	"sprites/player_sprites.asm"
+	even
+ol_PlayerAnims:
+	include	"anims/player_anims.asm"
 	even
 
 ol_PlayerIcon:
@@ -42,6 +48,20 @@ ol_PlayerIconSprites:
 	even
 ol_PlayerIconAnims:
 	include	"anims/player_icon_anims.asm"
+	even
+
+; ------------------------------------------------------------------------------
+; NPC object
+; ------------------------------------------------------------------------------
+
+ol_NpcGfx:
+	incbin	"gfx/npc_gfx.nem"
+	even
+ol_NpcSprites:
+	include	"sprites/npc_sprites.asm"
+	even
+ol_NpcAnims:
+	include	"anims/npc_anims.asm"
 	even
 
 ; ------------------------------------------------------------------------------

@@ -429,23 +429,10 @@ ol_CheckInteractObject:
 ; ------------------------------------------------------------------------------
 
 .DirectionCheck:
-	bra.s	.CheckLeft					; Left
-	bra.s	.CheckRight					; Right
+	bra.s	.CheckDown					; Down
 	bra.s	.CheckUp					; Up
-	; Down falls through
-
-; ------------------------------------------------------------------------------
-
-.CheckDown:
-	subi.w	#$10,d1						; Is the player directly above us?
-	cmp.w	d1,d3
-	bne.s	.NoInteract					; If not, branch
-	
-	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set our direction to up
-	if ol_OBJECT_UP<>0
-		ori.b	#ol_OBJECT_UP,ol_obj_flags(a0)
-	endif
-	bra.s	.Interact					; Interaction detected
+	bra.s	.CheckRight					; Right
+	; Left falls through
 
 ; ------------------------------------------------------------------------------
 
@@ -462,14 +449,14 @@ ol_CheckInteractObject:
 
 ; ------------------------------------------------------------------------------
 
-.CheckRight:
-	subi.w	#$10,d0						; Is the player directly right of us?
-	cmp.w	d0,d2
+.CheckDown:
+	subi.w	#$10,d1						; Is the player directly above us?
+	cmp.w	d1,d3
 	bne.s	.NoInteract					; If not, branch
 	
-	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set our direction to left
-	if ol_OBJECT_LEFT<>0
-		ori.b	#ol_OBJECT_LEFT,ol_obj_flags(a0)
+	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set our direction to up
+	if ol_OBJECT_UP<>0
+		ori.b	#ol_OBJECT_UP,ol_obj_flags(a0)
 	endif
 	bra.s	.Interact					; Interaction detected
 
@@ -480,9 +467,22 @@ ol_CheckInteractObject:
 	cmp.w	d1,d3
 	bne.s	.NoInteract					; If not, branch
 	
-	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set our direction to left
+	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set our direction to down
 	if ol_OBJECT_DOWN<>0
 		ori.b	#ol_OBJECT_DOWN,ol_obj_flags(a0)
+	endif
+	bra.s	.Interact					; Interaction detected
+
+; ------------------------------------------------------------------------------
+
+.CheckRight:
+	subi.w	#$10,d0						; Is the player directly right of us?
+	cmp.w	d0,d2
+	bne.s	.NoInteract					; If not, branch
+	
+	andi.b	#~ol_OBJECT_DIRECTION,ol_obj_flags(a0)		; Set our direction to left
+	if ol_OBJECT_LEFT<>0
+		ori.b	#ol_OBJECT_LEFT,ol_obj_flags(a0)
 	endif
 	bra.s	.Interact					; Interaction detected
 

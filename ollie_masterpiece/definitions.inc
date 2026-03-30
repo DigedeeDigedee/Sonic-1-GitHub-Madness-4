@@ -21,6 +21,10 @@ ol_PLANE_B_VRAM		equ $E000				; Plane B VRAM address
 ol_SPRITES_VRAM		equ $F800				; Sprite table VRAM address
 ol_HSCROLL_VRAM		equ $FC00				; Horizontal scroll table VRAM address
 
+ol_MAP_VRAM		equ 0					; Map VRAM address
+ol_PLAYER_VRAM		equ $8000				; Player VRAM address
+ol_FREE_VRAM		equ $8300				; Free VRAM address
+
 ; ------------------------------------------------------------------------------
 ; Animation structure
 ; ------------------------------------------------------------------------------
@@ -62,10 +66,10 @@ ol_obj_struct_size	ds.b 0					; Size of structure
 ; ------------------------------------------------------------------------------
 
 ol_OBJECT_DIRECTION	equ %11					; Object direction mask
-ol_OBJECT_LEFT		equ 0					; Left
-ol_OBJECT_RIGHT		equ 1					; Right
-ol_OBJECT_UP		equ 2					; Up
-ol_OBJECT_DOWN		equ 3					; Down
+ol_OBJECT_DOWN		equ 0					; Down
+ol_OBJECT_UP		equ 1					; Up
+ol_OBJECT_RIGHT		equ 2					; Right
+ol_OBJECT_LEFT		equ 3					; Left
 
 ol_OBJECT_MOVE		equ 2					; Object move flag
 
