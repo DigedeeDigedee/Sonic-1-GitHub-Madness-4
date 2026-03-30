@@ -170,6 +170,7 @@ Init_TooLimited:		= $382
 H_Int_2LS:		= $AE4
 V_Int_2LS:		= $3E2
 
+
 	binclude	"_bonusgames/Too LimitedSonic/Too_LimitedSonic.bin"	; Welp, the DMA Queue is gonna be problematic
 	even
 
@@ -495,7 +496,6 @@ Get_CurGame:
 .GameIndex:
 		dc.w	.GHM4-.GameIndex	;  0
 		dc.w	.TooLimited-.GameIndex	;  2
-		dc.w	.Osomatsu-.GameIndex	;  4
 ; ===========================================================================
 
 .GHM4:
@@ -508,23 +508,9 @@ Get_CurGame:
 
 .TooLimited:
 		move.l	#V_Int_2LS,(v_vintcode.addr).w		; Setup Vint for Too LimitedSonic
-;		move.l	#VBlank,(v_vintcode.addr).w		; Setup Vint for GHM4 (whilst we get the games in)
 		move.l	#H_Int_2LS,(v_hintcode.addr).w		; Setup Hint for Too LimitedSonic
-;		move.w	#opcode_rte,(v_hintcode.jmp).w		; Setup Hint for GHM4 (whilst we get the games in)
 		move.b	(v_curgame).w,(v_lastgame).w
 		jmp	(Init_TooLimited).l			; Boot up Too LimitedSonic
-;		bra.w	Init_GHM4				; Boot up GHM4 (whilst we get the games in)
-
-; ===========================================================================
-
-.Osomatsu:
-;		move.l	#V_Int_Osomatsu,(v_vintcode.addr).w	; Setup Vint for Osomatsu-kun
-		move.l	#VBlank,(v_vintcode.addr).w		; Setup Vint for GHM4 (whilst we get the games in)
-;		move.l	#H_Int_Osomatsu,(v_hintcode.addr).w	; Setup Hint for Osomatsu-kun
-		move.w	#opcode_rte,(v_hintcode.jmp).w		; Setup Hint for GHM4 (whilst we get the games in)
-		move.b	(v_curgame).w,(v_lastgame).w
-;		jmp	(Init_Osomatsu).w			; Boot up Osomatsu-kun
-		bra.w	Init_GHM4				; Boot up GHM4 (whilst we get the games in)
 
 ; ===========================================================================
 
