@@ -116,7 +116,11 @@ ol_OBJECT_SPAWN_COUNT	equ (ol_objects_end-ol_object_spawn)/ol_obj_struct_size
 
 	phase v_ram_start_def+$8000
 ol_map_id		ds.b 1					; Map ID
-			ds.b 1
+ol_map_next_id		ds.b 1					; Next map ID
+ol_map_entry_id		ds.b 1					; Map entry ID
+ol_map_spawn_direction	ds.b 1					; Map spawn direction
+ol_map_spawn_x		ds.w 1					; Map spawn X position
+ol_map_spawn_y		ds.w 1					; Map spawn Y position
 ol_map_blocks		ds.l 1					; Map blocks address
 ol_map_chunks		ds.l 1					; Map chunks address
 ol_map_foreground	ds.l 1					; Map foreground address

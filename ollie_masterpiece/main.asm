@@ -8,7 +8,7 @@
 ; ------------------------------------------------------------------------------
 
 GM_OllieMasterpiece:
-	moveq	#bgm_Fade|(~$FF),d0				; Fade out sound
+	moveq	#bgm_Stop|(~$FF),d0				; Stop sound
 	jsr	(QueueSound2).l
 	jsr	(PaletteFadeOut).l				; Fade out palette
 
@@ -27,6 +27,11 @@ GM_OllieMasterpiece:
 	move.l	d0,(a0)+					; Clear buffers and variables
 	dbf	d1,.ClearRam					; Loop until finished
 
+; ------------------------------------------------------------------------------
+
+.LoadMap:
+	clr.l	ol_p1_ctrl_hold.w				; Clear controller data
+
 	lea	ol_objects,a0					; Object pool
 	move.w	#(ol_objects_end-ol_objects)/4-1,d1		; Length to clear
 
@@ -44,9 +49,11 @@ GM_OllieMasterpiece:
 	bsr.w	ol_InitMap					; Initialize map
 	bsr.w	ol_InitScript					; Initialize scripting
 
-	move.l	#ol_PlayerObject,ol_player_object.w		; Spawn player object
-	move.w	#$188,ol_player_object+ol_obj_x.w
-	move.w	#$F8,ol_player_object+ol_obj_y.w
+	lea	ol_player_object.w,a0				; Spawn player object
+	move.l	#ol_PlayerObject,ol_obj_update(a0)
+	move.b	ol_map_spawn_direction.w,ol_obj_flags(a0)
+	move.w	ol_map_spawn_x.w,ol_obj_x(a0)
+	move.w	ol_map_spawn_y.w,ol_obj_y(a0)
 
 	bsr.w	ol_SpawnMapObjects				; Spawn map objects
 	bsr.w	ol_UpdateObjects				; Update objects
@@ -59,7 +66,7 @@ GM_OllieMasterpiece:
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
 	move.w	#$8174,ol_VDP_CTRL				; Enable display
-	jsr	(PaletteFadeIn).l					; Fade in palette
+	jsr	(PaletteFadeIn).l				; Fade in palette
 
 ; ------------------------------------------------------------------------------
 
@@ -78,7 +85,19 @@ GM_OllieMasterpiece:
 	bsr.w	ol_DrawObjects					; Draw object sprites
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
-	bra.w	.Loop						; Loop
+	move.b	ol_map_next_id.w,d0				; Should we warp to another map?
+	cmp.b	ol_map_id.w,d0
+	beq.s	.Loop						; If not, loop
+
+; ------------------------------------------------------------------------------
+
+	move.b	d0,ol_map_id.w					; Set next map ID
+
+	jsr	(PaletteFadeOut).l				; Fade out palette
+	move.w	#$2700,sr					; Disable interrupts
+	bsr.w	ol_ClearScreen					; Clear screen
+
+	bra.w	.LoadMap					; Load next map
 
 ; ------------------------------------------------------------------------------
 ; V-BLANK interrupt

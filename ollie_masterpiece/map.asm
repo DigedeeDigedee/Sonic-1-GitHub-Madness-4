@@ -36,6 +36,12 @@ ol_InitMap:
 	move.l	(a6)+,ol_map_objects.w				; Set map objects address
 	move.l	(a6)+,ol_map_left.w				; Set map left and right boundaries
 	move.l	(a6)+,ol_map_top.w				; Set map top and bottom boundaries
+
+	moveq	#0,d0						; Set map spawn position
+	move.b	ol_map_entry_id.w,d0
+	add.w	d0,d0
+	add.w	d0,d0
+	move.l	(a6,d0.w),ol_map_spawn_x.w
 	
 	lea	ol_PlayerGfx,a0					; Load player graphics
 	move.l	#ol_vramWriteCmd(ol_PLAYER_VRAM),ol_VDP_CTRL

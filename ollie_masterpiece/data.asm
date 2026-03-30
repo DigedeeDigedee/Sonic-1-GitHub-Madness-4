@@ -78,6 +78,7 @@ ol_NpcAnims:
 
 ol_MapIndex:
 	dc.l	ol_TestMap					; Test map
+	dc.l	ol_TestMap2					; Test map 2
 
 ; ------------------------------------------------------------------------------
 ; Test map
@@ -91,7 +92,14 @@ ol_TestMap:
 	dc.l	.Foreground					; Foreground
 	dc.l	.Collision					; Collision
 	dc.l	.Objects					; Objects
+	
+.Boundaries:
 	dc.w	0, $280, 0, $200				; Boundaries
+
+.Entries:
+	incbin	"maps/test/entry_1.bin"
+	incbin	"maps/test/entry_2.bin"
+	incbin	"maps/test/entry_3.bin"
 
 .Gfx:
 	incbin	"maps/test/gfx.nem"
@@ -113,6 +121,48 @@ ol_TestMap:
 	even
 .Objects:
 	incbin	"maps/test/objects.bin"
+	even
+
+; ------------------------------------------------------------------------------
+; Test map 2
+; ------------------------------------------------------------------------------
+
+ol_TestMap2:
+	dc.l	.Gfx						; Graphics
+	dc.l	.Palette					; Palette
+	dc.l	.Blocks						; Blocks
+	dc.l	.Chunks						; Chunks
+	dc.l	.Foreground					; Foreground
+	dc.l	.Collision					; Collision
+	dc.l	.Objects					; Objects
+
+.Boundaries:
+	dc.w	0, $280, 0, $200				; Boundaries
+	
+.Entries:
+	incbin	"maps/test_2/entry_1.bin"			; Entry 1
+	incbin	"maps/test_2/entry_2.bin"			; Entry 2
+
+.Gfx:
+	incbin	"maps/test_2/gfx.nem"
+	even
+.Palette:
+	incbin	"maps/test_2/palette.bin"
+	even
+.Blocks:
+	incbin	"maps/test_2/blocks.bin"
+	even
+.Chunks:
+	incbin	"maps/test_2/chunks.bin"
+	even
+.Foreground:
+	incbin	"maps/test_2/foreground.bin"
+	even
+.Collision:
+	incbin	"maps/test_2/collision.bin"
+	even
+.Objects:
+	incbin	"maps/test_2/objects.bin"
 	even
 
 ; ------------------------------------------------------------------------------

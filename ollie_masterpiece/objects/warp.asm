@@ -24,7 +24,11 @@ ol_WarpUpdate:
 	cmp.w	ol_obj_y(a0),d0
 	bne.s	.End						; If not, branch
 
-	illegal
+	move.b	ol_obj_subtype(a0),ol_map_next_id.w		; Set next map ID
+	move.b	ol_obj_subtype_2(a0),ol_map_entry_id.w		; Set map entry ID
+	move.b	ol_obj_flags(a1),d0				; Set map spawn direction
+	andi.b	#ol_OBJECT_DIRECTION,d0
+	move.b	d0,ol_map_spawn_direction.w
 
 .End:
 	rts
