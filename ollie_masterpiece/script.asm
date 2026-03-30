@@ -18,8 +18,8 @@ ol_InitScript:
 
 ol_ResetScript:
 	moveq	#0,d0						; Zero
-	move.b	d0,ol_script_flags.w				; Clear script flags
 	move.l	d0,ol_script_addr.w				; Clear script address
+	move.b	d0,ol_script_flags.w				; Clear script flags
 	move.w	d0,ol_script_text_cmd.w				; Clear script text VDP command
 	move.l	d0,ol_script_icon_addr.w			; Clear script icon data address
 	move.l	d0,ol_script_icon_anim+ol_anim_addr.w		; Clear script icon animation script
@@ -37,8 +37,8 @@ ol_ResetScript:
 
 ol_StartScript:
 	bsr.s	ol_ResetScript					; Reset scripting
-	bset	#0,ol_script_flags.w				; Force textbox redraw
 	move.l	a1,ol_script_addr.w				; Set script address
+	bset	#0,ol_script_flags.w				; Force textbox redraw
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -73,8 +73,8 @@ ol_RunScript:
 	rts
 
 .ScriptDone:
-	clr.b	ol_script_flags.w				; Clear script flags
 	clr.l	ol_script_addr.w				; Clear script address
+	clr.b	ol_script_flags.w				; Clear script flags
 	rts
 
 ; ------------------------------------------------------------------------------
