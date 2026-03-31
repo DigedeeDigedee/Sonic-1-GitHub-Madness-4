@@ -13,10 +13,10 @@ ol_InitScript:
 	jsr	NemDec
 
 ; ------------------------------------------------------------------------------
-; Reset scripting
+; Stop script
 ; ------------------------------------------------------------------------------
 
-ol_ResetScript:
+ol_StopScript:
 	moveq	#0,d0						; Zero
 	move.l	d0,ol_script_addr.w				; Clear script address
 	move.b	d0,ol_script_flags.w				; Clear script flags
@@ -24,8 +24,6 @@ ol_ResetScript:
 	move.l	d0,ol_script_icon_addr.w			; Clear script icon data address
 	move.l	d0,ol_script_icon_anim+ol_anim_addr.w		; Clear script icon animation script
 	move.w	d0,ol_script_icon_frame.w			; Clear script icon frame ID
-
-	move.w	#$9200,ol_VDP_CTRL				; Hide textbox
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -36,7 +34,7 @@ ol_ResetScript:
 ; ------------------------------------------------------------------------------
 
 ol_StartScript:
-	bsr.s	ol_ResetScript					; Reset scripting
+	bsr.s	ol_StopScript					; Stop script
 	move.l	a1,ol_script_addr.w				; Set script address
 	bset	#0,ol_script_flags.w				; Force textbox redraw
 	rts

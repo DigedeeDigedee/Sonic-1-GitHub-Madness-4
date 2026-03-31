@@ -65,6 +65,8 @@ ol_ClearScreen:
 	move.w	#$8F01,(a0)
 	ol_fillVram $C000,$4000,0,(a0),ol_VDP_DATA-ol_VDP_CTRL(a0)
 	move.w	#$8F02,(a0)
+	
+	move.l	#$91009200,(a0)					; Hide window plane
 
 ol_ClearScreen2:
 	lea	ol_hscroll,a0					; Horizontal scroll buffer

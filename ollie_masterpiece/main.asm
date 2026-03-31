@@ -28,7 +28,7 @@ GM_OllieMasterpiece:
 	move.l	d0,(a0)+					; Clear buffers and variables
 	dbf	d1,.ClearRam					; Loop until finished
 
-	move.w	#-7*2,ol_palette_fade.w				; Set initial fade brightness
+	move.w	#-7*2,ol_palette_fade.w				; Set palette fade brightness
 
 .Loop:
 	bsr.w	ol_Overworld					; Run overworld

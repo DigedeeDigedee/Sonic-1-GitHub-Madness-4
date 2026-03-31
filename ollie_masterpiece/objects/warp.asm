@@ -16,6 +16,9 @@ ol_WarpObject:
 ; ------------------------------------------------------------------------------
 
 ol_WarpUpdate:
+	tst.b	ol_palette_fade_flag.w				; Is the palette fading?
+	bne.s	.End						; If so, branch
+
 	lea	ol_player_object.w,a1				; Has the player collided with us?
 	move.w	ol_obj_x(a1),d0
 	cmp.w	ol_obj_x(a0),d0

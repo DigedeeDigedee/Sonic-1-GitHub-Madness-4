@@ -67,18 +67,18 @@ ol_Battle:
 ; ------------------------------------------------------------------------------
 
 .Exit:
+	bsr.w	ol_StopScript					; Stop script
 	bsr.w	ol_FadePaletteToBlack				; Fade palette to black
+
+.ExitLoop:
 	bsr.s	.Update						; Run updates
 	tst.b	ol_palette_fade_flag.w				; Is the palette done fading?
-	bne.s	.Exit						; If not, loop
+	bne.s	.ExitLoop					; If not, loop
 	rts
 
 ; ------------------------------------------------------------------------------
 
 .Update:
-	bsr.w	ol_UpdateCram					; Update CRAM
-	bsr.w	ol_VSync					; VSync
-
 	bsr.w	ol_UpdateObjects				; Update objects
 	bsr.w	ol_RunScript					; Run script
 
@@ -87,7 +87,10 @@ ol_Battle:
 	bsr.w	ol_DrawObjects					; Draw object sprites
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
-	bra.w	ol_TestHBlankEffect				; Update test H-BLANK effect
+	bsr.w	ol_TestHBlankEffect				; Update test H-BLANK effect
+	
+	bsr.w	ol_UpdateCram					; Update CRAM
+	bra.w	ol_VSync					; VSync
 
 ; ------------------------------------------------------------------------------
 

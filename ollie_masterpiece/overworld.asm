@@ -60,27 +60,30 @@ ol_Overworld:
 ; ------------------------------------------------------------------------------
 
 .ExitMap:
+	bsr.w	ol_StopScript					; Stop script
 	bsr.w	ol_FadePaletteToBlack				; Fade palette to black
+
+.ExitMapLoop:
 	bsr.s	.Update						; Run updates
 	tst.b	ol_palette_fade_flag.w				; Is the palette done fading?
-	bne.s	.ExitMap					; If not, loop
+	bne.s	.ExitMapLoop					; If not, loop
 	bra.w	.LoadMap					; Load next map
 
 ; ------------------------------------------------------------------------------
 
 .ExitOverworld:
+	bsr.w	ol_StopScript					; Stop script
 	bsr.w	ol_FadePaletteToBlack				; Fade palette to black
+
+.ExitOverworldLoop:
 	bsr.s	.Update						; Run updates
 	tst.b	ol_palette_fade_flag.w				; Is the palette done fading?
-	bne.s	.ExitOverworld					; If not, loop
+	bne.s	.ExitOverworldLoop				; If not, loop
 	rts
 
 ; ------------------------------------------------------------------------------
 
 .Update:
-	bsr.w	ol_UpdateCram					; Update CRAM
-	bsr.w	ol_VSync					; VSync
-
 	bsr.w	ol_UpdateObjects				; Update objects
 
 	bsr.w	ol_ScrollMap					; Scroll map
@@ -91,7 +94,10 @@ ol_Overworld:
 	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
 	bsr.w	ol_DrawTextboxIcon				; Draw textbox icon
 	bsr.w	ol_DrawObjects					; Draw object sprites
-	bra.w	ol_EndSpriteDraw				; End sprite drawing
+	bsr.w	ol_EndSpriteDraw				; End sprite drawing
+	
+	bsr.w	ol_UpdateCram					; Update CRAM
+	bra.w	ol_VSync					; VSync
 
 ; ------------------------------------------------------------------------------
 ; Overworld V-BLANK interrupt routine
