@@ -585,6 +585,7 @@ VBlank:
 VBla_Music:
 		enable_ints
 		jsr	(UpdateMusic).l
+		jsr	(RandomNumber).l
 		addq.l	#1,(v_vbla_count).w
 		movem.l	(sp)+,d0-a6
 		rte	
