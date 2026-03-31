@@ -102,7 +102,7 @@ ol_dmaCram macro src, dest, len, ctrl
 ;	src  - Source address
 ;	dest - Destination address
 ;	len  - Length
-;	reg  - VDP control port
+;	ctrl - VDP control port
 ; ------------------------------------------------------------------------------
 
 ol_dmaVsram macro src, dest, len, ctrl
@@ -112,6 +112,28 @@ ol_dmaVsram macro src, dest, len, ctrl
 	move.w	#ol_vsramDmaCmd(dest)>>16,ctrl
 	move.w	#ol_vsramDmaCmd(dest)&$FFFF,-(sp)
 	move.w	(sp)+,ctrl
+	endm
+
+; ------------------------------------------------------------------------------
+; Perform VRAM fill (requires auto-increment to be set to 1)
+; ------------------------------------------------------------------------------
+; ARGUMENTS:
+;	addr  - Address to fill at
+;	len   - Fill length
+;	value - Fill value
+;	ctrl  - VDP control port
+;	data  - VDP data port
+; ------------------------------------------------------------------------------
+
+ol_fillVram macro addr, len, value, ctrl, data
+	move.l	#$94009300|((((len)-1)&$FF00)<<8)|(((len)-1)&$FF),ctrl
+	move.w	#$9780,ctrl
+	move.l	#ol_vramDmaCmd(addr),ctrl
+	move.w	#((value)<<8)|(value),data
+
+.WaitDma:
+	move.w	ctrl,ccr
+	bvs.s	.WaitDma
 	endm
 
 ; ------------------------------------------------------------------------------

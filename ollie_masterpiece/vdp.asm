@@ -43,7 +43,20 @@ ol_InitVdp:
 ; ------------------------------------------------------------------------------
 
 ol_ClearScreen:
-	jsr	ClearScreen					; Clear screen
+	lea	ol_VDP_CTRL,a0					; Clear VRAM
+	move.w	#$8F01,(a0)
+	ol_fillVram 0,$10000,0,(a0),ol_VDP_DATA-ol_VDP_CTRL(a0)
+	move.w	#$8F02,(a0)
+
+	lea	ol_scroll_x,a0					; Horizontal scroll buffer
+	move.w	#(ol_scroll_x_end-ol_scroll_x)/4-1,d1		; Length to clear
+
+.ClearHScroll:
+	move.l	d0,(a0)+					; Clear horizontal scroll buffer
+	dbf	d1,.ClearHScroll				; Loop until finished
+
+	move.l	d0,ol_scroll_y.w				; Clear vertical scroll buffer
+
 	bsr.w	ol_InitGfxDma					; Initialize graphics DMA queue
 	bra.w	ol_InitSprites					; Initialize sprites
 
@@ -65,7 +78,7 @@ ol_DrawTilemap:
 	bmi.s	.End						; If it's invalid, branch
 
 	lea	ol_VDP_CTRL,a2					; VDP control port
-	lea	ol_VDP_DATA,a3					; VDP data port
+	lea	ol_VDP_DATA-ol_VDP_CTRL(a2),a3			; VDP data port
 
 .RowLoop:
 	move.l	d0,(a2)						; Set VDP command

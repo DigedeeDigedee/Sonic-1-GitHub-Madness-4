@@ -146,7 +146,7 @@ ol_ScrollMap:
 ol_CheckSolidBlock:
 	movem.w	d0-d1,-(sp)					; Save registers
 
-	movea.l	ol_map_foreground,a1				; Get chunk row
+	movea.l	ol_map_foreground.w,a1				; Get chunk row
 	move.w	d1,d2
 	andi.w	#~$1F,d2
 	asr.w	#4,d2
@@ -157,7 +157,7 @@ ol_CheckSolidBlock:
 	asr.w	#4,d2
 	move.w	(a1,d2.w),d2
 
-	movea.l	ol_map_chunks,a1				; Get chunk data
+	movea.l	ol_map_chunks.w,a1				; Get chunk data
 	lsl.w	#3,d2
 
 	move.w	d0,d3						; Get block X offset
@@ -174,7 +174,7 @@ ol_CheckSolidBlock:
 	move.w	d2,d3
 	andi.w	#$3FF,d3
 
-	movea.l	ol_map_collision,a1				; Is this block solid?
+	movea.l	ol_map_collision.w,a1				; Is this block solid?
 	tst.b	(a1,d3.w)
 	beq.s	.End						; If not, branch
 	andi.w	#$F000,d2					; If so, check if block's solidity is enabled
@@ -196,7 +196,7 @@ ol_DrawMapRow:
 	
 	lea	ol_map_row_2,a1					; Row data (bottom)
 	lea	ol_VDP_CTRL,a2					; VDP control port
-	lea	ol_VDP_DATA,a3					; VDP data port
+	lea	ol_VDP_DATA-ol_VDP_CTRL(a2),a3			; VDP data port
 
 	move.w	(a0)+,d1					; Get number of blocks in first set
 	move.w	d1,d2
@@ -252,7 +252,7 @@ ol_DrawMapColumn:
 	
 	lea	ol_map_column_2,a1				; Column data (right)
 	lea	ol_VDP_CTRL,a2					; VDP control port
-	lea	ol_VDP_DATA,a3					; VDP data port
+	lea	ol_VDP_DATA-ol_VDP_CTRL(a2),a3			; VDP data port
 
 	move.w	#$8F80,(a2)					; Draw downwards
 
@@ -379,8 +379,8 @@ ol_DrawMap:
 ; ------------------------------------------------------------------------------
 
 ol_BufferMapRow:
-	movea.l	ol_map_chunks,a2				; Map chunks
-	movea.l	ol_map_blocks,a3				; Map blocks
+	movea.l	ol_map_chunks.w,a2				; Map chunks
+	movea.l	ol_map_blocks.w,a3				; Map blocks
 	lea	ol_map_row_1,a4					; Row buffer 1
 	lea	ol_map_row_2,a5					; Row buffer 2
 
@@ -478,8 +478,8 @@ ol_BufferMapRow:
 ; ------------------------------------------------------------------------------
 
 ol_BufferMapColumn:
-	movea.l	ol_map_chunks,a3				; Map chunks
-	movea.l	ol_map_blocks,a4				; Map blocks
+	movea.l	ol_map_chunks.w,a3				; Map chunks
+	movea.l	ol_map_blocks.w,a4				; Map blocks
 	lea	ol_map_column_1,a5				; Column buffer 1
 	lea	ol_map_column_2,a6				; Column buffer 2
 

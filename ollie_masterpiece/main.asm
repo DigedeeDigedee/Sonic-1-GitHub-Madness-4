@@ -10,12 +10,12 @@
 GM_OllieMasterpiece:
 	moveq	#bgm_Stop|(~$FF),d0				; Stop sound
 	jsr	QueueSound2
-	jsr	PaletteFadeOut				; Fade out palette
+	jsr	PaletteFadeOut					; Fade out palette
 
 	move.w	#$2700,sr					; Disable interrupts
-	move.w	#opcode_jmpabslong,ol_vblank_jmp.w		; Setup V-BLANK interrupt
+	move.w	#$4EF9,ol_vblank_jmp.w				; Setup V-BLANK interrupt
 	move.l	#ol_VBlank,ol_vblank_addr.w
-	move.w	#opcode_rte,ol_hblank_jmp.w			; Disable H-BLANK interrupt
+	move.w	#$4E73,ol_hblank_jmp.w				; Disable H-BLANK interrupt
 
 	bsr.w	ol_InitVdp					; Initialize VDP
 

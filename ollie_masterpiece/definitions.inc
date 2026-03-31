@@ -89,6 +89,7 @@ ol_palette		equ v_palette				; Palette buffer
 ol_palette_fade		equ v_palette_fading			; Palette fade buffer
 ol_sprites		equ v_spritetablebuffer			; Sprite table buffer
 ol_scroll_x		equ v_hscrolltablebuffer		; Horizontal scroll buffer
+ol_scroll_x_end		equ v_hscrolltablebuffer_end		; End of horizontal scroll buffer
 ol_scroll_y		equ v_scrposy_vdp			; Vertical scroll buffer
 ol_objects		equ v_objspace				; Object pool
 ol_objects_end		equ v_objspace_end			; End of object pool
