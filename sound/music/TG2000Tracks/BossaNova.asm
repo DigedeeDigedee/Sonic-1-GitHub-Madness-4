@@ -1370,5 +1370,3 @@ BossaNova_PSG3_0D_0_64:
 	smpsPSGAlterVol	$03
 	dc.b $04
 	smpsReturn
-
-	smpsFooterEndSong	"TG2000Tracks/BossaNova.asm"

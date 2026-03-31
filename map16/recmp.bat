@@ -1,5 +1,4 @@
 cls
-call KENSSharp.exe -r e "BlueStone.eni"
 call KENSSharp.exe -r e "BREW.eni"
 call KENSSharp.exe -r e "DVZ.eni"
 call KENSSharp.exe -r e "GHZ.eni"

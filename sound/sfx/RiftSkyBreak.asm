@@ -65,4 +65,4 @@ SFX_RiftSkyBreak_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $80, $04, $07, $0E
 
-	smpsFooterEndSong	"RiftSkyBreak.asm"
+	smpsFooterEndSong	"SFX - Rift Sky Break.asm"

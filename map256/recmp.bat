@@ -1,5 +1,4 @@
 cls
-call KENSSharp.exe -r k "Bluestone.kos"
 call KENSSharp.exe -r k "BREW.kos"
 call KENSSharp.exe -r k "DVZ.kos"
 call KENSSharp.exe -r k "DVZ3.kos"

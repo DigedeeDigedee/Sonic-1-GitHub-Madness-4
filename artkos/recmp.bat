@@ -1,9 +1,7 @@
 cls
 call KENSSharp.exe -r k "8x8 - BREW.kos"
-call KENSSharp.exe -r k "8x8 - BSZ.kos"
 call KENSSharp.exe -r k "8x8 - DVZ.kos"
 call KENSSharp.exe -r k "8x8 - GHZ.kos"
-call KENSSharp.exe -r n "8x8 - GHZ1.nem"
 call KENSSharp.exe -r k "8x8 - HSZ.kos"
 call KENSSharp.exe -r k "8x8 - Joint.kos"
 call KENSSharp.exe -r k "8x8 - LZ.kos"

@@ -4354,4 +4354,4 @@ BGM_AVGNInv_Voices:
 	smpsVcReleaseRate   $0F, $0F, $0F, $0F
 	smpsVcTotalLevel    $00, $27, $28, $18
 
-	smpsFooterEndSong	"TG2000Tracks/Mus - AVGN Invincibility VGM.asm"
+	smpsFooterEndSong	"TG2000Tracks/Mus - AVGN Invincibility.asm"

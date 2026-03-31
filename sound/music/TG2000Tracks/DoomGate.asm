@@ -947,6 +947,3 @@ DoomGate_PSG3_0A_0_64:
 DoomGate_PSG3_0B_0_64:
 	dc.b nMaxPSG, $08, $08, $08, $08, $20
 	smpsReturn
-	
-	smpsFooterEndSong	"TG2000Tracks/DoomGate.asm"
-	even

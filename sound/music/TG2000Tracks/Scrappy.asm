@@ -1225,6 +1225,3 @@ Scrappy_PSG3_02_0_64:
 Scrappy_PSG3_07_0_64:
 	dc.b nMaxPSG, $04, $14, $04, $14, $08, $08
 	smpsReturn
-	
-	smpsFooterEndSong	"TG2000Tracks/Scrappy.asm"
-	even

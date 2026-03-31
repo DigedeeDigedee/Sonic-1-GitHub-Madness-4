@@ -36,4 +36,4 @@ SFX_Rift_Loop03:
 
 ; Song seems to not use any FM voices
 SFX_Rift_Voices:
-	smpsFooterEndSong	"RiftNormal.asm"
+	smpsFooterEndSong	"SFX - Rift.asm"
