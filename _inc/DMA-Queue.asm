@@ -6,7 +6,7 @@
 ; Performs all queued DMA transfers and clears the DMA queue.
 ;
 ; Output:
-; 	a1,a5	trashed
+; 	a1,a5,d0	trashed
 ; ---------------------------------------------------------------------------
 ; ROUTINE InitDMAQueue
 ; Pre-initializes the DMA queue with VDP register numbers in alternating bytes.
