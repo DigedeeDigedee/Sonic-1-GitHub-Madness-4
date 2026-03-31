@@ -19,8 +19,7 @@ ol_Overworld:
 	move.w	#$2000,sr
 	
 	bsr.w	ol_ClearScreen					; Clear screen
-	
-	clr.l	ol_p1_ctrl_hold.w				; Clear controller data
+	bsr.w	ol_DisableDisplay				; Disable display
 
 	bsr.w	ol_InitObjects					; Initialize objects
 	bsr.w	ol_InitMap					; Initialize map
@@ -33,28 +32,53 @@ ol_Overworld:
 	move.w	ol_map_spawn_y.w,ol_obj_y(a0)
 
 	bsr.w	ol_SpawnMapObjects				; Spawn map objects
-	bsr.w	ol_UpdateObjects				; Update objects
-
 	bsr.w	ol_ScrollMap					; Scroll map
 	bsr.w	ol_RedrawMap					; Redraw map
-
-	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
-	bsr.w	ol_DrawObjects					; Draw object sprites
-	bsr.w	ol_EndSpriteDraw				; End sprite drawing
+	
+	clr.l	ol_p1_ctrl_hold.w				; Clear controller data
 	
 	move.w	#$2700,sr					; Set V-BLANK interrupt routine
 	move.l	#ol_OverworldVBlank,ol_vblank_addr.w
 	move.w	#$2000,sr
 
-	move.w	#$8174,ol_VDP_CTRL				; Enable display
+	bsr.w	ol_EnableDisplay				; Enable display
 	bsr.w	ol_FadePaletteIn				; Fade palette in
 
 ; ------------------------------------------------------------------------------
 
 .Loop:
+	bsr.s	.Update						; Run updates
+
+	tst.b	ol_p1_ctrl_tap.w				; Should we exit?
+	bmi.s	.ExitOverworld					; If so, branch
+
+	move.b	ol_map_next_id.w,d0				; Should we warp to another map?
+	cmp.b	ol_map_id.w,d0
+	beq.s	.Loop						; If not, loop
+	move.b	d0,ol_map_id.w					; Set next map ID
+
+; ------------------------------------------------------------------------------
+
+.ExitMap:
+	bsr.w	ol_FadePaletteToBlack				; Fade palette to black
+	bsr.s	.Update						; Run updates
+	tst.b	ol_palette_fade_flag.w				; Is the palette done fading?
+	bne.s	.ExitMap					; If not, loop
+	bra.w	.LoadMap					; Load next map
+
+; ------------------------------------------------------------------------------
+
+.ExitOverworld:
+	bsr.w	ol_FadePaletteToBlack				; Fade palette to black
+	bsr.s	.Update						; Run updates
+	tst.b	ol_palette_fade_flag.w				; Is the palette done fading?
+	bne.s	.ExitOverworld					; If not, loop
+	rts
+
+; ------------------------------------------------------------------------------
+
+.Update:
 	bsr.w	ol_UpdateCram					; Update CRAM
-	
-.Loop2:
 	bsr.w	ol_VSync					; VSync
 
 	bsr.w	ol_UpdateObjects				; Update objects
@@ -67,20 +91,7 @@ ol_Overworld:
 	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
 	bsr.w	ol_DrawTextboxIcon				; Draw textbox icon
 	bsr.w	ol_DrawObjects					; Draw object sprites
-	bsr.w	ol_EndSpriteDraw				; End sprite drawing
-
-	move.b	ol_map_next_id.w,d7				; Should we warp to another map?
-	cmp.b	ol_map_id.w,d7
-	beq.s	.Loop						; If not, loop
-
-	bsr.w	ol_FadePaletteToBlack				; Fade palette to black
-	bsr.w	ol_UpdateCram					; Update CRAM
-	tst.b	ol_palette_fade_flag.w				; Is the palette done fading?
-	bne.s	.Loop2						; If not, loop
-	
-	move.b	d7,ol_map_id.w					; Set next map ID
-	move.w	#$8134,ol_VDP_CTRL				; Disable display
-	bra.w	.LoadMap					; Load next map
+	bra.w	ol_EndSpriteDraw				; End sprite drawing
 
 ; ------------------------------------------------------------------------------
 ; Overworld V-BLANK interrupt routine

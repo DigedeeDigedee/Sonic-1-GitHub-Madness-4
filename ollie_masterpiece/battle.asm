@@ -18,24 +18,23 @@ ol_Battle:
 	move.w	#$2000,sr
 	
 	bsr.w	ol_ClearScreen					; Clear screen
-
-	clr.l	ol_p1_ctrl_hold.w				; Clear controller data
+	bsr.w	ol_DisableDisplay				; Disable display
 
 	lea	ol_MainPalette,a1				; Load main palette
 	moveq	#$10,d0
 	moveq	#0,d1
 	bsr.w	ol_LoadPalette
 	
-	lea	ol_TestBgGfx,a0
+	lea	ol_TestBgGfx,a0					; Load test background graphics
 	move.l	#ol_vramWriteCmd(0),ol_VDP_CTRL
 	jsr	NemDec
 	
-	lea	ol_TestBgPalette,a1
+	lea	ol_TestBgPalette,a1				; Load test background palette
 	moveq	#$10,d0
 	moveq	#$10,d1
 	bsr.w	ol_LoadPalette
 	
-	lea	ol_TestBgMap,a1
+	lea	ol_TestBgMap,a1					; Load test background tilemap
 	move.l	#ol_vramWriteCmd(ol_PLANE_B_VRAM),d0
 	moveq	#$28,d1
 	moveq	#$1C,d2
@@ -44,21 +43,15 @@ ol_Battle:
 
 	bsr.w	ol_InitObjects					; Initialize objects
 	bsr.w	ol_InitScript					; Initialize scripting
-
-	bsr.w	ol_UpdateObjects				; Update objects
 	
-	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
-	bsr.w	ol_DrawObjects					; Draw object sprites
-	bsr.w	ol_EndSpriteDraw				; End sprite drawing
-
+	clr.l	ol_p1_ctrl_hold.w				; Clear controller data
 	clr.w	ol_hblank_test.w
-	bsr.w	ol_TestHBlankEffect
 	
 	move.w	#$2700,sr					; Set V-BLANK interrupt routine
 	move.l	#ol_BattleVBlank,ol_vblank_addr.w
 	move.w	#$2000,sr
 	
-	move.w	#$8174,ol_VDP_CTRL				; Enable display
+	bsr.w	ol_EnableDisplay				; Enable display
 	bsr.w	ol_FadePaletteIn				; Fade palette in
 
 	lea	.TestScript(pc),a1				; Start test script
@@ -67,11 +60,26 @@ ol_Battle:
 ; ------------------------------------------------------------------------------
 
 .Loop:
+	bsr.s	.Update						; Run updates
+	tst.b	ol_p1_ctrl_tap.w				; Should we exit?
+	bpl.s	.Loop						; If not, loop
+
+; ------------------------------------------------------------------------------
+
+.Exit:
+	bsr.w	ol_FadePaletteToBlack				; Fade palette to black
+	bsr.s	.Update						; Run updates
+	tst.b	ol_palette_fade_flag.w				; Is the palette done fading?
+	bne.s	.Exit						; If not, loop
+	rts
+
+; ------------------------------------------------------------------------------
+
+.Update:
 	bsr.w	ol_UpdateCram					; Update CRAM
 	bsr.w	ol_VSync					; VSync
 
 	bsr.w	ol_UpdateObjects				; Update objects
-
 	bsr.w	ol_RunScript					; Run script
 
 	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
@@ -79,9 +87,7 @@ ol_Battle:
 	bsr.w	ol_DrawObjects					; Draw object sprites
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
-	bsr.w	ol_TestHBlankEffect
-
-	bra.s	.Loop						; Loop
+	bra.w	ol_TestHBlankEffect				; Update test H-BLANK effect
 
 ; ------------------------------------------------------------------------------
 

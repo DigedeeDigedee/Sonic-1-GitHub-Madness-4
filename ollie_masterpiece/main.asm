@@ -12,7 +12,6 @@ GM_OllieMasterpiece:
 	jsr	QueueSound2
 
 	jsr	PaletteFadeOut					; Fade out palette
-	move.w	#$8134,ol_VDP_CTRL				; Disable display
 
 	move.w	#$2700,sr					; Disable interrupts
 	move.w	#$4EF9,ol_vblank_jmp.w				; Set V-BLANK interrupt routine
@@ -31,8 +30,10 @@ GM_OllieMasterpiece:
 
 	move.w	#-7*2,ol_palette_fade.w				; Set initial fade brightness
 
-	;bra.w	ol_Overworld					; Run overworld
-	bra.w	ol_Battle					; Run battle
+.Loop:
+	bsr.w	ol_Overworld					; Run overworld
+	bsr.w	ol_Battle					; Run battle
+	bra.s	.Loop
 
 ; ------------------------------------------------------------------------------
 ; Includes
