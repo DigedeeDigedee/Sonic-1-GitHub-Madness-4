@@ -47,21 +47,18 @@ Pow_ChkEggman:
 		move.b	obAnim(a0),d0
 		cmpi.b	#1,d0		; does monitor contain Eggman?
 		bne.s	Pow_ChkSonic
-	if FixBugs
-		; Fix the Eggman monitor
-		; https://info.sonicretro.org/SCHG_How-to:Have_a_functional_Eggman_monitor_in_Sonic_1
+
+Pow_GetHurt:
 		move.w	obX(a0),spik_origX(a0)	; needed to display the icon properly
 		jmp	(Spik_Hurt).l		; use spikes to hurt Sonic
-	else
-		rts		; Eggman monitor does nothing
-	endif
+
 ; ===========================================================================
 
 Pow_ChkSonic:
 		cmpi.b	#2,d0		; does monitor contain Sonic?
 		bne.s	Pow_ChkShoes
 
-ExtraLife:
+Pow_GetLife:
 		addq.b	#1,(v_lives).w	; add 1 to the number of lives you have
 		addq.b	#1,(f_lifecount).w ; update the lives counter
 		move.w	#bgm_ExtraLife,d0
@@ -72,6 +69,7 @@ Pow_ChkShoes:
 		cmpi.b	#3,d0		; does monitor contain speed shoes?
 		bne.s	Pow_ChkShield
 
+Pow_SpeedShoes:
 		move.b	#1,(v_shoes).w	; speed up the BG music
 		move.w	#$4B0,(v_player+shoetime).w	; time limit for the power-up
 		move.w	#$C00,(v_sonspeedmax).w ; change Sonic's top speed
@@ -79,7 +77,6 @@ Pow_ChkShoes:
 		move.w	#$80,(v_sonspeeddec).w	; change Sonic's deceleration
 		tst.b	(v_clintonfucker).w ; is boss mode on?
 		bne.w	Pow_NoMusic	; if yes, branch
-		
 		;!@ GenesisDoes: Play boost powa PCM
 		pcm	dBoostPower
 		move.b	#bgm_AVGNInv,d0
@@ -90,6 +87,7 @@ Pow_ChkShield:
 		cmpi.b	#4,d0		; does monitor contain a shield?
 		bne.s	Pow_ChkInvinc
 
+Pow_Shield:
 		move.b	#1,(v_shield).w	; give Sonic a shield
 		move.b	#id_ShieldItem,(v_shieldobj).w ; load shield object ($38)
 		move.w	#sfx_Shield,d0
@@ -100,6 +98,7 @@ Pow_ChkInvinc:
 		cmpi.b	#5,d0		; does monitor contain invincibility?
 		bne.s	Pow_ChkRings
 
+Pow_Invinciblity:
 		move.b	#1,(v_invinc).w	; make Sonic invincible
 		move.w	#$4B0,(v_player+invtime).w ; time limit for the power-up
 		move.b	#id_ShieldItem,(v_starsobj1).w ; load stars object ($3801)
@@ -129,15 +128,16 @@ Pow_ChkRings:
 		bne.s	Pow_ChkS
 
 		addi.w	#70,(v_rings).w	; add 70 rings to the number of rings you have because you are smart
+Pow_GetRings:
 		ori.b	#1,(f_ringcount).w ; update the ring counter
 		cmpi.w	#420,(v_rings).w ; check if you have 256 rings
 		blo.s	Pow_RingSound
 		bset	#1,(v_lifecount).w
-		beq.w	ExtraLife
+		beq.w	Pow_GetLife
 		cmpi.w	#666,(v_rings).w ; check if you have 666 rings
 		blo.s	Pow_RingSound
 		bset	#2,(v_lifecount).w
-		beq.w	ExtraLife
+		beq.w	Pow_GetLife
 
 Pow_RingSound:
 		move.w	#sfx_Ring,d0
@@ -146,16 +146,7 @@ Pow_RingSound:
 
 Pow_ChkS:
 		cmpi.b	#7,d0		; does monitor contain 'S'?
-		bne.s	Pow_ChkGoggles
-		move.b	#1,(v_curgame).w	; Fuck you, you're going to Osomatsu-kun
-		move.b	#bgm_Stop,d0
-		jsr	(QueueSound2).l
-		jsr	(PaletteFadeOut).l
-		nop
-		nop
-		disable_ints
-		lea	(v_systemstack).l,sp
-		jmp	(EntryPoint).l		; Jump to entry point to load Osomatsu-kun data
+		beq.s	Pow_Randomiser
 
 Pow_ChkGoggles:
 ; Uncomment these lines to set up the goggles monitor to work with it
@@ -171,3 +162,179 @@ Pow_Delete:	; Routine 4
 		subq.w	#1,obTimeFrame(a0)
 		bmi.w	DeleteObject	; delete after half a second
 		rts
+
+Pow_Randomiser:
+		moveq	#0,d0
+		jsr	(RandomNumber).l	; get a random number
+		and.l	#$FFFF,d0		; strip high word
+		divu.w	#(.powtableend-.powtable)/4,d0
+		swap	d0
+		lsl.w	#2,d0
+		move.l	.powtable(pc,d0.w),a2
+		jmp	(a2)
+
+; ===========================================================================
+.powtable:
+		dc.l	.nothing
+		dc.l	.nothing
+		dc.l	.nothing
+		dc.l	.nothing
+		dc.l	.superlucky
+		dc.l	Pow_GetLife
+		dc.l	.getrings
+		dc.l	Pow_Invinciblity
+		dc.l	Pow_SpeedShoes
+		dc.l	Pow_Shield
+		dc.l	.getcontinue
+		dc.l	.gaintime
+		dc.l	.getammo
+		dc.l	.addelay
+		dc.l	.Loseammo
+		dc.l	.losetime
+		dc.l	.loserings
+		dc.l	.gambashield
+		dc.l	Pow_GetHurt
+		dc.l	.nopowerforu
+		dc.l	.lolrestart
+		dc.l	.timeforads
+		dc.l	.die
+		dc.l	.getjumpscared
+		dc.l	.toolimited
+.powtableend:
+
+; ===========================================================================
+.nothing:	; Whomp whomp, nothing :P
+		nop
+		move.b	#sfx_Error,d0
+		jmp	(QueueSound2).l
+
+; ===========================================================================
+.superlucky:	; Congrats, you get all power-ups
+		move.w	#77,(v_rings).w		; make your ring count 77 because you are super lucky
+		ori.b	#1,(f_ringcount).w	; update the ring counter
+		move.b	#1,(v_shoes).w		; speed up the BG music
+		move.b	#1,(v_shield).w		; give Sonic a shield
+		move.b	#1,(v_invinc).w		; make Sonic invincible
+		move.w	#$258,(v_player+shoetime).w	; time limit for the power-up
+		move.w	#$258,(v_player+invtime).w	; time limit for the power-up
+		move.w	#$C00,(v_sonspeedmax).w		; change Sonic's top speed
+		move.w	#$16,(v_sonspeedacc).w		; change Sonic's acceleration
+		move.w	#$80,(v_sonspeeddec).w		; change Sonic's deceleration
+		move.b	#id_ShieldItem,(v_shieldobj).w	; load shield object ($38)
+		move.b	#id_ShieldItem,(v_starsobj1).w	; load stars object ($3801)
+		move.b	#1,(v_starsobj1+obAnim).w
+		tst.b	(f_lockscreen).w		; is boss mode on?
+		bne.s	.NoMusic			; if yes, branch
+		tst.b	(v_clintonfucker).w		; is boss mode on?
+		bne.s	.NoMusic			; if yes, branch
+		cmpi.w	#$C,(v_air).w
+		bls.s	.NoMusic
+		move.w	#bgm_Invincible,d0
+		jmp	(QueueSound1).l			; play invincibility music
+
+.NoMusic:
+		rts
+
+; ===========================================================================
+.getrings:	; acts as a ring monitor :P
+		addi.w	#10,(v_rings).w	; add 70 rings to the number of rings you have because you are smart
+		bra.w	Pow_GetRings
+
+; ===========================================================================
+.getcontinue:	; you get a free continue
+		addi.b	#1,(v_continues).w
+		move.b	#sfx_Continue,d0
+		jmp	(QueueSound2).l
+
+; ===========================================================================
+.gaintime:	; you get extra time on the clock
+		; here goes code for taking time from the timer, too lazy to implement rn sorry
+		nop
+		bra.w	.nothing	; as placeholder
+
+; ===========================================================================
+.getammo:	; you get a free ammo refill... if you're maniac mouse
+		cmpi.b	#1,(v_characterid).w	; are maniac mouse?
+		bne.w	.nothing		; no? well get out of here, you get nothing, good day sir
+		lea	(v_player).w,a0
+		move.b	#10,playammo(a0)	; ammo start
+		or.b	#1,(f_ammocount).w
+		move.w	#sfx_B8,d0
+		jmp	(PlaySound_Special).l
+
+; ===========================================================================
+.addelay:	; ads get delayed
+		clr.l	(v_adverttimer).w			; play an advertisement
+		move.b	#sfx_LGEcho,d0
+		jmp	(QueueSound2).l	; play ring sound
+
+; ===========================================================================
+.losetime:	; a minute gets added to the timer
+		; here goes code for taking time from the timer, too lazy to implement rn sorry
+		nop
+		bra.w	.nothing	; as placeholder
+
+; ===========================================================================
+.loserings:	; Whomp whomp, lose some rings
+		subi.w	#10,(v_rings).w	; add 70 rings to the number of rings you have because you are smart
+		bhs.s	.greaterthanzero
+		clr.w	(v_rings).w
+
+.greaterthanzero
+		ori.b	#1,(f_ringcount).w ; update the ring counter
+		move.w	#sfx_Bumper,d0
+		jmp	(QueueSound2).l	; play ring sound
+
+; ===========================================================================
+.gambashield:	; at the cost of your rings, you might get a shield
+		nop
+		bra.w	.nothing	; as placeholder
+
+; ===========================================================================
+.Loseammo:	; your ammo gets emptied... if you're maniac mouse
+		cmpi.b	#1,(v_characterid).w	; are maniac mouse?
+		bne.w	.nothing		; no? well get out of here, you get nothing, good day sir
+		lea	(v_player).w,a0
+		move.b	#0,playammo(a0)		; fuck you, no ammo for you
+		or.b	#1,(f_ammocount).w
+		move.b	#sfx_Error,d0		; Feel free to change this Kat
+		jmp	(QueueSound2).l
+
+; ===========================================================================
+.nopowerforu:	; erases your power ups
+		nop
+		bra.w	.nothing	; as placeholder
+
+; ===========================================================================
+.lolrestart:	; erases your power ups
+		move.w	#1,(f_restart).w
+		rts
+
+; ===========================================================================
+.timeforads:	; immediately plays an ad
+		move.l	#(((5*60)*60)-1),(v_adverttimer).w
+		rts
+
+; ===========================================================================
+.die:		; kills Sonic
+		lea	(v_player).w,a0
+		jmp	(KillSonic).l
+
+; ===========================================================================
+.getjumpscared:	; jumpscares the player
+		move.b	#0,(v_invinc).w	; remove invincibility
+		move.w	#2,(f_restart).w ; FOXY SCARE
+		rts
+
+; ===========================================================================
+.toolimited:	; Fuck you, you're going to Too LimitedSonic
+		move.b	#1,(v_curgame).w
+		move.b	#bgm_Stop,d0
+		jsr	(QueueSound2).l
+		jsr	(PaletteFadeOut).l
+		nop
+		disable_ints
+		lea	(v_systemstack).l,sp
+		jmp	(EntryPoint).l		; Jump to entry point to load Too LimitedSonic data
+
+; ===========================================================================

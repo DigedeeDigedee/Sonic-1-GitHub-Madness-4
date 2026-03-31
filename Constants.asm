@@ -438,6 +438,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	nextenum sfx_Rift
 	nextenum sfx_RiftSky
 	nextenum sfx_LGEcho
+	nextenum sfx_Error
 	; Keep this last
 	nextenum	sfx__Last
 
