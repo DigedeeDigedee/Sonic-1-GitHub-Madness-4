@@ -565,7 +565,7 @@ VScrollWrt:
 VBlank:
 		movem.l	d0-a6,-(sp)
 		tst.b	(v_vbla_routine).w
-		beq.s	VBla_00
+		beq.w	VBla_00
 		tst.b	vscroll_mode
 		beq.s	.normal
 		pea	.dovbla(pc)
