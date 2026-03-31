@@ -8,19 +8,17 @@
 ; ------------------------------------------------------------------------------
 
 ol_Battle:
-	moveq	#bgm_Stop|(~$FF),d0				; Stop sound
+	moveq	#bgm_Fade|(~$FF),d0				; Fade out sound
 	jsr	QueueSound2
 
-	jsr	PaletteFadeOut					; Fade out palette
-	move.w	#$8134,ol_VDP_CTRL				; Disable display
-
-	move.w	#$2700,sr					; Disable interrupts
-	bsr.w	ol_InitVdp					; Clear screen
-
-	move.w	#$4EF9,ol_vblank_jmp.w				; Set V-BLANK interrupt routine
-	move.l	#ol_BattleVBlank,ol_vblank_addr.w
-	bsr.w	ol_InitHBlank					; Initialize H-BLANK interrupt
+	move.w	#$2700,sr					; Setup interrupts
+	move.w	#$4EF9,ol_vblank_jmp.w
+	move.l	#ol_SoundVBlank,ol_vblank_addr.w
+	bsr.w	ol_InitHBlank
+	move.w	#$2000,sr
 	
+	bsr.w	ol_ClearScreen					; Clear screen
+
 	clr.l	ol_p1_ctrl_hold.w				; Clear controller data
 	
 	lea	ol_TestBgGfx,a0
@@ -30,7 +28,7 @@ ol_Battle:
 	lea	ol_TestBgPalette,a1
 	moveq	#$10,d0
 	moveq	#0,d1
-	bsr.w	ol_LoadFadePalette
+	bsr.w	ol_LoadPalette
 	
 	lea	ol_TestBgMap,a1
 	move.l	#ol_vramWriteCmd(ol_PLANE_B_VRAM),d0
@@ -49,12 +47,17 @@ ol_Battle:
 	clr.w	ol_hblank_test.w
 	bsr.w	ol_TestHBlankEffect
 	
+	move.w	#$2700,sr					; Set V-BLANK interrupt routine
+	move.l	#ol_BattleVBlank,ol_vblank_addr.w
+	move.w	#$2000,sr
+	
 	move.w	#$8174,ol_VDP_CTRL				; Enable display
-	jsr	PaletteFadeIn					; Fade in palette
+	bsr.w	ol_FadePaletteIn				; Fade palette in
 
 ; ------------------------------------------------------------------------------
 
 .Loop:
+	bsr.w	ol_UpdateCram					; Update CRAM
 	bsr.w	ol_VSync					; VSync
 
 	bsr.w	ol_UpdateObjects				; Update objects
@@ -87,7 +90,7 @@ ol_BattleVBlank:
 	lea	ol_VDP_CTRL,a0					; VDP control port
 	lea	ol_VDP_DATA-ol_VDP_CTRL(a0),a1			; VDP data port
 
-	ol_dmaCram ol_palette,0,$80,(a0)			; Load palette into CRAM
+	ol_dmaCram ol_cram_buffer,0,$80,(a0)			; Load palette into CRAM
 	ol_dmaVram ol_sprites,ol_SPRITES_VRAM,$280,(a0)		; Load sprites into VRAM
 	ol_dmaVram ol_hscroll,ol_HSCROLL_VRAM,$380,(a0)		; Load horizontal scroll table into VRAM
 

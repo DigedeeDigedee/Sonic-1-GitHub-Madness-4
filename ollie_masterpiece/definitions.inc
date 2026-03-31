@@ -91,8 +91,8 @@ ol_map_column_2		ds.w (256/8)				; Map column buffer 2
 
 ol_solid_objects	ds.w $1F+1				; Solid object list
 
-ol_palette		equ v_palette				; Palette buffer
-ol_palette_fade		equ v_palette_fading			; Palette fade buffer
+ol_palette		equ v_palette_fading			; Palette buffer
+ol_cram_buffer		equ v_palette				; CRAM buffer
 ol_sprites		equ v_spritetablebuffer			; Sprite table buffer
 ol_hscroll		equ v_hscrolltablebuffer		; Horizontal scroll buffer
 ol_hscroll_end		equ v_hscrolltablebuffer_end		; End of horizontal scroll buffer
@@ -122,10 +122,11 @@ ol_OBJECT_SPAWN_COUNT	equ (ol_objects_end-ol_object_spawn)/ol_obj_struct_size
 ; ------------------------------------------------------------------------------
 
 	phase v_ram_start_def+$8000
-ol_hblank_flags		ds.b 1					; H-BLANK flags
-			ds.b 1
 ol_hblank_write		ds.l 1					; H-BLANK buffer write address
-ol_hblank_test		ds.w 1					; Test H-BLANK value
+ol_hblank_flags		ds.b 1					; H-BLANK flags
+
+ol_palette_fade_flag	ds.b 1					; Fade flag
+ol_palette_fade		ds.w 1					; Fade brightness
 
 ol_sprite_slot		ds.w 1					; Sprite slot address
 ol_sprites_left		ds.w 1					; Sprite slots left
@@ -158,6 +159,8 @@ ol_script_text_cmd	ds.w 1					; Script text VDP command
 ol_script_icon_addr	ds.l 1					; Script icon data address
 ol_script_icon_anim	ds.b ol_anim_struct_size		; Script icon animation
 ol_script_icon_frame	ds.w 1					; Script icon frame
+
+ol_hblank_test		ds.w 1					; Test H-BLANK value
 
 ol_p1_ctrl_hold		equ v_jpadhold1				; Player 1 controller buttons (held)
 ol_p1_ctrl_tap		equ v_jpadpress1			; Player 1 controller buttons (tapped)

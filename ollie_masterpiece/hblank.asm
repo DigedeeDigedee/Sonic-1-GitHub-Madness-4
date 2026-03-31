@@ -36,8 +36,8 @@ ol_InitHBlank:
 	move.l	d0,(a0)+					; Clear H-BLANK buffers
 	dbf	d1,.ClearBuffers				; Loop until finished
 
-	move.b	d0,ol_hblank_flags.w				; Clear H-BLANK flags
 	move.l	#ol_hblank_1,ol_hblank_write.w			; Set H-BLANK buffer write address
+	move.b	d0,ol_hblank_flags.w				; Clear H-BLANK flags
 	rts
 
 ; ------------------------------------------------------------------------------

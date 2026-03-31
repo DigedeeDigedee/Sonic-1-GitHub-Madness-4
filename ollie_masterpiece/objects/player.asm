@@ -25,6 +25,9 @@ ol_PlayerObject:
 ol_PlayerUpdate:
 	bsr.w	ol_MoveObjectGrid				; Do grid movement
 	bne.s	.GetAnimation					; If we haven't reached our target, branch
+	
+	tst.b	ol_palette_fade_flag.w				; Is the palette fading?
+	bne.s	.GetAnimation					; If so, branch
 	tst.l	ol_script_addr.w				; Is a script active?
 	bne.s	.GetAnimation					; If so, branch
 

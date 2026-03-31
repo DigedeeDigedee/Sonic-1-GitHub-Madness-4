@@ -494,8 +494,11 @@ ol_CheckSolidObject:
 ; ------------------------------------------------------------------------------
 
 ol_CheckInteractObject:
+	tst.b	ol_palette_fade_flag.w				; Is the palette fading?
+	bne.s	.NoInteract					; If so, branch
 	tst.l	ol_script_addr.w				; Is a script active?
 	bne.s	.NoInteract					; If so, branch
+
 	btst	#6,ol_p1_ctrl_tap.w				; Has A been pressed?
 	beq.s	.End						; If not, branch
 

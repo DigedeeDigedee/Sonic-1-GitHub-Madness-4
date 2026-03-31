@@ -8,19 +8,17 @@
 ; ------------------------------------------------------------------------------
 
 ol_Overworld:
-	moveq	#bgm_Stop|(~$FF),d0				; Stop sound
+	moveq	#bgm_Fade|(~$FF),d0				; Fade out sound
 	jsr	QueueSound2
 
 .LoadMap:
-	jsr	PaletteFadeOut					; Fade out palette
-	move.w	#$8134,ol_VDP_CTRL				; Disable display
-
-	move.w	#$2700,sr					; Disable interrupts
-	bsr.w	ol_InitVdp					; Clear screen
+	move.w	#$2700,sr					; Setup interrupts
+	move.w	#$4EF9,ol_vblank_jmp.w
+	move.l	#ol_SoundVBlank,ol_vblank_addr.w
+	bsr.w	ol_DisableHBlank
+	move.w	#$2000,sr
 	
-	move.w	#$4EF9,ol_vblank_jmp.w				; Set V-BLANK interrupt routine
-	move.l	#ol_OverworldVBlank,ol_vblank_addr.w
-	bsr.w	ol_DisableHBlank				; Disable H-BLANK interrupt
+	bsr.w	ol_ClearScreen					; Clear screen
 	
 	clr.l	ol_p1_ctrl_hold.w				; Clear controller data
 
@@ -43,13 +41,20 @@ ol_Overworld:
 	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
 	bsr.w	ol_DrawObjects					; Draw object sprites
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
+	
+	move.w	#$2700,sr					; Set V-BLANK interrupt routine
+	move.l	#ol_OverworldVBlank,ol_vblank_addr.w
+	move.w	#$2000,sr
 
 	move.w	#$8174,ol_VDP_CTRL				; Enable display
-	jsr	PaletteFadeIn					; Fade in palette
+	bsr.w	ol_FadePaletteIn				; Fade palette in
 
 ; ------------------------------------------------------------------------------
 
 .Loop:
+	bsr.w	ol_UpdateCram					; Update CRAM
+	
+.Loop2:
 	bsr.w	ol_VSync					; VSync
 
 	bsr.w	ol_UpdateObjects				; Update objects
@@ -64,10 +69,17 @@ ol_Overworld:
 	bsr.w	ol_DrawObjects					; Draw object sprites
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
-	move.b	ol_map_next_id.w,d0				; Should we warp to another map?
-	cmp.b	ol_map_id.w,d0
+	move.b	ol_map_next_id.w,d7				; Should we warp to another map?
+	cmp.b	ol_map_id.w,d7
 	beq.s	.Loop						; If not, loop
-	move.b	d0,ol_map_id.w					; Set next map ID
+
+	bsr.w	ol_FadePaletteToBlack				; Fade palette to black
+	bsr.w	ol_UpdateCram					; Update CRAM
+	tst.b	ol_palette_fade_flag.w				; Is the palette done fading?
+	bne.s	.Loop2						; If not, loop
+	
+	move.b	d7,ol_map_id.w					; Set next map ID
+	move.w	#$8134,ol_VDP_CTRL				; Disable display
 	bra.w	.LoadMap					; Load next map
 
 ; ------------------------------------------------------------------------------
@@ -80,7 +92,7 @@ ol_OverworldVBlank:
 	move.w	ol_VDP_CTRL,d0					; Clear VDP write latch
 
 	tst.b	ol_vsync_flag.w					; Are we lagging?
-	beq.s	.SkipUpdates					; If so, branch
+	beq.w	.SkipUpdates					; If so, branch
 
 	clr.b	ol_vsync_flag.w					; Clear VSync flag
 	addq.l	#1,ol_frame_count.w				; Increment frame count
@@ -90,11 +102,9 @@ ol_OverworldVBlank:
 	lea	ol_VDP_CTRL,a0					; VDP control port
 	lea	ol_VDP_DATA-ol_VDP_CTRL(a0),a1			; VDP data port
 
-	ol_dmaCram ol_palette,0,$80,(a0)			; Load palette into CRAM
+	ol_dmaCram ol_cram_buffer,0,$80,(a0)			; Load palette into CRAM
 	ol_dmaVram ol_sprites,ol_SPRITES_VRAM,$280,(a0)		; Load sprites into VRAM
-
-	move.l	#ol_vramWriteCmd(ol_HSCROLL_VRAM),(a0)		; Set horizontal scroll
-	move.l	ol_hscroll.w,(a1)
+	ol_dmaVram ol_hscroll,ol_HSCROLL_VRAM,$380,(a0)		; Load horizontal scroll table into VRAM
 
 	move.l	#ol_vsramWriteCmd(0),(a0)			; Set vertical scroll
 	move.l	ol_vscroll.w,(a1)

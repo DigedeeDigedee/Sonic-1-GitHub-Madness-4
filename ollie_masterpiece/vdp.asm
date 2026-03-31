@@ -25,6 +25,7 @@ ol_InitVdp:
 
 .Registers:
 	dc.w	$8004						; Disable H-BLANK interrupt
+	dc.w	$8134						; Disable display, enable V-BLANK interrupt and DMA
 	dc.w	$8200+(ol_PLANE_A_VRAM>>10)			; Plane A address
 	dc.w	$8300+(ol_WINDOW_VRAM>>10)			; Window plane address
 	dc.w	$8400+(ol_PLANE_B_VRAM>>13)			; Plane B address

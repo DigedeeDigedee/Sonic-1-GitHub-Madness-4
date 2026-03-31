@@ -22,7 +22,7 @@ ol_InitMap:
 	movea.l	(a6)+,a1					; Load map palette
 	moveq	#$80/2,d0
 	moveq	#0,d1
-	bsr.w	ol_LoadFadePalette
+	bsr.w	ol_LoadPalette
 
 	move.l	(a6)+,ol_map_blocks.w				; Set map blocks address
 	move.l	(a6)+,ol_map_chunks.w				; Set map chunks address
@@ -118,11 +118,17 @@ ol_ScrollMap:
 	move.w	d0,ol_camera_x.w				; Set camera position
 	move.w	d1,ol_camera_y.w
 
-	moveq	#0,d2						; Set horizontal scroll
+	moveq	#0,d2						; Get horizontal scroll data
 	move.w	d0,d2
 	neg.w	d2
 	swap	d2
-	move.l	d2,ol_hscroll.w
+
+	lea	ol_hscroll.w,a0					; Horizontal scroll buffer
+	move.w	#224-1,d3					; Number of scanliens
+
+.SetHScroll:
+	move.l	d2,(a0)+					; Set horizontal scroll for scanline
+	dbf	d3,.SetHScroll					; Loop until finished
 
 	moveq	#0,d2						; Set vertical scroll
 	move.w	d1,d2
