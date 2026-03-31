@@ -54,8 +54,8 @@ Spring_NotLR:
 
 Spring_NotDwn:
 		btst	#1,d0
-		beq.s	loc_DB72
-		bset	#5,obGfx(a0)
+		; beq.s	loc_DB72
+		; bset	#5,obGfx(a0)
 
 loc_DB72:
 		andi.w	#$F,d0
