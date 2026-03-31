@@ -209,33 +209,6 @@ Pow_Randomiser:
 		jmp	(QueueSound2).l
 
 ; ===========================================================================
-.superlucky:	; Congrats, you get all power-ups
-		move.w	#77,(v_rings).w		; make your ring count 77 because you are super lucky
-		ori.b	#1,(f_ringcount).w	; update the ring counter
-		move.b	#1,(v_shoes).w		; speed up the BG music
-		move.b	#1,(v_shield).w		; give Sonic a shield
-		move.b	#1,(v_invinc).w		; make Sonic invincible
-		move.w	#$258,(v_player+shoetime).w	; time limit for the power-up
-		move.w	#$258,(v_player+invtime).w	; time limit for the power-up
-		move.w	#$C00,(v_sonspeedmax).w		; change Sonic's top speed
-		move.w	#$16,(v_sonspeedacc).w		; change Sonic's acceleration
-		move.w	#$80,(v_sonspeeddec).w		; change Sonic's deceleration
-		move.b	#id_ShieldItem,(v_shieldobj).w	; load shield object ($38)
-		move.b	#id_ShieldItem,(v_starsobj1).w	; load stars object ($3801)
-		move.b	#1,(v_starsobj1+obAnim).w
-		tst.b	(f_lockscreen).w		; is boss mode on?
-		bne.s	.NoMusic			; if yes, branch
-		tst.b	(v_clintonfucker).w		; is boss mode on?
-		bne.s	.NoMusic			; if yes, branch
-		cmpi.w	#$C,(v_air).w
-		bls.s	.NoMusic
-		move.w	#bgm_Invincible,d0
-		jmp	(QueueSound1).l			; play invincibility music
-
-.NoMusic:
-		rts
-
-; ===========================================================================
 .getrings:	; acts as a ring monitor :P
 		addi.w	#10,(v_rings).w	; add 70 rings to the number of rings you have because you are smart
 		bra.w	Pow_GetRings
@@ -248,14 +221,14 @@ Pow_Randomiser:
 
 ; ===========================================================================
 .gaintime:	; you get extra time on the clock
-		; here goes code for taking time from the timer, too lazy to implement rn sorry
+		; to implement
 		nop
-		bra.w	.nothing	; as placeholder
+		bra.s	.nothing	; as placeholder
 
 ; ===========================================================================
 .getammo:	; you get a free ammo refill... if you're maniac mouse
 		cmpi.b	#1,(v_characterid).w	; are maniac mouse?
-		bne.w	.nothing		; no? well get out of here, you get nothing, good day sir
+		bne.s	.nothing		; no? well get out of here, you get nothing, good day sir
 		lea	(v_player).w,a0
 		move.b	#10,playammo(a0)	; ammo start
 		or.b	#1,(f_ammocount).w
@@ -270,9 +243,9 @@ Pow_Randomiser:
 
 ; ===========================================================================
 .losetime:	; a minute gets added to the timer
-		; here goes code for taking time from the timer, too lazy to implement rn sorry
+		; to implement
 		nop
-		bra.w	.nothing	; as placeholder
+		bra.s	.nothing	; as placeholder
 
 ; ===========================================================================
 .loserings:	; Whomp whomp, lose some rings
@@ -287,8 +260,23 @@ Pow_Randomiser:
 
 ; ===========================================================================
 .gambashield:	; at the cost of your rings, you might get a shield
-		nop
-		bra.w	.nothing	; as placeholder
+		; to implement
+		move.b	#1,(v_gambashield).w	; attempt to give player a shield
+		move.l	a0,a1
+		move.l	a0,-(sp)
+		lea	(v_player).w,a0
+		jsr	(React_ChkHurt).l	; Hurt player as an exchangc
+		move.l	(sp)+,a0
+		moveq	#0,d0
+		moveq	#0,d1
+		move.b	#1,(v_storedshield).l
+		jsr	(RandomNumber).l	; test 1/7 chance for shield
+		andi.w	#$6,d0
+		beq.s	.yougotashield		; if succeed, branch
+		addi.b	#1,(v_storedshield).l	; let reset on floor know to not give a shield
+
+.yougotashield
+		rts
 
 ; ===========================================================================
 .Loseammo:	; your ammo gets emptied... if you're maniac mouse
@@ -302,8 +290,15 @@ Pow_Randomiser:
 
 ; ===========================================================================
 .nopowerforu:	; erases your power ups
-		nop
-		bra.w	.nothing	; as placeholder
+		; to implement
+		moveq	#0,d0
+		move.b	d0,(v_shield).w			; remove shield
+		move.b	d0,(v_shoes).w			; remove the shoes
+		move.b	d0,(v_invinc).w			; remove the shoes
+		move.w	d0,(v_player+shoetime).w	; time limit for the power-up
+		move.w	d0,(v_player+invtime).w		; time limit for the power-up
+		move.b	#dClintonFail,d0
+		jmp	(MegaPCM_PlaySample).l		; as placeholder
 
 ; ===========================================================================
 .lolrestart:	; erases your power ups
@@ -337,4 +332,30 @@ Pow_Randomiser:
 		lea	(v_systemstack).l,sp
 		jmp	(EntryPoint).l		; Jump to entry point to load Too LimitedSonic data
 
+; ===========================================================================
+.superlucky:	; Congrats, you get all power-ups
+		move.w	#77,(v_rings).w		; make your ring count 77 because you are super lucky
+		ori.b	#1,(f_ringcount).w	; update the ring counter
+		move.b	#1,(v_shoes).w		; speed up the BG music
+		move.b	#1,(v_invinc).w		; make Sonic invincible
+		move.b	#1,(v_shield).w		; give Sonic a shield
+		move.w	#$258,(v_player+shoetime).w	; time limit for the power-up
+		move.w	#$258,(v_player+invtime).w	; time limit for the power-up
+		move.w	#$C00,(v_sonspeedmax).w		; change Sonic's top speed
+		move.w	#$16,(v_sonspeedacc).w		; change Sonic's acceleration
+		move.w	#$80,(v_sonspeeddec).w		; change Sonic's deceleration
+		move.b	#id_ShieldItem,(v_shieldobj).w	; load shield object ($38)
+		move.b	#id_ShieldItem,(v_starsobj1).w	; load stars object ($3801)
+		move.b	#1,(v_starsobj1+obAnim).w
+		tst.b	(f_lockscreen).w		; is boss mode on?
+		bne.s	.NoMusic			; if yes, branch
+		tst.b	(v_clintonfucker).w		; is boss mode on?
+		bne.s	.NoMusic			; if yes, branch
+		cmpi.w	#$C,(v_air).w
+		bls.s	.NoMusic
+		move.w	#bgm_Invincible,d0
+		jmp	(QueueSound1).l			; play invincibility music
+
+.NoMusic:
+		rts
 ; ===========================================================================

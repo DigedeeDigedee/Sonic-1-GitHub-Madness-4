@@ -441,7 +441,7 @@ Debugger_Data:
 		dc.b	$01,$00,chrid_last,$00	; step 1, range 1-99
 		dc.l	CharacterNameTable
 
-		dc.l	f_debugmode+1		; DEBUG MODE
+		dc.l	f_debugmode		; DEBUG MODE
 		dc.b	$01,$00,$01,$00		; step 1, range 0-1
 		dc.l	0
 .soundtest:

@@ -348,8 +348,12 @@ React_ChkHurt:
 
 
 HurtSonic:
+		tst.b	(v_gambashield).w	; does Sonic have a shield?
+		bne.s	.ignoreshield
 		tst.b	(v_shield).w	; does Sonic have a shield?
 		bne.s	.hasshield	; if yes, branch
+
+.ignoreshield:
 		tst.w	(v_rings).w	; does Sonic have any rings?
 		beq.w	.norings	; if not, branch
 

@@ -64,7 +64,7 @@ dLetsGOO			ds.b 1
 dBoik				ds.b 1
 dQuakeJump			ds.b 1
 dFannys				ds.b 1
-dQuakeRocket		ds.b 1
+dQuakeRocket			ds.b 1
 dSTFU				ds.b 1
 dFuck				ds.b 1
 dChicken			ds.b 1
@@ -75,7 +75,7 @@ dYouCanSuck			ds.b 1
 dBoostPower			ds.b 1
 dClintonHi			ds.b 1
 dClintonWin			ds.b 1
-dClintonFail		ds.b 1
+dClintonFail			ds.b 1
 dDoYouSuck			ds.b 1
 dOnTheBall			ds.b 1
 dDAMN				ds.b 1

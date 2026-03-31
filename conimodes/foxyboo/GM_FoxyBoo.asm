@@ -6,14 +6,17 @@ v_foxyframe = v_objspace+obFrame
 ; ---------------------------------------------------------------------------
 GM_FoxyBoo:
 		move.b	#bgm_Stop,d0
-		jsr		(PlaySound_Special).l  ; fade out music
-		jsr		(MegaPCM_StopPlayback).l
-		move.w	(v_vdp_buffer1).w,d0
-		ori.b	#$BF,d0
-		move.w	d0,(vdp_control_port).l
-		jsr		(ClearScreen).l
+		jsr	(PlaySound_Special).l  ; fade out music
+		jsr	(MegaPCM_StopPlayback).l
 		bsr.w	WinXP_CLearPal
-		jsr		(ClearPLC).l
+
+		disable_display
+
+		jsr	(ClearScreen).l
+
+		fillVRAM	0, $0000, $10000	; Cause Sonic 1's ClearScreen sucks
+
+		jsr	(ClearPLC).l
 		lea	(vdp_control_port).l,a6
 		move.w	#$8004,(a6)	; use 8-colour mode
 		move.w	#$8200+(vram_fg>>10),(a6) ; set foreground nametable address
@@ -25,9 +28,7 @@ GM_FoxyBoo:
 		move.w	#$9200,(a6)	; window vertical position
 		clr.b	(f_wtr_state).w
 		clr.b	(v_foxyframe).w
-		move.w	(v_vdp_buffer1).w,d0
-		ori.b	#$40,d0
-		move.w	d0,(vdp_control_port).l
+		enable_display
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
 		move.w	#$7FF,d1
@@ -38,6 +39,9 @@ GM_Foxy_ClrObjRam:
 ;		move.b	#bgm_Memories,d0
 ;		jsr		(PlaySound_Special).l  ; play memories music
 
+		move.b	#2,(v_vbla_routine).w
+		jsr		(WaitForVBla).l
+
 		locVRAM	0
 		lea	(Nem_FoxyBoo).l,a0
 		jsr	(NemDec).l
@@ -45,9 +49,10 @@ GM_Foxy_ClrObjRam:
 		moveq	#palid_Foxy,d0
 		jsr		(PalLoad2).l		; load palette
 
+
 		move.w	#$8,(v_demolength).w
 		move.b	#dTwerkOf87,d0
-		jsr		(MegaPCM_PlaySample).l
+		jsr	(MegaPCM_PlaySample).l
 GM_Foxy_Loop:
 		move.b	#2,(v_vbla_routine).w
 		jsr		(WaitForVBla).l

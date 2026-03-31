@@ -2970,6 +2970,8 @@ Level_SkipClr:
 		move.w	d0,(v_debuguse).w
 		move.w	d0,(f_restart).w
 		move.w	d0,(v_framecount).w
+		move.b	d0,(v_storedshield).w
+		move.b	d0,(v_gambashield).w
 		bsr.w	OscillateNumInit
 		move.b	#1,(f_scorecount).w ; update score counter
 		move.b	#1,(f_ringcount).w ; update rings counter

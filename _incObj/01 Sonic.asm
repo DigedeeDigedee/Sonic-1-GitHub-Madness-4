@@ -1703,6 +1703,24 @@ Sonic_ResetOnFloor:
 		nop	
 
 .notrolljump:
+		tst.b	(v_storedshield).w
+		beq.s	.noshield
+		cmpi.b	#2,(v_storedshield).w
+		beq.s	.playwrongsfx
+		move.b	#1,(v_shield).w
+		move.b	#id_ShieldItem,(v_shieldobj)
+		move.w	#sfx_Shield,d0
+		jsr	(QueueSound1).l
+		bra.s	.shieldloaded
+
+.playwrongsfx
+		move.w	#sfx_Error,d0
+		jsr		(QueueSound1).l
+
+.shieldloaded
+		clr.b (v_storedshield).w
+
+.noshield:
 		bclr	#5,obStatus(a0)	; clear push flag.
 		bclr	#1,obStatus(a0)	; clear in-air flag.
 		bclr	#4,obStatus(a0)	; clear roll-jump flag.
