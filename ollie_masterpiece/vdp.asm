@@ -43,7 +43,7 @@ ol_InitVdp:
 ; ------------------------------------------------------------------------------
 
 ol_ClearScreen:
-	jsr	(ClearScreen).l					; Clear screen
+	jsr	ClearScreen					; Clear screen
 	bsr.w	ol_InitGfxDma					; Initialize graphics DMA queue
 	bra.w	ol_InitSprites					; Initialize sprites
 
@@ -88,7 +88,7 @@ ol_DrawTilemap:
 ; ------------------------------------------------------------------------------
 
 ol_InitGfxDma:
-	jmp	(InitDMAQueue).l					; Initialize queue
+	jmp	InitDMAQueue					; Initialize queue
 
 ; ------------------------------------------------------------------------------
 ; Queue graphics data for DMA
@@ -100,13 +100,13 @@ ol_InitGfxDma:
 ; ------------------------------------------------------------------------------
 
 ol_QueueGfxDma:
-	jmp	(QueueDMATransfer).l				; Queue graphics
+	jmp	QueueDMATransfer				; Queue graphics
 
 ; ------------------------------------------------------------------------------
 ; Flush graphics DMA queue
 ; ------------------------------------------------------------------------------
 
 ol_FlushGfxDma:
-	jmp	(ProcessDMAQueue).l				; Flush queue
+	jmp	ProcessDMAQueue					; Flush queue
 
 ; ------------------------------------------------------------------------------
