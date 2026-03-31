@@ -20,6 +20,11 @@ ol_Battle:
 	bsr.w	ol_ClearScreen					; Clear screen
 
 	clr.l	ol_p1_ctrl_hold.w				; Clear controller data
+
+	lea	ol_MainPalette,a1				; Load main palette
+	moveq	#$10,d0
+	moveq	#0,d1
+	bsr.w	ol_LoadPalette
 	
 	lea	ol_TestBgGfx,a0
 	move.l	#ol_vramWriteCmd(0),ol_VDP_CTRL
@@ -27,17 +32,19 @@ ol_Battle:
 	
 	lea	ol_TestBgPalette,a1
 	moveq	#$10,d0
-	moveq	#0,d1
+	moveq	#$10,d1
 	bsr.w	ol_LoadPalette
 	
 	lea	ol_TestBgMap,a1
 	move.l	#ol_vramWriteCmd(ol_PLANE_B_VRAM),d0
 	moveq	#$28,d1
 	moveq	#$1C,d2
-	moveq	#0,d3
+	move.w	#$2000,d3
 	bsr.w	ol_DrawTilemap
 
 	bsr.w	ol_InitObjects					; Initialize objects
+	bsr.w	ol_InitScript					; Initialize scripting
+
 	bsr.w	ol_UpdateObjects				; Update objects
 	
 	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
@@ -54,6 +61,9 @@ ol_Battle:
 	move.w	#$8174,ol_VDP_CTRL				; Enable display
 	bsr.w	ol_FadePaletteIn				; Fade palette in
 
+	lea	.TestScript(pc),a1				; Start test script
+	bsr.w	ol_StartScript
+
 ; ------------------------------------------------------------------------------
 
 .Loop:
@@ -62,13 +72,30 @@ ol_Battle:
 
 	bsr.w	ol_UpdateObjects				; Update objects
 
+	bsr.w	ol_RunScript					; Run script
+
 	bsr.w	ol_StartSpriteDraw				; Start sprite drawing
+	bsr.w	ol_DrawTextboxIcon				; Draw textbox icon
 	bsr.w	ol_DrawObjects					; Draw object sprites
 	bsr.w	ol_EndSpriteDraw				; End sprite drawing
 
 	bsr.w	ol_TestHBlankEffect
 
 	bra.s	.Loop						; Loop
+
+; ------------------------------------------------------------------------------
+
+.TestScript:
+	ol_scriptShowIcon ol_PlayerIcon, 0
+	ol_scriptShowTextbox
+
+	ol_scriptText
+	dc.b	"ha ha drugz funny lul", -1
+	ol_scriptTextEnd
+	
+	ol_scriptWaitUser
+
+	ol_scriptEnd
 
 ; ------------------------------------------------------------------------------
 ; Battle V-BLANK interrupt routine
@@ -94,6 +121,7 @@ ol_BattleVBlank:
 	ol_dmaVram ol_sprites,ol_SPRITES_VRAM,$280,(a0)		; Load sprites into VRAM
 	ol_dmaVram ol_hscroll,ol_HSCROLL_VRAM,$380,(a0)		; Load horizontal scroll table into VRAM
 
+	bsr.w	ol_UpdateScriptGfx				; Update script graphics
 	bsr.w	ol_FlushGfxDma					; Flush graphics DMA queue
 
 .SkipUpdates:

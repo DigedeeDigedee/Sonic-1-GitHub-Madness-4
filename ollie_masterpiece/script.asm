@@ -46,6 +46,8 @@ ol_StartScript:
 ; ------------------------------------------------------------------------------
 
 ol_RunScript:
+	tst.b	ol_palette_fade_flag.w				; Is the palette fading?
+	bne.s	.End						; If so, branch
 	move.l	ol_script_addr.w,d0				; Get script address
 	beq.s	.End						; If it's not set, branch
 
@@ -200,6 +202,8 @@ ol_UpdateScriptGfx:
 .SetTextboxVisible:
 	move.w	d0,ol_VDP_CTRL					; Set textbox visibility
 
+	tst.b	ol_palette_fade_flag.w				; Is the palette fading?
+	bne.s	.End						; If so, branch
 	btst	#3,ol_script_flags.w				; Is text being drawn?
 	beq.s	.End						; If not, branch
 	movea.l	ol_script_addr.w,a0				; Get text from script

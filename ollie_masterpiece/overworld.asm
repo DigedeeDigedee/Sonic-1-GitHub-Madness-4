@@ -111,6 +111,7 @@ ol_OverworldVBlank:
 
 	bsr.w	ol_UpdateScriptGfx				; Update script graphics
 	bsr.w	ol_FlushGfxDma					; Flush graphics DMA queue
+	
 	bsr.w	ol_DrawMapRow					; Draw map row
 	bsr.w	ol_DrawMapColumn				; Draw map column
 

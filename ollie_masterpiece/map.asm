@@ -19,9 +19,14 @@ ol_InitMap:
 	move.l	#ol_vramWriteCmd(ol_MAP_VRAM),ol_VDP_CTRL
 	jsr	NemDec
 
-	movea.l	(a6)+,a1					; Load map palette
-	moveq	#$80/2,d0
+	lea	ol_MainPalette,a1				; Load main palette
+	moveq	#$10,d0
 	moveq	#0,d1
+	bsr.w	ol_LoadPalette
+
+	movea.l	(a6)+,a1					; Load map palette
+	moveq	#$30,d0
+	moveq	#$10,d1
 	bsr.w	ol_LoadPalette
 
 	move.l	(a6)+,ol_map_blocks.w				; Set map blocks address
