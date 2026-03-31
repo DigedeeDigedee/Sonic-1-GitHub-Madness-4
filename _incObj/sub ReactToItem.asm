@@ -359,6 +359,7 @@ HurtSonic:
 
 		jsr	(FindFreeObj).l
 		bne.s	.hasshield
+		move.b	#0,(v_gambashield).w
 		_move.b	#id_RingLoss,obID(a1) ; load bouncing multi rings object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
