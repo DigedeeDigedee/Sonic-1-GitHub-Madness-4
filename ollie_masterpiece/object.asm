@@ -4,6 +4,27 @@
 ; ------------------------------------------------------------------------------
 
 ; ------------------------------------------------------------------------------
+; Initialize objects
+; ------------------------------------------------------------------------------
+
+ol_InitObjects:
+	lea	ol_objects,a0					; Object pool
+	moveq	#0,d0						; Zero
+	move.w	#(ol_objects_end-ol_objects)/4-1,d1		; Length to clear
+
+.ClearObjects:
+	move.l	d0,(a0)+					; Clear object pool
+	dbf	d1,.ClearObjects				; Loop until finished
+
+	lea	ol_object_draw,a0				; Object draw queue
+	move.w	#(ol_object_draw_end-ol_object_draw)/4-1,d1	; Length to clear
+
+.ClearObjectDraw:
+	move.l	d0,(a0)+					; Clear object draw queue
+	dbf	d1,.ClearObjectDraw				; Loop until finished
+	rts
+
+; ------------------------------------------------------------------------------
 ; Update objects
 ; ------------------------------------------------------------------------------
 

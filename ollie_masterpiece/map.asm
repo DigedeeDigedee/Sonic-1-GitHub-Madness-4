@@ -17,15 +17,12 @@ ol_InitMap:
 
 	movea.l	(a6)+,a0					; Load graphics
 	move.l	#ol_vramWriteCmd(ol_MAP_VRAM),ol_VDP_CTRL
-	jsr	(NemDec).l
+	jsr	NemDec
 
-	movea.l	(a6)+,a0					; Get palette data
-	lea	ol_palette_fade.w,a1				; Get palette buffer
-	moveq	#$80/4-1,d0					; Length of palette
-
-.LoadPalette:
-	move.l	(a0)+,(a1)+					; Load palette
-	dbf	d0,.LoadPalette					; Loop until finished
+	movea.l	(a6)+,a1					; Load map palette
+	moveq	#$80/2,d0
+	moveq	#0,d1
+	bsr.w	ol_LoadFadePalette
 
 	move.l	(a6)+,ol_map_blocks.w				; Set map blocks address
 	move.l	(a6)+,ol_map_chunks.w				; Set map chunks address
@@ -45,11 +42,11 @@ ol_InitMap:
 	
 	lea	ol_PlayerGfx,a0					; Load player graphics
 	move.l	#ol_vramWriteCmd(ol_PLAYER_VRAM),ol_VDP_CTRL
-	jsr	(NemDec).l
+	jsr	NemDec
 
 	lea	ol_NpcGfx,a0					; Load NPC graphics
 	move.l	#ol_vramWriteCmd(ol_FREE_VRAM),ol_VDP_CTRL
-	jmp	(NemDec).l
+	jmp	NemDec
 
 ; ------------------------------------------------------------------------------
 ; Spawn map objects
@@ -125,12 +122,12 @@ ol_ScrollMap:
 	move.w	d0,d2
 	neg.w	d2
 	swap	d2
-	move.l	d2,ol_scroll_x.w
+	move.l	d2,ol_hscroll.w
 
 	moveq	#0,d2						; Set vertical scroll
 	move.w	d1,d2
 	swap	d2
-	move.l	d2,ol_scroll_y.w
+	move.l	d2,ol_vscroll.w
 	rts
 
 ; ------------------------------------------------------------------------------

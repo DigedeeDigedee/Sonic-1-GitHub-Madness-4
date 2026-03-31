@@ -166,3 +166,17 @@ ol_TestMap2:
 	even
 
 ; ------------------------------------------------------------------------------
+; Battle
+; ------------------------------------------------------------------------------
+
+ol_TestBgGfx:
+	incbin	"gfx/test_bg.nem"
+	even
+ol_TestBgPalette:
+	incbin	"palettes/test_bg.bin"
+	even
+ol_TestBgMap:
+	incbin	"tilemaps/test_bg.bin"
+	even
+
+; ------------------------------------------------------------------------------

@@ -78,6 +78,12 @@ ol_OBJECT_LEFT		equ 3					; Left
 ; ------------------------------------------------------------------------------
 
 	phase v_ram_start_def
+ol_hblank_routine	ds.b $100				; H-BLANK routine buffer
+ol_hblank_1		ds.w 224				; H-BLANK buffer 1
+ol_hblank_1_end		ds.b 0					; End of H-BLANK buffer 1
+ol_hblank_2		ds.w 224				; H-BLANK buffer 2
+ol_hblank_2_end		ds.b 0					; End of H-BLANK buffer 2
+
 ol_map_row_1		ds.w (512/8)+3				; Map row buffer 1
 ol_map_row_2		ds.w (512/8)				; Map row buffer 2
 ol_map_column_1		ds.w (256/8)+3				; Map column buffer 1
@@ -88,9 +94,9 @@ ol_solid_objects	ds.w $1F+1				; Solid object list
 ol_palette		equ v_palette				; Palette buffer
 ol_palette_fade		equ v_palette_fading			; Palette fade buffer
 ol_sprites		equ v_spritetablebuffer			; Sprite table buffer
-ol_scroll_x		equ v_hscrolltablebuffer		; Horizontal scroll buffer
-ol_scroll_x_end		equ v_hscrolltablebuffer_end		; End of horizontal scroll buffer
-ol_scroll_y		equ v_scrposy_vdp			; Vertical scroll buffer
+ol_hscroll		equ v_hscrolltablebuffer		; Horizontal scroll buffer
+ol_hscroll_end		equ v_hscrolltablebuffer_end		; End of horizontal scroll buffer
+ol_vscroll		equ v_scrposy_vdp			; Vertical scroll buffer
 ol_objects		equ v_objspace				; Object pool
 ol_objects_end		equ v_objspace_end			; End of object pool
 ol_object_draw		equ v_spritequeue			; Object draw queue
@@ -116,6 +122,14 @@ ol_OBJECT_SPAWN_COUNT	equ (ol_objects_end-ol_object_spawn)/ol_obj_struct_size
 ; ------------------------------------------------------------------------------
 
 	phase v_ram_start_def+$8000
+ol_hblank_flags		ds.b 1					; H-BLANK flags
+			ds.b 1
+ol_hblank_write		ds.l 1					; H-BLANK buffer write address
+ol_hblank_test		ds.w 1					; Test H-BLANK value
+
+ol_sprite_slot		ds.w 1					; Sprite slot address
+ol_sprites_left		ds.w 1					; Sprite slots left
+
 ol_map_id		ds.b 1					; Map ID
 ol_map_next_id		ds.b 1					; Next map ID
 ol_map_entry_id		ds.b 1					; Map entry ID
@@ -136,9 +150,6 @@ ol_camera_x		ds.w 1					; Camera X position
 ol_camera_y		ds.w 1					; Camera Y position
 ol_camera_prev_x	ds.w 1					; Previous camera X position
 ol_camera_prev_y	ds.w 1					; Previous camera Y position
-
-ol_sprite_slot		ds.w 1					; Sprite slot address
-ol_sprites_left		ds.w 1					; Sprite slots left
 
 ol_script_addr		ds.l 1					; Script address
 ol_script_flags		ds.b 1					; Script flags
