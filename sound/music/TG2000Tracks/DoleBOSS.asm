@@ -2,7 +2,7 @@ DoleBOSS_Header:
 	smpsHeaderStartSong 3
 	smpsHeaderVoice		DoleBOSS_Voices
 	smpsHeaderChan		$06, $03
-	smpsHeaderTempo		$02, $35
+	smpsHeaderTempo		$02, $34
 ;	Given Tempo = 150.00 BPM
 ;	Approximated Tempo = 150.29 BPM
 

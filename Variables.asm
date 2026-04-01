@@ -160,7 +160,8 @@ v_vbla_0e_counter:	ds.b	1		; tracks how many times vertical interrupts routine 0
 v_vbla_routine:		ds.b	1		; VBlank - routine counter
 			ds.b	1		; unused
 v_spritecount:		ds.b	1		; number of sprites on-screen
-			ds.b	5		; unused
+v_palfadecntr		ds.b	1		; counter for palette fading
+			ds.b	4		; unused
 v_pcyc_num:		ds.w	1		; palette cycling - current reference number
 v_pcyc_time:		ds.w	1		; palette cycling - time until the next change
 			ds.l	1		; pseudo random number buffer
