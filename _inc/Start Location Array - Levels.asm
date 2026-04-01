@@ -62,4 +62,8 @@
 		binclude	"startpos/ngz2.bin"
 		binclude	"startpos/ngz3.bin"
 		dc.w	$80,$A8
+		binclude	"startpos/bsz1.bin"
+		binclude	"startpos/bsz2.bin"
+		binclude	"startpos/bsz3.bin"
+		dc.w	$80,$A8
 		even

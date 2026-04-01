@@ -422,7 +422,7 @@ Debugger_Data:
 		dc.l	GamemodeNameTable
 
 		dc.l	v_zone			; ZONE ID
-		dc.b	$01,$00,11,$00		; step 1, range 0-5
+		dc.b	$01,$00,12,$00		; step 1, range 0-5
 		dc.l	ZoneNameTable
 
 		dc.l	v_act			; ACT ID
@@ -558,6 +558,7 @@ ZoneNameTable:
 		dc.w	.Joint-.t
 		dc.w	.DVZ-.t
 		dc.w	.Nogales -.t
+		dc.w	.BS -.t
 
 .GHZ:		dc.b	"ORANGE WORLD    "
 .LZ:		dc.b	"AZURE RAINFOREST"
@@ -571,6 +572,8 @@ ZoneNameTable:
 .Joint:		dc.b	"THE JOINT       "
 .DVZ:		dc.b	"DOLEVILLE       "
 .Nogales:	dc.b	"NOGALES         "
+.BS:	    dc.b	"BLUESCAPE       "
+
 		even
 
 GamemodeNameTable:

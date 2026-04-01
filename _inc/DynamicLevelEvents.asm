@@ -64,6 +64,7 @@ DLE_Index:	dc.w 	DLE_GHZ-DLE_Index
 		dc.w	DLE_Joint-DLE_Index
 		dc.w	DLE_DVZ-DLE_Index
 		dc.w	DLE_NGZ-DLE_Index
+		dc.w	DLE_BSZ-DLE_Index
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Green Hill Zone dynamic level events
@@ -964,3 +965,9 @@ DLE_NGZ3:
 
 locret_VOMITCOOKIE:
 		rts
+; ---------------------------------------------------------------------------
+;bluescape
+; ---------------------------------------------------------------------------
+
+DLE_BSZ:
+       rts

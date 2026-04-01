@@ -74,6 +74,11 @@ TitleCard_NGZ2:	equ  "NOGALES"
 TitleCard_NGZ3:	equ  "NOGALES"
 TitleCard_NGZ4:	equ  "NOGALES"
 
+TitleCard_BSZ1:	equ  "BLUESCAPE"
+TitleCard_BSZ2:	equ  "BLUESCAPE"
+TitleCard_BSZ3:	equ  "BLUESCAPE"
+TitleCard_BSZ4:	equ  "BLUESCAPE"
+
 TitleCard_Zone:	equ  "ZONE"
 TitleCard_UseLowerAct: equ 1	; 0 = ACT -- 1 = Act
 
@@ -231,7 +236,11 @@ TTL_ConData:
 		dc.l TTLCard_NGZ1_ConData, TTLCard_NGZ1_Array	; DVZ1
 		dc.l TTLCard_NGZ2_ConData, TTLCard_NGZ2_Array	; DVZ2
 		dc.l TTLCard_NGZ3_ConData, TTLCard_NGZ3_Array	; DVZ3
-		dc.l 0, 0	; DVZ4		
+		
+		dc.l TTLCard_BSZ1_ConData, TTLCard_BSZ1_Array	; {SCAPE}
+		dc.l TTLCard_BSZ2_ConData, TTLCard_BSZ2_Array	; BLUE
+		dc.l TTLCard_BSZ3_ConData, TTLCard_BSZ3_Array	; BS3
+		dc.l 0, 0	; BSZ4		
 		even
 
 ; ---------------------------------------------------------------------------
@@ -422,6 +431,11 @@ Map_Card_Extended:	mappingsTable
 	mappingsTableEntry.w	TTLCard_NGZ3	; DVZ 3
 	mappingsTableEntry.w	TTLCard_NGZ4	; DVZ 4
 
+	mappingsTableEntry.w	TTLCard_BSZ1	; DVZ 1
+	mappingsTableEntry.w	TTLCard_BSZ2	; DVZ 2
+	mappingsTableEntry.w	TTLCard_BSZ3	; DVZ 3
+	mappingsTableEntry.w	TTLCard_BSZ4	; DVZ 4
+
 	mappingsTableEntry.w	TTLCard_Zone	; "ZONE" text
 	mappingsTableEntry.w	TTLCard_Act	; Act number
 	mappingsTableEntry.w	TTLCard_Oval	; Blue oval
@@ -471,6 +485,10 @@ TTLCard_NGZ1:	titlecard TitleCard_NGZ1,0,0
 TTLCard_NGZ2:	titlecard TitleCard_NGZ2,0,0
 TTLCard_NGZ3:	titlecard TitleCard_NGZ3,0,0
 TTLCard_NGZ4:	titlecard TitleCard_NGZ4,0,0
+TTLCard_BSZ1:	titlecard TitleCard_BSZ1,0,0
+TTLCard_BSZ2:	titlecard TitleCard_BSZ2,0,0
+TTLCard_BSZ3:	titlecard TitleCard_BSZ3,0,0
+TTLCard_BSZ4:	titlecard TitleCard_BSZ4,0,0
 
 TTLCard_Zone:	titlecard TitleCard_Zone,1,1 ; ZONE label (alternate tile offset)
 
