@@ -50,7 +50,16 @@ ol_RunScript:
 	beq.s	.End						; If it's not set, branch
 
 	btst	#3,ol_script_flags.w				; Is text being drawn?
-	bne.s	.End						; If so, branch
+	beq.s	.NoText						; If not, branch
+
+	btst	#4,ol_p1_ctrl_tap.w				; Has B been pressed?
+	beq.s	.End						; If not, branch
+	bset	#4,ol_script_flags.w				; If so, immediately finish drawing text
+
+.End:
+	rts
+
+.NoText:
 	btst	#5,ol_script_flags.w				; Are we waiting for the user?
 	beq.s	.NoUserWait					; If not, branch
 	
@@ -68,9 +77,6 @@ ol_RunScript:
 	add.w	d0,d0
 	jsr	.Commands(pc,d0.w)
 	bra.s	.Loop						; Get next command
-	
-.End:
-	rts
 
 .ScriptDone:
 	clr.l	ol_script_addr.w				; Clear script address
@@ -225,7 +231,9 @@ ol_UpdateScriptGfx:
 
 	addi.w	#(ol_TEXTBOX_VRAM/$20)-$20,d0			; Draw character
 	move.w	d0,ol_VDP_DATA
-	
+
+	btst	#4,ol_script_flags.w				; Should we finish the rest of the text?
+	bne.s	.TextLoop					; If so, branch
 	move.l	a0,ol_script_addr.w				; Update script address
 	rts
 
@@ -242,7 +250,7 @@ ol_UpdateScriptGfx:
 	adda.w	d0,a0
 
 	move.l	a0,ol_script_addr.w				; Update script address
-	bclr	#3,ol_script_flags.w				; Clear text draw flag
+	andi.b	#~%11000,ol_script_flags.w			; Clear text flags
 
 .End:
 	rts
