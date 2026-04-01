@@ -34,6 +34,8 @@ ptr_PLC_DVZ:		dc.w PLC_DVZ-ArtLoadCues
 ptr_PLC_DVZ2:		dc.w PLC_DVZ2-ArtLoadCues
 ptr_PLC_NGZ:		dc.w PLC_NGZ-ArtLoadCues
 ptr_PLC_NGZ2:		dc.w PLC_NGZ2-ArtLoadCues
+ptr_PLC_BSZ:		dc.w PLC_BSZ-ArtLoadCues
+ptr_PLC_BSZ2:		dc.w PLC_BSZ2-ArtLoadCues
 ptr_PLC_WINNERCard:	dc.w PLC_WINNERCard-ArtLoadCues
 ptr_PLC_Boss:		dc.w PLC_Boss-ArtLoadCues
 ptr_PLC_Signpost:	dc.w PLC_Signpost-ArtLoadCues
@@ -316,6 +318,19 @@ PLC_NGZ2:	dc.w ((PLC_NGZ2end-PLC_NGZ2-2)/6)-1
 		plcm	Nem_GhzWall2, $6980/32	; normal wall
 PLC_NGZ2end:
 ; ---------------------------------------------------------------------------
+; Pattern
+; ---------------------------------------------------------------------------
+PLC_BSZ:	dc.w ((PLC_BSZ2-PLC_BSZ-2)/6)-1
+		;plcm	Nem_Stalk, $6B00/32	; flower stalk
+	;	plcm	Nem_Ballhog, $8000/32	; crabmeat enemy
+	;:	plcm	Nem_Splats, $9C80/32	; Splats
+
+             ;   plcm    byte_2BBC2, $8300/32
+PLC_BSZ2:	dc.w ((PLC_BSZ2end-PLC_BSZ2-2)/6)-1
+		plcm	Nem_HSpring,    ArtTile_Spring_Horizontal      ; horizontal spring
+		plcm	Nem_VSpring,    ArtTile_Spring_Vertical    
+PLC_NGZ2end:
+; ---------------------------------------------------------------------------
 ; Pattern load cues - WINNER card
 ; ---------------------------------------------------------------------------
 PLC_WINNERCard:	dc.w ((PLC_WINNERCardend-PLC_WINNERCard-2)/6)-1
@@ -539,6 +554,8 @@ plcid_DVZ:		equ (ptr_PLC_DVZ-ArtLoadCues)/2
 plcid_DVZ2:		equ (ptr_PLC_DVZ2-ArtLoadCues)/2	
 plcid_NGZ:		equ (ptr_PLC_NGZ-ArtLoadCues)/2	
 plcid_NGZ2:		equ (ptr_PLC_NGZ2-ArtLoadCues)/2	
+plcid_BSZ:		equ (ptr_PLC_BSZ-ArtLoadCues)/2	
+plcid_BSZ2:		equ (ptr_PLC_BSZ2-ArtLoadCues)/2
 plcid_WINNERCard:	equ (ptr_PLC_WINNERCard-ArtLoadCues)/2	
 plcid_Boss:		equ (ptr_PLC_Boss-ArtLoadCues)/2	
 plcid_Signpost:		equ (ptr_PLC_Signpost-ArtLoadCues)/2	
