@@ -329,7 +329,7 @@ PLC_BSZ:	dc.w ((PLC_BSZ2-PLC_BSZ-2)/6)-1
 PLC_BSZ2:	dc.w ((PLC_BSZ2end-PLC_BSZ2-2)/6)-1
 		plcm	Nem_HSpring,    ArtTile_Spring_Horizontal      ; horizontal spring
 		plcm	Nem_VSpring,    ArtTile_Spring_Vertical    
-PLC_NGZ2end:
+PLC_BSZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - WINNER card
 ; ---------------------------------------------------------------------------
