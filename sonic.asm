@@ -1135,7 +1135,7 @@ LoadDynPLC:
 		move.w	d4,d2			; set target VRAM location
 		add.w	d3,d4			; advance VRAM pointer
 		add.w	d3,d4			; (twice, for word-based tiles)
-		bsr.w	QueueDMATransfer	; load DMA request into queue (also known as "DMA_68KtoVRAM")
+		jsr	QueueDMATransfer	; load DMA request into queue (also known as "DMA_68KtoVRAM")
 		dbf	d5,.loop		; repeat for number of entries
 	.end:
 		rts				; return
@@ -4262,7 +4262,7 @@ LoadZoneTiles:
 		lsl.w	#5,d2
 		move.l	#$FFFFFF,d1
 		move.w	d2,d1
-		bsr.w	QueueDMATransfer
+		jsr	QueueDMATransfer
 		move.w	d7,-(sp)
 		move.b	#$C,(v_vbla_routine).w
 		bsr.w	WaitForVBla
