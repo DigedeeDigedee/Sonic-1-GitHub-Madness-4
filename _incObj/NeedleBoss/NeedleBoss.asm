@@ -132,6 +132,7 @@ NeedleBoss_ChargeInit:
 	bsr.w	_needleMoveToY
 	bra.w	_needleShake
 .Go:
+	addq.b	#4,v_dle_routine.w
 	addq.b	#2,obRoutine(a0)
 	move.b	#3,obAnim(a0)
 	move.w	#$400,obVelY(a0)
@@ -164,17 +165,10 @@ _needleShake:
 	rts
 
 NeedleBoss_FlyOut:
-	move.w	needle.YOrg(a0),d0
-	addi.w	#$C0,d0
-	cmpi.w	obY(a0),d0
-	ble.s	.Go
-	addq.b	#4,v_dle_routine.w
-	addq.b	#2,obRoutine(a0)
-	; spawn master boss object here
-	jmp	DeleteObject.l
-.Go
+
 	subi.w	#$50,obVelY(a0)
 	jmp	SpeedToPos.l
+
 ; ----------------------------------------------------------------------------
 ; Needle Boss Anim scripts
 ; ----------------------------------------------------------------------------

@@ -929,6 +929,7 @@ DLE_DVZ3:
 
 .BgmSet:
 		move.b	#20,v_palfadecntr.w
+		addq.b	#4,v_dle_routine.w
 .Fade:
 		subq.b	#1,v_palfadecntr.w
 		bne.s	.Go
@@ -938,7 +939,14 @@ DLE_DVZ3:
 		jsr	FadeOut_ToBlack.l
 		rts
 .LoadBg:
-		
+		move.l  #Art_NeedleScr,d1
+		move.w  #0,d2
+		move.w  #(NEEDLESCRARTSZ/2),d3
+		jsr	QueueDMATransfer.l
+		copyTilemap	MapScr_NeedleScr,vram_bg+$A00,56,12
+		addq.b	#4,v_dle_routine.w		
+		rts
+
 ; ---------------------------------------------------------------------------
 ; Nogales Zone direct port from ice cc remake :^)
 ; ---------------------------------------------------------------------------
