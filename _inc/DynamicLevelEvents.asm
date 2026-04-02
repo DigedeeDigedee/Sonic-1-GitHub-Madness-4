@@ -908,6 +908,8 @@ DLE_DVZ3:
 		bra.w	.BgmSet
 		bra.w	.Fade
 		bra.w	.Exit
+		bra.w	.LoadBg
+		bra.w	.Exit
 ; ---------------------------------------------------------------------------
 .InitBoss:
 		cmpi.w	#$380,v_screenposx.w
@@ -935,6 +937,8 @@ DLE_DVZ3:
 		move.w	#$401F,v_pfade_start.w
 		jsr	FadeOut_ToBlack.l
 		rts
+.LoadBg:
+		
 ; ---------------------------------------------------------------------------
 ; Nogales Zone direct port from ice cc remake :^)
 ; ---------------------------------------------------------------------------

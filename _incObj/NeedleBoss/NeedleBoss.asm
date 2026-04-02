@@ -136,6 +136,7 @@ NeedleBoss_ChargeInit:
 	move.b	#3,obAnim(a0)
 	move.w	#$400,obVelY(a0)
 	move.w	#-$100,obVelX(a0)
+	move.w	obY(a0),needle.YOrg(a0)
 	move.b	#sfx_GiantRing,d0
 	jmp	QueueSound2.l
 
@@ -153,7 +154,7 @@ _needleShake:
 	move.w	obX(a0),needle.XOrg(a0)
 	move.w	obY(a0),needle.YOrg(a0)	
 	jsr	RandomNumber.l
-	andi.l	#$000F000F,d0
+	andi.l	#$001F001F,d0
 	move.b	obAngle(a0),d1
 	and.b	d1,d0
 	add.w	d0,obX(a0)
@@ -163,9 +164,17 @@ _needleShake:
 	rts
 
 NeedleBoss_FlyOut:
+	move.w	needle.YOrg(a0),d0
+	addi.w	#$C0,d0
+	cmpi.w	obY(a0),d0
+	ble.s	.Go
+	addq.b	#4,v_dle_routine.w
+	addq.b	#2,obRoutine(a0)
+	; spawn master boss object here
+	jmp	DeleteObject.l
+.Go
 	subi.w	#$50,obVelY(a0)
 	jmp	SpeedToPos.l
-
 ; ----------------------------------------------------------------------------
 ; Needle Boss Anim scripts
 ; ----------------------------------------------------------------------------

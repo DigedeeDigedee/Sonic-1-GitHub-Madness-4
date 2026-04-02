@@ -1046,6 +1046,7 @@ Art_ClintonFail:
 		even
 Art_ClintonFailE:
 CLINTONFAILARTSZ = Art_ClintonFailE-Art_ClintonFail
+
 Pal_ClintonFail:
 		incbin	"palette/Clinton Fail.bin"
 		even
@@ -1061,3 +1062,14 @@ Art_ClintonWin:
 		even
 Art_ClintonWinE:
 CLINTONWINARTSZ = Art_ClintonWinE-Art_ClintonWin
+
+
+Art_NeedleScr:
+	incbin	"_incObj/NeedleBoss/scroll.art"
+	even
+Art_NeedleScrE:
+NEEDLESCRARTSZ = Art_NeedleScrE-Art_NeedleScr
+
+MapScr_NeedleScr:
+	incbin	"_incObj/NeedleBoss/scroll.map"
+	even
