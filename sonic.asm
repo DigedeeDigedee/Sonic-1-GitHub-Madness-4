@@ -58,10 +58,6 @@ ZoneCount = 6
 SonicMappingsVer = 1
 SonicDplcVer = 1
 	include "_maps/_MapMacros.asm"
-
-	include "ollie_masterpiece/definitions.inc"
-	include "ollie_masterpiece/macros.inc"
-	include "ollie_masterpiece/script.inc"
 ; ===========================================================================
 ; start of ROM
 
@@ -434,7 +430,6 @@ ptr_Advert:		dc.l	GM_Advert		; For all the reject splash screens I guess
 ptr_EarthboundBtl:	dc.l	EarthboundBtl		; earthbound battle stuff
 ptr_SonicTheScreensaver:	dc.l	GM_SonicTheScreensaver	; GMZ - DVD Screensaver
 ptr_ClintonScreens:	dc.l	GM_ClintonScreens
-ptr_OllieMasterpiece:	dc.l	GM_OllieMasterpiece	; Uwaaaaa~
 GameModeArray_End:
 ; ===========================================================================
 	if SkipChecksumCheck=0
@@ -7579,17 +7574,9 @@ Nem_Wario:	binclude	"artnem/Wario.nem"
             even	
 	include	"_incObj/Katsi.asm"	
 ; end of 'ROM'
+
         include	"EarthboundBtl/MAIN.ASM"
-
-; ---------------------------------------------------------------------------
-; Uwaaaaa~
-; ---------------------------------------------------------------------------
-
-	include "ollie_masterpiece/main.asm"
-		even
-
-; ---------------------------------------------------------------------------
-
+	
 ; ---------------------------------------------------------------------------
 ; It's soo limited!
 ; ---------------------------------------------------------------------------

@@ -598,7 +598,6 @@ GamemodeNameTable:
 		dc.w	.Earthbou-.t
 		dc.w	.Screensaver-.t
 		dc.w	.Placeholder-.t	; ClintonScreens
-		dc.w	.OllieMaster-.t
 		rept ( (GameModeArray_End-GameModeArray)-(((*)-.t)*2) )/4
 		dc.w	.Placeholder-.t
 		endr
@@ -623,7 +622,6 @@ GamemodeNameTable:
 .Advert:	dc.b	"ADVERTISEMENTS  "
 .Earthbou:	dc.b	"EARTHBOUND BTL  "
 .Screensaver:	dc.b	"SCREENSAVER     "
-.OllieMaster:	dc.b	"MASTERPIECE RPG "
 .Placeholder:	dc.b	"PLACEHOLDER NAME"
 		even
 
