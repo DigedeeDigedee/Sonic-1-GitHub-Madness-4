@@ -69,6 +69,7 @@ ObjNeedleBoss:
 ; ----------------------------------------------------------------------------
 
 NeedleBoss_Init:
+	st.b	v_bossstatus.w
 	move.b	#0,obFrame(a0)
 	move.b	#0,obAnim(a0)
 	tst.l	v_plc_buffer.w
@@ -132,6 +133,7 @@ NeedleBoss_ChargeInit:
 	bsr.w	_needleMoveToY
 	bra.w	_needleShake
 .Go:
+	move.b	#-1,v_clintonfucker.w
 	addq.b	#4,v_dle_routine.w
 	addq.b	#2,obRoutine(a0)
 	move.b	#3,obAnim(a0)
