@@ -259,10 +259,10 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 	; Boss BGM
 	nextenum bgm_Boss			; Regular Boss
 	nextenum bgm_ClintonFuck		; Bill Clinton Boss
+	nextenum bgm_Coffinman			; Alberta Canada Boss
 	nextenum bgm_Aporia			; Spring Field Boss
 	nextenum bgm_Megalovania		; MeinKraft Boss
 	nextenum bgm_DoleBOSS			; Doleville Boss
-	nextenum bgm_Coffinman			; A Boss of Some kind???
 	nextenum bgm_PizzaPopBoss		; A Boss of Some kind???
 
 	; Power Up BGM

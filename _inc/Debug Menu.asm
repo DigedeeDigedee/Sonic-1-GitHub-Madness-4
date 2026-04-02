@@ -312,6 +312,7 @@ DebuggerMenu_Controls:
 
 ;GD: Commit with SFX
 .commit:
+		nop
 ;		beep
 ;GD: Commit without SFX
 .commit2:

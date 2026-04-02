@@ -41,10 +41,10 @@ MusicIndex:
 
 	dc.l	Mus_Boss
 	dc.l	Mus_ClintonFuck
+	dc.l	Mus_Coffinman
 	dc.l	Mus_Aporia
 	dc.l	Mus_Megalovania
 	dc.l	Mus_DoleBOSS
-	dc.l	Mus_Coffinman
 	dc.l	Mus_PizzaPopBoss
 
 	dc.l	Mus_Invincible
