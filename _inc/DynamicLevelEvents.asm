@@ -945,14 +945,14 @@ DLE_DVZ3:
 		move.w	d0,(v_bgscreenposx).w
 		move.w	d0,(v_bg2screenposx).w
 		move.w	d0,(v_bg3screenposx).w
-		move.w	#24,v_bgscreenposy.w
+		move.w	d0,v_bgscreenposy.w
 
 		fillVRAM	0, vram_fg, vram_fg+plane_size_64x32 ; clear foreground namespace
 		move.l  #Art_NeedleScr,d1
 		move.w  #$2000,d2
 		move.w  #(NEEDLESCRARTSZ/2),d3
 		jsr	QueueDMATransfer.l
-		copyTilemap	MapScr_NeedleScr,vram_bg+$A00,58,12
+		copyTilemap	MapScr_NeedleScr,vram_bg+$800,58,12
 		addq.b	#4,v_dle_routine.w
 		add.w	#256,v_limitright2.w		
 		rts

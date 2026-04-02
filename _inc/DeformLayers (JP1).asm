@@ -889,7 +889,15 @@ Deform_DVZ:
 		move.w	d0,d3
 		asr.w	#2,d3
 		add.w	d3,d0
-		andi.w	#$7F,d0
+		andi.w	#$FF,d0
+		cmpi.w	#$7F,d0
+		bgt.s	.Skip
+		move.b	#7*2,v_pcyc_num.w
+		bra.s	.Go
+.Skip:
+		move.b	#0,v_pcyc_num.w
+.Go:
+		andi.w	#$7F,d0				; this is a fucking mess i know
 		move.w	d0,v_bgscreenposx.w
 
 		neg.w	d0
