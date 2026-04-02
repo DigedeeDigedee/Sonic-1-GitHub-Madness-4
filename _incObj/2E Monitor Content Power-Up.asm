@@ -203,64 +203,72 @@ Pow_Randomiser:
 .powtableend:
 
 ; ===========================================================================
-.nothing:	; Whomp whomp, nothing :P
+.nothing:	; You get nothing! You lose! Good day sir!
 		nop
-		move.b	#sfx_Error,d0
+		move.b	#sfx_Error,d0		; Play error sound
 		jmp	(QueueSound2).l
 
 ; ===========================================================================
-.getrings:	; acts as a ring monitor :P
-		addi.w	#10,(v_rings).w	; add 70 rings to the number of rings you have because you are smart
+.getrings:	; Yay! Rings!
+		addi.w	#10,(v_rings).w		; add 10 rings to the number of rings you have because you are soo lucky
 		bra.w	Pow_GetRings
 
 ; ===========================================================================
-.getcontinue:	; you get a free continue
-		addi.b	#1,(v_continues).w
+.getcontinue:	; For those who have an issue in skill and game over alot
+		addi.b	#1,(v_continues).w	; add 1 continue to your count cause we're generous and you die too much
 		move.b	#sfx_Continue,d0
 		jmp	(QueueSound2).l
 
 ; ===========================================================================
-.gaintime:	; you get extra time on the clock
-		; to implement
-		nop
-		bra.s	.nothing	; as placeholder
+.gaintime:	; More time for your slow ass, we'll clear the seconds counter for you
+		clr.b	(v_timesec).w		; clear the seconds counter
+		move.b	#sfx_Cash,d0
+		jmp	(QueueSound2).l
 
 ; ===========================================================================
 .getammo:	; you get a free ammo refill... if you're maniac mouse
-		cmpi.b	#1,(v_characterid).w	; are maniac mouse?
-		bne.s	.nothing		; no? well get out of here, you get nothing, good day sir
-		lea	(v_player).w,a0
-		move.b	#10,playammo(a0)	; ammo start
-		or.b	#1,(f_ammocount).w
+		cmpi.b	#1,(v_characterid).w	; are we maniac mouse?
+		bne.s	.nothing		; no? well get out of here Tonic, you get nothing, good day sir
+		lea	(v_player).w,a0		; load the player data
+		move.b	#10,playammo(a0)	; make players ammo count 10
+		or.b	#1,(f_ammocount).w	; update ammo counter
 		move.w	#sfx_B8,d0
 		jmp	(PlaySound_Special).l
 
 ; ===========================================================================
-.addelay:	; ads get delayed
-		clr.l	(v_adverttimer).w			; play an advertisement
+.addelay:	; Thank you for subscribing to Eggblock Origin
+		clr.l	(v_adverttimer).w	; clear advertisement timer
 		move.b	#sfx_LGEcho,d0
 		jmp	(QueueSound2).l	; play ring sound
 
 ; ===========================================================================
-.losetime:	; a minute gets added to the timer
-		; to implement
-		nop
-		bra.s	.nothing	; as placeholder
+.losetime:	; Hurry up asshole!
+		cmpi.b	#9,(v_timemin).w	; are we above 9 minutes in the timer
+		bhs.s	.timeoversetup		; if we are, then let's set the timer to prepare for their death
+		addi.b	#1,(v_timemin)		; add a minute to the timer
+		bra.s	.playsfx
 
+.timeoversetup:
+		move.l	#(9*$10000)+(56*$100)+59,(v_time).w	; you have 3 seconds left
+
+.playsfx:
+		move.w	#sfx_HitSpikes,d0
+		jmp	(QueueSound2).l	; play ring sound
+
+		
 ; ===========================================================================
-.loserings:	; Whomp whomp, lose some rings
-		subi.w	#10,(v_rings).w	; add 70 rings to the number of rings you have because you are smart
-		bhs.s	.greaterthanzero
-		clr.w	(v_rings).w
+.loserings:	; You lost the game!
+		subi.w	#10,(v_rings).w		; take 10 rings from the player because you don't need them
+		bhs.s	.greaterthanzero	; branch if you had more than 10
+		clr.w	(v_rings).w		; oh wait, you didn't have enough, well fuck you, takes all your rings
 
 .greaterthanzero
-		ori.b	#1,(f_ringcount).w ; update the ring counter
+		ori.b	#1,(f_ringcount).w	; update the ring counter
 		move.w	#sfx_Bumper,d0
 		jmp	(QueueSound2).l	; play ring sound
 
 ; ===========================================================================
-.gambashield:	; at the cost of your rings, you might get a shield
-		; to implement
+.gambashield:	; Let's go gambling! Ch ch ch EEEGH, Aw dang it!
 		move.b	#1,(v_gambashield).w	; attempt to give player a shield
 		move.l	a0,a1
 		move.l	a0,-(sp)
@@ -271,7 +279,7 @@ Pow_Randomiser:
 		moveq	#0,d1
 		move.b	#1,(v_storedshield).l
 		jsr	(RandomNumber).l	; test 1/7 chance for shield
-		andi.w	#$6,d0
+		andi.w	#6,d0
 		beq.s	.yougotashield		; if succeed, branch
 		addi.b	#1,(v_storedshield).l	; let reset on floor know to not give a shield
 
@@ -279,7 +287,7 @@ Pow_Randomiser:
 		rts
 
 ; ===========================================================================
-.Loseammo:	; your ammo gets emptied... if you're maniac mouse
+.Loseammo:	; the needlemouse gremlin stole your magazine... if you're maniac mouse
 		cmpi.b	#1,(v_characterid).w	; are maniac mouse?
 		bne.w	.nothing		; no? well get out of here, you get nothing, good day sir
 		lea	(v_player).w,a0
@@ -289,8 +297,7 @@ Pow_Randomiser:
 		jmp	(QueueSound2).l
 
 ; ===========================================================================
-.nopowerforu:	; erases your power ups
-		; to implement
+.nopowerforu:	; Fuck you, steals your powerups (need to test properly)
 		moveq	#0,d0
 		move.b	d0,(v_shield).w			; remove shield
 		move.b	d0,(v_shoes).w			; remove the shoes
@@ -301,35 +308,35 @@ Pow_Randomiser:
 		jmp	(MegaPCM_PlaySample).l		; as placeholder
 
 ; ===========================================================================
-.lolrestart:	; erases your power ups
+.lolrestart:	; GHM4 ran into an error and needs to restart your level
 		move.w	#1,(f_restart).w
 		rts
 
 ; ===========================================================================
-.timeforads:	; immediately plays an ad
+.timeforads:	; Hey Jimmy, get me one of them advertisements
 		move.l	#(((5*60)*60)-1),(v_adverttimer).w
 		rts
 
 ; ===========================================================================
-.die:		; kills Sonic
+.die:		; the GHM4 lords have decided your life is no longer needed, farewell
 		lea	(v_player).w,a0
 		jmp	(KillSonic).l
 
 ; ===========================================================================
-.getjumpscared:	; jumpscares the player
+.getjumpscared:	; Swiggity swoogity, Foxy is coming for your booty
 		move.b	#0,(v_invinc).w	; remove invincibility
 		move.w	#2,(f_restart).w ; FOXY SCARE
 		rts
 
 ; ===========================================================================
 .toolimited:	; Fuck you, you're going to Too LimitedSonic
-		move.b	#1,(v_curgame).w
-		move.b	#bgm_Stop,d0
+		move.b	#1,(v_curgame).w	; set the current game to Too LimitedSonic
+		move.b	#bgm_Stop,d0		; stop the music
 		jsr	(QueueSound2).l
-		jsr	(PaletteFadeOut).l
+		jsr	(PaletteFadeOut).l	; fade the palette out
 		nop
 		disable_ints
-		lea	(v_systemstack).l,sp
+		lea	(v_systemstack).l,sp	; reset the stack
 		jmp	(EntryPoint).l		; Jump to entry point to load Too LimitedSonic data
 
 ; ===========================================================================
