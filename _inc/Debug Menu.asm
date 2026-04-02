@@ -312,7 +312,7 @@ DebuggerMenu_Controls:
 
 ;GD: Commit with SFX
 .commit:
-		beep
+;		beep
 ;GD: Commit without SFX
 .commit2:
 		move.b	d3,(a2)
